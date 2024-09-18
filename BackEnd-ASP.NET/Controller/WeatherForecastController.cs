@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd_ASP_NET.Models;
+using BackEnd_ASP_NET.Utilities;
 //using BackEnd-ASP.NET.Models;
 
 namespace BackEnd_ASP_NET.Controllers
@@ -22,6 +23,7 @@ namespace BackEnd_ASP_NET.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            double a = 5;
             var forecast = Enumerable.Range(1, 5).Select(index =>
             {
                 var weather = new WeatherForecast
