@@ -7,7 +7,7 @@ function App() {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const response = await fetch('http://localhost:5118/weatherforecast'); // Chỉnh đúng URL API của bạn
+        const response = await fetch('http://localhost:5118/api/weatherforecast'); // Chỉnh đúng URL API của bạn
         const data = await response.json();
         setForecast(data);
         setLoading(false);
