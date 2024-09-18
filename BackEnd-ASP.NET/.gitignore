@@ -1,0 +1,61 @@
+# Compiled source files
+*.dll
+*.exe
+*.so
+*.dylib
+*.pyc
+*.pdb
+
+# Build directories
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# ASP.NET Scaffolding
+.scaffolding/
+
+# Visual Studio Code specific
+.vscode/
+.vscode/*
+
+# Rider project files
+.idea/
+
+# Local History for Visual Studio
+.localhistory/
+
+# Npm packages
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Visual Studio working folder
+.vs/
+
+# Mac OSX specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
