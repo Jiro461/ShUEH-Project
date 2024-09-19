@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const UserClient = (props) => {
-
     return (
         <>
 
@@ -11,10 +10,5 @@ const UserClient = (props) => {
     );
 };
 
-UserClient.propTypes
-    = {
-
-
-};
 
 export default UserClient;

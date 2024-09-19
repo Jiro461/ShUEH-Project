@@ -8,9 +8,5 @@ const AdminClient = props => {
         </div>
     );
 };
-
-AdminClient.propTypes = {
-
-};
-
+        
 export default AdminClient;
