@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from './constants/apiUrls.jsx'
 import './App.css';
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const response = await fetch('http://localhost:5118/api/weatherforecast'); // Chỉnh đúng URL API của bạn
+        const response = await fetch(`${API_BASE_URL}/weatherforecast`);
         const data = await response.json();
         setForecast(data);
         setLoading(false);
