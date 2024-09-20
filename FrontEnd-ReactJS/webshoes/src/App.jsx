@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { API_BASE_URL } from './constants/apiUrls.jsx'
 import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom"
 import AdminClient from './admin/AdminClient.jsx'
 import UserClient from './user/UserClient.jsx';
-import './App.css';
+import AdminLayout from './layouts/admin/AdminLayout.jsx';
+import './App.scss'
 
 function App() {
+
+
+  
   const router = createBrowserRouter([
-      {
-        path: "/",
-        element: (
-          <UserClient />
-      ),
-      },
-      {
-        path: "/admin",
-        element: (
-          <AdminClient />
-      ),
+    {
+      path: "/",
+      children: [
+        {
+          path: "",
+          element: <UserClient />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <AdminLayout/>,
+      children: [
+        {
+          path: "",
+          element: <AdminClient />,
+        },
+      ],
     },
   ]);
 
