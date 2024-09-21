@@ -33,3 +33,18 @@ a {
     padding: 5px 20px;
     width: 100%;
 }
+
+//Đây là css cho thanh scroll bar
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: $main-color;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $soft-bg;
+}
+
+//Kết thúc css cho thanh scroll bar

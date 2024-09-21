@@ -5,6 +5,11 @@
     padding: 30px;
 
     span {
+        border-radius: 15px;
+        padding: 7px;
+        font-size: 20px;
+        transition: background-color 0.3s ease, font-size 0.3s ease;
+
         &:first-child {
             font-weight: bold;
         }
@@ -14,7 +19,7 @@
         }
 
         &:hover {
-            background-color: red;
+            background-color: rgb(230, 186, 186);
         }
     }
 }

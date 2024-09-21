@@ -106,5 +106,40 @@ export const top_Deals = [
         username: "Mach Gia Huy 3",
         email: "huymachgia555@gmail3.com",
         amount: "3600000"
-    }
+    },
+    {
+        id: 4,
+        img: "/profile.svg",
+        username: "Mach Gia Huy 3",
+        email: "huymachgia555@gmail3.com",
+        amount: "3600000"
+    },
+    {
+        id: 5,
+        img: "/profile.svg",
+        username: "Mach Gia Huy 3",
+        email: "huymachgia555@gmail3.com",
+        amount: "3600000"
+    },
+    {
+        id: 6,
+        img: "/profile.svg",
+        username: "Mach Gia Huy 3",
+        email: "huymachgia555@gmail3.com",
+        amount: "3600000"
+    },
+    {
+        id: 7,
+        img: "/profile.svg",
+        username: "Mach Gia Huy 3",
+        email: "huymachgia555@gmail3.com",
+        amount: "3600000"
+    },
+    {
+        id: 8,
+        img: "/profile.svg",
+        username: "Mach Gia Huy 3",
+        email: "huymachgia555@gmail3.com",
+        amount: "3600000"
+    },
 ]
