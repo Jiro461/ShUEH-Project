@@ -120,5 +120,9 @@ namespace BackEnd_ASP_NET.Utilities
         {
             return date.ToString(format);
         }
+        public static DateTime ToDateTime(this string dateStr)
+        {
+            return DateTime.ParseExact(dateStr, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 }
