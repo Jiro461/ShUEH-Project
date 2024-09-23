@@ -1,5 +1,7 @@
 @import '../../../styles/variables.scss';
-
+/*----------------------------------------*/
+/*  Layout chung cho trang Admin
+/*----------------------------------------*/
 * {
     margin: 0;
     padding: 0;
@@ -34,7 +36,7 @@ a {
     width: 100%;
 }
 
-//Đây là css cho thanh scroll bar
+//Đây là scss cho thanh scroll bar
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -47,4 +49,4 @@ a {
     background: $soft-bg;
 }
 
-//Kết thúc css cho thanh scroll bar
+//Kết thúc scss cho thanh scroll bar

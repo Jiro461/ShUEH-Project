@@ -1,5 +1,7 @@
 @import '../../../../styles/variables.scss';
-
+/*----------------------------------------*/
+/*  Thanh NavBar
+/*----------------------------------------*/
 .navbar {
     width: 100%;
     padding: 20px;
@@ -68,8 +70,8 @@
     }
 
     .user {
-        font-size: 23px;
-        padding: 10px;
+        font-size: 23px; 
+        padding: 10px; 
         border-radius: 30px;
         display: flex;
         gap: 10px;
