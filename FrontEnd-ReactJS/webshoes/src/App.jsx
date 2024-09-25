@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom"
 import AdminClient from './admin/AdminClient.jsx'
-import UserClient from './user/UserClient.jsx';
+import UserHome from './user/pages/UserHome/UserHome.jsx';
 import AdminLayout from './layouts/admin/AdminLayout.jsx';
+import UserLayout from './layouts/user/UserLayout.jsx';
 import './App.scss'
 
 function App() {
@@ -12,10 +13,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
+      element: <UserLayout/>,
       children: [
         {
-          path: "",
-          element: <UserClient />,
+          path: "/",
+          element: <UserHome />,
         },
       ],
     },
