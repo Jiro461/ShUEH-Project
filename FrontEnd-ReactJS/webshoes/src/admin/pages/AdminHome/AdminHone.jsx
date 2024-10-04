@@ -1,6 +1,6 @@
 import React from 'react';
-import Topbox from './components/topBox/TopBox.jsx';
-import './AdminClient.scss';
+import Topbox from '../../components/topBox/TopBox';
+import './AdminHome.scss';
 
 const AdminClient = () => {
     return (
