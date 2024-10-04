@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd_ASP_NET.Models;
@@ -13,7 +12,7 @@ namespace BackEnd_ASP_NET.Controllers
     {
         private static readonly string[] Summaries =
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "VeryCold", "VeryHot"
         };
 
         [HttpGet]
