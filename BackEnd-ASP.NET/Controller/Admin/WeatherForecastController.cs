@@ -23,7 +23,6 @@ namespace BackEnd_ASP_NET.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            double a = 5;
             var forecast = Enumerable.Range(1, 5).Select(index =>
             {
                 var weather = new WeatherForecast
