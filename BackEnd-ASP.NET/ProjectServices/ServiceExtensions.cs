@@ -1,18 +1,21 @@
-using System;
+using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 
 public static class ServiceExtensions
 {
     /// <summary>
     /// Đăng ký các dịch vụ (DI) cho ứng dụng.
     /// </summary>
-    public static void AddProjectServices(this IServiceCollection services)
+    public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
         ConfigureTransientServices(services);
+        ConfigureScopedServices(services);
         ConfigureAuthentication(services);
-        ConfigureDatabase(services);
+        ConfigureEntityFramework(services, configuration);
         ConfigureCors(services);
         ConfigureSwagger(services);
     }
@@ -25,7 +28,14 @@ public static class ServiceExtensions
         services.AddTransient<IEmailSender, EmailSender>();
         // Thêm các dịch vụ transient khác nếu cần
     }
-
+    /// <summary>
+    /// Cấu hình các dịch vụ Scoped.
+    /// </summary>
+    private static void ConfigureScopedServices(IServiceCollection services)
+    {
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IUserRepository, UserRepository>();
+    }
     /// <summary>
     /// Cấu hình dịch vụ xác thực bằng cookie.
     /// </summary>
@@ -69,7 +79,15 @@ public static class ServiceExtensions
     /// <summary>
     /// Cấu hình EntityFramework.
     /// </summary>
-    private static void ConfigureDatabase(IServiceCollection services)
+    private static void ConfigureEntityFramework(IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDbContext<ShUEHContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
+        });
+
+        services.AddIdentity<User, Role>()
+        .AddEntityFrameworkStores<ShUEHContext>()
+        .AddDefaultTokenProviders();
     }
 }
