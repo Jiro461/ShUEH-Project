@@ -7,7 +7,6 @@ namespace BackEnd_ASP_NET.Utilities.Security
         /// <summary>
         /// Chuyển đổi một chuỗi thành dạng băm MD5.
         /// </summary>
-        /// <param name="str">Chuỗi cần chuyển thành MD5.</param>
         /// <returns>Chuỗi băm MD5 dưới dạng chuỗi ký tự thập lục phân.</returns>
         public static string ToMD5(this string str)
         {

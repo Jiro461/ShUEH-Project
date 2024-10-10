@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 namespace BackEnd_ASP_NET.Utilities.Extensions
 {
@@ -87,6 +88,23 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
         public static string FormatDate(this DateTime date, string format = "dd/MM/yyyy")
         {
             return date.ToString(format);
+        }
+        /// <summary>
+        /// Chuyển đổi chuỗi thành kiểu DateTime với định dạng mong muốn
+        /// </summary>
+        /// <returns>Giá trị DateTime nếu chuyển đổi thành công, null nếu không thành công</returns>
+        public static DateTime ToDateTime(this string dateString, string format = "dd/MM/yyyy")
+        {
+            DateTime parsedDate;
+            // Sử dụng TryParseExact để tránh ngoại lệ nếu chuỗi không đúng định dạng
+            if (DateTime.TryParseExact(dateString, format, CultureInfo.InvariantCulture,
+                                       DateTimeStyles.None, out parsedDate))
+            {
+                return parsedDate; // Trả về giá trị DateTime nếu chuyển đổi thành công
+            }
+
+            // Ném ra ngoại lệ nếu không thể chuyển đổi
+            throw new ArgumentException($"Chuỗi '{dateString}' không thể chuyển đổi thành kiểu DateTime với định dạng '{format}'.");
         }
     }
 }
