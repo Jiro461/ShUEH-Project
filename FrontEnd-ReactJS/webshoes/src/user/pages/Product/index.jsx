@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import React from 'react';
 import SideBar from '../../components/Product/SideBar';
 import SubNav from '../../components/Product/Subnav';
