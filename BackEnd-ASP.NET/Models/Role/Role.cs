@@ -1,19 +1,21 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
-[Table("Roles")]
-public class Role
+namespace BackEnd_ASP_NET.Models
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+    [Table("Roles")]
+    public class Role
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
-    [Required(ErrorMessage = "Role name is required.")]
-    [MaxLength(50, ErrorMessage = "Role name cannot exceed 50 characters.")]
-    public string? Name { get; set; }
+        [Required(ErrorMessage = "Role name is required.")]
+        [MaxLength(50, ErrorMessage = "Role name cannot exceed 50 characters.")]
+        public string? Name { get; set; }
 
-    [MaxLength(200, ErrorMessage = "Description cannot exceed 200 characters.")]
-    public string? Description { get; set; }
+        [MaxLength(200, ErrorMessage = "Description cannot exceed 200 characters.")]
+        public string? Description { get; set; }
 
-    public ICollection<User>? Users { get; set; }
+        public ICollection<User>? Users { get; set; }
+    }
 }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BackEnd_ASP.NET.Controller.Admin
+namespace BackEnd_ASP.NET.Controller.Email
 {
     [ApiController]
     [Route("api/[controller]")]

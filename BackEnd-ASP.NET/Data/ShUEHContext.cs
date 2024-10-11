@@ -1,3 +1,4 @@
+using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.Extensions;
 using BackEnd_ASP_NET.Utilities.Security;
 using Microsoft.AspNetCore.Identity;

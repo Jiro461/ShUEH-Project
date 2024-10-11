@@ -1,4 +1,5 @@
 using BackEnd_ASP.NET.Data;
+using BackEnd_ASP_NET.Models;
 
 public class UserRepository : GenericRepository<User>, IUserRepository
 {

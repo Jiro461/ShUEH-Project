@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using BackEnd_ASP_NET.Models;
 
 [Table("Orders")]
 public class Order : IDateTracking

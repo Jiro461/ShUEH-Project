@@ -1,5 +1,6 @@
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
+using BackEnd_ASP_NET.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -12,6 +13,7 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddMvc();
         ConfigureTransientServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
@@ -35,6 +37,7 @@ public static class ServiceExtensions
     {
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAccountService, AccountService>();
     }
     /// <summary>
     /// Cấu hình dịch vụ xác thực bằng cookie.
@@ -86,8 +89,7 @@ public static class ServiceExtensions
             options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
         });
 
-        services.AddIdentity<User, Role>()
-        .AddEntityFrameworkStores<ShUEHContext>()
-        .AddDefaultTokenProviders();
+         services.AddIdentityCore<User>()
+            .AddEntityFrameworkStores<ShUEHContext>();
     }
 }
