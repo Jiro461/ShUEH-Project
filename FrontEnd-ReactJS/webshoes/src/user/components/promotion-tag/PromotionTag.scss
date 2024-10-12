@@ -1,0 +1,35 @@
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.border-circle{
+    border-radius: 50%;
+    border: none;
+    outline: none;
+}
+
+.promotion-tag{
+    width: 140px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(90deg, #FCAB73 38.5%, #FF646B 100%);
+    
+    span:first-child{
+        font-size: 16px;
+        font-weight: 400;
+    }
+    
+    span:nth-child(2){
+        font-size: 40px;
+        font-weight: 700;
+        color: #000000;
+    }
+    
+    span:nth-child(3){
+        font-size: 32px;
+        font-weight: 700;
+    }
+}
