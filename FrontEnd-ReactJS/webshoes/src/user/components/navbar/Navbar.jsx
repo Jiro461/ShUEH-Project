@@ -4,11 +4,11 @@ import './Navbar.scss'
 const Navbar = () => {
 
     return (
-        <div className='container'>
-            <div className="promotion">
-                <p>FREESHIP CHO HOÁ ĐƠN TRÊN 1 TRIỆU</p>
+        <div className='navbar-block'>
+            <div className="promotion d-flex justify-content-center align-items-center">
+                <p className="align-self-center">FREESHIP CHO HOÁ ĐƠN TRÊN 1 TRIỆU</p>
             </div>
-            <div className="navbar">
+            <div className="nav-box">
                 <div className="logo">
                     Logo
                 </div>
@@ -22,8 +22,8 @@ const Navbar = () => {
                         <li>Support</li>
                     </ul>
                 </div>
-                <div className="tool">
-                    <div className="search">
+                <div className="tool-block">
+                    <div className="search-block">
                         <img className="search-icon" src="/nav-search.svg" alt="" />
                         <input type="text" placeholder='Search'/>
                     </div>
