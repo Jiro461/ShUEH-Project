@@ -39,9 +39,9 @@ namespace BackEnd_ASP.NET.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, userLoginDto.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.RoleId.ToString()),
-                new Claim("IPAddress", httpContext.Connection.RemoteIpAddress.ToString())
+                new Claim(ClaimTypes.Email, user?.Email??"NoEmail"),
+                new Claim(ClaimTypes.Role, user?.RoleId.ToString()??"None"),
+                new Claim("IPAddress", httpContext.Connection.RemoteIpAddress?.ToString()??"Undefined")
             };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
