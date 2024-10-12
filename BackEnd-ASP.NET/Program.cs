@@ -17,10 +17,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseCors("AllowSpecificOrigins"); //Sử dụng Cors
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication(); // Phải có để sử dụng xác thực
+app.UseAuthorization();
 app.MapControllers(); // Ensure you have this if using controllers
 
 app.Run();
