@@ -13,13 +13,17 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMvc();
+        services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            }); ;
         ConfigureTransientServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
         ConfigureEntityFramework(services, configuration);
         ConfigureCors(services);
         ConfigureSwagger(services);
+        services.AddHttpContextAccessor();
     }
 
     /// <summary>
@@ -38,13 +42,19 @@ public static class ServiceExtensions
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<UserManager<User>>();
+        services.AddScoped<SignInManager<User>>();
+
     }
     /// <summary>
     /// Cấu hình dịch vụ xác thực bằng cookie.
     /// </summary>
     private static void ConfigureAuthentication(IServiceCollection services)
     {
-        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        services.AddAuthentication(options => {
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
                 .AddCookie(options =>
                 {
                     options.Cookie.Name = "ShUEHApplication-Cookies-Authentication"; // Tên của cookie
@@ -89,7 +99,14 @@ public static class ServiceExtensions
             options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
         });
 
-         services.AddIdentityCore<User>()
-            .AddEntityFrameworkStores<ShUEHContext>();
+        services.AddIdentityCore<User>(options =>
+        {
+            options.Password.RequireDigit = true;
+            options.Password.RequiredLength = 8;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+        })
+           .AddEntityFrameworkStores<ShUEHContext>().AddDefaultTokenProviders();
     }
 }
