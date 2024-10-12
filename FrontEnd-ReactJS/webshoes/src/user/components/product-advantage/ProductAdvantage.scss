@@ -1,0 +1,28 @@
+.product-advantage{
+    display: flex;
+    flex-direction: column;
+    background: #6B6B6B;
+    padding: 70px 30px 50px;
+
+    .advantage-index{
+        color: #AEAEAE;
+        font-size: 30px;
+        font-weight: 800;
+    }
+    
+    .advantage-name{
+        color: #fff;
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .advantage-desc{
+        font-family: Inter;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .ml{
+        margin-left: 20px;
+    }
+}
