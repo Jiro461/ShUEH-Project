@@ -4,9 +4,9 @@ namespace BackEnd_ASP.NET.Services
 {
     public interface IAccountService
     {
-        Task<IActionResult> Register(RegisterUserDto model);
+        Task<IActionResult> Register(UserRegisterDto model);
         Task<User?> GetByIdAsync(Guid id);
-        Task<IActionResult> Login(string username, string password);
+        Task<IActionResult> Login(UserLoginDto userLoginDto, HttpContext httpContext);
         Task UpdateUserAsync(User user);
         // Add more methods as needed
     }
