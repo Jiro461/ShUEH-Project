@@ -1,10 +1,5 @@
-using BackEnd_ASP.NET.Data;
-using BackEnd_ASP_NET.Utilities.Extensions;
 using BackEnd_ASP_NET.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BackEnd_ASP.NET.Services;
 
 namespace BackEnd_ASP.NET.Controller.Account
@@ -19,13 +14,24 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             this.accountService = accountService;
         }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterUserDto userDto)
+        [HttpGet("Ipaddress")]
+        public IActionResult Index()
+        {
+            var IPAddress = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "IPAddress");
+            return Ok(new { Ipadd = IPAddress.Value });
+        }
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserRegisterDto userDto)
         {
             return await accountService.Register(userDto);
-        
+
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserLoginDto userDto)
+        {
+            return await accountService.Login(userDto, HttpContext);
+
         }
     }
 
