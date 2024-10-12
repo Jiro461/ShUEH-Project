@@ -1,0 +1,92 @@
+.popular-product{
+    background: linear-gradient(77.7deg, #FF6262 23.42%, #FCAD72 89.44%);
+    display: flex;
+    justify-content: space-between;
+    width: 750px;
+    padding: 10px 10px 250px;
+    position: relative;
+
+    .info{
+        display: flex;
+        flex-direction: column;
+
+        .info-title{
+            font-size: 30px;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        span:nth-child(3){
+            color: #232227;
+        }
+
+        button{
+            color: #fff;
+            background: #333235;
+            padding: 10px 35px;
+            border-radius: 30px;
+            margin-top: 20px;
+        }
+    }
+    
+    .title{
+        font-size: 120px;
+        font-weight: 400;
+        color: #00000026;
+        margin-top: 30px;
+    }
+
+    .product{
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+
+        .line-decor-1{
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .promotion-block{
+            position: absolute;
+            bottom: 10%;
+            right: -5%;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        .product-info{
+            width: fit-content;
+            height: fit-content;
+            position: absolute;
+            bottom: -17%;
+            right: -7%;
+            display: flex;
+            flex-direction: column;
+            font-weight: 800;
+            font-size: 30px;
+
+            .product-brand{
+                color: #000;
+            }
+
+            .product-name{
+                color: #FFF;
+                margin-top: -10px;
+            }
+        }
+    }
+
+    
+
+    .line-decor-2{
+        position: absolute;
+        top: 40%;
+        left: 0;
+        z-index: 1;
+    }
+}
