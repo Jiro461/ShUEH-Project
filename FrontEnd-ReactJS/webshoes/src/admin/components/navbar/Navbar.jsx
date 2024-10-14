@@ -1,8 +1,7 @@
 import React from 'react';
-import './Navbar.scss'
+import'./Navbar.scss'
 const Navbar = () => {
     var myvalue = process.env.REACT_APP_API_URL;
-
     const fullScreen = () => {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen(); // Vào chế độ full screen
@@ -14,7 +13,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='navbar'>
+        <div className='adminnavbar'>
             <div className='logo'>
                 <img src='logo.svg' alt="" />
                 <span>{myvalue}</span>
@@ -32,7 +31,7 @@ const Navbar = () => {
                     <span>
                         Jiro
                     </span>
-                </div>
+                </div>  
                 <img src="/settings.svg" alt="" className='icon' />
             </div>
         </div>

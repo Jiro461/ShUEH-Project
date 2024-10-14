@@ -2,7 +2,7 @@ import React from 'react';
 import Topbox from '../../components/topBox/TopBox';
 import './AdminHome.scss';
 
-const AdminClient = () => {
+const AdminHome = () => {
     return (
         <div className='home'>
             <div className='box box1'>
@@ -20,4 +20,4 @@ const AdminClient = () => {
     );
 };
 
-export default AdminClient;
+export default AdminHome;
