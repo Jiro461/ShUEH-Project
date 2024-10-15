@@ -18,15 +18,14 @@ namespace BackEnd_ASP.NET.Services
         private readonly UserManager<User> userManager;
         private readonly ShUEHContext context;
         private readonly SignInManager<User> signInManager;
-        private readonly IHttpContextAccessor httpContextAccessor;
-
-        public AccountService(IUserRepository userRepository, UserManager<User> userManager, ShUEHContext context, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor)
+        // private readonly IHttpContextAccessor httpContextAccessor;
+        public AccountService(IUserRepository userRepository, UserManager<User> userManager,
+        ShUEHContext context, SignInManager<User> signInManager)
         {
             this.userRepository = userRepository;
             this.userManager = userManager;
             this.context = context;
             this.signInManager = signInManager;
-            this.httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Login(UserLoginDto userLoginDto, HttpContext httpContext)
         {
@@ -40,7 +39,7 @@ namespace BackEnd_ASP.NET.Services
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, userLoginDto.UserName),
                 new Claim(ClaimTypes.Email, user?.Email??"NoEmail"),
-                new Claim(ClaimTypes.Role, user?.RoleId.ToString()??"None"),
+                new Claim(ClaimTypes.Role, user?.Role?.Id.ToString()??"None"),
                 new Claim("IPAddress", httpContext.Connection.RemoteIpAddress?.ToString()??"Undefined")
             };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -85,7 +84,7 @@ namespace BackEnd_ASP.NET.Services
                 Id = Guid.NewGuid(),
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                DateOfBirth = userDto.DateOfBirth.ToDateTime(),     
+                DateOfBirth = userDto.DateOfBirth.ToDateTime(),
                 Email = userDto.Email,
                 NormalizedEmail = userDto.Email.ToUpper(),
                 Gender = userDto.Gender,
@@ -101,14 +100,11 @@ namespace BackEnd_ASP.NET.Services
             if (!result.Succeeded) return BadRequest($"{string.Join(";", result.Errors.Select(e => e.Description))}");
             var wishList = new Wishlist
             {
-                UserId = user.Id
+                User = user
             };
-
             //Thêm wishlist cho người dùng vào cơ sở dữ liệu
             await userRepository.AddWishlistAsync(wishList);
-
-            user.WistlistId = wishList.Id;
-
+            user.Wishlist = wishList;
             //Cập nhật wishlistId cho người dùng
             await userRepository.UpdateAsync(user);
             return Ok("Created Successfully.");
@@ -118,6 +114,12 @@ namespace BackEnd_ASP.NET.Services
         public Task UpdateUserAsync(User user)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
+        {
+            await userRepository.DeleteAsync(id);
+            return Ok("Delete Succesfully");
         }
     }
 }
