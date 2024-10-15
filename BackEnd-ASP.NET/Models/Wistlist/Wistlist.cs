@@ -13,6 +13,6 @@ namespace BackEnd_ASP_NET.Models
         public Guid? UserId { get; set; }
         public User? User { get; set; }
 
-        public ICollection<WishlistItem>? WishlistItems { get; set; }
+        public ICollection<WishlistItem>? WishlistItems {get; set;} = new HashSet<WishlistItem>();
     }
 }

@@ -22,16 +22,17 @@ namespace BackEnd_ASP_NET.Models
         public bool Gender { get; set; }
 
         public decimal? TotalMoney { get; set; }
-
-        [ForeignKey("Role")]
+        // Foreign Key for Role
         public Guid? RoleId { get; set; }
+
+        // Navigation property for Role
+        [ForeignKey("RoleId")]
         public Role? Role { get; set; }
-        [ForeignKey("Wistlist")]
-        public Guid? WistlistId { get; set; }
+
         public Wishlist? Wishlist { get; set; }
-        public ICollection<Order>? Orders { get; set; }
-        public ICollection<Comment>? Comments { get; set; }
-        public ICollection<Reply>? Replies { get; set; }
+        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+        public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
         public DateTime CreateDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }

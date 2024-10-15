@@ -14,14 +14,14 @@ public class Order : IDateTracking
     public Guid? UserId { get; set; }
     public User? User { get; set; }
 
-    public DateTime OrderDate { get; set; }
+    public DateTime OrderDate { get; set; } 
 
     [Required(ErrorMessage = "Total price is required.")]
     public decimal TotalPrice { get; set; }
 
-    public OrderStatus Status { get; set; }
+    public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
-    public ICollection<OrderItem>? OrderItems { get; set; }
+    public ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
 
     public DateTime CreateDate { get; set; }
 

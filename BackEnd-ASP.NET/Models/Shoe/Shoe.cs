@@ -47,11 +47,11 @@ namespace BackEnd_ASP_NET.Models
 
         public decimal Discount { get; set; }
 
-        public ICollection<ShoeColor>? Colors { get; set; }
-        public ICollection<ShoeImage>? OtherImages { get; set; }
-        public ICollection<ShoeSeason>? Seasons { get; set; }
-        public ICollection<ShoeSize>? Sizes { get; set; }
-        public ICollection<Comment>? Comments { get; set; }
+        public ICollection<ShoeColor> Colors { get; set; } = new HashSet<ShoeColor>();
+        public ICollection<ShoeImage> OtherImages { get; set; } = new HashSet<ShoeImage>();
+        public ICollection<ShoeSeason> Seasons { get; set; } = new HashSet<ShoeSeason>();
+        public ICollection<ShoeSize> Sizes { get; set; } = new HashSet<ShoeSize>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
         public DateTime CreateDate { get; set; }
 
