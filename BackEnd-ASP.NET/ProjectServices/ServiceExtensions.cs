@@ -2,6 +2,7 @@ using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
 using BackEnd_ASP_NET.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +14,15 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-            }); ;
+        ConfigureCors(services);
+        services.AddControllers();//AddJsonOptions(options =>
+        //     {
+        //         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        //     }); ;
         ConfigureTransientServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
         ConfigureEntityFramework(services, configuration);
-        ConfigureCors(services);
         ConfigureSwagger(services);
         services.AddHttpContextAccessor();
     }
@@ -39,11 +40,12 @@ public static class ServiceExtensions
     /// </summary>
     private static void ConfigureScopedServices(IServiceCollection services)
     {
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();
+        services.AddScoped<INotificationService, NotificationService>();
+
 
     }
     /// <summary>
@@ -51,15 +53,22 @@ public static class ServiceExtensions
     /// </summary>
     private static void ConfigureAuthentication(IServiceCollection services)
     {
-        services.AddAuthentication(options => {
+        services.AddAuthentication(options =>
+        {
             options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Đặt DefaultSignInScheme
         })
-                .AddCookie(options =>
-                {
-                    options.Cookie.Name = "ShUEHApplication-Cookies-Authentication"; // Tên của cookie
-                    options.Cookie.HttpOnly = true; // Cookie chỉ có thể truy cập qua HTTP
-                });
+        .AddCookie(options =>
+        {
+            options.Cookie.Name = "ShUEHApplication-Cookies-Authentication"; // Tên của cookie
+            options.Cookie.HttpOnly = true; // Cookie chỉ có thể truy cập qua HTTP
+        }).AddGoogle(options =>
+        {
+            options.ClientId = "11161045560-r08im8g3rll7ifg200tgmc8gmpa1am1t.apps.googleusercontent.com";  // Thay bằng Client ID của bạn
+            options.ClientSecret = "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";  // Thay bằng Client Secret của bạn
+        });
+
     }
 
     /// <summary>
@@ -67,46 +76,53 @@ public static class ServiceExtensions
     /// </summary>
     private static void ConfigureCors(IServiceCollection services)
     {
-        services.AddCors(options =>
-        {
-            options.AddPolicy("AllowSpecificOrigins",
-                builder =>
-                {
-                    builder.WithOrigins("http://localhost:3000") // Địa chỉ của frontend
-                           .AllowAnyHeader()
-                           .AllowAnyMethod();
-                });
-        });
-    }
-
-    /// <summary>
-    /// Cấu hình Swagger.
-    /// </summary>
-    private static void ConfigureSwagger(IServiceCollection services)
+    services.AddCors(options =>
     {
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+
+                builder.WithOrigins("http://localhost:5118","http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                // Allow localhost origins
+                // builder.WithOrigins("http://localhost:3000", "http://localhost:5118") // Liệt kê các origin cụ thể
+                //     .AllowAnyHeader()
+                //     .AllowAnyMethod()
+                //     .AllowCredentials();
+            });
+    });
+
     }
+/// <summary>
+/// Cấu hình Swagger.
+/// </summary>
+private static void ConfigureSwagger(IServiceCollection services)
+{
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen();
+}
 
 
-    /// <summary>
-    /// Cấu hình EntityFramework.
-    /// </summary>
-    private static void ConfigureEntityFramework(IServiceCollection services, IConfiguration configuration)
+/// <summary>
+/// Cấu hình EntityFramework.
+/// </summary>
+private static void ConfigureEntityFramework(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddDbContext<ShUEHContext>(options =>
     {
-        services.AddDbContext<ShUEHContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
-        });
+        options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
+    });
 
-        services.AddIdentityCore<User>(options =>
-        {
-            options.Password.RequireDigit = true;
-            options.Password.RequiredLength = 8;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = true;
-            options.Password.RequireLowercase = true;
-        })
-           .AddEntityFrameworkStores<ShUEHContext>().AddDefaultTokenProviders();
-    }
+    services.AddIdentityCore<User>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 8;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
+    })
+       .AddEntityFrameworkStores<ShUEHContext>().AddDefaultTokenProviders();
+}
 }
