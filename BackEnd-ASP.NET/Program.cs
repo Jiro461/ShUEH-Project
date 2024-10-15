@@ -9,21 +9,18 @@ builder.Services.AddProjectServices(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseCors("CorsPolicy");
 app.UseStaticFiles();
-
+// app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-
-
-app.UseCors("AllowSpecificOrigins"); //Sử dụng Cors
-
-app.UseHttpsRedirection();
 app.UseAuthentication(); // Phải có để sử dụng xác thực
 app.UseAuthorization();
-app.MapControllers(); // Ensure you have this if using controllers
+// Ensure you have this if using controllers
+app.MapControllers();
 
 app.Run();
