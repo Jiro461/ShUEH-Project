@@ -80,7 +80,6 @@ namespace BackEnd_ASP.NET.Migrations
                     Gender = table.Column<bool>(type: "bit", nullable: false),
                     TotalMoney = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    WistlistId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -274,6 +273,45 @@ namespace BackEnd_ASP.NET.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdminMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderItems",
                 columns: table => new
                 {
@@ -326,17 +364,17 @@ namespace BackEnd_ASP.NET.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("9d53b231-7910-447a-ad6b-cf52f18ec830"), "Role User với các quyền hạn có giới hạn và mua hàng", "User" },
-                    { new Guid("ac3fca4e-2b69-413e-b6d5-0ade5ecc9cc6"), "Role Admin với đầy đủ các quyền hạn", "Admin" }
+                    { new Guid("c9204c7a-fbb3-4020-836a-92558329672c"), "Role Admin với đầy đủ các quyền hạn", "Admin" },
+                    { new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"), "Role User với các quyền hạn có giới hạn và mua hàng", "User" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreateDate", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "Gender", "LastModifiedDate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RoleId", "SecurityStamp", "TotalMoney", "TwoFactorEnabled", "UserName", "WistlistId" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreateDate", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "Gender", "LastModifiedDate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RoleId", "SecurityStamp", "TotalMoney", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("5fbe5581-d60a-47f7-ba9e-bef65bf5296c"), 0, "375256f9-f7f4-4d06-b6d2-7228846791c4", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", false, "Mach", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gia Huy", false, null, "JOHN.DOE@EXAMPLE.COM", "JOHN.DOE", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, new Guid("ac3fca4e-2b69-413e-b6d5-0ade5ecc9cc6"), null, 1000m, false, "Mach Gia Huy", null },
-                    { new Guid("6784f3f1-3755-4dd4-af2a-a267fdf9318b"), 0, "9580b43e-f490-4bd9-b980-73e1200be940", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", false, "Jane", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smith", false, null, "JANE.SMITH@EXAMPLE.COM", "JANE.SMITH", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, new Guid("9d53b231-7910-447a-ad6b-cf52f18ec830"), null, 1500m, false, "jane.smith", null }
+                    { new Guid("93c50db5-9428-4379-96fd-4d14942c50f2"), 0, "9e099b8a-7c6a-4627-b992-5c31d52555db", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", false, "Jane", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smith", false, null, "JANE.SMITH@EXAMPLE.COM", "JANE.SMITH", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"), null, 1500m, false, "jane.smith" },
+                    { new Guid("d04ca493-436a-40ac-9023-c9c3f3bf1ad1"), 0, "327efebb-5641-42cd-9e4d-745c164724de", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", false, "Mach", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gia Huy", false, null, "JOHN.DOE@EXAMPLE.COM", "JOHN.DOE", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, new Guid("c9204c7a-fbb3-4020-836a-92558329672c"), null, 1000m, false, "Mach Gia Huy" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -347,6 +385,26 @@ namespace BackEnd_ASP.NET.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
                 table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_CommentId",
+                table: "Notifications",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_OrderId",
+                table: "Notifications",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_ShoeId",
+                table: "Notifications",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserId",
+                table: "Notifications",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -422,6 +480,9 @@ namespace BackEnd_ASP.NET.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Discounts");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");

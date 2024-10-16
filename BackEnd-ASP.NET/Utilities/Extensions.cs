@@ -106,5 +106,15 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
             // Ném ra ngoại lệ nếu không thể chuyển đổi
             throw new ArgumentException($"Chuỗi '{dateString}' không thể chuyển đổi thành kiểu DateTime với định dạng '{format}'.");
         }
+        
+        /// <summary>
+        /// Chuyển đổi từ UTC sang giờ Việt Nam (UTC+7)
+        /// </summary>
+        /// <returns>Thời gian ở định dạng giờ Việt Nam</returns>
+        public static DateTimeOffset ConvertUtcToVietnamTime(this DateTimeOffset dateTime)
+        {
+            // Tính toán thời gian Việt Nam (UTC+7)
+            return dateTime.AddHours(7);
+        }
     }
 }

@@ -1,79 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom"
-import AdminClient from './admin/AdminClient.jsx'
+import React, { useState } from 'react';
+import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
 import UserHome from './user/pages/UserHome/UserHome.jsx';
 import AdminLayout from './layouts/admin/AdminLayout.jsx';
 import UserLayout from './layouts/user/UserLayout.jsx';
-import './App.scss'
+import './App.scss';
 
-function App() {
+// Định nghĩa component SignInComponent
+const SignInComponent = () => {
+  const [responseMessage, setResponseMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-
-  
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <UserLayout/>,
-      children: [
-        {
-          path: "/",
-          element: <UserHome />,
-        },
-      ],
-    },
-    {
-      path: "/admin",
-      element: <AdminLayout/>,
-      children: [
-        {
-          path: "",
-          element: <AdminClient />,
-        },
-      ],
-    },
-  ]);
+  const handleLogin = () => {
+    // Chuyển hướng đến API của ASP.NET để bắt đầu xác thực
+    window.location.href = 'http://localhost:5118/api/account/sign-in';
+};
 
   return (
-      <RouterProvider router={router}/>
+    <div>
+      <h1>Sign In</h1>
+      <button onClick={handleLogin} disabled={loading}>
+        {loading ? 'Signing In...' : 'Sign In'}
+      </button>
+      {responseMessage && <p>{responseMessage}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
   );
-  // const [forecast, setForecast] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //   const fetchWeather = async () => {
-  //     try {
-  //       const response = await fetch(`${API_BASE_URL}/weatherforecast`);
-  //       const data = await response.json();
-  //       setForecast(data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       setLoading(false);
-  //     }
-  //   };
+};
 
-  //   fetchWeather();
-  // }, []);
+// Tạo router cho ứng dụng
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <UserLayout />,
+    children: [
+      {
+        path: "/",
+        element: <UserHome />,
+      },
+      {
+        path: "/sign-in",
+        element: <SignInComponent />, // Thêm route cho SignInComponent
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      // {
+      //   path: "",
+      //   element: , // Giả định AdminClient đã được định nghĩa
+      // },
+    ],
+  },
+]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <h1>Weather Forecast</h1>
-  //       <ul>
-  //         {forecast.map((weather, index) => (
-  //           <li key={index}>
-  //             <p>Date: {weather.date}</p>
-  //             <p>Temperature: {weather.temperatureC}°C ({weather.temperatureF}°F)</p>
-  //             <p>Summary: {weather.summary}</p>
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     </header>
-  //   </div>
-  // );
+// Component App
+function App() {
+  return (
+    <RouterProvider router={router} />
+  );
 }
 
 export default App;

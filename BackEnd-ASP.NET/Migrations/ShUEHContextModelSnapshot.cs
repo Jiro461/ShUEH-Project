@@ -22,7 +22,7 @@ namespace BackEnd_ASP.NET.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Comment", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Discount", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Discount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,39 +84,52 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("Discounts");
                 });
 
-            modelBuilder.Entity("Order", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Notification", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AdminMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<Guid?>("ShoeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UserId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ShoeId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("OrderItem", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,7 +156,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Reply", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Reply", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,7 +187,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("Replies");
                 });
 
-            modelBuilder.Entity("Role", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,19 +209,19 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ac3fca4e-2b69-413e-b6d5-0ade5ecc9cc6"),
+                            Id = new Guid("c9204c7a-fbb3-4020-836a-92558329672c"),
                             Description = "Role Admin với đầy đủ các quyền hạn",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("9d53b231-7910-447a-ad6b-cf52f18ec830"),
+                            Id = new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"),
                             Description = "Role User với các quyền hạn có giới hạn và mua hàng",
                             Name = "User"
                         });
                 });
 
-            modelBuilder.Entity("Shoe", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Shoe", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -274,7 +287,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("Shoes");
                 });
 
-            modelBuilder.Entity("ShoeColor", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeColor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -294,7 +307,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("ShoeColors");
                 });
 
-            modelBuilder.Entity("ShoeImage", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +327,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("ShoeImages");
                 });
 
-            modelBuilder.Entity("ShoeSeason", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeSeason", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,7 +347,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("ShoeSeasons");
                 });
 
-            modelBuilder.Entity("ShoeSize", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeSize", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -353,7 +366,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("ShoeSizes");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -429,9 +442,6 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WistlistId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
@@ -441,9 +451,9 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5fbe5581-d60a-47f7-ba9e-bef65bf5296c"),
+                            Id = new Guid("d04ca493-436a-40ac-9023-c9c3f3bf1ad1"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "375256f9-f7f4-4d06-b6d2-7228846791c4",
+                            ConcurrencyStamp = "327efebb-5641-42cd-9e4d-745c164724de",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2004, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
@@ -457,16 +467,16 @@ namespace BackEnd_ASP.NET.Migrations
                             NormalizedUserName = "JOHN.DOE",
                             PasswordHash = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("ac3fca4e-2b69-413e-b6d5-0ade5ecc9cc6"),
+                            RoleId = new Guid("c9204c7a-fbb3-4020-836a-92558329672c"),
                             TotalMoney = 1000m,
                             TwoFactorEnabled = false,
                             UserName = "Mach Gia Huy"
                         },
                         new
                         {
-                            Id = new Guid("6784f3f1-3755-4dd4-af2a-a267fdf9318b"),
+                            Id = new Guid("93c50db5-9428-4379-96fd-4d14942c50f2"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9580b43e-f490-4bd9-b980-73e1200be940",
+                            ConcurrencyStamp = "9e099b8a-7c6a-4627-b992-5c31d52555db",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -480,14 +490,14 @@ namespace BackEnd_ASP.NET.Migrations
                             NormalizedUserName = "JANE.SMITH",
                             PasswordHash = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("9d53b231-7910-447a-ad6b-cf52f18ec830"),
+                            RoleId = new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"),
                             TotalMoney = 1500m,
                             TwoFactorEnabled = false,
                             UserName = "jane.smith"
                         });
                 });
 
-            modelBuilder.Entity("Wishlist", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Wishlist", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -505,7 +515,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("Wishlists");
                 });
 
-            modelBuilder.Entity("WishlistItem", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.WishlistItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -526,13 +536,45 @@ namespace BackEnd_ASP.NET.Migrations
                     b.ToTable("WishlistItems");
                 });
 
-            modelBuilder.Entity("Comment", b =>
+            modelBuilder.Entity("Order", b =>
                 {
-                    b.HasOne("Shoe", "Shoe")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("UserId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Comment", b =>
+                {
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany("Comments")
                         .HasForeignKey("ShoeId");
 
-                    b.HasOne("User", "User")
+                    b.HasOne("BackEnd_ASP_NET.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
 
@@ -541,24 +583,40 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Order", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Notification", b =>
                 {
-                    b.HasOne("User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("BackEnd_ASP_NET.Models.Comment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId");
+
+                    b.HasOne("Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Product")
+                        .WithMany()
+                        .HasForeignKey("ShoeId");
+
+                    b.HasOne("BackEnd_ASP_NET.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OrderItem", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.OrderItem", b =>
                 {
                     b.HasOne("Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("Shoe", "Shoe")
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany()
                         .HasForeignKey("ShoeId");
 
@@ -567,13 +625,13 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Navigation("Shoe");
                 });
 
-            modelBuilder.Entity("Reply", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Reply", b =>
                 {
-                    b.HasOne("Comment", "Comment")
+                    b.HasOne("BackEnd_ASP_NET.Models.Comment", "Comment")
                         .WithMany("Replies")
                         .HasForeignKey("CommentId");
 
-                    b.HasOne("User", "User")
+                    b.HasOne("BackEnd_ASP_NET.Models.User", "User")
                         .WithMany("Replies")
                         .HasForeignKey("UserId");
 
@@ -582,67 +640,67 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ShoeColor", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeColor", b =>
                 {
-                    b.HasOne("Shoe", "Shoe")
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany("Colors")
                         .HasForeignKey("ShoeId");
 
                     b.Navigation("Shoe");
                 });
 
-            modelBuilder.Entity("ShoeImage", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeImage", b =>
                 {
-                    b.HasOne("Shoe", "Shoe")
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany("OtherImages")
                         .HasForeignKey("ShoeId");
 
                     b.Navigation("Shoe");
                 });
 
-            modelBuilder.Entity("ShoeSeason", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeSeason", b =>
                 {
-                    b.HasOne("Shoe", "Shoe")
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany("Seasons")
                         .HasForeignKey("ShoeId");
 
                     b.Navigation("Shoe");
                 });
 
-            modelBuilder.Entity("ShoeSize", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.ShoeSize", b =>
                 {
-                    b.HasOne("Shoe", "Shoe")
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany("Sizes")
                         .HasForeignKey("ShoeId");
 
                     b.Navigation("Shoe");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.User", b =>
                 {
-                    b.HasOne("Role", "Role")
+                    b.HasOne("BackEnd_ASP_NET.Models.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId");
 
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Wishlist", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Wishlist", b =>
                 {
-                    b.HasOne("User", "User")
+                    b.HasOne("BackEnd_ASP_NET.Models.User", "User")
                         .WithOne("Wishlist")
-                        .HasForeignKey("Wishlist", "UserId");
+                        .HasForeignKey("BackEnd_ASP_NET.Models.Wishlist", "UserId");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WishlistItem", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.WishlistItem", b =>
                 {
-                    b.HasOne("Shoe", "Shoe")
+                    b.HasOne("BackEnd_ASP_NET.Models.Shoe", "Shoe")
                         .WithMany()
                         .HasForeignKey("ShoeId");
 
-                    b.HasOne("Wishlist", "Wishlist")
+                    b.HasOne("BackEnd_ASP_NET.Models.Wishlist", "Wishlist")
                         .WithMany("WishlistItems")
                         .HasForeignKey("WishlistId");
 
@@ -651,22 +709,28 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Navigation("Wishlist");
                 });
 
-            modelBuilder.Entity("Comment", b =>
+            modelBuilder.Entity("Order", b =>
+                {
+                    b.HasOne("BackEnd_ASP_NET.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Comment", b =>
                 {
                     b.Navigation("Replies");
                 });
 
-            modelBuilder.Entity("Order", b =>
-                {
-                    b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("Role", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Shoe", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Shoe", b =>
                 {
                     b.Navigation("Colors");
 
@@ -679,7 +743,7 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Navigation("Sizes");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.User", b =>
                 {
                     b.Navigation("Comments");
 
@@ -690,9 +754,14 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Navigation("Wishlist");
                 });
 
-            modelBuilder.Entity("Wishlist", b =>
+            modelBuilder.Entity("BackEnd_ASP_NET.Models.Wishlist", b =>
                 {
                     b.Navigation("WishlistItems");
+                });
+
+            modelBuilder.Entity("Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,6 +16,6 @@ namespace BackEnd_ASP_NET.Models
         [MaxLength(200, ErrorMessage = "Description cannot exceed 200 characters.")]
         public string? Description { get; set; }
 
-        public ICollection<User>? Users { get; set; }
+        public ICollection<User> Users { get; set; } = new HashSet<User>();
     }
 }
