@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd_ASP.NET.Migrations
 {
     [DbContext(typeof(ShUEHContext))]
-    [Migration("20241013134404_CreateDB")]
+    [Migration("20241017124904_CreateDB")]
     partial class CreateDB
     {
         /// <inheritdoc />
@@ -212,13 +212,13 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c9204c7a-fbb3-4020-836a-92558329672c"),
+                            Id = new Guid("f7304936-5301-47b3-8e3b-7d61690e2127"),
                             Description = "Role Admin với đầy đủ các quyền hạn",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"),
+                            Id = new Guid("ec39d685-93a2-4712-95bb-6693ff5cb610"),
                             Description = "Role User với các quyền hạn có giới hạn và mua hàng",
                             Name = "User"
                         });
@@ -252,8 +252,8 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("bit");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -378,13 +378,16 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -398,7 +401,10 @@ namespace BackEnd_ASP.NET.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("Gender")
+                    b.Property<bool?>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsExternalLogin")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("LastModifiedDate")
@@ -430,6 +436,12 @@ namespace BackEnd_ASP.NET.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -454,15 +466,16 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d04ca493-436a-40ac-9023-c9c3f3bf1ad1"),
+                            Id = new Guid("adb01dd3-7aae-4d64-80a1-2ec2483343ca"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "327efebb-5641-42cd-9e4d-745c164724de",
+                            ConcurrencyStamp = "3529e22c-e591-42a3-a7ae-932ee1abb6d6",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(2004, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "john.doe@example.com",
+                            DateOfBirth = new DateTime(2204, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "machgiahuy@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Mach",
                             Gender = true,
+                            IsExternalLogin = false,
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Gia Huy",
                             LockoutEnabled = false,
@@ -470,22 +483,23 @@ namespace BackEnd_ASP.NET.Migrations
                             NormalizedUserName = "JOHN.DOE",
                             PasswordHash = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("c9204c7a-fbb3-4020-836a-92558329672c"),
+                            RoleId = new Guid("f7304936-5301-47b3-8e3b-7d61690e2127"),
                             TotalMoney = 1000m,
                             TwoFactorEnabled = false,
                             UserName = "Mach Gia Huy"
                         },
                         new
                         {
-                            Id = new Guid("93c50db5-9428-4379-96fd-4d14942c50f2"),
+                            Id = new Guid("423a1d7d-7e21-4601-b069-3cc8f7f21ada"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e099b8a-7c6a-4627-b992-5c31d52555db",
+                            ConcurrencyStamp = "b2c3f6a1-b45d-4af6-8b51-e54d50e5fe17",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jane",
                             Gender = false,
+                            IsExternalLogin = false,
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Smith",
                             LockoutEnabled = false,
@@ -493,7 +507,7 @@ namespace BackEnd_ASP.NET.Migrations
                             NormalizedUserName = "JANE.SMITH",
                             PasswordHash = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"),
+                            RoleId = new Guid("ec39d685-93a2-4712-95bb-6693ff5cb610"),
                             TotalMoney = 1500m,
                             TwoFactorEnabled = false,
                             UserName = "jane.smith"

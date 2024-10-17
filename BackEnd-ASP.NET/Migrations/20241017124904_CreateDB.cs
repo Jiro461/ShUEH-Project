@@ -49,7 +49,7 @@ namespace BackEnd_ASP.NET.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Material = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -76,8 +76,12 @@ namespace BackEnd_ASP.NET.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<bool>(type: "bit", nullable: true),
+                    IsExternalLogin = table.Column<bool>(type: "bit", nullable: true),
+                    ProviderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalMoney = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -364,17 +368,17 @@ namespace BackEnd_ASP.NET.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("c9204c7a-fbb3-4020-836a-92558329672c"), "Role Admin với đầy đủ các quyền hạn", "Admin" },
-                    { new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"), "Role User với các quyền hạn có giới hạn và mua hàng", "User" }
+                    { new Guid("ec39d685-93a2-4712-95bb-6693ff5cb610"), "Role User với các quyền hạn có giới hạn và mua hàng", "User" },
+                    { new Guid("f7304936-5301-47b3-8e3b-7d61690e2127"), "Role Admin với đầy đủ các quyền hạn", "Admin" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreateDate", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "Gender", "LastModifiedDate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RoleId", "SecurityStamp", "TotalMoney", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "ConcurrencyStamp", "CreateDate", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "Gender", "IsExternalLogin", "LastModifiedDate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfileName", "ProviderName", "RoleId", "SecurityStamp", "TotalMoney", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("93c50db5-9428-4379-96fd-4d14942c50f2"), 0, "9e099b8a-7c6a-4627-b992-5c31d52555db", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", false, "Jane", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smith", false, null, "JANE.SMITH@EXAMPLE.COM", "JANE.SMITH", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, new Guid("fff21463-3ae9-44b3-a2c0-95d6130448e9"), null, 1500m, false, "jane.smith" },
-                    { new Guid("d04ca493-436a-40ac-9023-c9c3f3bf1ad1"), 0, "327efebb-5641-42cd-9e4d-745c164724de", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", false, "Mach", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gia Huy", false, null, "JOHN.DOE@EXAMPLE.COM", "JOHN.DOE", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, new Guid("c9204c7a-fbb3-4020-836a-92558329672c"), null, 1000m, false, "Mach Gia Huy" }
+                    { new Guid("423a1d7d-7e21-4601-b069-3cc8f7f21ada"), 0, null, "b2c3f6a1-b45d-4af6-8b51-e54d50e5fe17", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", false, "Jane", false, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smith", false, null, "JANE.SMITH@EXAMPLE.COM", "JANE.SMITH", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, null, null, new Guid("ec39d685-93a2-4712-95bb-6693ff5cb610"), null, 1500m, false, "jane.smith" },
+                    { new Guid("adb01dd3-7aae-4d64-80a1-2ec2483343ca"), 0, null, "3529e22c-e591-42a3-a7ae-932ee1abb6d6", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2204, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "machgiahuy@gmail.com", false, "Mach", true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gia Huy", false, null, "JOHN.DOE@EXAMPLE.COM", "JOHN.DOE", "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", null, false, null, null, new Guid("f7304936-5301-47b3-8e3b-7d61690e2127"), null, 1000m, false, "Mach Gia Huy" }
                 });
 
             migrationBuilder.CreateIndex(

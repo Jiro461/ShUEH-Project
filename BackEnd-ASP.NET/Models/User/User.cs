@@ -15,11 +15,12 @@ namespace BackEnd_ASP_NET.Models
         [Required(ErrorMessage = "Last name is required.")]
         [MaxLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
         public string? LastName { get; set; }
-
-        [Required(ErrorMessage = "Date of birth is required.")]
-        public DateTime DateOfBirth { get; set; }
-
-        public bool Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string? ProfileName { get; set; }
+        public string? AvatarUrl { get; set; } = null;
+        public bool? Gender { get; set; }
+        public bool? IsExternalLogin { get; set; } = false;
+        public string? ProviderName { get; set; }
 
         public decimal? TotalMoney { get; set; }
         // Foreign Key for Role

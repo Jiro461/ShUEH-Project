@@ -65,11 +65,11 @@ namespace BackEnd_ASP.NET.Data
                     Id = Guid.NewGuid(),
                     FirstName = "Mach",
                     LastName = "Gia Huy",
-                    DateOfBirth = new DateTime(2004, 11, 14), // Adjust your date creation here
+                    DateOfBirth = "14/11/2204".ToDateTime(), // Adjust your date creation here
                     Gender = true,
                     TotalMoney = 1000m,
                     RoleId = adminRoleId, // Use RoleId here
-                    Email = "john.doe@example.com",
+                    Email = "machgiahuy@gmail.com",
                     NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
                     UserName = "Mach Gia Huy",
                     NormalizedUserName = "JOHN.DOE",
@@ -81,7 +81,7 @@ namespace BackEnd_ASP.NET.Data
                     Id = Guid.NewGuid(),
                     FirstName = "Jane",
                     LastName = "Smith",
-                    DateOfBirth = new DateTime(2004, 5, 10), // Adjust your date creation here
+                    DateOfBirth = "10/05/2004".ToDateTime(), // Adjust your date creation here
                     Gender = false,
                     TotalMoney = 1500m,
                     RoleId = userRoleId, // Use RoleId here
@@ -93,10 +93,6 @@ namespace BackEnd_ASP.NET.Data
                     PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
                 }
             );
-            modelBuilder.Entity<User>().HasData(new Shoe{
-                Id = Guid.NewGuid(),
-                
-            });
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
