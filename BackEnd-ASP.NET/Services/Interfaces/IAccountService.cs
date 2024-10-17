@@ -10,7 +10,8 @@ namespace BackEnd_ASP.NET.Services
         Task<IActionResult> GoogleAuthen(HttpContext httpContext);
 
         Task UpdateUserAsync(User user);
-        Task<IActionResult> DeleteUserAsync(Guid id);
+        Task<IActionResult> DeleteUserAsync(HttpContext httpContext);
         // Add more methods as needed
+        Task<IActionResult> SignOutUser(HttpContext httpContext);
     }
 }

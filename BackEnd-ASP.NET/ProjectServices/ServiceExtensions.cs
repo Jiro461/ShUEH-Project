@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
 using BackEnd_ASP_NET.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
@@ -67,6 +69,8 @@ public static class ServiceExtensions
         {
             options.ClientId = "11161045560-r08im8g3rll7ifg200tgmc8gmpa1am1t.apps.googleusercontent.com";  // Thay bằng Client ID của bạn
             options.ClientSecret = "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";  // Thay bằng Client Secret của bạn
+            options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+            options.ClaimActions.MapJsonKey("urn:google:locale", "locale", "string");
         });
 
     }
@@ -76,53 +80,53 @@ public static class ServiceExtensions
     /// </summary>
     private static void ConfigureCors(IServiceCollection services)
     {
-    services.AddCors(options =>
-    {
-        options.AddPolicy("CorsPolicy",
-            builder =>
-            {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy",
+                builder =>
+                {
 
-                builder.WithOrigins("http://localhost:5118","http://localhost:3000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                // Allow localhost origins
-                // builder.WithOrigins("http://localhost:3000", "http://localhost:5118") // Liệt kê các origin cụ thể
-                //     .AllowAnyHeader()
-                //     .AllowAnyMethod()
-                //     .AllowCredentials();
-            });
-    });
+                    builder.WithOrigins("http://localhost:5118", "http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    // Allow localhost origins
+                    // builder.WithOrigins("http://localhost:3000", "http://localhost:5118") // Liệt kê các origin cụ thể
+                    //     .AllowAnyHeader()
+                    //     .AllowAnyMethod()
+                    //     .AllowCredentials();
+                });
+        });
 
     }
-/// <summary>
-/// Cấu hình Swagger.
-/// </summary>
-private static void ConfigureSwagger(IServiceCollection services)
-{
-    services.AddEndpointsApiExplorer();
-    services.AddSwaggerGen();
-}
-
-
-/// <summary>
-/// Cấu hình EntityFramework.
-/// </summary>
-private static void ConfigureEntityFramework(IServiceCollection services, IConfiguration configuration)
-{
-    services.AddDbContext<ShUEHContext>(options =>
+    /// <summary>
+    /// Cấu hình Swagger.
+    /// </summary>
+    private static void ConfigureSwagger(IServiceCollection services)
     {
-        options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
-    });
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+    }
 
-    services.AddIdentityCore<User>(options =>
+
+    /// <summary>
+    /// Cấu hình EntityFramework.
+    /// </summary>
+    private static void ConfigureEntityFramework(IServiceCollection services, IConfiguration configuration)
     {
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = true;
-        options.Password.RequireLowercase = true;
-    })
-       .AddEntityFrameworkStores<ShUEHContext>().AddDefaultTokenProviders();
-}
+        services.AddDbContext<ShUEHContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("ShUEH-DB"));
+        });
+
+        services.AddIdentityCore<User>(options =>
+        {
+            options.Password.RequireDigit = true;
+            options.Password.RequiredLength = 8;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+        })
+           .AddEntityFrameworkStores<ShUEHContext>().AddDefaultTokenProviders();
+    }
 }

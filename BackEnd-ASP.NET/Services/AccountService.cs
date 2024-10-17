@@ -29,7 +29,6 @@ namespace BackEnd_ASP.NET.Services
         }
         private async Task SignInWithCookies(User user, HttpContext httpContext, bool rememberMe)
         {
-            // Tạo danh sách Claims
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -37,22 +36,22 @@ namespace BackEnd_ASP.NET.Services
                 new Claim(ClaimTypes.Email, user.Email ?? "NoEmail"),
                 new Claim(ClaimTypes.Role, user.RoleId?.ToString() ?? "None"),
                 new Claim(ClaimTypes.Gender, user.Gender.ToString() ?? "Both"),
+                new Claim("Provider", user.ProviderName ?? "Local"),  // Thêm Provider vào Claim
+                new Claim("IsExternal", user.IsExternalLogin.ToString()),
                 new Claim("IPAddress", httpContext.Connection.RemoteIpAddress?.ToString() ?? "Undefined")
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-            // Thiết lập thuộc tính Cookie
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = rememberMe,
-                ExpiresUtc = rememberMe 
+                ExpiresUtc = rememberMe
                     ? DateTimeOffset.UtcNow.AddDays(7)
                     : DateTimeOffset.UtcNow.AddHours(1)
             };
 
-            // Đăng nhập và cấp cookie cho người dùng
             await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authProperties);
         }
         public async Task<IActionResult> Login(UserLoginDto userLoginDto, HttpContext httpContext)
@@ -73,47 +72,34 @@ namespace BackEnd_ASP.NET.Services
 
         public async Task<IActionResult> Register(UserRegisterDto userDto)
         {
-            if (string.IsNullOrEmpty(userDto.UserName) || string.IsNullOrEmpty(userDto.Email)) return BadRequest("Username and Email are required.");
-            if (userDto.UserName.Length < 7) return BadRequest("Username must have longer than 7 word");
-            // Tìm xem có tồn tại tài khoản trùng hay không
+            if (string.IsNullOrEmpty(userDto.UserName) || string.IsNullOrEmpty(userDto.Email))
+                return BadRequest("Username and Email are required.");
+
+            if (userDto.UserName.Length < 7)
+                return BadRequest("Username must have longer than 7 characters.");
+
+            if (!userDto.Email.IsValidEmail()) return BadRequest("Email is not valid");
+
             var existingUser = await userManager.FindByNameAsync(userDto.UserName);
             if (existingUser != null) return BadRequest("User with this Name already exists");
+
             var existingEmail = await userManager.FindByEmailAsync(userDto.Email);
             if (existingEmail != null) return BadRequest("User with this Email already exists");
-            // Lấy ra Role User
-            var guestRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == RoleName.User);
+
+            var guestRole = await GetGuestRoleAsync();
             if (guestRole == null) return BadRequest($"Role {RoleName.User} not found.");
+            var user = CreateNewUser(
+                userName: userDto.UserName,
+                email: userDto.Email,
+                firstName: userDto.FirstName,
+                lastName: userDto.LastName,
+                dateOfBirth: userDto.DateOfBirth.ToDateTime(),
+                guestRole: guestRole,
+                gender: userDto.Gender,
+                isExternalLogin: false
+            );
 
-            // Tạo người dùng
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = userDto.FirstName,
-                LastName = userDto.LastName,
-                DateOfBirth = userDto.DateOfBirth.ToDateTime(),
-                Email = userDto.Email,
-                NormalizedEmail = userDto.Email.ToUpper(),
-                Gender = userDto.Gender,
-                TotalMoney = 0,
-                Role = guestRole,
-                UserName = userDto.UserName,
-                NormalizedUserName = userDto.UserName.ToUpper(),
-                EmailConfirmed = false,
-            };
-
-            //Thêm người dùng vào cơ sở dữ liệu trước
-            var result = await userManager.CreateAsync(user, userDto.Password);
-            if (!result.Succeeded) return BadRequest($"{string.Join(";", result.Errors.Select(e => e.Description))}");
-            var wishList = new Wishlist
-            {
-                User = user
-            };
-            //Thêm wishlist cho người dùng vào cơ sở dữ liệu
-            await userRepository.AddWishlistAsync(wishList);
-            user.Wishlist = wishList;
-            //Cập nhật wishlistId cho người dùng
-            await userRepository.UpdateAsync(user);
-            return Ok("Created Successfully.");
+            return await CreateUserAndWishlistAsync(user, userDto.Password);
         }
 
 
@@ -126,61 +112,112 @@ namespace BackEnd_ASP.NET.Services
             var result = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             if (!result.Succeeded || result.Principal == null)
-            {
-                return BadRequest("Không xác thực thành công.");
-            }
-            bool rememberMe = false;
-            if (result.Properties.Items.TryGetValue("rememberMe", out var rememberMeValue))
-            {
-                rememberMe = bool.Parse(rememberMeValue ?? "false");
-            }
-            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
-            var firstName = result.Principal.FindFirstValue(ClaimTypes.GivenName);
-            var lastName = result.Principal.FindFirstValue(ClaimTypes.Surname);
-            var googleId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+                return BadRequest("Can't authenticate.");
 
-            if (email == null)
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+            var firstName = result.Principal.FindFirstValue(ClaimTypes.GivenName) ?? "Unknown";
+            var lastName = result.Principal.FindFirstValue(ClaimTypes.Surname) ?? "Unknown";
+            var googleId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var avatarUrl = string.Empty;
+            if (result.Principal.HasClaim(c => c.Type == "urn:google:picture"))
             {
-                return BadRequest("Không lấy được email từ Google.");
+                avatarUrl = result.Principal.FindFirst("urn:google:picture")?.Value ?? null;
             }
-            // Kiểm tra xem người dùng đã tồn tại chưa (theo Email hoặc GoogleId)
+            if (email == null) return BadRequest("Can't get email from Google.");
+
+            var guestRole = await GetGuestRoleAsync();
+            if (guestRole == null) return BadRequest($"Role {RoleName.User} not found.");
 
             var existingUser = await userManager.FindByEmailAsync(email);
             if (existingUser == null)
             {
-                // Tạo mới người dùng nếu chưa tồn tại
-                existingUser = new User
-                {
-                    Id = Guid.NewGuid(),
-                    UserName = email,
-                    Email = email,
-                    FirstName = firstName ?? "Unknown", // Phòng trường hợp Google không cung cấp
-                    LastName = lastName ?? "Unknown",
-                    DateOfBirth = DateTime.MinValue, // Tạm thời để MinValue vì Google không cung cấp
-                    Gender = true, // Có thể để mặc định hoặc bỏ qua nếu không có thông tin
-                    EmailConfirmed = true, // Vì đã xác thực qua Google
-                    TotalMoney = 0 // Khởi tạo với 0
-                };
+                existingUser = CreateNewUser(
+                    userName: email,
+                    email: email,
+                    firstName: firstName,
+                    lastName: lastName,
+                    guestRole: guestRole,
+                    avatarUrl: avatarUrl,
+                    providerName: "Google",
+                    isExternalLogin: true
+                );
 
-                var resultCreate = await userManager.CreateAsync(existingUser);
-                if (!resultCreate.Succeeded)
-                {
-                    return BadRequest("Không thể tạo tài khoản.");
-                }
+                await CreateUserAndWishlistAsync(existingUser);
             }
             else
             {
-                // Nếu người dùng đã tồn tại, có thể cập nhật LastModifiedDate
-                existingUser.LastModifiedDate = MyDateTime.VietNam.DateTime;
-                await userManager.UpdateAsync(existingUser);
+                await userRepository.UpdateAsync(existingUser);
             }
-            await SignInWithCookies(existingUser, httpContext, rememberMe);
-            return Ok("Đăng Nhập thành công");
+
+            await SignInWithCookies(existingUser, httpContext, true);
+            var redirectUrl = $"http://localhost:3000/";
+            return Redirect(redirectUrl);
         }
-        public async Task<IActionResult> DeleteUserAsync(Guid id)
+
+        public async Task<IActionResult> DeleteUserAsync(HttpContext httpContext)
         {
-            await userRepository.DeleteAsync(id);
+            var userId = httpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var user = await context.Users
+                .Include(u => u.Wishlist) // Load các wishlist liên quan
+                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            if (user != null)
+            {
+                context.Wishlists.RemoveRange(user.Wishlist);
+
+                // Xóa user
+                await userRepository.DeleteAsync(user.Id);
+
+            }
+
             return Ok("Delete Succesfully");
+        }
+        public async Task<IActionResult> SignOutUser(HttpContext httpContext)
+        {
+            await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok("Sign Out Successfully");
+        }
+        private async Task<IActionResult> CreateUserAndWishlistAsync(User user, string? password = null)
+        {
+            IdentityResult result;
+            result = string.IsNullOrEmpty(password) ? await userManager.CreateAsync(user) : await userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded) return BadRequest(
+            string.Join(";", result.Errors.Select(e => e.Description)));
+
+            var wishList = new Wishlist { User = user };
+            await userRepository.AddWishlistAsync(wishList);
+            user.Wishlist = wishList;
+            await userRepository.UpdateAsync(user);
+            return Ok(password != null ? "Created Successfully" : "User Created without Password");
+        }
+        private User CreateNewUser(string userName, string email, string firstName = "Unknown",
+                string lastName = "Unknown", DateTime? dateOfBirth = null,
+                Role? guestRole = null, string providerName = "Local",
+                bool isExternalLogin = false, bool? gender = null, string? avatarUrl = null)
+        {
+            return new User
+            {
+                Id = Guid.NewGuid(),
+                UserName = userName,
+                NormalizedUserName = userName.ToUpper(),
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
+                FirstName = firstName,
+                LastName = lastName,
+                Gender = gender,
+                ProfileName = $"{firstName} {lastName}",
+                AvatarUrl = avatarUrl ?? $"{MyURL.Host}/images/avatars/noavatar.png",
+                DateOfBirth = dateOfBirth,
+                Role = guestRole,
+                ProviderName = providerName,
+                IsExternalLogin = isExternalLogin,
+                EmailConfirmed = isExternalLogin,
+                TotalMoney = 0
+            };
+        }
+        public async Task<Role?> GetGuestRoleAsync()
+        {
+            return await context.Roles.FirstOrDefaultAsync(r => r.Name == RoleName.User);
         }
     }
 }
