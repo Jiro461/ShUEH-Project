@@ -18,7 +18,7 @@ namespace BackEnd_ASP_NET.Models
         [MaxLength(50, ErrorMessage = "Brand cannot exceed 50 characters.")]
         public string? Brand { get; set; }
 
-        public bool Gender { get; set; }
+        public int Gender { get; set; }
 
         [MaxLength(100, ErrorMessage = "Material cannot exceed 100 characters.")]
         public string? Material { get; set; }

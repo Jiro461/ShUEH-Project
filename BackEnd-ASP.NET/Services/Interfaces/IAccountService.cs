@@ -7,6 +7,7 @@ namespace BackEnd_ASP.NET.Services
         Task<IActionResult> Register(UserRegisterDto model);
         Task<User?> GetByIdAsync(Guid id);
         Task<IActionResult> Login(UserLoginDto userLoginDto, HttpContext httpContext);
+        Task<IActionResult> GoogleAuthen(HttpContext httpContext);
 
         Task UpdateUserAsync(User user);
         Task<IActionResult> DeleteUserAsync(Guid id);

@@ -93,7 +93,10 @@ namespace BackEnd_ASP.NET.Data
                     PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
                 }
             );
-
+            modelBuilder.Entity<User>().HasData(new Shoe{
+                Id = Guid.NewGuid(),
+                
+            });
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }

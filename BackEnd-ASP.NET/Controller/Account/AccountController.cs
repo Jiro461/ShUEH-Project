@@ -61,31 +61,21 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpGet("sign-in")]
         public IActionResult SignInGoogle()
         {
-            var redirectUrl = Url.Action("Callback", "Account"); // Đường dẫn callback
-            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            var rememberMe = Request.Query["rememberMe"] == "true";
+            var redirectUrl = Url.Action("GoogleAuthen", "Account"); // Đường dẫn callback
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = redirectUrl,
+                Items = { { "rememberMe", rememberMe.ToString() } }
+            };
+
             return Challenge(properties, GoogleDefaults.AuthenticationScheme); // Chuyển hướng tới Google
         }
 
-        [HttpGet("callback")]  // Specify HTTP GET for the Callback method
-        public async Task<IActionResult> Callback()
+        [HttpGet("GoogleAuthen")]  // Sau khi nhận thông tin đăng nhập từ Google
+        public async Task<IActionResult> GoogleAuthen()
         {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            
-            if (!result.Succeeded || result.Principal == null)
-            {
-                return BadRequest("Không xác thực thành công.");
-            }
-
-            var claims = result.Principal.Identities.FirstOrDefault()?.Claims.Select(claim => new
-            {
-                claim.Issuer,
-                claim.OriginalIssuer,
-                claim.Type,
-                claim.Value,
-                claim.Properties
-            });
-
-            return Ok(claims);
+            return await accountService.GoogleAuthen(HttpContext);
         }
 
     }

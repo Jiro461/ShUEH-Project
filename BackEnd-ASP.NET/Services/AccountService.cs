@@ -27,6 +27,34 @@ namespace BackEnd_ASP.NET.Services
             this.context = context;
             this.signInManager = signInManager;
         }
+        private async Task SignInWithCookies(User user, HttpContext httpContext, bool rememberMe)
+        {
+            // Tạo danh sách Claims
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email ?? "NoEmail"),
+                new Claim(ClaimTypes.Role, user.RoleId?.ToString() ?? "None"),
+                new Claim(ClaimTypes.Gender, user.Gender.ToString() ?? "Both"),
+                new Claim("IPAddress", httpContext.Connection.RemoteIpAddress?.ToString() ?? "Undefined")
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            // Thiết lập thuộc tính Cookie
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = rememberMe,
+                ExpiresUtc = rememberMe 
+                    ? DateTimeOffset.UtcNow.AddDays(7)
+                    : DateTimeOffset.UtcNow.AddHours(1)
+            };
+
+            // Đăng nhập và cấp cookie cho người dùng
+            await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authProperties);
+        }
         public async Task<IActionResult> Login(UserLoginDto userLoginDto, HttpContext httpContext)
         {
             if (string.IsNullOrEmpty(userLoginDto.UserName) || string.IsNullOrEmpty(userLoginDto.Password)) return BadRequest("Username and Password are required.");
@@ -34,29 +62,7 @@ namespace BackEnd_ASP.NET.Services
             if (user == null) return BadRequest(new { message = "Invalid username or userLoginDto.Password" });
             var result = await signInManager.CheckPasswordSignInAsync(user, userLoginDto.Password, true);
             if (!result.Succeeded) return BadRequest($"Invalid Username or Password");
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, userLoginDto.UserName),
-                new Claim(ClaimTypes.Email, user?.Email??"NoEmail"),
-                new Claim(ClaimTypes.Role, user?.Role?.Id.ToString()??"None"),
-                new Claim("IPAddress", httpContext.Connection.RemoteIpAddress?.ToString()??"Undefined")
-            };
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = userLoginDto.rememberMe, // Cookie sẽ tồn tại sau khi đóng trình duyệt nếu chọn "Remember Me"
-                ExpiresUtc = userLoginDto.rememberMe ? DateTimeOffset.UtcNow.AddDays(7) : DateTimeOffset.UtcNow.AddHours(1) // Hết hạn sau 7 ngày (có chọn userLoginDto.rememberMe) hoặc 1 giờ
-            };
-            if (httpContext == null)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Unable to access HttpContext.");
-            }
-
-            await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authProperties);
-
+            await SignInWithCookies(user, httpContext, userLoginDto.rememberMe);
             return Ok("Login successfully");
         }
 
@@ -115,7 +121,62 @@ namespace BackEnd_ASP.NET.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<IActionResult> GoogleAuthen(HttpContext httpContext)
+        {
+            var result = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
+            if (!result.Succeeded || result.Principal == null)
+            {
+                return BadRequest("Không xác thực thành công.");
+            }
+            bool rememberMe = false;
+            if (result.Properties.Items.TryGetValue("rememberMe", out var rememberMeValue))
+            {
+                rememberMe = bool.Parse(rememberMeValue ?? "false");
+            }
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+            var firstName = result.Principal.FindFirstValue(ClaimTypes.GivenName);
+            var lastName = result.Principal.FindFirstValue(ClaimTypes.Surname);
+            var googleId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (email == null)
+            {
+                return BadRequest("Không lấy được email từ Google.");
+            }
+            // Kiểm tra xem người dùng đã tồn tại chưa (theo Email hoặc GoogleId)
+
+            var existingUser = await userManager.FindByEmailAsync(email);
+            if (existingUser == null)
+            {
+                // Tạo mới người dùng nếu chưa tồn tại
+                existingUser = new User
+                {
+                    Id = Guid.NewGuid(),
+                    UserName = email,
+                    Email = email,
+                    FirstName = firstName ?? "Unknown", // Phòng trường hợp Google không cung cấp
+                    LastName = lastName ?? "Unknown",
+                    DateOfBirth = DateTime.MinValue, // Tạm thời để MinValue vì Google không cung cấp
+                    Gender = true, // Có thể để mặc định hoặc bỏ qua nếu không có thông tin
+                    EmailConfirmed = true, // Vì đã xác thực qua Google
+                    TotalMoney = 0 // Khởi tạo với 0
+                };
+
+                var resultCreate = await userManager.CreateAsync(existingUser);
+                if (!resultCreate.Succeeded)
+                {
+                    return BadRequest("Không thể tạo tài khoản.");
+                }
+            }
+            else
+            {
+                // Nếu người dùng đã tồn tại, có thể cập nhật LastModifiedDate
+                existingUser.LastModifiedDate = MyDateTime.VietNam.DateTime;
+                await userManager.UpdateAsync(existingUser);
+            }
+            await SignInWithCookies(existingUser, httpContext, rememberMe);
+            return Ok("Đăng Nhập thành công");
+        }
         public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
             await userRepository.DeleteAsync(id);

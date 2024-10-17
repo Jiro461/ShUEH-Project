@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
 import UserHome from './user/pages/UserHome/UserHome.jsx';
+import AdminHome from './admin/pages/AdminHome/AdminHome.jsx';
 import AdminLayout from './layouts/admin/AdminLayout.jsx';
 import UserLayout from './layouts/user/UserLayout.jsx';
 import './App.scss';
@@ -48,10 +49,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AdminLayout />,
     children: [
-      // {
-      //   path: "",
-      //   element: , // Giả định AdminClient đã được định nghĩa
-      // },
+      {
+        path: "",
+      element: <AdminHome />, // Giả định AdminClient đã được định nghĩa
+      },
     ],
   },
 ]);
