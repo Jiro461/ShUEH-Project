@@ -1,0 +1,8 @@
+/* Header */
+#header {
+    height: 100px;
+    background: linear-gradient(#FF6263, #FCAB73);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}

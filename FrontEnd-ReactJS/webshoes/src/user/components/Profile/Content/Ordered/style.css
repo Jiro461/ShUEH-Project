@@ -1,0 +1,122 @@
+/* Ordered */
+.profile {
+    .ordered {
+        padding: 30px 0;
+    }
+
+    /* order */
+    .ordered .order {
+        background-color: #fff;
+        border-radius: 10px;
+        color: #000;
+        text-align: center;
+        padding: 20px 30px;
+        margin: 20px 0;
+    }
+
+    /* order-status */
+    .ordered .order-status {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid rgb(0, 0, 0, .5);
+        padding-bottom: 10px;
+    }
+
+    .ordered .order-status h2 {
+        font-size: 0.9rem;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .ordered .order-status .status {
+        color: #FF6263;
+    }
+
+    /* item */
+    .ordered .item {
+        display: flex;
+        justify-content: flex-start;
+        padding: 20px 0;
+        border-bottom: 2px solid rgb(0, 0, 0, .5);
+    }
+
+    .ordered .item .image {
+        width: 11vw;
+        min-width: 100px;
+        height: 14vh;
+        display: flex;
+        align-items: center;
+        border-radius: 0.8vw;
+    }
+    
+    .ordered .item img {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+    }
+
+    .item-info {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .item-info .info {
+        text-align: left;
+        margin-left: 10px;
+        text-transform: uppercase;
+    }
+
+    .item-info .info h3 {
+        font-size: 0.9rem;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .item-info .info p {
+        font-size: 0.7rem;
+        margin: 0;
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 700;
+    }
+
+    .item-info .item-price {
+        font-size: 1.2rem;
+        margin: 0;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .ordered .total {
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-top: 30px;
+        text-align: right;
+    }
+
+    .ordered .total span {
+        font-size: 1.5rem;
+        margin-left: 15px;
+        font-weight: 1000;
+        color: #FF6263;
+    }
+
+    .ordered .buy-back {
+        display: flex;
+        justify-content: right;
+    }
+
+    .ordered .buy-back .btn-buyBack {
+        padding: 1vh 2vw;
+        border: 0;
+        border-radius: 3vw;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(to left, #ff626d, #fcad72);
+        text-transform: uppercase;
+        box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    }
+}

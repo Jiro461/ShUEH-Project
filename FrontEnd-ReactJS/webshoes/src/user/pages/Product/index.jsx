@@ -3,6 +3,7 @@ import React from 'react';
 import SideBar from '../../components/Product/SideBar';
 import SubNav from '../../components/Product/Subnav';
 import ProductList from '../../components/Product/ProductList';
+import Header from '../../layouts/Header';
 
 function Product() {
     return (
@@ -15,7 +16,8 @@ function Product() {
                 <div>Free shipping for orders over 1 million VND</div>
             </div>
             
-            <div className="row header" />
+            {/* Header */}
+            <Header />
 
             <div className="row container-body">
                 <SideBar />

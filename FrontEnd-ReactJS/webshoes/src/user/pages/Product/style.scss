@@ -29,17 +29,6 @@
     }
 }
 
-/* Header */
-.header {
-    height: 100px;
-    background: linear-gradient(#FF6263, #FCAB73);
-}
-
-/* Container Body */
-.container-body {
-    
-}
-
 /* Sidebar */
 /* Gender */
 .dividing-line {
@@ -251,14 +240,23 @@
         h3 {
             line-height: 30px;
         }
+
+        .item {
+            input {
+                &:checked + label::before {
+                    background-color: #fff;
+                    opacity: 0.5;
+                }
+            }
+        }
     }
 }
 
 @media (max-width: 1120px) {
-    .sidebar,
-    #catalog,
-    #ads,
-    .subNav {
+    .product .sidebar,
+    .product #catalog,
+    .product #ads,
+    .product .subNav {
         display: none;
     }
 }
