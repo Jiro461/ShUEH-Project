@@ -14,6 +14,7 @@ namespace BackEnd_ASP.NET.Controller.Account
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;
@@ -24,26 +25,17 @@ namespace BackEnd_ASP.NET.Controller.Account
             this.accountService = accountService;
             this.shUEHContext = shUEHContext;
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete()
         {
-            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            var user = await shUEHContext.Users
-                .Include(u => u.Wishlist) // Load các wishlist liên quan
-                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            return await accountService.DeleteUserAsync(HttpContext);
+        }
 
-            // if (user != null)
-            // {
-
-            //     // Xóa các wishlist trước
-            //     shUEHContext.Wishlists.RemoveRange(user.Wishlist);
-
-            //     // Xóa user
-            //     shUEHContext.Users.Remove(user);
-
-            //     await shUEHContext.SaveChangesAsync();
-            // }
-            return Ok(user);
+        [HttpPost("sign-out")]
+        public async Task<IActionResult> Signout()
+        {
+            return await accountService.SignOutUser(HttpContext);
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegisterDto userDto)
