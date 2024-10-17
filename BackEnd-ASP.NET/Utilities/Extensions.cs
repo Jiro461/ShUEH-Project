@@ -93,11 +93,27 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
         /// Chuyển đổi chuỗi thành kiểu DateTime với định dạng mong muốn
         /// </summary>
         /// <returns>Giá trị DateTime nếu chuyển đổi thành công, null nếu không thành công</returns>
-        public static DateTime ToDateTime(this string dateString, string format = "dd/MM/yyyy")
+        public static DateTime? ToDateTime(this string dateString, string format = "dd/MM/yyyy")
         {
+            // Phân tách ngày, tháng, năm
+            var parts = dateString.Split('/');
+            if (parts.Length != 3)
+            {
+                throw new ArgumentException($"Chuỗi '{dateString}' không có định dạng đúng.");
+            }
+
+            // Thêm số 0 ở đầu cho ngày và tháng nếu cần
+            string day = parts[0].PadLeft(2, '0');
+            string month = parts[1].PadLeft(2, '0');
+            string year = parts[2];
+
+            // Tạo lại chuỗi ngày tháng năm
+            string formattedDateString = $"{day}/{month}/{year}";
+
             DateTime parsedDate;
+
             // Sử dụng TryParseExact để tránh ngoại lệ nếu chuỗi không đúng định dạng
-            if (DateTime.TryParseExact(dateString, format, CultureInfo.InvariantCulture,
+            if (DateTime.TryParseExact(formattedDateString, format, CultureInfo.InvariantCulture,
                                        DateTimeStyles.None, out parsedDate))
             {
                 return parsedDate; // Trả về giá trị DateTime nếu chuyển đổi thành công
@@ -106,7 +122,7 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
             // Ném ra ngoại lệ nếu không thể chuyển đổi
             throw new ArgumentException($"Chuỗi '{dateString}' không thể chuyển đổi thành kiểu DateTime với định dạng '{format}'.");
         }
-        
+
         /// <summary>
         /// Chuyển đổi từ UTC sang giờ Việt Nam (UTC+7)
         /// </summary>
