@@ -7,6 +7,8 @@ using BackEnd_ASP.NET.Data;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using BackEnd_ASP.NET.Models.User;
+using BackEnd_ASP_NET.Utilities.FileHelpers;
 
 
 namespace BackEnd_ASP.NET.Services
@@ -18,14 +20,18 @@ namespace BackEnd_ASP.NET.Services
         private readonly UserManager<User> userManager;
         private readonly ShUEHContext context;
         private readonly SignInManager<User> signInManager;
+        private readonly INotificationService notificationService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         // private readonly IHttpContextAccessor httpContextAccessor;
         public AccountService(IUserRepository userRepository, UserManager<User> userManager,
-        ShUEHContext context, SignInManager<User> signInManager)
+        ShUEHContext context, SignInManager<User> signInManager, INotificationService notificationService, IWebHostEnvironment webHostEnvironment)
         {
             this.userRepository = userRepository;
             this.userManager = userManager;
             this.context = context;
             this.signInManager = signInManager;
+            this.notificationService =  notificationService;
+            this._webHostEnvironment = webHostEnvironment;
         }
         private async Task SignInWithCookies(User user, HttpContext httpContext, bool rememberMe)
         {
@@ -65,9 +71,28 @@ namespace BackEnd_ASP.NET.Services
             return Ok("Login successfully");
         }
 
-        public Task<User?> GetByIdAsync(Guid id)
+        public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            User? user = await userRepository.GetByIdAsync(id);
+            if (user == null) return NotFound("User not found");
+            var userDto = new UserDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                ProfileName = user.ProfileName,
+                AvatarUrl = user.AvatarUrl,
+                TotalMoney = user.TotalMoney,
+            };
+            var userWishlist = await userRepository.GetWishlistByUserIdAsync(id);
+            if (userWishlist == null) return NotFound("Wishlist not found");
+            var userWishListItems = context.WishlistItems.Where(w => w.WishlistId == userWishlist.Id).ToList();
+            if (userWishListItems.Count > 0) userWishlist.WishlistItems = userWishListItems;
+            userDto.Wishlist = userWishlist;
+            var userOrders = context.Orders.Where(o => o.UserId == id).ToList();
+            if (userOrders.Count > 0) userDto.Orders = userOrders;
+            return Ok(userDto);
         }
 
         public async Task<IActionResult> Register(UserRegisterDto userDto)
@@ -98,14 +123,25 @@ namespace BackEnd_ASP.NET.Services
                 gender: userDto.Gender,
                 isExternalLogin: false
             );
-
             return await CreateUserAndWishlistAsync(user, userDto.Password);
         }
 
 
-        public Task UpdateUserAsync(User user)
+        public async Task<IActionResult> UpdateUserAsync(Guid id, UserDTO userDto)
         {
-            throw new NotImplementedException();
+            var user = await userRepository.GetByIdAsync(id);
+            if (user == null) return NotFound("User not found");
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.ProfileName = userDto.ProfileName;
+            user.DateOfBirth = userDto.DateOfBirth;
+            user.Gender = userDto.Gender;
+            user.ProfileName = userDto.ProfileName;
+            user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
+            await userRepository.UpdateAsync(user);
+            await notificationService.CreateUpdateNotificationForEntityChange(user, user.Id);
+            return Ok("Update Successfully");
         }
         public async Task<IActionResult> GoogleAuthen(HttpContext httpContext)
         {
@@ -188,6 +224,7 @@ namespace BackEnd_ASP.NET.Services
             await userRepository.AddWishlistAsync(wishList);
             user.Wishlist = wishList;
             await userRepository.UpdateAsync(user);
+            await notificationService.CreateNotificationForNewUser(user);
             return Ok(password != null ? "Created Successfully" : "User Created without Password");
         }
         private User CreateNewUser(string userName, string email, string firstName = "Unknown",

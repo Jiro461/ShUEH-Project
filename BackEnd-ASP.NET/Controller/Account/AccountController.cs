@@ -32,6 +32,12 @@ namespace BackEnd_ASP.NET.Controller.Account
             return await accountService.DeleteUserAsync(HttpContext);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            return await accountService.GetByIdAsync(id);
+        }
+
         [HttpPost("sign-out")]
         public async Task<IActionResult> Signout()
         {

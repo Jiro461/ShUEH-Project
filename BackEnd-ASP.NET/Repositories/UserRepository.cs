@@ -54,4 +54,9 @@ public class UserRepository : IUserRepository
         _dbSet.Update(entity);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Wishlist?> GetWishlistByUserIdAsync(Guid userId)
+    {
+        return await _context.Wishlists.FindAsync(userId);
+    }
 }
