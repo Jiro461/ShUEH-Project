@@ -11,13 +11,16 @@ import Setting from './user/components/Profile/Content/Setting/index.jsx';
 import ProfilePage from './user/pages/ProfilePage/index.jsx';
 import './App.css';
 import PaymentPage from './user/pages/PaymentPage/index.jsx';
+import ProductDetail from './user/pages/ProductDetail/index.jsx';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<UserClient />}>
-          <Route path='product' element={<Product />}/>
+          <Route path='product' element={<Product />}>
+          </Route>
+          <Route path='product/detail-product' element={<ProductDetail />}/>
           <Route path='profile' element={<ProfilePage />}>
             <Route path='' element={<Profile />}/>
             <Route path='setting' element={<Setting />}/>

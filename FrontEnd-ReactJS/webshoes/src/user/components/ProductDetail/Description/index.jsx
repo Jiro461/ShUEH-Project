@@ -31,10 +31,8 @@ const Description = () => {
   return (
     <div className="row description">
       <h1>Description</h1>
-      <div className="col"></div>
-
       {/* Description Tabs */}
-      <div className="col-5 nav-tabs">
+      <div className="col-lg-5 nav-tabs">
         <ul id="nav">
           <li className="nav-item">
             <a className="nav-link active" href="#nav" onClick={(e) => changeContent('about', e)}>About model</a>
@@ -57,7 +55,7 @@ const Description = () => {
       </div>
 
       {/* Product Characteristics */}
-      <div className="col-3 characterist">
+      <div className="col-lg-3 characterist">
         <h3>Characteristics</h3>
         <h4><span>Brand</span> Nike</h4>
         <h4><span>Upper Material</span> Textile, Artificial Material</h4>
@@ -65,8 +63,6 @@ const Description = () => {
         <h4><span>Season</span> Summer, Spring</h4>
         <h4><span>Code</span> A2731</h4>
       </div>
-
-      <div className="col"></div>
     </div>
   );
 };

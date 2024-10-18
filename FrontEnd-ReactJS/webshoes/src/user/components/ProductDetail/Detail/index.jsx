@@ -3,13 +3,11 @@ import React from 'react';
 const DetailProduct = () => {
     return (
         <div className="row detail-product">
-            <img src="./img/back_shoe.png" alt="Background" className="vector-img" />
-
-            <div className="col-1"></div>
+            <img src={process.env.PUBLIC_URL + "/img/back_shoe.png"} alt="Background" className="vector-img" />
 
             {/* Product Image Section */}
-            <div className="col-5 g img-background box">
-                <img src="./img/airford1.png" alt="Nike PG 2.5" className="shoe-img" />
+            <div className="col-md-12 col-lg-6 col-xl-6 g img-background box">
+                <img src={process.env.PUBLIC_URL + "/img/airford1.png"} alt="Nike PG 2.5" className="shoe-img" />
                 <div className="color-selection">
                     <div className="color"></div>
                     <div className="color"></div>
@@ -18,7 +16,7 @@ const DetailProduct = () => {
             </div>
 
             {/* Thumbnail Image Selection */}
-            <div className="col-1 ava-shoe-selection">
+            <div className="col-md-12 col-lg-1 col-xl-1 ava-shoe-selection">
                 <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_1.png'} alt="Thumbnail 1" /></div>
                 <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_2.png'} alt="Thumbnail 2" /></div>
                 <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_3.png'} alt="Thumbnail 3" /></div>
@@ -26,7 +24,7 @@ const DetailProduct = () => {
             </div>
 
             {/* Product Info Section */}
-            <div className="col-4 detail-style">
+            <div className="col-md-12 col-lg-12 col-xl-3 detail-style">
                 <h2>Nike PG 2.5</h2>
                 <h3>Playstation 'White'</h3>
                 <h4>$150.00</h4>
