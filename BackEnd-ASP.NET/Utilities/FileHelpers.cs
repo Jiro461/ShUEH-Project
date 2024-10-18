@@ -1,63 +1,50 @@
 using System;
+using BackEnd_ASP.NET.Models.User;
+using BackEnd_ASP_NET.Models;
 namespace BackEnd_ASP_NET.Utilities.FileHelpers
 {
     public static class FileHelper
     {
-        /// <summary>
-        /// Tạo thư mục nếu chưa tồn tại.
-        /// </summary>
-        public static void CreateIfMissing(string path)
+
+         public static async Task SaveFileFromUrlAsync(string url, Stream stream)
         {
-            if (!Directory.Exists(path))
+            using (var httpClient = new HttpClient())
             {
-                Directory.CreateDirectory(path);
+                var response = await httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                await response.Content.CopyToAsync(stream);
             }
         }
 
-        /// <summary>
-        /// Tải tệp lên thư mục được chỉ định một cách bất đồng bộ.
-        /// </summary>
-        /// <returns>Tên tệp đã tải lên, hoặc null nếu quá trình tải lên thất bại.</returns>
-        public static async Task<string?> UploadFile(IFormFile file, string directory, string? newName = null)
+        public static async Task<string> UpdateAvatarAsync(
+        IWebHostEnvironment webHostEnvironment,
+            User user,
+            UserDTO userDto)
         {
-            try
+            if (!string.IsNullOrEmpty(userDto.AvatarUrl) && userDto.AvatarUrl != user.AvatarUrl)
             {
-                // Nếu không có tên mới, sử dụng tên gốc của tệp
-                if (newName == null)
+                // Đường dẫn đến thư mục chứa ảnh
+                var uploads = Path.Combine(webHostEnvironment.WebRootPath, "images", "avatars");
+                var oldAvatarPath = Path.Combine(uploads, user.AvatarUrl ?? "noavatar.png"); // Đường dẫn ảnh cũ
+
+                // Xóa ảnh cũ nếu không phải là ảnh mặc định
+                if (user.AvatarUrl != "noavatar.png" && File.Exists(oldAvatarPath))
                 {
-                    newName = file.FileName;
+                    File.Delete(oldAvatarPath);
                 }
 
-                // Xác định đường dẫn để lưu tệp
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", directory);
-                CreateIfMissing(path); // Tạo thư mục nếu chưa tồn tại
-
-                // Đường dẫn đầy đủ của tệp sẽ được lưu vào
-                string filePath = Path.Combine(path, newName);
-
-                // Các loại tệp được hỗ trợ
-                var supportedTypes = new[] { "jpg", "jpeg", "png", "gif" };
-                var fileExt = Path.GetExtension(file.FileName).Substring(1).ToLower(); // Lấy phần mở rộng của tệp
-
-                // Kiểm tra xem loại tệp có được hỗ trợ hay không
-                if (!supportedTypes.Contains(fileExt))
+                // Lưu ảnh mới
+                var newAvatarPath = Path.Combine(uploads, $"{user.Id}");
+                using (var stream = new FileStream(newAvatarPath, FileMode.Create))
                 {
-                    return null; // Nếu loại tệp không hỗ trợ, trả về null
+                    await SaveFileFromUrlAsync(userDto.AvatarUrl, stream);
                 }
 
-                // Lưu tệp vào thư mục chỉ định
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream); // Sao chép nội dung tệp vào stream
-                }
-
-                // Trả về tên tệp đã tải lên
-                return newName;
+                // Cập nhật AvatarUrl mới trong user
+                return $"images/avatars/{user.Id}";
             }
-            catch
-            {
-                return null; // Nếu có lỗi xảy ra, trả về null
-            }
+
+            return user.AvatarUrl; // Trả về AvatarUrl cũ nếu không cập nhật
         }
     }
 }
