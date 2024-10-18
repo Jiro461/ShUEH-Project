@@ -1,0 +1,9 @@
+/* Catalog */
+#catalog {
+    height: 308px;
+    background-color: #29282D;
+
+    img {
+        padding: 0;
+    }
+}

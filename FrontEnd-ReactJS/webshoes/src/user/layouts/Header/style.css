@@ -1,8 +1,9 @@
 /* Header */
 #header {
-    height: 100px;
+    height: 16vh;
     background: linear-gradient(#FF6263, #FCAB73);
     position: sticky;
     top: 0;
     z-index: 2;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0,.5);
 }

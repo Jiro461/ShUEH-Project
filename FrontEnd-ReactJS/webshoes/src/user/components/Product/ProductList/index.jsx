@@ -3,23 +3,28 @@ import { shoes } from './dataProduct';
 
 function ProductList() {
     const shoeList = shoes.map((shoe, index) => (
-        <div key={index} className="col item">
-            <img src={process.env.PUBLIC_URL + '/img/revolution7.png'} alt="" />
-            <div className="new">New</div>
-            <div className="item-detail">
-                <h4>{shoe.name}</h4>
-                <p>Pricing ${shoe.price}</p>
-                <div className="btn-heart">
-                    <i className="fa-solid fa-heart" />
+        <li key={index} className="col item">
+            <a href="">
+                <div className="image">
+                    <img src={process.env.PUBLIC_URL + '/img/revolution7.png'} alt="" />
+                    <button type='button' className='btn-buynow'>BUY NOW</button>
                 </div>
-            </div>
-        </div>
+                <div className="new">New</div>
+                <div className="item-detail">
+                    <h4>{shoe.name}</h4>
+                    <p>Pricing ${shoe.price}</p>
+                    <div className="btn-heart">
+                        <i className="fa-solid fa-heart" />
+                    </div>
+                </div>
+            </a>
+        </li>
     ));
 
     return (
-        <div className="row row-cols-4 product-list">
+        <ul className="row row-cols-4 product-list">
             {shoeList}
-        </div>
+        </ul>
     );
 }
 

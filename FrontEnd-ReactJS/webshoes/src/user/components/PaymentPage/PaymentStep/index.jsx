@@ -17,7 +17,7 @@ const PaymentStep = () => {
             case 0:
                 return (
                     <div className="summary form-step active">
-                        <img src="./img/Vector.png" alt="Vector Modifier" />
+                        <div><img src="./img/Vector.png" alt="Vector Modifier" /></div>
                         <div className="content">
                             <h1>Summary</h1>
                             <div>
@@ -37,7 +37,7 @@ const PaymentStep = () => {
             case 1:
                 return (
                     <div className="information form-step active">
-                        <img src="./img/Vector.png" alt="Vector Modifier" />
+                        <div><img src="./img/Vector.png" alt="Vector Modifier" /></div>
                         <div className="content">
                             <h1>Information</h1>
                             <div>
@@ -63,7 +63,7 @@ const PaymentStep = () => {
             case 2:
                 return (
                     <div className="payment-cart form-step active">
-                        <img src="./img/Vector.png" alt="Vector Modifier" />
+                        <div><img src="./img/Vector.png" alt="Vector Modifier" /></div>
                         <div className="content">
                             <h1>Payment.</h1>
                             <div className="method">
@@ -96,7 +96,7 @@ const PaymentStep = () => {
             case 3:
                 return (
                     <div className="success form-step active">
-                        <img src="./img/Vector.png" alt="Vector Modifier" />
+                        <div><img src="./img/Vector.png" alt="Vector Modifier" /></div>
                         <div className="content">
                             <div><div className="check"><i className="fa-solid fa-check"></i></div></div>
                             <h2>Thank you for your purchase</h2>
@@ -118,7 +118,9 @@ const PaymentStep = () => {
 
     return (
         <div className="col-3 payment">
-            {renderCurrentStep()}
+            <div className="cover-payment">
+                {renderCurrentStep()}
+            </div>
         </div>
     );
 };

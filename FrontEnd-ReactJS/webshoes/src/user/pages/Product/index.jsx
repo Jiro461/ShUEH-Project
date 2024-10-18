@@ -8,16 +8,8 @@ import Header from '../../layouts/Header';
 function Product() {
     return (
         <div className="container-fluid product">
-            <div id="catalog" className="row">
-                <img src="./img/catalog.png" alt="" />
-            </div>
-
-            <div id="ads" className="row">
-                <div>Free shipping for orders over 1 million VND</div>
-            </div>
-            
             {/* Header */}
-            <Header />
+            {/* <Header /> */}
 
             <div className="row container-body">
                 <SideBar />
