@@ -8,6 +8,8 @@ namespace BackEnd_ASP.NET.Services
         Task CreateNotificationForOrder(Order order, Guid? userId);
         Task CreateNotificationForWishlist(WishlistItem wishlistItem, Guid? userId);
         Task CreateNotificationForReply(Reply reply, Guid? userId);
-        Task CreateNotificationForEntityChange<T>(T entity, Guid? adminUserId) where T : class;
+        Task CreateUpdateNotificationForEntityChange<T>(T entity, Guid? userId = null) where T : class;
+        Task CreateNotificationForShoe(Shoe shoe);
+        Task CreateNotificationForEntityDelete<T>(T entity) where T : class;
     }
 }
