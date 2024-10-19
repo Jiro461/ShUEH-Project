@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors;
+using BackEnd_ASP.NET.Models.User;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BackEnd_ASP.NET.Controller.Account
 {
@@ -26,16 +28,25 @@ namespace BackEnd_ASP.NET.Controller.Account
             this.shUEHContext = shUEHContext;
         }
 
-        [HttpGet]
+        [HttpGet("delete")]
         public async Task<IActionResult> Delete()
         {
             return await accountService.DeleteUserAsync(HttpContext);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetByIdFromQuery(Guid id)
         {
-            return await accountService.GetByIdAsync(id);
+            Guid userId = id;
+            if (userId == Guid.Empty) return Unauthorized();
+            return await accountService.GetByIdAsync(userId);
+        }
+        [HttpGet("cookieGetId")]
+        public async Task<IActionResult> GetByIdFromCookie()
+        {
+            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            if (userId == Guid.Empty) return Unauthorized();
+            return await accountService.GetByIdAsync(userId);
         }
 
         [HttpPost("sign-out")]
@@ -74,6 +85,18 @@ namespace BackEnd_ASP.NET.Controller.Account
         public async Task<IActionResult> GoogleAuthen()
         {
             return await accountService.GoogleAuthen(HttpContext);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(Guid id, [FromForm] UserPutDTO userDto)
+        {
+            return await accountService.UpdateUserAsync(id, userDto);
+        }
+
+        [HttpGet("get-users-info")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetUsersInfo()
+        {
+            return await accountService.GetUsersInfo();
         }
 
     }
