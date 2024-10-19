@@ -20,7 +20,7 @@ namespace BackEnd_ASP_NET.Models
 
         public int Gender { get; set; }
 
-        [MaxLength(100, ErrorMessage = "Material cannot exceed 100 characters.")]
+        [MaxLength(200, ErrorMessage = "Material cannot exceed 100 characters.")]
         public string? Material { get; set; }
 
         [MaxLength(50, ErrorMessage = "Category cannot exceed 50 characters.")]
