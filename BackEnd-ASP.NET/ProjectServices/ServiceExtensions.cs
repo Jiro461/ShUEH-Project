@@ -2,6 +2,7 @@ using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
 using BackEnd_ASP_NET.Models;
+using BackEnd_ASP_NET.Utilities.FileHelpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -42,12 +43,16 @@ public static class ServiceExtensions
     /// </summary>
     private static void ConfigureScopedServices(IServiceCollection services)
     {
+        /*Repository*/
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IShoeRepository, ShoeRepository>();
+        /*Services*/
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IShoeService, ShoeService>();
+        /*Identity*/
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();
-        services.AddScoped<INotificationService, NotificationService>();
-
 
     }
     /// <summary>
