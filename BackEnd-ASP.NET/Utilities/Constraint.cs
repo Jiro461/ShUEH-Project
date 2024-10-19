@@ -13,6 +13,7 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
     public static class MyURL
     {
         public static string Host = "http://localhost:5118";
+        public static string ClientURL = "http://localhost:3000";
     }
 
 }
