@@ -41,22 +41,82 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllAsync()
     {
-        return await _dbSet.ToListAsync();
+        return await _dbSet
+        .Select(user => new User
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            DateOfBirth = user.DateOfBirth,
+            Gender = user.Gender,
+            PhoneNumber = user.PhoneNumber,
+            CreateDate = user.CreateDate,
+            Email = user.Email,
+            ProfileName = user.ProfileName,
+            AvatarUrl = user.AvatarUrl,
+            TotalMoney = user.TotalMoney,
+            EmailConfirmed = user.EmailConfirmed,
+            Role = user.Role != null ? new Role
+            {
+                Id = user.Role.Id,
+                Name = user.Role.Name
+            } : null
+        })
+        .ToListAsync();
     }
 
     public async Task<User?> GetByIdAsync(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        return await _dbSet
+        .Where(user => user.Id == id)
+        .Select(user => new User
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            DateOfBirth = user.DateOfBirth,
+            Gender = user.Gender,
+            PhoneNumber = user.PhoneNumber,
+            CreateDate = user.CreateDate,
+            Email = user.Email,
+            ProfileName = user.ProfileName,
+            AvatarUrl = user.AvatarUrl,
+            TotalMoney = user.TotalMoney,
+            EmailConfirmed = user.EmailConfirmed,
+            Wishlist = user.Wishlist != null ? new Wishlist
+            {
+                Id = user.Wishlist.Id,
+                UserId = user.Wishlist.UserId,
+                WishlistItems = user.Wishlist.WishlistItems != null ? 
+                    user.Wishlist.WishlistItems.Select(wi => new WishlistItem
+                    {
+                        Id = wi.Id,
+                        WishlistId = wi.WishlistId,
+                        ShoeId = wi.ShoeId
+                    }).ToList() : null
+            } : null,
+            Orders = user.Orders.Select(o => new Order
+            {
+                Id = o.Id,
+                UserId = o.UserId,
+                OrderDate = o.OrderDate,
+                TotalPrice = o.TotalPrice,
+                OrderItems = o.OrderItems.Select(oi => new OrderItem
+                {
+                    Id = oi.Id,
+                    OrderId = oi.OrderId,
+                    ShoeId = oi.ShoeId,
+                    Quantity = oi.Quantity,
+                    UnitPrice = oi.UnitPrice
+                }).ToList()
+            }).ToList()
+        })
+        .SingleOrDefaultAsync();
     }
 
     public async Task UpdateAsync(User entity, Guid? userId = null)
     {
         _dbSet.Update(entity);
         await _context.SaveChangesAsync();
-    }
-
-    public async Task<Wishlist?> GetWishlistByUserIdAsync(Guid userId)
-    {
-        return await _context.Wishlists.FindAsync(userId);
     }
 }
