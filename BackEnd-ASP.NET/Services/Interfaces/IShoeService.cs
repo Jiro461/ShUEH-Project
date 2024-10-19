@@ -6,10 +6,10 @@ namespace BackEnd_ASP.NET.Services
 {
     public interface IShoeService
     {
-        Task<ICollection<Shoe>> GetAllShoesAsync();
+        Task<IActionResult> GetAllShoesAsync();
         Task<IActionResult> GetShoeByIdAsync(Guid id);
-        Task<IActionResult> AddShoeAsync(ShoeDTO shoe);
-        Task<IActionResult> UpdateShoeAsync(Guid shoeId, ShoeDTO shoe);
+        Task<IActionResult> AddShoeAsync(ShoePostDTO shoe);
+        Task<IActionResult> UpdateShoeAsync(Guid shoeId, ShoePostDTO shoe);
         Task<IActionResult> DeleteShoeAsync(Guid id);
     }
 }

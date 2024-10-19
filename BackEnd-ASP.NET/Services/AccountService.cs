@@ -71,12 +71,31 @@ namespace BackEnd_ASP.NET.Services
             return Ok("Login successfully");
         }
 
+        public async Task<IActionResult> GetUsersInfo()
+        {
+            var users = await userRepository.GetAllAsync();
+            var userInfoDTOs = users.Select(user => new UserInfoDTO
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                AvatarUrl = user.AvatarUrl,
+                ProfileName = user.ProfileName,
+                CreateDate = user.CreateDate,
+                Email = user.Email,
+                Role = user.Role?.Name,
+                EmailConfirmed = user.EmailConfirmed
+            });
+            return Ok(userInfoDTOs);
+        }
+
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             User? user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
-            var userDto = new UserDTO
+            var userDto = new UserGetDTO
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DateOfBirth = user.DateOfBirth,
@@ -84,14 +103,12 @@ namespace BackEnd_ASP.NET.Services
                 ProfileName = user.ProfileName,
                 AvatarUrl = user.AvatarUrl,
                 TotalMoney = user.TotalMoney,
+                Wishlist = user.Wishlist,
+                Orders = user.Orders,
+                CreatedAt = user.CreateDate,
+                EmailConfirmed = user.EmailConfirmed
             };
-            var userWishlist = await userRepository.GetWishlistByUserIdAsync(id);
-            if (userWishlist == null) return NotFound("Wishlist not found");
-            var userWishListItems = context.WishlistItems.Where(w => w.WishlistId == userWishlist.Id).ToList();
-            if (userWishListItems.Count > 0) userWishlist.WishlistItems = userWishListItems;
-            userDto.Wishlist = userWishlist;
-            var userOrders = context.Orders.Where(o => o.UserId == id).ToList();
-            if (userOrders.Count > 0) userDto.Orders = userOrders;
+
             return Ok(userDto);
         }
 
@@ -127,7 +144,7 @@ namespace BackEnd_ASP.NET.Services
         }
 
 
-        public async Task<IActionResult> UpdateUserAsync(Guid id, UserDTO userDto)
+        public async Task<IActionResult> UpdateUserAsync(Guid id, UserPutDTO userDto)
         {
             var user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
@@ -186,7 +203,7 @@ namespace BackEnd_ASP.NET.Services
             }
 
             await SignInWithCookies(existingUser, httpContext, true);
-            var redirectUrl = $"http://localhost:3000/";
+            var redirectUrl = $"{MyURL.ClientURL}/";
             return Redirect(redirectUrl);
         }
 
@@ -196,7 +213,7 @@ namespace BackEnd_ASP.NET.Services
             var user = await context.Users
                 .Include(u => u.Wishlist) // Load các wishlist liên quan
                 .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-            if (user != null)
+            if (user != null && user.Wishlist != null)
             {
                 context.Wishlists.RemoveRange(user.Wishlist);
 
@@ -215,15 +232,11 @@ namespace BackEnd_ASP.NET.Services
         private async Task<IActionResult> CreateUserAndWishlistAsync(User user, string? password = null)
         {
             IdentityResult result;
+            user.Wishlist = new Wishlist { UserId = user.Id };
             result = string.IsNullOrEmpty(password) ? await userManager.CreateAsync(user) : await userManager.CreateAsync(user, password);
 
             if (!result.Succeeded) return BadRequest(
             string.Join(";", result.Errors.Select(e => e.Description)));
-
-            var wishList = new Wishlist { User = user };
-            await userRepository.AddWishlistAsync(wishList);
-            user.Wishlist = wishList;
-            await userRepository.UpdateAsync(user);
             await notificationService.CreateNotificationForNewUser(user);
             return Ok(password != null ? "Created Successfully" : "User Created without Password");
         }
