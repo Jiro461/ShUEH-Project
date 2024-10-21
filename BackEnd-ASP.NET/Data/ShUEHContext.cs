@@ -1,3 +1,4 @@
+using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.Extensions;
 using BackEnd_ASP_NET.Utilities.Security;
@@ -149,7 +150,7 @@ namespace BackEnd_ASP.NET.Data
                     "Grippy traction and 2 layers of foam underfoot help you lock into a game and feel your best while you play. " +
                     "Lightweight and breathable material on top helps make the Immortality 4 a comfortable go-to whether you're shooting hoops with friends or securing a win with your team.\r\n\r\n",
                     Price = 1909000m,
-                    Stock = 72,
+                    
                     Sold = 28,
                     AverageRating = 4.5M,
                     TotalRatings = 20,
@@ -174,7 +175,7 @@ namespace BackEnd_ASP.NET.Data
                     "The light and springy foam helps cushion every step so you can cut and create space in comfort. " +
                     "Plus, getting game-ready is easy with the wide collar opening—just grab the loops to pull these on and lace 'em up. This is the future of hoops.",
                     Price = 2419000m,
-                    Stock = 80,
+                    
                     Sold = 50,
                     AverageRating = 4.7M,
                     TotalRatings = 45,
@@ -199,7 +200,7 @@ namespace BackEnd_ASP.NET.Data
                      "It gives you and those devoted to the game the propulsive feel needed to break through the back line. " +
                      "Take your skills to the next level with some of Nike's greatest innovations like Flyknit on the upper, which makes the boot even lighter so you can play fast.",
                     Price = 4109000m,
-                    Stock = 92,
+                    
                     Sold = 13,
                     AverageRating = 4.8M,
                     TotalRatings = 10,
@@ -222,7 +223,7 @@ namespace BackEnd_ASP.NET.Data
                     Description = "The NikeCourt Legacy serves up style rooted in tennis culture. " +
                     "They are durable and comfy with heritage stitching and a retro Swoosh. When you pull these on—it's game, set, match.",
                     Price = 1279000m,
-                    Stock = 40,
+                    
                     Sold = 7,
                     AverageRating = 4.2M,
                     TotalRatings = 5,
@@ -247,7 +248,7 @@ namespace BackEnd_ASP.NET.Data
                     "Up top, the full-foot wrapped cage design helps you stay contained whether you're faking out a defender or driving down the lane. " +
                     "With all that tech in a lightweight package, we've got efficiency covered. The rest is up to you.",
                     Price = 1784299m,
-                    Stock = 156,
+                    
                     Sold = 89,
                     AverageRating = 4.9M,
                     TotalRatings = 66,
@@ -271,7 +272,7 @@ namespace BackEnd_ASP.NET.Data
                     "Celebrating Trae's unique look, crowd-pleasing bravado and expressive, futuristic style of play, these shoes are built for optimised motion and stability, two elements of Trae's game that have elevated him to superstar status. " +
                     "The midsole ensures your most explosive moves can be done at top speed while a rubber outsole adds support on hard plants and cuts.",
                     Price = 4200000m,
-                    Stock = 700,
+                    
                     Sold = 456,
                     AverageRating = 4.8M,
                     TotalRatings = 381,
@@ -296,7 +297,7 @@ namespace BackEnd_ASP.NET.Data
                     "Sitting underneath, a lug rubber outsole ensures you're always in the perfect position to take aim.\r\n\r\n" +
                     "This product features at least 20% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.",
                     Price = 1600000m,
-                    Stock = 100,
+                    
                     Sold = 44,
                     AverageRating = 4.4M,
                     TotalRatings = 37,
@@ -318,7 +319,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Whether the workout calls for power or endurance, these adidas shoes offer the support you need for strength training. A dual-density midsole keeps feet stable through heavy lifts, while remaining flexible enough for cardio. HEAT.RDY and a breathable upper work overtime to beat the heat, so you can focus on the reps. A wide fit accommodates swelling feet, and an Adiwear outsole grips the floor to drive performance.\r\n\r\nThis product features at least 20% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.",
                     Price = 3500000m,
-                    Stock = 200,
+                    
                     Sold = 120,
                     AverageRating = 4.4M,
                     TotalRatings = 84,
@@ -340,7 +341,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "The feel of the barbell in your hands, the clang of the plates, the ring of the PR bell. Nothing beats a great lifting day, and these adidas training shoes provide outstanding performance during your Strength Training sessions. The 6 mm midsole drop gives you a flat and stable platform and helps you find proper alignment in all your lifts. The dual-density midsole provides comfort and controlled stability, and a grippy Traxion outsole keeps your footing secure.\r\n\r\nMade with a series of recycled materials, this upper features at least 50% recycled content. This product represents just one of our solutions to help end plastic waste.",
                     Price = 2450000m,
-                    Stock = 500,
+                    
                     Sold = 390,
                     AverageRating = 4.6M,
                     TotalRatings = 268,
@@ -362,7 +363,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "From the moment he first stepped onto the hardwood, Donovan Mitchell has been a game changer, and that's continued even as his game has grown and evolved. These D.O.N. Issue 6 Signature shoes from adidas Basketball continue to build on Spida's on-court persona as well as his off-court social activism. Riding an ultra-lightweight Lightstrike midsole and a unique rubber outsole with an elevated traction pattern, these basketball trainers help you dominate the game just like one of the sport's very best.",
                     Price = 3200000m,
-                    Stock = 50,
+                    
                     Sold = 23,
                     AverageRating = 4.7M,
                     TotalRatings = 3,
@@ -384,7 +385,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Run like an intergalactic MVP in the MB.03 Halloween. NITRO™ foam rockets energy return with each explosive step, while the space-age woven upper lets breathability blast off. Scratch cutouts and slime soles complete the Melo world trip. Get ready for lift-off.",
                     Price = 3300000m,
-                    Stock = 100,
+                    
                     Sold = 32,
                     AverageRating = 4.0M,
                     TotalRatings = 21,
@@ -406,7 +407,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "A simple, no-nonsense cleat built to meet your demands on the pitch, the ATTACANTO is built with a soft upper for enhanced touch and ball",
                     Price = 1800000m,
-                    Stock = 100,
+                    
                     Sold = 76,
                     AverageRating = 4.2M,
                     TotalRatings = 17,
@@ -428,7 +429,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Hit the bike, locked in and ready to dominate your workout with the PWRSPIN indoor cycling shoes. They contain a lightweight upper with our performance ULTRAWEAVE fabric, which will help your feet breathe. Then, the DISC closure and PWRPLATE carbon fibre plate with a delta closure will ensure your feet are secure for a hard training session.\r\n4D PWRPRINT over ULTRAWEAVE upper\r\nKnitted collar construction\r\nDISC technology closure\r\nHook-and-loop closure\r\nPWRPLATE with delta clip on heel\r\nFuturistic heel fin design\r\n",
                     Price = 2900000m,
-                    Stock = 100,
+                    
                     Sold = 54,
                     AverageRating = 4.5M,
                     TotalRatings = 23,
@@ -450,7 +451,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "The PUMA Easy Rider was born in the late ‘70s, when running made its move from the track to the streets. Today it's back with its classic",
                     Price = 2300000m,
-                    Stock = 100,
+                    
                     Sold = 65,
                     AverageRating = 4.1M,
                     TotalRatings = 22,
@@ -472,7 +473,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Get going in comfort and style. SOFTRIDE Divine running shoes deliver an ultra-cushioned ride and bold styling. SOFTRIDE and SOFTFOAM+ technologies provide step-in comfort and shock absorption so you can run further in bliss. Zoned rubber traction lets you pick up the pace on any road.\r\n\r\nFEATURES & BENEFITS\r\n",
                     Price = 1750000m,
-                    Stock = 200,
+                    
                     Sold = 123,
                     AverageRating = 4.7M,
                     TotalRatings = 87,
@@ -494,7 +495,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Whether you're new to the gym or already know how to lift weights, these Reebok men's training shoes are designed to help you reach your fitness goals. The breathable and lightweight mesh upper keeps your feet comfortable while built-in support provides stability during box jumps and all-day activity. The rubber outsole features lateral wraps for durability and traction whether indoors or outdoors, with forefoot grooves to provide flexibility when needed.",
                     Price = 2490000m,
-                    Stock = 90,
+                    
                     Sold = 30,
                     AverageRating = 4.5M,
                     TotalRatings = 25,
@@ -516,7 +517,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "This shoe is inspired by a combination of Y2K skateboarding style and Reebok DNA, with bold color choices and a striking contrasting solid rubber sole. Everything on these shoes is subtly \"exaggerated\", from the wider designed upper to the thicker and larger shoe laces. The label on the tongue is designed in the form of a special small pocket.\r\n",
                     Price = 2690000m,
-                    Stock = 100,
+                    
                     Sold = 41,
                     AverageRating = 4.6M,
                     TotalRatings = 20,
@@ -538,7 +539,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Club C 85 S29074 is a retro style leather walking sneaker.\r\nLow-cut shoes help you score points with delicate beauty. Enjoy comfort with a lightly padded midsole that cushions your feet as you move. A delicate embroidered logo enhances the look for a casual yet sophisticated style. Lightweight molded rubber sole with high abrasion resistance and grip.",
                     Price = 1990000m,
-                    Stock = 100,
+                    
                     Sold = 35,
                     AverageRating = 4.3M,
                     TotalRatings = 12,
@@ -560,7 +561,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Inspired by the 1996 Mobius collection, these Reebok shoes evoke a modern approach to a blast from the past. Their flashy, asymmetrical look is created by the contrast between yin and yang lighting, so your left shoe looks different from the right shoe. Wear them and show everyone that OG spirit.\r\n",
                     Price = 3990000m,
-                    Stock = 200,
+                    
                     Sold = 134,
                     AverageRating = 4.8M,
                     TotalRatings = 111,
@@ -582,7 +583,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Designed for versatile workouts\r\n\r\nProduct Code GZ1400\r\n\r\nThe shoe body is made of soft leather for a comfortable feel\r\n\r\nThe EVA midsole provides lightweight cushioning and shock absorption. The ICE outsole offers abrasion resistance and durability.",
                     Price = 3590000m,
-                    Stock = 100,
+                    
                     Sold = 22,
                     AverageRating = 4.7M,
                     TotalRatings = 10,
@@ -604,7 +605,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Meet the Run Star Trainer—a celebration of sports, style, and heritage. Sleek details and luxe cushioning pair well with all your favorite 'fits, day and night. The next step in the Star Chevron legacy is here.\r\n\r\nFeatures And Benefits\r\nA durable nylon upper with suede overlays and leather accents for a luxe look and feel\r\nCX foam cushioning helps provide next-level comfort\r\nTraction rubber outsole helps provide grip\r\nPunched eyelets and waxed laces add a premium touch\r\nIconic Star Chevron, All Star, and Converse logos",
                     Price = 1900000m,
-                    Stock = 100,
+                    
                     Sold = 20,
                     AverageRating = 4.3M,
                     TotalRatings = 10,
@@ -626,7 +627,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Take on unpredictable city terrain in low-tops that boast reliable comfort and style. Traction tread means durability and better grip for your power walk, while the suede heel brings a fashion-forward edge. Plus, CX foam cushioning helps keep your steps comfortable for your midtown-to-downtown strut.\r\n\r\nFeatures And Benefits\r\nLow-top shoe with a canvas upper\r\nCX foam helps provide next-level comfort\r\nSuede heel overlay and heel pulls for easy on and off\r\nTraction outsole and rubber toe bumper for added durability\r\nPrinted utility-inspired graphic on the heel",
                     Price = 2500000m,
-                    Stock = 80,
+                    
                     Sold = 67,
                     AverageRating = 4.9M,
                     TotalRatings = 45,
@@ -648,7 +649,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Express your personal style with a pair of shoes from Converse. Our range of shoes and trainers are built for ultimate comfort and timeless street style. With a stylish and iconic silhouette, Converse offers a wide variety of shoes to suit your personality.\r\n\r\nThere may be a 1-2cm difference in measurements depending on the development and manufacturing process.",
                     Price = 2170000m,
-                    Stock = 120,
+                    
                     Sold = 56,
                     AverageRating = 4.4M,
                     TotalRatings = 34,
@@ -670,7 +671,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "90S REMIX\r\n\r\nWant some '90s flair? Throw on this Weapon that pays homage to our basketball and skate shoes from that era. A durable, leather upper in retro colors gives it the look of a pre-Y2K favorite.\r\n\r\nFeatures And Benefits\r\n Leather and nubuck upper, with that classic Weapon look\r\n CX cushioning helps provide next-level comfort\r\n Flat cotton laces offer durability\r\n Iconic, woven All Star tongue label reps the legacy",
                     Price = 2500000m,
-                    Stock = 200,
+                    
                     Sold = 156,
                     AverageRating = 4.9M,
                     TotalRatings = 100,
@@ -692,7 +693,7 @@ namespace BackEnd_ASP.NET.Data
                     ImageUrl = "images/shoes/noimage.webp",
                     Description = "Nothing combines '90s-inspired edge and everyday comfort like the ultra-lightweight Chuck Taylor All Star Cruise. Add fresh colors to the mix, and you get a style that's ready to take on any adventure.\r\n\r\nFeatures And Benefits\r\nA lightweight, canvas-and-suede upper gives you that classic Chucks look\r\nOrthoLite cushioning helps provide optimal comfort\r\nFresh colors give your rotation a boost\r\nIconic Chuck Taylor All Star patch reps the legacy",
                     Price = 1520000m,
-                    Stock = 70,
+                    
                     Sold = 60,
                     AverageRating = 4.7M,
                     TotalRatings = 30,
@@ -714,7 +715,7 @@ namespace BackEnd_ASP.NET.Data
                      ImageUrl = "images/shoes/noimage.webp",
                      Description = "The seventy returned with joy, saying, “Lord, even the demons are subject to us in your name!”\r\n\r\n18 And he said to them,“I saw Satan fall like lightning from heaven.\r\n\r\n24 Behold, I have given you authority to tread on serpents and scorpions, and over all the power of the enemy, and nothing shall hurt you.\r\n\r\n20 Nevertheless do not rejoice in this, that the spirits are subject to you; but rejoice that your names are written in heaven.”",
                      Price = 10460000m,
-                     Stock = 17,
+                     
                      Sold = 7,
                      AverageRating = 7M,
                      TotalRatings = 5,
@@ -736,7 +737,7 @@ namespace BackEnd_ASP.NET.Data
                      ImageUrl = "images/shoes/noimage.webp",
                      Description = "One of the best shoes for basketball and the symbol of Nike's World. You won't be able to take your eyes off of this brand new Jordan, where every details have been scopefully arted.",
                      Price = 1813000m,
-                     Stock = 100,
+                     
                      Sold = 45,
                      AverageRating = 4.6M,
                      TotalRatings = 23,
@@ -758,7 +759,7 @@ namespace BackEnd_ASP.NET.Data
                      ImageUrl = "images/shoes/noimage.webp",
                      Description = "One of the best shoes for basketball and the symbol of Adidas's World. You won't be able to take your eyes off of this brand new SuperStan, where every details have been scopefully arted.",
                      Price = 1713000m,
-                     Stock = 100,
+                     
                      Sold = 65,
                      AverageRating = 4.2M,
                      TotalRatings = 33,
@@ -780,7 +781,7 @@ namespace BackEnd_ASP.NET.Data
                      ImageUrl = "images/shoes/noimage.webp",
                      Description = "One of the best shoes for football and the symbol of Puma's World. You won't be able to take your eyes off of this brand new FUTURE, where every details have been scopefully arted.",
                      Price = 2713000m,
-                     Stock = 100,
+                     
                      Sold = 78,
                      AverageRating = 4.7M,
                      TotalRatings = 55,
@@ -789,389 +790,6 @@ namespace BackEnd_ASP.NET.Data
                      CreateDate = DateTime.Now,
                      LastModifiedDate = DateTime.Now
                  }
-            );
-
-            //ShoeColor Seeding
-            modelBuilder.Entity<ShoeColor>().HasData(
-            // NIKE 1 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                },
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-
-                    Color = "White"
-                },
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Purple"
-                },
-                // NIKE 2 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Red"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Blue"
-                },
-                // NIKE 3 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Yellow"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Pink"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-
-                    Color = "Blue"
-                },
-                // NIKE 4 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Color = "Brown"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                // NIKE 5 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Color = "Orange"
-                },
-                // ADIDAS 1 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Color = "Orange"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Color = "Green"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Color = "Red"
-                },
-                // ADIDAS 2 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Color = "Red"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Color = "Yellow"
-                },
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Color = "Pink"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Color = "Red"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                },
-                // ADIDAS 4 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_9,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                // ADIDAS 5 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Color = "Pink"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Color = "Purple"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                // PUMA 1 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_11,
-                    Id = Guid.NewGuid(),
-                    Color = "Orange"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_11,
-                    Id = Guid.NewGuid(),
-                    Color = "Purple"
-                },
-                // PUMA 2 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_12,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_12,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_12,
-                    Id = Guid.NewGuid(),
-                    Color = "Green"
-                },
-                // PUMA 3 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Color = "Orange"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                // PUMA 4 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_14,
-                    Id = Guid.NewGuid(),
-                    Color = "Pink"
-                },
-                // PUMA 5 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_15,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_15,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                },
-                // REEBOK 1 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Color = "Grey"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                },
-                // REEBOK 2 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Color = "Pink"
-                },
-                // REEBOK 3 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_18,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                },
-                // REEBOK 4 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_19,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                },
-                // REEBOK 5 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_20,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                },
-                // CONVERSE 1 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                // CONVERSE 2 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Color = "Black"
-                },
-                // CONVERSE 3 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Color = "Blue"
-                },
-                // CONVERSE 4 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_24,
-                    Id = Guid.NewGuid(),
-                    Color = "Brown"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_24,
-                    Id = Guid.NewGuid(),
-                    Color = "White"
-                },
-                // CONVERSE 5 Colors
-                new ShoeColor
-                {
-                    ShoeId = IDGiay_25,
-                    Id = Guid.NewGuid(),
-                    Color = "Green"
-                }, new ShoeColor
-                {
-                    ShoeId = IDGiay_25,
-                    Id = Guid.NewGuid(),
-                    Color = "Brown"
-                }
             );
             //ShoeSeason Seeding
             modelBuilder.Entity<ShoeSeason>().HasData(
@@ -1548,918 +1166,9 @@ namespace BackEnd_ASP.NET.Data
                 }
             );
 
-            //ShoeSize Seeding
-            modelBuilder.Entity<ShoeSize>().HasData(
-                //NIKE 1
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_1,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //NIKE 2
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_2,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //NIKE 3
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_3,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //NIKE 4
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_4,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //NIKE 5
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_5,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-
-                //ADIDAS 1
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_6,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //ADIDAS 2
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_7,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-
-                //ADIDAS 3
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_8,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-
-                // ADIDAS 4
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_9,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_9,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_9,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_9,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_9,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                // ADIDAS 5
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_10,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-
-                // PUMA 1
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_11,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_11,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_11,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                // PUMA 2
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_12,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_12,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_12,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-
-                // PUMA 3
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_13,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                // PUMA 4
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_14,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_14,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_14,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_14,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-
-                // PUMA 5
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_15,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_15,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                // REEBOK 1
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_16,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                // REEBOK 2
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_17,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-
-                // REEBOK 3
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_18,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_18,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_18,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_18,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-
-                //REEBOK 4
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_19,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_19,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //REEBOK 5   
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_20,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_20,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_20,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_20,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-
-                //CONVERSE 1
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_21,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-                //CONVERSE 2
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 39
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_22,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //CONVERSE 3
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 38
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 40
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_23,
-                    Id = Guid.NewGuid(),
-                    Size = 43
-                },
-
-                //CONVERSE 4
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_24,
-                    Id = Guid.NewGuid(),
-                    Size = 42
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_24,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_24,
-                    Id = Guid.NewGuid(),
-                    Size = 45
-                },
-
-                //CONVERSE 5
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_25,
-                    Id = Guid.NewGuid(),
-                    Size = 36
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_25,
-                    Id = Guid.NewGuid(),
-                    Size = 37
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_25,
-                    Id = Guid.NewGuid(),
-                    Size = 41
-                },
-                new ShoeSize
-                {
-                    ShoeId = IDGiay_25,
-                    Id = Guid.NewGuid(),
-                    Size = 44
-                }
-        );
         modelBuilder.Entity<ShoeImage>().HasData(
- // NIKE 1
-                        new ShoeImage
+            // NIKE 1
+            new ShoeImage
                         {
                             Id = Guid.NewGuid(),
                             ShoeId = IDGiay_1,
@@ -3382,10 +2091,9 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
-        public DbSet<ShoeColor> ShoeColors { get; set; }
         public DbSet<ShoeSeason> ShoeSeasons { get; set; }
-        public DbSet<ShoeSize> ShoeSizes { get; set; }
         public DbSet<ShoeImage> ShoeImages { get; set; }
+        public DbSet<ShoeDetail> ShoeDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 namespace BackEnd_ASP_NET.Models
 {
     [Table("Shoes")]
@@ -34,9 +35,6 @@ namespace BackEnd_ASP_NET.Models
         [Required(ErrorMessage = "Price is required.")]
         public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Stock is required.")]
-        public int Stock { get; set; }
-
         public int Sold { get; set; }
 
         public decimal AverageRating { get; set; }
@@ -47,14 +45,16 @@ namespace BackEnd_ASP_NET.Models
 
         public decimal Discount { get; set; }
 
-        public ICollection<ShoeColor> Colors { get; set; } = new HashSet<ShoeColor>();
         public ICollection<ShoeImage> OtherImages { get; set; } = new HashSet<ShoeImage>();
         public ICollection<ShoeSeason> Seasons { get; set; } = new HashSet<ShoeSeason>();
-        public ICollection<ShoeSize> Sizes { get; set; } = new HashSet<ShoeSize>();
+
+        public ICollection<ShoeDetail> shoeDetails { get; set; } = new HashSet<ShoeDetail>();
+
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
         public DateTime CreateDate { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
     }
+
 }

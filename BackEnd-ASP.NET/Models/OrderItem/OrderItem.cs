@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 namespace BackEnd_ASP_NET.Models
 {
     [Table("OrderItems")]
@@ -18,8 +19,7 @@ namespace BackEnd_ASP_NET.Models
 
         public Shoe? Shoe { get; set; }
 
-        public ShoeColorDTO? ShoeColor { get; set; }
-        public ShoeSizeDTO? ShoeSize { get; set; }
+        public ShoeDetailDTO? ShoeDetail { get; set; } = new ShoeDetailDTO();
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }

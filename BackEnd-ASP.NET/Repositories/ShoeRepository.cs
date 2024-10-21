@@ -1,5 +1,6 @@
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Models;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,21 +39,17 @@ public class ShoeRepository : IShoeRepository
                         Id = image.Id,
                         Url = image.Url ?? string.Empty
                     }).ToList(),
-                    Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColor
+                    shoeDetails = shoe.shoeDetails == null ? null : shoe.shoeDetails.Select(detail => new ShoeDetailDTO
                     {
-                        Id = color.Id,
-                        Color = color.Color
+                        Size = detail.Size,
+                        Quantity = detail.Quantity
                     }).ToList(),
                     Seasons = shoe.Seasons == null ? null : shoe.Seasons.Select(season => new ShoeSeason
                     {
                         Id = season.Id,
                         Season = season.Season
                     }).ToList(),
-                    Sizes = shoe.Sizes == null ? null : shoe.Sizes.Select(size => new ShoeSize
-                    {
-                        Id = size.Id,
-                        Size = size.Size
-                    }).ToList()
+                    CreatedAt = shoe.CreateDate
                 })
                 .ToListAsync();
     }
@@ -81,21 +78,16 @@ public class ShoeRepository : IShoeRepository
                         Id = image.Id,
                         Url = image.Url
                     }).ToList(),
-                    Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColor
+                    shoeDetails = shoe.shoeDetails == null ? null : shoe.shoeDetails.Select(detail => new ShoeDetailDTO
                     {
-                        Id = color.Id,
-                        Color = color.Color
+                        Size = detail.Size,
+                        Quantity = detail.Quantity
                     }).ToList(),
                     Seasons = shoe.Seasons == null ? null : shoe.Seasons.Select(season => new ShoeSeason
                     {
                         Id = season.Id,
                         Season = season.Season
                     }).ToList(),
-                    Sizes = shoe.Sizes == null ? null : shoe.Sizes.Select(size => new ShoeSize
-                    {
-                        Id = size.Id,
-                        Size = size.Size
-                    }).ToList()
                 }).SingleOrDefaultAsync();
     }
 
@@ -118,36 +110,11 @@ public class ShoeRepository : IShoeRepository
         var shoe = await _dbSet.FindAsync(id);
         if (shoe == null)
             return false;
-        _context.ShoeSizes.RemoveRange(_context.ShoeSizes.Where(s => s.ShoeId == id));
         _context.ShoeImages.RemoveRange(_context.ShoeImages.Where(s => s.ShoeId == id));
         _context.ShoeSeasons.RemoveRange(_context.ShoeSeasons.Where(s => s.ShoeId == id));
-        _context.ShoeColors.RemoveRange(_context.ShoeColors.Where(s => s.ShoeId == id));
+        _context.ShoeDetails.RemoveRange(_context.ShoeDetails.Where(s => s.ShoeId == id));
         _dbSet.Remove(shoe);
         await _context.SaveChangesAsync();
         return true;
-    }
-
-    public async Task AddShoeColorAsync(IEnumerable<ShoeColor> shoeColors)
-    {
-        _context.ShoeColors.AddRange(shoeColors);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task AddShoeImageAsync(IEnumerable<ShoeImage> shoeImages)
-    {
-        _context.ShoeImages.AddRange(shoeImages);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task AddShoeSeasonAsync(IEnumerable<ShoeSeason> shoeSeasons)
-    {
-        _context.ShoeSeasons.AddRange(shoeSeasons);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task AddShoeSizeAsync(IEnumerable<ShoeSize> shoeSizes)
-    {
-        _context.ShoeSizes.AddRange(shoeSizes);
-        await _context.SaveChangesAsync();
     }
 }

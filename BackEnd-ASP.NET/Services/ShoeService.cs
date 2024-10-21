@@ -4,6 +4,7 @@ using BackEnd_ASP.NET.Data;
 using Microsoft.EntityFrameworkCore;
 using BackEnd_ASP.NET.Models;
 using BackEnd_ASP_NET.Utilities.FileHelpers;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 
 namespace BackEnd_ASP.NET.Services
 {
@@ -46,6 +47,12 @@ namespace BackEnd_ASP.NET.Services
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
 
             // Tạo một đối tượng giày mới
+            var shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
+            {
+                Id = Guid.NewGuid(),
+                Size = detail.Size,
+                Quantity = detail.Quantity
+            }).ToList();
             Guid newShoeId = Guid.NewGuid();
             var newShoe = new Shoe
             {
@@ -57,8 +64,8 @@ namespace BackEnd_ASP.NET.Services
                 ImageUrl = await FileHelper.AddShoeImageAsync(webHostEnvironment, newShoeId, shoe),
                 Description = shoe.Description,
                 Price = shoe.Price,
-                Stock = shoe.Stock,
                 IsSale = shoe.IsSale,
+                shoeDetails = shoeDetails,
                 Discount = shoe.Discount,
             };
 
@@ -82,7 +89,6 @@ namespace BackEnd_ASP.NET.Services
             existingShoe.Category = updateShoe.Category;
             existingShoe.Description = updateShoe.Description;
             existingShoe.Price = updateShoe.Price;
-            existingShoe.Stock = updateShoe.Stock;
             existingShoe.IsSale = updateShoe.IsSale;
             existingShoe.Discount = updateShoe.Discount;
             existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
@@ -98,24 +104,23 @@ namespace BackEnd_ASP.NET.Services
                 }
             }
 
-            // Xử lý các thuộc tính Colors, Seasons và Sizes
-            UpdateShoeAttributes<ShoeColor, ShoeColorDTO>(existingShoe.Colors, updateShoe.Colors, (color) => new ShoeColor
+            var updatedShoeDetails = UpdateShoeAttributes(existingShoe.shoeDetails, updateShoe.shoeDetails, (detail) => new ShoeDetail
             {
-                Color = color.Color,
-                Shoe = existingShoe
+                Id = existingShoe.shoeDetails.FirstOrDefault(d => d.Size == detail.Size)?.Id ?? Guid.NewGuid(),
+                Shoe = existingShoe,
+                Size = detail.Size,
+                Quantity = detail.Quantity
             });
 
-            UpdateShoeAttributes<ShoeSeason, ShoeSeasonDTO>(existingShoe.Seasons, updateShoe.Seasons, (season) => new ShoeSeason
+            existingShoe.shoeDetails = updatedShoeDetails;
+            // Xử lý các thuộc tính Colors, Seasons và Sizes
+            var updatedShoeSeasons = UpdateShoeAttributes(existingShoe.Seasons, updateShoe.Seasons, (season) => new ShoeSeason
             {
                 Season = season.Season,
                 Shoe = existingShoe
             });
+            existingShoe.Seasons = updatedShoeSeasons;
 
-            UpdateShoeAttributes<ShoeSize, ShoeSizeDTO>(existingShoe.Sizes, updateShoe.Sizes, (size) => new ShoeSize
-            {
-                Size = size.Size,
-                Shoe = existingShoe
-            });
             await shoeRepository.UpdateShoeAsync(existingShoe); // Cập nhật giày trong kho
             await notificationService.CreateUpdateNotificationForEntityChange(existingShoe);
             return Ok("Shoe updated successfully"); // Trả về thông báo thành công
@@ -162,11 +167,12 @@ namespace BackEnd_ASP.NET.Services
         {
             try
             {
-                // Thêm màu giày
-                AddShoeDetailsAsync<ShoeColorDTO, ShoeColor>(shoe.Colors, (color) => new ShoeColor
+                AddShoeDetailsAsync<ShoeDetailDTO, ShoeDetail>(shoe.shoeDetails, (detail) => new ShoeDetail
                 {
-                    Color = color.Color,
-                    Shoe = newShoe
+                    Id = Guid.NewGuid(),
+                    Shoe = newShoe,
+                    Size = detail.Size,
+                    Quantity = detail.Quantity
                 });
 
                 // Thêm hình ảnh giày
@@ -186,12 +192,7 @@ namespace BackEnd_ASP.NET.Services
                     Shoe = newShoe
                 });
 
-                // Thêm kích thước giày
-                AddShoeDetailsAsync<ShoeSizeDTO, ShoeSize>(shoe.Sizes, (size) => new ShoeSize
-                {
-                    Size = size.Size,
-                    Shoe = newShoe
-                });
+
             }
             catch (Exception ex)
             {
@@ -199,8 +200,8 @@ namespace BackEnd_ASP.NET.Services
                 throw new InvalidOperationException("Failed to add shoe details.", ex);
             }
         }
-        private void UpdateShoeAttributes<T, U>(ICollection<T> existingAttributes, ICollection<U> newAttributes, Func<U, T> createAttribute)
-            where T : class
+        private ICollection<T> UpdateShoeAttributes<T, U>(ICollection<T> existingAttributes, ICollection<U> newAttributes, Func<U, T> createAttribute)
+        where T : class
         {
             var newAttributesList = newAttributes.ToList();
             ICollection<T> updatedAttributes = new List<T>();
@@ -209,7 +210,7 @@ namespace BackEnd_ASP.NET.Services
                 var createdAttribute = createAttribute(attr);
                 updatedAttributes.Add(createdAttribute);
             }
-            existingAttributes = updatedAttributes;
+            return updatedAttributes;
         }
     }
 

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
 
 public class ShoeOrderDTO
@@ -8,7 +9,5 @@ public class ShoeOrderDTO
         public string? Brand { get; set; } = string.Empty;
         public string? MainImageUrl { get; set; } = string.Empty;
         [Required]
-        public ShoeColorDTO Color { get; set; } = new ShoeColorDTO();
-        [Required]
-        public ShoeSizeDTO Size { get; set; } = new ShoeSizeDTO();
+        public ShoeDetailDTO Detail { get; set; } = new ShoeDetailDTO();
     }
