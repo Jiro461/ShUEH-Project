@@ -1,0 +1,284 @@
+{
+  "shoes": [
+    {
+      "id": "shoes1",
+      "name": "Nike Revolution 7",
+      "price": 150,
+      "brand": "Nike",
+      "category": "Basketball",
+      "description": "Comfortable and durable basketball shoes",
+      "images": "/images/shoe1.png",
+      "color": "#333",
+      "sizes": [
+        { "size": 40, "stock": 10 },
+        { "size": 41, "stock": 15 },
+        { "size": 42, "stock": 5 }
+      ],
+      "rating": 4.5,
+      "reviews": [
+        { "user": "John Doe", "comment": "Great shoes for playing basketball!", "rating": 5 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes2",
+      "name": "Adidas Ultraboost",
+      "price": 180,
+      "brand": "Adidas",
+      "category": "Running",
+      "description": "High-performance running shoes",
+      "images": "/images/shoe2.png",
+      "color": "#555",
+      "sizes": [
+        { "size": 40, "stock": 20 },
+        { "size": 41, "stock": 18 },
+        { "size": 42, "stock": 12 }
+      ],
+      "rating": 4.7,
+      "reviews": [
+        { "user": "Jane Smith", "comment": "Best running shoes ever!", "rating": 5 }
+      ],
+      "gender": "Woman"
+    },
+    {
+      "id": "shoes3",
+      "name": "Puma RS-X",
+      "price": 130,
+      "brand": "Puma",
+      "category": "Casual",
+      "description": "Stylish casual shoes for everyday wear",
+      "images": "/images/shoe3.png",
+      "color": "#777",
+      "sizes": [
+        { "size": 39, "stock": 8 },
+        { "size": 40, "stock": 12 },
+        { "size": 41, "stock": 5 }
+      ],
+      "rating": 4.3,
+      "reviews": [
+        { "user": "Michael Lee", "comment": "Very comfortable for daily use.", "rating": 4 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes4",
+      "name": "Reebok Nano X",
+      "price": 160,
+      "brand": "Reebok",
+      "category": "Training",
+      "description": "Shoes designed for intense workouts",
+      "images": "/images/shoe4.png",
+      "color": "#999",
+      "sizes": [
+        { "size": 40, "stock": 15 },
+        { "size": 42, "stock": 9 },
+        { "size": 43, "stock": 7 }
+      ],
+      "rating": 4.6,
+      "reviews": [
+        { "user": "Chris P.", "comment": "Excellent for CrossFit!", "rating": 5 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes5",
+      "name": "New Balance 574",
+      "price": 120,
+      "brand": "New Balance",
+      "category": "Lifestyle",
+      "description": "Classic style with modern comfort",
+      "images": "/images/shoe5.png",
+      "color": "#111",
+      "sizes": [
+        { "size": 41, "stock": 13 },
+        { "size": 42, "stock": 10 },
+        { "size": 43, "stock": 6 }
+      ],
+      "rating": 4.4,
+      "reviews": [
+        { "user": "Anna K.", "comment": "Stylish and comfy.", "rating": 4 }
+      ],
+      "gender": "Woman"
+    },
+    {
+      "id": "shoes6",
+      "name": "Asics Gel-Kayano 27",
+      "price": 200,
+      "brand": "Asics",
+      "category": "Running",
+      "description": "Premium running shoes with superior support",
+      "images": "/images/shoe6.png",
+      "color": "#222",
+      "sizes": [
+        { "size": 40, "stock": 7 },
+        { "size": 42, "stock": 14 },
+        { "size": 44, "stock": 5 }
+      ],
+      "rating": 4.8,
+      "reviews": [
+        { "user": "Tom R.", "comment": "Perfect for long-distance runs.", "rating": 5 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes7",
+      "name": "Under Armour HOVR Phantom",
+      "price": 170,
+      "brand": "Under Armour",
+      "category": "Running",
+      "description": "Responsive cushioning for runners",
+      "images": "/images/shoe7.png",
+      "color": "#444",
+      "sizes": [
+        { "size": 40, "stock": 16 },
+        { "size": 41, "stock": 12 },
+        { "size": 43, "stock": 9 }
+      ],
+      "rating": 4.7,
+      "reviews": [
+        { "user": "Emily W.", "comment": "Great cushioning and comfort.", "rating": 5 }
+      ],
+      "gender": "Woman"
+    },
+    {
+      "id": "shoes8",
+      "name": "Converse Chuck Taylor",
+      "price": 90,
+      "brand": "Converse",
+      "category": "Casual",
+      "description": "Classic high-top sneakers",
+      "images": "/images/shoe8.png",
+      "color": "#000",
+      "sizes": [
+        { "size": 40, "stock": 30 },
+        { "size": 42, "stock": 25 },
+        { "size": 44, "stock": 15 }
+      ],
+      "rating": 4.5,
+      "reviews": [
+        { "user": "Sara M.", "comment": "Timeless style!", "rating": 5 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes9",
+      "name": "Vans Old Skool",
+      "price": 100,
+      "brand": "Vans",
+      "category": "Skateboarding",
+      "description": "Durable shoes for skaters",
+      "images": "/images/shoe9.png",
+      "color": "#333",
+      "sizes": [
+        { "size": 39, "stock": 25 },
+        { "size": 40, "stock": 20 },
+        { "size": 42, "stock": 10 }
+      ],
+      "rating": 4.6,
+      "reviews": [
+        { "user": "Peter L.", "comment": "Great for skating and casual wear.", "rating": 4 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes10",
+      "name": "Fila Disruptor 2",
+      "price": 110,
+      "brand": "Fila",
+      "category": "Casual",
+      "description": "Chunky sneakers with a bold look",
+      "images": "/images/shoe10.png",
+      "color": "#666",
+      "sizes": [
+        { "size": 40, "stock": 18 },
+        { "size": 42, "stock": 14 },
+        { "size": 43, "stock": 6 }
+      ],
+      "rating": 4.2,
+      "reviews": [
+        { "user": "Nancy F.", "comment": "Love the chunky style!", "rating": 4 }
+      ],
+      "gender": "Woman"
+    },
+    {
+      "id": "shoes11",
+      "name": "Saucony Endorphin Pro",
+      "price": 220,
+      "brand": "Saucony",
+      "category": "Running",
+      "description": "Top-tier racing shoes for elite runners",
+      "images": "/images/shoe11.png",
+      "color": "#888",
+      "sizes": [
+        { "size": 39, "stock": 12 },
+        { "size": 40, "stock": 8 },
+        { "size": 42, "stock": 10 }
+      ],
+      "rating": 4.9,
+      "reviews": [
+        { "user": "Kevin B.", "comment": "Amazing for races!", "rating": 5 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes12",
+      "name": "Jordan Air Zoom Renegade",
+      "price": 190,
+      "brand": "Jordan",
+      "category": "Basketball",
+      "description": "Responsive and lightweight basketball shoes",
+      "images": "/images/shoe12.png",
+      "color": "#555",
+      "sizes": [
+        { "size": 41, "stock": 22 },
+        { "size": 42, "stock": 18 },
+        { "size": 44, "stock": 10 }
+      ],
+      "rating": 4.8,
+      "reviews": [
+        { "user": "Derek S.", "comment": "Perfect for the court.", "rating": 5 }
+      ],
+      "gender": "Man"
+    },
+    {
+      "id": "shoes13",
+      "name": "Brooks Ghost 13",
+      "price": 140,
+      "brand": "Brooks",
+      "category": "Running",
+      "description": "Soft cushioning for long-distance running",
+      "images": "/images/shoe13.png",
+      "color": "#111",
+      "sizes": [
+        { "size": 40, "stock": 12 },
+        { "size": 42, "stock": 16 },
+        { "size": 43, "stock": 10 }
+      ],
+      "rating": 4.7,
+      "reviews": [
+        { "user": "Olivia H.", "comment": "Incredibly soft and smooth.", "rating": 5 }
+      ],
+      "gender": "Woman"
+    },
+    {
+      "id": "shoes14",
+      "name": "Hoka One One Clifton 7",
+      "price": 160,
+      "brand": "Hoka One One",
+      "category": "Running",
+      "description": "Cushioned running shoes for all distances",
+      "images": "/images/shoe14.png",
+      "color": "#333",
+      "sizes": [
+        { "size": 41, "stock": 15 },
+        { "size": 42, "stock": 12 },
+        { "size": 44, "stock": 5 }
+      ],
+      "rating": 4.9,
+      "reviews": [
+        { "user": "James P.", "comment": "So comfortable for long runs.", "rating": 5 }
+      ],
+      "gender": "Man"
+    }
+  ]
+}

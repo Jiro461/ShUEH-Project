@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom"
-import AdminClient from './admin/AdminClient.jsx'
-import UserClient from './layouts/user/UserLayout.jsx';
-import Profile from './user/components/Profile/Content/UserProfile/index.jsx';
-import Product from './user/pages/Product/index.jsx';
-import Favorite from './user/components/Profile/Content/Favorite/index.jsx';
-import Ordered from './user/components/Profile/Content/Ordered/index.jsx';
-import Setting from './user/components/Profile/Content/Setting/index.jsx';
-import ProfilePage from './user/pages/ProfilePage/index.jsx';
-import './App.css';
-import PaymentPage from './user/pages/PaymentPage/index.jsx';
-import ProductDetail from './user/pages/ProductDetail/index.jsx';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import UserLayout from './layouts/user/UserLayout.jsx';
+import Product from './user/pages/ProductPage/ProductPage.jsx';
+import PaymentPage from './user/pages/PaymentPage/PaymentPage.jsx';
+import ProductDetailPage from './user/pages/ProductDetailPage/ProductDetailPage.jsx';
+import ProfilePage from './user/pages/ProfilePage/ProfilePage.jsx';
+import './App.css';
 
 function App() {
   const router = createBrowserRouter(
@@ -23,6 +17,21 @@ function App() {
           {
             path: 'product',
             element: <Product />
+          },
+
+          {
+            path: 'payment',
+            element: <PaymentPage />
+          },
+
+          {
+            path: 'product/:id',
+            element: <ProductDetailPage />
+          },
+
+          {
+            path: 'profile',
+            element: <ProfilePage />
           }
         ],
       },
