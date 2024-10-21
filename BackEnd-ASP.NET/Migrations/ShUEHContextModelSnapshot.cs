@@ -44,381 +44,381 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3d8959a5-7324-4611-9ceb-c61a97fd6e83"),
+                            Id = new Guid("b83e23f5-1cfc-46fb-a498-616bb1f1fa5d"),
                             Color = "Blue",
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1")
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429")
                         },
                         new
                         {
-                            Id = new Guid("9177b4fd-eb92-4188-9b20-0fccffc2b960"),
+                            Id = new Guid("fa31b88a-b929-4da5-ba21-b00aa2a9f277"),
                             Color = "Black",
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1")
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429")
                         },
                         new
                         {
-                            Id = new Guid("ddd04605-5dd4-448e-96f4-c7ba66043cad"),
+                            Id = new Guid("8e66bd25-1ccd-4c63-ae58-36d2603349a1"),
                             Color = "White",
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1")
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429")
                         },
                         new
                         {
-                            Id = new Guid("cbef8b4a-4558-4b69-a0e4-a5b478efcb2a"),
+                            Id = new Guid("89123446-7b25-4d8c-95f0-04f05928d125"),
                             Color = "Purple",
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1")
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429")
                         },
                         new
                         {
-                            Id = new Guid("6bcf27f1-3e39-4983-8242-762efe52069d"),
+                            Id = new Guid("766c5d78-288b-408a-b733-45b72fe66667"),
                             Color = "Red",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("1593ebd2-647b-411a-9446-35fe061b3e18"),
+                            Id = new Guid("3006b5ac-0a16-48e8-ae5b-fcced7225b4b"),
                             Color = "Black",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("8eb01ca5-2432-4f4b-840a-5aefb5f9cd64"),
+                            Id = new Guid("993653ea-add1-42cb-8cae-424553580482"),
                             Color = "White",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("27b1ca9b-d103-4eb9-990f-bb275dd322ff"),
+                            Id = new Guid("0d442ce3-8985-4b9c-9ec1-16e585be9afc"),
                             Color = "Blue",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("3c746e11-bf77-4f6a-8cea-360ab81accce"),
+                            Id = new Guid("5bb3cd18-2fa9-4773-8978-e796534baf26"),
                             Color = "Yellow",
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4")
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af")
                         },
                         new
                         {
-                            Id = new Guid("aa45fc8b-c149-47fd-aded-df999e520ae0"),
+                            Id = new Guid("08c44f6a-3b7e-4806-ad04-19efddbeaf88"),
                             Color = "White",
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4")
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af")
                         },
                         new
                         {
-                            Id = new Guid("2bfe6bd2-1b8a-4fab-b718-9547fc21e4fb"),
+                            Id = new Guid("429d9709-a034-48f9-9781-3176584c3c6a"),
                             Color = "Black",
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4")
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af")
                         },
                         new
                         {
-                            Id = new Guid("68f89224-06cd-4dd3-8413-cb2f124d64d5"),
+                            Id = new Guid("6b7ab67a-ed4a-4422-8da6-a430715b6049"),
                             Color = "Pink",
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4")
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af")
                         },
                         new
                         {
-                            Id = new Guid("9ccf6690-aa51-4fec-9456-da948e189c74"),
+                            Id = new Guid("f4804234-d9cf-487d-9ad3-79e0795e17b7"),
                             Color = "Blue",
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4")
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af")
                         },
                         new
                         {
-                            Id = new Guid("53e1c734-00df-491c-96f6-c4c84bfb9fc3"),
+                            Id = new Guid("f4f34b74-bb08-4e02-8f30-6f6b79ac14e6"),
                             Color = "White",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("0040bdfc-e3b5-4996-b6e6-63551735858a"),
+                            Id = new Guid("889a5486-8dbd-4674-a6d6-03a539fbb3f5"),
                             Color = "Brown",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("f3231e2f-530c-490d-863d-e4edf817def4"),
+                            Id = new Guid("450d29e6-e549-4220-a828-1420e8b6ff58"),
                             Color = "Black",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("9f1828a7-b9f2-4047-adf5-21da3c41f794"),
+                            Id = new Guid("d47c00a3-7fdf-4e9e-968f-5c623d160800"),
                             Color = "White",
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef")
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08")
                         },
                         new
                         {
-                            Id = new Guid("684850bf-d650-43b2-a7aa-88933159d942"),
+                            Id = new Guid("106de0d4-8584-41fc-bce3-cf22da9a85ac"),
                             Color = "Black",
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef")
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08")
                         },
                         new
                         {
-                            Id = new Guid("ace0bfc6-fdaa-4e5a-8a21-8da43b6df20e"),
+                            Id = new Guid("8796618e-d044-407a-bd6e-d8584f80ff42"),
                             Color = "Orange",
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef")
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08")
                         },
                         new
                         {
-                            Id = new Guid("1d1aadad-408f-4176-b68c-91581cf1d41d"),
+                            Id = new Guid("df658318-9b36-448c-a94c-39274c58831c"),
                             Color = "Orange",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("f2ac1dc8-aee8-4a82-84b0-825054534ab0"),
+                            Id = new Guid("1b393bb9-2ab2-4805-aaf4-8371d42a305c"),
                             Color = "Green",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("f496382f-af68-4c5d-8c68-ecd8be2e09a7"),
+                            Id = new Guid("48adfe78-c1da-42f1-b85c-df95cd24d382"),
                             Color = "Blue",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("d02882f5-20c1-4125-9368-fea74a11b7a4"),
+                            Id = new Guid("50c77410-aeb1-4e20-8a66-a71668491fa1"),
                             Color = "White",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("89c565b3-c139-49f4-848d-c781fd227876"),
+                            Id = new Guid("dd370cf7-2aa1-4e78-a8bb-1e001b9d0f6e"),
                             Color = "Black",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("da789287-6984-4f39-9821-e49f1120bf43"),
+                            Id = new Guid("10702af1-885a-4b41-be11-5dc98dc94d08"),
                             Color = "Red",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("43b86799-371d-4d6a-a0dd-b6f2768c1cc6"),
+                            Id = new Guid("e65ec087-6c74-4cfa-a008-7d073a1e4ada"),
                             Color = "Red",
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1")
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063")
                         },
                         new
                         {
-                            Id = new Guid("c9de7666-9b00-4481-a766-c9a8595c89f5"),
+                            Id = new Guid("7f649f40-8750-4479-ba7a-e996d3fdd8ea"),
                             Color = "Yellow",
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1")
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063")
                         },
                         new
                         {
-                            Id = new Guid("a740bdfc-d0b0-437b-acc4-9b4837a60272"),
+                            Id = new Guid("9218ae8b-f391-45b7-b5e6-0f84dc23f732"),
                             Color = "Pink",
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242")
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4")
                         },
                         new
                         {
-                            Id = new Guid("dfa90689-2ca4-499b-a76e-c04ee52d6ead"),
+                            Id = new Guid("b4166c2e-bd68-4d2f-a8e6-ae6bb3ea7d35"),
                             Color = "Black",
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242")
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4")
                         },
                         new
                         {
-                            Id = new Guid("d6d24e8d-1605-4e14-a7c3-35d81e998661"),
+                            Id = new Guid("4bb4a352-bcaa-40fa-bdb5-770d68825470"),
                             Color = "White",
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242")
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4")
                         },
                         new
                         {
-                            Id = new Guid("40f13859-a601-4fec-80c0-1e20fb95cedd"),
+                            Id = new Guid("d1210a2b-02e3-4da3-9d49-7414f6a623db"),
                             Color = "Red",
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242")
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4")
                         },
                         new
                         {
-                            Id = new Guid("f4ad5622-50ce-47e0-a8d9-120f873e9318"),
+                            Id = new Guid("f6225f2e-ff98-47e0-a483-178fe09b8e03"),
                             Color = "Blue",
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242")
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4")
                         },
                         new
                         {
-                            Id = new Guid("a0f8d47d-36c6-4452-bf01-181f27aeaa10"),
+                            Id = new Guid("8a7d66ac-b7ac-468f-8ee8-9978220dd88c"),
                             Color = "Black",
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece")
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4")
                         },
                         new
                         {
-                            Id = new Guid("8bf6cceb-ad09-4274-80f5-21362c47b307"),
+                            Id = new Guid("b3c92905-8f42-4ee8-8780-4a9d57ecd368"),
                             Color = "Pink",
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699")
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b")
                         },
                         new
                         {
-                            Id = new Guid("2dd4caf0-a452-4a00-b6be-ad295b67d328"),
+                            Id = new Guid("58e9edf2-3abd-4dcc-9f00-000b6376b49f"),
                             Color = "Purple",
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699")
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b")
                         },
                         new
                         {
-                            Id = new Guid("cc99ba88-6aaa-4b01-985d-ed41fd9f4f93"),
+                            Id = new Guid("e575dc64-6aa2-4dc9-b939-55a80e2f38ed"),
                             Color = "White",
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699")
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b")
                         },
                         new
                         {
-                            Id = new Guid("58411e00-aedf-4a70-9c66-fd83ece6c687"),
+                            Id = new Guid("0bfd103b-323d-46ae-971d-ec987aae0def"),
                             Color = "Black",
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699")
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b")
                         },
                         new
                         {
-                            Id = new Guid("5744a4bf-e19d-47c3-9302-bf03fec4e691"),
+                            Id = new Guid("a70c7455-9710-4d8e-a402-cc6cc51f44f4"),
                             Color = "Orange",
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a")
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973")
                         },
                         new
                         {
-                            Id = new Guid("75bbec08-39f1-4f8e-8d42-c1cb57e72f60"),
+                            Id = new Guid("10ea5ad7-0491-44ac-b832-35d01fa8c7b3"),
                             Color = "Purple",
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a")
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973")
                         },
                         new
                         {
-                            Id = new Guid("1e92bde5-959d-4da9-bd85-823d3b3b7828"),
+                            Id = new Guid("3d09f81a-71bd-4a87-9c4f-801938ba03fe"),
                             Color = "Blue",
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242")
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340")
                         },
                         new
                         {
-                            Id = new Guid("f148c30b-6221-4338-85b7-4d8ad6e1b5cc"),
+                            Id = new Guid("7fce302d-f467-4d68-b5dd-8e60c7fc1428"),
                             Color = "Black",
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242")
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340")
                         },
                         new
                         {
-                            Id = new Guid("1ddf5583-b342-449f-89ba-5987692f34cb"),
+                            Id = new Guid("e91ca8d2-e7c6-4938-8ac9-f896e7eec1dc"),
                             Color = "Green",
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242")
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340")
                         },
                         new
                         {
-                            Id = new Guid("df690cd6-21e7-409e-8e60-47f62330e7f3"),
+                            Id = new Guid("1f76fd77-be8a-407b-a293-6659700725bc"),
                             Color = "Orange",
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c")
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3")
                         },
                         new
                         {
-                            Id = new Guid("3798e36d-20d5-47bc-bcc0-0e7dd2a97058"),
+                            Id = new Guid("fb1e0e5e-16f7-431d-8cd0-683000bed188"),
                             Color = "Black",
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c")
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3")
                         },
                         new
                         {
-                            Id = new Guid("53ee62b1-50a3-4f84-ab4c-e32df6fc6de2"),
+                            Id = new Guid("277d9d9f-3894-49a0-a971-1183acdebce8"),
                             Color = "Pink",
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826")
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523")
                         },
                         new
                         {
-                            Id = new Guid("d8515565-738e-4ea4-b31e-3ae0fff43b7f"),
+                            Id = new Guid("fb7f922c-1e3b-4fb1-b920-784033e4ef65"),
                             Color = "Black",
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f")
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4")
                         },
                         new
                         {
-                            Id = new Guid("30b0e15a-6972-42b5-b47c-c18c2a348464"),
+                            Id = new Guid("f299e738-4013-4500-bd39-a2b7f68eccbb"),
                             Color = "White",
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f")
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4")
                         },
                         new
                         {
-                            Id = new Guid("75c0ceb6-6e7c-49b2-ab4f-dca9d6a1a50d"),
+                            Id = new Guid("2a94b5cb-c6bb-48f6-8cca-6d68a827b420"),
                             Color = "Black",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("b4a4aebf-f9d7-4b99-884a-0105adb82864"),
+                            Id = new Guid("153798dc-cf27-4eba-9f2b-1faf3ffe272f"),
                             Color = "White",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("d17b61ac-88be-4a6e-8f0f-21c552155a56"),
+                            Id = new Guid("5fd044cf-bdb0-4b92-9683-23b6bf938fba"),
                             Color = "Grey",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("354b98cc-8421-415e-ae07-9a01fe1dcbef"),
+                            Id = new Guid("6158141b-480f-47bc-9e21-1b30699880c7"),
                             Color = "Blue",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("ba87746e-143c-439f-874c-7e6967c7859f"),
+                            Id = new Guid("86a2fc76-1470-4914-8424-027cce7e8b77"),
                             Color = "Blue",
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed")
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0")
                         },
                         new
                         {
-                            Id = new Guid("f1269950-ef4c-42d2-b2e3-f24033906d8b"),
+                            Id = new Guid("041adb9f-a3ee-4647-a0b9-0b939e6b5327"),
                             Color = "Pink",
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed")
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0")
                         },
                         new
                         {
-                            Id = new Guid("3bba757f-5d81-421c-9420-7de569df0631"),
+                            Id = new Guid("160d33f7-7e30-4cce-81c4-990de8303e27"),
                             Color = "Blue",
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d")
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0")
                         },
                         new
                         {
-                            Id = new Guid("36b3265b-5475-447d-bba8-8445d51e415d"),
+                            Id = new Guid("fe34b8f5-8785-4da3-b2e2-763a28b960e5"),
                             Color = "White",
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07")
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c")
                         },
                         new
                         {
-                            Id = new Guid("e232d7ca-026b-4c03-a27c-3fb1b317cc81"),
+                            Id = new Guid("b9d62d77-88e1-4d0e-a9c0-1365b5ddae2a"),
                             Color = "Blue",
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae")
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35")
                         },
                         new
                         {
-                            Id = new Guid("af959484-1b49-4cc6-8d72-1fe6efafd8bb"),
+                            Id = new Guid("996cc233-9d2c-4717-850a-4831f288b00b"),
                             Color = "Black",
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a")
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a")
                         },
                         new
                         {
-                            Id = new Guid("8bb8918a-43c4-4f10-8ed2-5a6d3a8f90eb"),
+                            Id = new Guid("171d8327-0537-44a8-ab7f-3832c2496d96"),
                             Color = "Black",
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60")
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f")
                         },
                         new
                         {
-                            Id = new Guid("b322daf4-8c22-442c-b55c-9ef136d19b37"),
+                            Id = new Guid("34de0719-a3c2-4055-90a4-50739b3a1d38"),
                             Color = "Blue",
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567")
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4")
                         },
                         new
                         {
-                            Id = new Guid("d5f6074e-85c2-4662-af5d-74a36083915c"),
+                            Id = new Guid("63d4af50-6f1a-4db5-9e0c-556025bfde04"),
                             Color = "Brown",
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2")
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44")
                         },
                         new
                         {
-                            Id = new Guid("bb4a4781-476b-4408-8bc8-2f2f2786aa46"),
+                            Id = new Guid("3cb82948-8c4e-40ea-93a2-9d8587e401f5"),
                             Color = "White",
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2")
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44")
                         },
                         new
                         {
-                            Id = new Guid("d6fdb2d8-e89f-4111-bce5-09d1f9651ad7"),
+                            Id = new Guid("37d7bd59-82ef-4c76-a29b-7109b03e146b"),
                             Color = "Green",
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87")
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef")
                         },
                         new
                         {
-                            Id = new Guid("4725470a-c835-42f8-9eec-9667dd4d66a1"),
+                            Id = new Guid("242f92d8-c92e-4341-8a37-c30e197b6536"),
                             Color = "Brown",
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87")
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef")
                         });
                 });
 
@@ -446,318 +446,689 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5c2ce6e1-c192-4f26-83eb-f958c4dd525e"),
-                            Quantity = 10,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
-                            Size = 39
-                        },
-                        new
-                        {
-                            Id = new Guid("b0247a7f-17d9-4d43-9d5c-b059b079a588"),
-                            Quantity = 1,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
-                            Size = 40
-                        },
-                        new
-                        {
-                            Id = new Guid("c6c97467-47ea-4e33-80fb-0d6302a59449"),
-                            Quantity = 4,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
-                            Size = 41
-                        },
-                        new
-                        {
-                            Id = new Guid("18aaddd5-2332-4be5-beca-f6d5c6ebe3c4"),
-                            Quantity = 0,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("905a6d93-91f5-4b5d-ac3f-fb4d13f06cbe"),
+                            Quantity = 30,
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Size = 42
                         },
                         new
                         {
-                            Id = new Guid("4823445f-9ff3-4882-b87c-84edd74b42ef"),
-                            Quantity = 4,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("a4aed2c0-d7cd-4fb3-8ad2-1b55849bb329"),
+                            Quantity = 30,
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Size = 43
                         },
                         new
                         {
-                            Id = new Guid("364c0f72-5473-470c-8e5c-95b02adbc1c3"),
-                            Quantity = 3,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("48f0fb64-1219-4694-a543-51a94c0ea618"),
+                            Quantity = 49,
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Size = 44
                         },
                         new
                         {
-                            Id = new Guid("192a867a-8369-458b-a0e1-1f85fc15387b"),
-                            Quantity = 10,
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("d8c1270d-9754-43a9-baa2-e3b00f8acf1a"),
+                            Quantity = 54,
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Size = 45
                         },
                         new
                         {
-                            Id = new Guid("570f393f-b11b-4520-9652-b681f080ec5b"),
-                            Quantity = 1,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 39
+                            Id = new Guid("eaf1ad01-b883-46a2-b2fb-1979f8b8fa9e"),
+                            Quantity = 47,
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
+                            Size = 46
                         },
                         new
                         {
-                            Id = new Guid("f773ab4e-d036-44c4-87df-074a0a90bba5"),
-                            Quantity = 10,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 40
-                        },
-                        new
-                        {
-                            Id = new Guid("e9c26497-32ff-4f50-8ddc-0ea12c8b6427"),
-                            Quantity = 1,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 41
-                        },
-                        new
-                        {
-                            Id = new Guid("8650f1f8-d598-44ac-8f9f-2108294b5c23"),
-                            Quantity = 0,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 42
-                        },
-                        new
-                        {
-                            Id = new Guid("a57b76cb-19d1-42b6-a2e1-1b8137f9fa7f"),
-                            Quantity = 8,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 43
-                        },
-                        new
-                        {
-                            Id = new Guid("d189f6a4-bc46-45ec-bd33-ff289fd7c5e4"),
-                            Quantity = 5,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 44
-                        },
-                        new
-                        {
-                            Id = new Guid("42df4f77-70cf-4445-a6ec-6155852ac9f5"),
-                            Quantity = 0,
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
-                            Size = 45
-                        },
-                        new
-                        {
-                            Id = new Guid("d4eb0672-1d76-4fb5-8583-058de1b0ded4"),
-                            Quantity = 1,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 39
-                        },
-                        new
-                        {
-                            Id = new Guid("5c235585-5837-4c9a-beb2-d8111403cd22"),
-                            Quantity = 10,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 40
-                        },
-                        new
-                        {
-                            Id = new Guid("c11aee0b-0b21-42bc-a2cd-27d867acb796"),
-                            Quantity = 2,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 41
-                        },
-                        new
-                        {
-                            Id = new Guid("bf69461b-3501-413c-9523-abf7ec921ca2"),
-                            Quantity = 0,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 42
-                        },
-                        new
-                        {
-                            Id = new Guid("321d3be7-a2d1-4000-93e6-7c9e5891077f"),
-                            Quantity = 7,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 43
-                        },
-                        new
-                        {
-                            Id = new Guid("843f7eca-c356-4ac1-853b-d0ed99131e46"),
-                            Quantity = 10,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 44
-                        },
-                        new
-                        {
-                            Id = new Guid("375c725f-d62e-4c97-9c4b-0fc75bdec71c"),
-                            Quantity = 1,
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
-                            Size = 45
-                        },
-                        new
-                        {
-                            Id = new Guid("8433adfe-69f6-4c5f-89b9-4674607f0f52"),
-                            Quantity = 10,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 39
-                        },
-                        new
-                        {
-                            Id = new Guid("a0aa9962-da21-4e4b-a155-4ff0060f5fec"),
-                            Quantity = 1,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 40
-                        },
-                        new
-                        {
-                            Id = new Guid("eb1c851e-eb90-400e-a708-dd78562a8715"),
-                            Quantity = 5,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 41
-                        },
-                        new
-                        {
-                            Id = new Guid("673d9538-79ae-401d-8be6-b97dcb38176a"),
-                            Quantity = 0,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 42
-                        },
-                        new
-                        {
-                            Id = new Guid("138230e9-bd4d-4b45-a364-dfb295e654ba"),
-                            Quantity = 5,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 43
-                        },
-                        new
-                        {
-                            Id = new Guid("be839327-1271-4b84-a260-f0036b87813c"),
-                            Quantity = 5,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 44
-                        },
-                        new
-                        {
-                            Id = new Guid("4f8bbc88-3c73-4c03-9c1d-4b1a592cf82f"),
-                            Quantity = 5,
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
-                            Size = 45
-                        },
-                        new
-                        {
-                            Id = new Guid("754c65ed-fb47-4000-a4dd-f79b572ff817"),
-                            Quantity = 7,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("8c9843f3-91e6-497f-8207-4ef2ac8879f0"),
+                            Quantity = 46,
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Size = 37
                         },
                         new
                         {
-                            Id = new Guid("3106af1f-f089-427c-85fd-9e41f0163def"),
-                            Quantity = 10,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("fbbdbfcd-2b0b-4672-b851-4741fd4c7855"),
+                            Quantity = 20,
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Size = 38
                         },
                         new
                         {
-                            Id = new Guid("f08b2182-9578-42c9-94e4-b65c343a952c"),
-                            Quantity = 2,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("4fa41033-7386-4e23-b7fb-1506f29ee03e"),
+                            Quantity = 24,
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Size = 39
                         },
                         new
                         {
-                            Id = new Guid("a544a97a-28a3-4362-a36c-7d344e33f1cd"),
-                            Quantity = 3,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("f6881d96-2d58-4422-b896-4136c0bbfe34"),
+                            Quantity = 39,
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("e2e2338e-9985-40f7-af0b-e8183fc2cfbe"),
+                            Quantity = 20,
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Size = 40
                         },
                         new
                         {
-                            Id = new Guid("e1e56f82-d875-4533-bbb5-dbc7c220c050"),
-                            Quantity = 3,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("d89edc46-bea4-4891-a5cf-d1a1f0ba8cbb"),
+                            Quantity = 35,
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Size = 41
                         },
                         new
                         {
-                            Id = new Guid("e5bab283-6186-4208-99fc-7b8d331d3203"),
-                            Quantity = 5,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("e4b4c2a0-cb35-464a-8f67-2fc6c70ade3b"),
+                            Quantity = 50,
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("1c57771c-049f-4401-abd8-0be1dec68ff4"),
+                            Quantity = 28,
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("b2a1ba45-ff9e-47fd-92ee-5fd5667cb8f3"),
+                            Quantity = 34,
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("bf00b259-5b7c-4864-824f-4c9ec94738fa"),
+                            Quantity = 13,
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("f0d9df5f-802c-4ea6-94f9-470fc352539c"),
+                            Quantity = 2,
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Size = 42
                         },
                         new
                         {
-                            Id = new Guid("5627c613-8d77-4cb8-b60e-51e004c641f9"),
-                            Quantity = 8,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("22916841-20ab-48c7-a3be-50e88c0b82bd"),
+                            Quantity = 47,
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Size = 43
                         },
                         new
                         {
-                            Id = new Guid("680178f8-b22d-46c8-9c73-cf39dd24fb38"),
-                            Quantity = 0,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("d11e8828-424b-4bb9-a89f-b80e80c0aaf4"),
+                            Quantity = 4,
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Size = 44
                         },
                         new
                         {
-                            Id = new Guid("cf23b65b-e842-4c6f-99bf-270c4b5df689"),
-                            Quantity = 1,
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("94839ec9-8d2b-49f0-b92b-4cf0023b83d3"),
+                            Quantity = 54,
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Size = 45
                         },
                         new
                         {
-                            Id = new Guid("2d8e40bb-6021-4623-961d-0e0eeaf1dcde"),
-                            Quantity = 1,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
-                            Size = 36
+                            Id = new Guid("52d881eb-532b-4904-9f2b-117821aabf70"),
+                            Quantity = 18,
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
+                            Size = 39
                         },
                         new
                         {
-                            Id = new Guid("b40651de-4871-4cac-9202-f300f95b079e"),
+                            Id = new Guid("8d9d18f6-5236-44e9-a638-7fd4adbc3bbb"),
+                            Quantity = 52,
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("13c75891-6c3d-48fb-b614-1f93f873b521"),
+                            Quantity = 41,
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("1f637352-797f-4460-9f05-8033db401625"),
+                            Quantity = 47,
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("05d733b7-89c7-4e34-8dfb-60b018fb648d"),
                             Quantity = 9,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Size = 37
                         },
                         new
                         {
-                            Id = new Guid("456df1b3-7310-4957-80c5-7164aedff439"),
-                            Quantity = 4,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("70a74e60-9af0-4993-858a-3212b022f4d4"),
+                            Quantity = 49,
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Size = 38
                         },
                         new
                         {
-                            Id = new Guid("eb4a88a6-acaa-4a3d-8345-8a584b62ad83"),
-                            Quantity = 4,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("dddcf40d-4937-4f1f-9c9f-c9108ae8aa8b"),
+                            Quantity = 25,
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Size = 39
                         },
                         new
                         {
-                            Id = new Guid("5c7020b4-2885-46d1-a9b4-8b187e47c0c2"),
-                            Quantity = 10,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("345520db-96cc-44a7-86b9-93d8ed36f195"),
+                            Quantity = 42,
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Size = 40
                         },
                         new
                         {
-                            Id = new Guid("7961312a-504a-450f-ab22-f47dd9b0a593"),
-                            Quantity = 0,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("f732eed1-a469-49f4-bd89-b7f14858aaa5"),
+                            Quantity = 25,
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("a5f11e05-a215-4c87-ae20-80fae6118cd7"),
+                            Quantity = 8,
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Size = 41
                         },
                         new
                         {
-                            Id = new Guid("9e8ea892-3207-4719-8f8a-c1e77f33c17a"),
-                            Quantity = 0,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("c17fb7a8-cf9d-485e-ba3c-c952cc9e60c2"),
+                            Quantity = 36,
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Size = 42
                         },
                         new
                         {
-                            Id = new Guid("e94f5565-9daf-4167-a2c3-d951b280b71e"),
-                            Quantity = 1,
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("691e4fe0-ca84-4155-b8b4-00a5e3abe7c0"),
+                            Quantity = 6,
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Size = 43
+                        },
+                        new
+                        {
+                            Id = new Guid("47d9da92-f3ac-4c60-91cf-ffdac6b24353"),
+                            Quantity = 18,
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
+                            Size = 44
+                        },
+                        new
+                        {
+                            Id = new Guid("b6512afb-7ac5-4086-905d-2a1ca5c43646"),
+                            Quantity = 49,
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("d4143058-96ff-41a7-bbd6-ee89480c383a"),
+                            Quantity = 38,
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("31d51330-b87d-4d9c-832f-0995bbe012ff"),
+                            Quantity = 7,
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("9e5fb191-a156-436a-b031-bea71ed7427d"),
+                            Quantity = 19,
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("87438eb8-c737-4f42-a1e9-60937f720b41"),
+                            Quantity = 20,
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("9ef4e153-e146-4b4d-aac7-77d2dc1cd259"),
+                            Quantity = 25,
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("11cfe6e5-e9b6-44c2-9299-6bf49171b62e"),
+                            Quantity = 41,
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("7c6bd101-3398-493a-8abd-698b8a3d626f"),
+                            Quantity = 46,
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("65e9f6fb-8f4b-449f-846e-9f8c1aa663fd"),
+                            Quantity = 48,
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
+                            Size = 43
+                        },
+                        new
+                        {
+                            Id = new Guid("c53fd542-d8e5-42ac-a0d6-9c9b357a89f8"),
+                            Quantity = 26,
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
+                            Size = 44
+                        },
+                        new
+                        {
+                            Id = new Guid("64a9e7d4-25c5-47cc-85db-b6794db5ed7c"),
+                            Quantity = 40,
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
+                            Size = 45
+                        },
+                        new
+                        {
+                            Id = new Guid("28e56df8-3942-4f28-8a2d-9fadeac21b1c"),
+                            Quantity = 41,
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("718556a7-4398-462f-aed7-5b6594a568be"),
+                            Quantity = 18,
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("f1e2f51a-c81d-4007-bbfb-ef31414c1365"),
+                            Quantity = 38,
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("fe3e8846-cc53-45d8-8a4c-f5767129e1b1"),
+                            Quantity = 34,
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("48b84b80-b19f-421f-aa27-0af77c1f292e"),
+                            Quantity = 29,
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("a767325a-26ef-4731-8e6c-f335d7c84aaf"),
+                            Quantity = 45,
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("d40a3813-8d11-469f-b317-008b60329194"),
+                            Quantity = 41,
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("9188e3fe-7779-4e39-b948-818f5a102110"),
+                            Quantity = 37,
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("adf6bb95-9f11-41d5-a3b2-4000f99288d5"),
+                            Quantity = 23,
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("74967c79-64b0-4d42-a8fd-433737ae3b44"),
+                            Quantity = 2,
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("249fd163-9552-4c97-a67d-3ce06d0f41c5"),
+                            Quantity = 34,
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("cd448b98-6e4a-4c57-82b6-a844275557f6"),
+                            Quantity = 29,
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("4301d7a6-d6f0-4379-83d3-ebe004e6ef8f"),
+                            Quantity = 26,
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("3e2795a8-530e-4e7f-93de-37dd46f10d0f"),
+                            Quantity = 8,
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("c297f8ff-54fd-4224-9e0e-45cad0657bab"),
+                            Quantity = 40,
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("a1f3d102-8fa0-4b31-b88c-ea3521727a8a"),
+                            Quantity = 24,
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("8be390ab-3540-42cd-9918-1b143847688f"),
+                            Quantity = 27,
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("40032daa-c231-4fa3-a1b4-b123c888422a"),
+                            Quantity = 40,
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("03986b87-f33e-4e9d-b8d1-75dab69bd2ab"),
+                            Quantity = 24,
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("26b0f831-1ff7-4e6f-bfa6-8bf1961c110e"),
+                            Quantity = 18,
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("39d56a44-cb30-4a51-baeb-11ba519ae2fa"),
+                            Quantity = 33,
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("a7d99921-7a82-444a-a923-b88e1a2e1b82"),
+                            Quantity = 3,
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("891c1947-a04d-49b9-b566-ba3a51a87e9d"),
+                            Quantity = 30,
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("c3cd0128-8e4b-417e-b0c2-7a3bc1fc60bc"),
+                            Quantity = 32,
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("190fc1c6-31e8-49f1-aa45-655673c27b9e"),
+                            Quantity = 25,
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("f142650f-f609-4f23-a9a9-8733caa6a724"),
+                            Quantity = 32,
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("98cd16c3-b26a-44ab-9e0c-8b4985287e59"),
+                            Quantity = 38,
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("0d96b789-a687-42dd-9cce-bce5ee81b02d"),
+                            Quantity = 42,
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("adcba38e-f1f1-45a8-9b7a-66b0fce16f93"),
+                            Quantity = 4,
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("50b9bd47-7efa-4fcf-814a-5116ee3f70ba"),
+                            Quantity = 6,
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("57463d5e-bbac-4e14-b709-69624939213f"),
+                            Quantity = 2,
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("0ccfc4e7-3c13-4e7a-ab41-76cbe50c61dc"),
+                            Quantity = 26,
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("d9c3a8c3-3f71-4c8b-afed-aabc2e28e5fd"),
+                            Quantity = 33,
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("f23df45c-4b86-4e21-b4bf-2f3c4284f37a"),
+                            Quantity = 33,
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("d6c92f6e-a95a-4344-afa6-ce710606ab5c"),
+                            Quantity = 25,
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("4286fff8-81e2-4447-ba11-68a884195f3b"),
+                            Quantity = 11,
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
+                            Size = 37
+                        },
+                        new
+                        {
+                            Id = new Guid("1122a30d-ff60-47d7-be65-6305e5c5a3f5"),
+                            Quantity = 8,
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("1fbde733-fe03-4d4f-a73a-8caefb348ae2"),
+                            Quantity = 47,
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("06b34c30-e37d-48b6-820a-e2f48ac22e99"),
+                            Quantity = 13,
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("d4e0fe77-b6d0-478f-a6e2-d459a453876f"),
+                            Quantity = 26,
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("5c0ff0f6-2f60-4db5-b7e3-f1a4f1310cc2"),
+                            Quantity = 1,
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
+                            Size = 43
+                        },
+                        new
+                        {
+                            Id = new Guid("00ddf616-5554-456c-89aa-124691f100b7"),
+                            Quantity = 33,
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
+                            Size = 44
+                        },
+                        new
+                        {
+                            Id = new Guid("f1e10ed0-84dc-4f7d-96fd-cb1aca08a3e7"),
+                            Quantity = 25,
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
+                            Size = 45
+                        },
+                        new
+                        {
+                            Id = new Guid("c48b1df1-0015-46be-a91a-b5aef32452a7"),
+                            Quantity = 42,
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
+                            Size = 46
+                        },
+                        new
+                        {
+                            Id = new Guid("a4eb6cbc-caa1-46fc-9b7b-103166eef105"),
+                            Quantity = 53,
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
+                            Size = 42
+                        },
+                        new
+                        {
+                            Id = new Guid("1a52a2bc-01fa-4db6-969d-6f468a68dfd2"),
+                            Quantity = 23,
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
+                            Size = 43
+                        },
+                        new
+                        {
+                            Id = new Guid("a192b5fc-0e83-4a1d-8014-115e7716c3db"),
+                            Quantity = 32,
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
+                            Size = 44
+                        },
+                        new
+                        {
+                            Id = new Guid("3a2ab908-b035-4ffb-b72b-6adb1a89c0ad"),
+                            Quantity = 48,
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
+                            Size = 45
+                        },
+                        new
+                        {
+                            Id = new Guid("6695532e-8b09-4b08-ba8c-87bac4178313"),
+                            Quantity = 11,
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
+                            Size = 38
+                        },
+                        new
+                        {
+                            Id = new Guid("7c4d969a-22fd-4fff-98b2-3b1ec22f5263"),
+                            Quantity = 16,
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
+                            Size = 39
+                        },
+                        new
+                        {
+                            Id = new Guid("ff607e16-8458-4f8b-a81d-e3fd37f81c97"),
+                            Quantity = 37,
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("1f51a9a5-90e1-4744-b234-d10d217e854f"),
+                            Quantity = 2,
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("819b0fc5-d8cc-4f22-8d9c-1c1a813f00c2"),
+                            Quantity = 33,
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
+                            Size = 40
+                        },
+                        new
+                        {
+                            Id = new Guid("89738cf8-fc1c-4f63-b8e7-7d71f2ee73f9"),
+                            Quantity = 0,
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
+                            Size = 41
+                        },
+                        new
+                        {
+                            Id = new Guid("edcd1c44-5592-4240-9610-2d904e71eae1"),
+                            Quantity = 17,
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
+                            Size = 42
                         });
                 });
 
@@ -956,13 +1327,13 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c14ae901-91eb-4fdc-be92-622250d013e2"),
+                            Id = new Guid("1d5de0aa-0161-4c4e-9f6f-b2ef737a1ef9"),
                             Description = "Role Admin với đầy đủ các quyền hạn",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("841c88ea-5020-4ca9-ba23-668b564514b7"),
+                            Id = new Guid("a49b1b99-be22-4f03-b9cf-20cba524a165"),
                             Description = "Role User với các quyền hạn có giới hạn và mua hàng",
                             Name = "User"
                         });
@@ -1033,17 +1404,17 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             AverageRating = 4.5m,
                             Brand = "Nike",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4068),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5701),
                             Description = "On any given night, Giannis can impact a game from any position. Lace up his latest signature shoe and leave your own mark, whatever the playing surface. Grippy traction and 2 layers of foam underfoot help you lock into a game and feel your best while you play. Lightweight and breathable material on top helps make the Immortality 4 a comfortable go-to whether you're shooting hoops with friends or securing a win with your team.\r\n\r\n",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4082),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5715),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Giannis Immortality 4",
                             Price = 1909000m,
@@ -1052,17 +1423,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b"),
+                            Id = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             AverageRating = 4.7m,
                             Brand = "Nike",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4086),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5719),
                             Description = "Ready to zigzag across the court with ease? Start by lacing up the Nike G.T. Cut 3. Made for a new generation of players, its advanced traction helps give you the grip you need to shake, stop and cross up defenders as you fly to the hoop. The light and springy foam helps cushion every step so you can cut and create space in comfort. Plus, getting game-ready is easy with the wide collar opening—just grab the loops to pull these on and lace 'em up. This is the future of hoops.",
                             Discount = 15.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4086),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5721),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Nike G.T. Cut 3",
                             Price = 2419000m,
@@ -1071,17 +1442,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4"),
+                            Id = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             AverageRating = 4.8m,
                             Brand = "Nike",
                             Category = "Football",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4089),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5725),
                             Description = "Serious about your game? Wanna run fast so you can score goals? The Jr. Vapor 16 Pro has an improved heel Air Zoom unit to help you flash your speed. It gives you and those devoted to the game the propulsive feel needed to break through the back line. Take your skills to the next level with some of Nike's greatest innovations like Flyknit on the upper, which makes the boot even lighter so you can play fast.",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4090),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5725),
                             Material = "Leather, fabric and rubber.",
                             Name = "Jr. Mercurial Vapor 16 Pro",
                             Price = 4109000m,
@@ -1090,17 +1461,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b"),
+                            Id = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
                             AverageRating = 4.2m,
                             Brand = "Nike",
                             Category = "Tennis",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4093),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5729),
                             Description = "The NikeCourt Legacy serves up style rooted in tennis culture. They are durable and comfy with heritage stitching and a retro Swoosh. When you pull these on—it's game, set, match.",
                             Discount = 30.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4094),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5730),
                             Material = "Leather, fabric, and rubber.",
                             Name = "NikeCourt Legacy",
                             Price = 1279000m,
@@ -1109,17 +1480,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef"),
+                            Id = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             AverageRating = 4.9m,
                             Brand = "Nike",
                             Category = "Yoga",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4097),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5733),
                             Description = "You bring the speed. We'll bring the stability. The Luka 2 is built to support your skills, with an emphasis on stepbacks, side-steps and quick-stop action. A stacked midsole features firm, flexible cushioning for added responsiveness as you shift back and forth on the court. Up top, the full-foot wrapped cage design helps you stay contained whether you're faking out a defender or driving down the lane. With all that tech in a lightweight package, we've got efficiency covered. The rest is up to you.",
                             Discount = 30.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4097),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5734),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Luka 2",
                             Price = 1784299m,
@@ -1128,17 +1499,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
+                            Id = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
                             AverageRating = 4.8m,
                             Brand = "Adidas",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4101),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5738),
                             Description = "Get ready for what's next. This iteration of the signature shoes from Trae Young and adidas Basketball is all about the future of the game. Celebrating Trae's unique look, crowd-pleasing bravado and expressive, futuristic style of play, these shoes are built for optimised motion and stability, two elements of Trae's game that have elevated him to superstar status. The midsole ensures your most explosive moves can be done at top speed while a rubber outsole adds support on hard plants and cuts.",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4102),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5738),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "TRAE YOUNG 3 BASKETBALL SHOES",
                             Price = 4200000m,
@@ -1147,17 +1518,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1"),
+                            Id = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             AverageRating = 4.4m,
                             Brand = "Adidas",
                             Category = "Football",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4106),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5742),
                             Description = "The game's all about goals, and these football boots are crafted to find the net. Every. Time. Target perfection in all-new adidas Predator. With a textured finish on the outside and a foot-hugging fit on the inside, the synthetic upper looks and feels the part. Sitting underneath, a lug rubber outsole ensures you're always in the perfect position to take aim.\r\n\r\nThis product features at least 20% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.",
                             Discount = 15.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4107),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5742),
                             Material = "Leather, fabric, and rubber.",
                             Name = "Predator Club Sock Turf Football Boots",
                             Price = 1600000m,
@@ -1166,17 +1537,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242"),
+                            Id = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             AverageRating = 4.4m,
                             Brand = "Adidas",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4110),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5747),
                             Description = "Whether the workout calls for power or endurance, these adidas shoes offer the support you need for strength training. A dual-density midsole keeps feet stable through heavy lifts, while remaining flexible enough for cardio. HEAT.RDY and a breathable upper work overtime to beat the heat, so you can focus on the reps. A wide fit accommodates swelling feet, and an Adiwear outsole grips the floor to drive performance.\r\n\r\nThis product features at least 20% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.",
                             Discount = 0.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4110),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5748),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Dropset 3 Shoes",
                             Price = 3500000m,
@@ -1185,17 +1556,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece"),
+                            Id = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
                             AverageRating = 4.6m,
                             Brand = "Adidas",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4113),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5752),
                             Description = "The feel of the barbell in your hands, the clang of the plates, the ring of the PR bell. Nothing beats a great lifting day, and these adidas training shoes provide outstanding performance during your Strength Training sessions. The 6 mm midsole drop gives you a flat and stable platform and helps you find proper alignment in all your lifts. The dual-density midsole provides comfort and controlled stability, and a grippy Traxion outsole keeps your footing secure.\r\n\r\nMade with a series of recycled materials, this upper features at least 50% recycled content. This product represents just one of our solutions to help end plastic waste.",
                             Discount = 30.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4114),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5753),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Dropset 2 Trainer",
                             Price = 2450000m,
@@ -1204,17 +1575,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699"),
+                            Id = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
                             AverageRating = 4.7m,
                             Brand = "Adidas",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4117),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5803),
                             Description = "From the moment he first stepped onto the hardwood, Donovan Mitchell has been a game changer, and that's continued even as his game has grown and evolved. These D.O.N. Issue 6 Signature shoes from adidas Basketball continue to build on Spida's on-court persona as well as his off-court social activism. Riding an ultra-lightweight Lightstrike midsole and a unique rubber outsole with an elevated traction pattern, these basketball trainers help you dominate the game just like one of the sport's very best.",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4118),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5804),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "D.O.N. Issue 6 Shoes",
                             Price = 3200000m,
@@ -1223,17 +1594,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
+                            Id = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
                             AverageRating = 4.0m,
                             Brand = "Puma",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4121),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5808),
                             Description = "Run like an intergalactic MVP in the MB.03 Halloween. NITRO™ foam rockets energy return with each explosive step, while the space-age woven upper lets breathability blast off. Scratch cutouts and slime soles complete the Melo world trip. Get ready for lift-off.",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4121),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5809),
                             Material = "Midsole: 100% Synthetic\r\nSockliner: 100% Textile\r\nOutsole: 98.30% Rubber, 1.70% Synthetic\r\nUpper: 69.50% Textile, 30.50% Synthetic\r\nLining: 100% Textile",
                             Name = "PUMA x LAMELO BALL MB.03 Halloween Men's Basketball Shoes",
                             Price = 3300000m,
@@ -1242,17 +1613,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242"),
+                            Id = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
                             AverageRating = 4.2m,
                             Brand = "Puma",
                             Category = "Football",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4126),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5812),
                             Description = "A simple, no-nonsense cleat built to meet your demands on the pitch, the ATTACANTO is built with a soft upper for enhanced touch and ball",
                             Discount = 30.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4127),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5813),
                             Material = "Sockliner: 100% Textile\r\nOutsole: 100% Rubber\r\nUpper: 99.44% Synthetic, 0.56% Textile\r\nLining: 100% Textile",
                             Name = "ATTACANTO Turf Training Men's Soccer Cleats",
                             Price = 1800000m,
@@ -1261,17 +1632,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c"),
+                            Id = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
                             AverageRating = 4.5m,
                             Brand = "Puma",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4130),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5817),
                             Description = "Hit the bike, locked in and ready to dominate your workout with the PWRSPIN indoor cycling shoes. They contain a lightweight upper with our performance ULTRAWEAVE fabric, which will help your feet breathe. Then, the DISC closure and PWRPLATE carbon fibre plate with a delta closure will ensure your feet are secure for a hard training session.\r\n4D PWRPRINT over ULTRAWEAVE upper\r\nKnitted collar construction\r\nDISC technology closure\r\nHook-and-loop closure\r\nPWRPLATE with delta clip on heel\r\nFuturistic heel fin design\r\n",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4131),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5817),
                             Material = "Midsole: 100% Synthetic\r\nSockliner: 100% Textile\r\nOutsole: 98.30% Rubber, 1.70% Synthetic\r\nUpper: 69.50% Textile, 30.50% Synthetic\r\nLining: 100% Textile",
                             Name = "PWRSPIN Indoor Cycling Shoes",
                             Price = 2900000m,
@@ -1280,17 +1651,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826"),
+                            Id = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
                             AverageRating = 4.1m,
                             Brand = "Puma",
                             Category = "Yoga",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4178),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5823),
                             Description = "The PUMA Easy Rider was born in the late ‘70s, when running made its move from the track to the streets. Today it's back with its classic",
                             Discount = 0.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4179),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5823),
                             Material = "Midsole: 100% Rubber\r\nSockliner: 100% Textile\r\nOutsole: 100% Rubber\r\nUpper: 68.19% Leather - cow, 31.81% Textile\r\nLining: 100% Textile.",
                             Name = "Easy Rider Supertifo Women's Sneakers",
                             Price = 2300000m,
@@ -1299,17 +1670,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f"),
+                            Id = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
                             AverageRating = 4.7m,
                             Brand = "Puma",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4183),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5827),
                             Description = "Get going in comfort and style. SOFTRIDE Divine running shoes deliver an ultra-cushioned ride and bold styling. SOFTRIDE and SOFTFOAM+ technologies provide step-in comfort and shock absorption so you can run further in bliss. Zoned rubber traction lets you pick up the pace on any road.\r\n\r\nFEATURES & BENEFITS\r\n",
                             Discount = 40.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4183),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5827),
                             Material = "Midsole: 100% Synthetic\r\nSockliner: 100% Textile\r\nOutsole: 81.10% Rubber, 18.90% Synthetic\r\nUpper: 52.47% Textile, 40.66% Synthetic, 6.87% Leather - cow\r\nLining: 100% Textile",
                             Name = "SOFTRIDE Divine Running Shoes Women",
                             Price = 1750000m,
@@ -1318,17 +1689,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
+                            Id = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
                             AverageRating = 4.5m,
                             Brand = "Reebok",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4187),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5831),
                             Description = "Whether you're new to the gym or already know how to lift weights, these Reebok men's training shoes are designed to help you reach your fitness goals. The breathable and lightweight mesh upper keeps your feet comfortable while built-in support provides stability during box jumps and all-day activity. The rubber outsole features lateral wraps for durability and traction whether indoors or outdoors, with forefoot grooves to provide flexibility when needed.",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4187),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5831),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Reebok NFX Trainer",
                             Price = 2490000m,
@@ -1337,17 +1708,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed"),
+                            Id = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
                             AverageRating = 4.6m,
                             Brand = "Reebok",
                             Category = "Tennis",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4190),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5835),
                             Description = "This shoe is inspired by a combination of Y2K skateboarding style and Reebok DNA, with bold color choices and a striking contrasting solid rubber sole. Everything on these shoes is subtly \"exaggerated\", from the wider designed upper to the thicker and larger shoe laces. The label on the tongue is designed in the form of a special small pocket.\r\n",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4191),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5835),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Unisex Reebok Club C Bulc",
                             Price = 2690000m,
@@ -1356,17 +1727,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a9118c5e-d66a-413a-be09-69211a56249d"),
+                            Id = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
                             AverageRating = 4.3m,
                             Brand = "Reebok",
                             Category = "Tennis",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4196),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5839),
                             Description = "Club C 85 S29074 is a retro style leather walking sneaker.\r\nLow-cut shoes help you score points with delicate beauty. Enjoy comfort with a lightly padded midsole that cushions your feet as you move. A delicate embroidered logo enhances the look for a casual yet sophisticated style. Lightweight molded rubber sole with high abrasion resistance and grip.",
                             Discount = 0.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4196),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5839),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Club C 85",
                             Price = 1990000m,
@@ -1375,17 +1746,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07"),
+                            Id = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
                             AverageRating = 4.8m,
                             Brand = "Reebok",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4200),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5843),
                             Description = "Inspired by the 1996 Mobius collection, these Reebok shoes evoke a modern approach to a blast from the past. Their flashy, asymmetrical look is created by the contrast between yin and yang lighting, so your left shoe looks different from the right shoe. Wear them and show everyone that OG spirit.\r\n",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4200),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5845),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Unisex Reebok The Blast",
                             Price = 3990000m,
@@ -1394,17 +1765,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae"),
+                            Id = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
                             AverageRating = 4.7m,
                             Brand = "Reebok",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4203),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5849),
                             Description = "Designed for versatile workouts\r\n\r\nProduct Code GZ1400\r\n\r\nThe shoe body is made of soft leather for a comfortable feel\r\n\r\nThe EVA midsole provides lightweight cushioning and shock absorption. The ICE outsole offers abrasion resistance and durability.",
                             Discount = 0.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4204),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5850),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "QUESTION LOW",
                             Price = 3590000m,
@@ -1413,17 +1784,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
                             AverageRating = 4.3m,
                             Brand = "Converse",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4207),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5853),
                             Description = "Meet the Run Star Trainer—a celebration of sports, style, and heritage. Sleek details and luxe cushioning pair well with all your favorite 'fits, day and night. The next step in the Star Chevron legacy is here.\r\n\r\nFeatures And Benefits\r\nA durable nylon upper with suede overlays and leather accents for a luxe look and feel\r\nCX foam cushioning helps provide next-level comfort\r\nTraction rubber outsole helps provide grip\r\nPunched eyelets and waxed laces add a premium touch\r\nIconic Star Chevron, All Star, and Converse logos",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4208),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5854),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Run Star Trainer",
                             Price = 1900000m,
@@ -1432,17 +1803,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
                             AverageRating = 4.9m,
                             Brand = "Converse",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4211),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5857),
                             Description = "Take on unpredictable city terrain in low-tops that boast reliable comfort and style. Traction tread means durability and better grip for your power walk, while the suede heel brings a fashion-forward edge. Plus, CX foam cushioning helps keep your steps comfortable for your midtown-to-downtown strut.\r\n\r\nFeatures And Benefits\r\nLow-top shoe with a canvas upper\r\nCX foam helps provide next-level comfort\r\nSuede heel overlay and heel pulls for easy on and off\r\nTraction outsole and rubber toe bumper for added durability\r\nPrinted utility-inspired graphic on the heel",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4211),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5858),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Chuck 70 AT-CX",
                             Price = 2500000m,
@@ -1451,17 +1822,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567"),
+                            Id = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
                             AverageRating = 4.4m,
                             Brand = "Converse",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4214),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5861),
                             Description = "Express your personal style with a pair of shoes from Converse. Our range of shoes and trainers are built for ultimate comfort and timeless street style. With a stylish and iconic silhouette, Converse offers a wide variety of shoes to suit your personality.\r\n\r\nThere may be a 1-2cm difference in measurements depending on the development and manufacturing process.",
                             Discount = 20.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4216),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5862),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Converse x OLD MONEY Weapon\r\n",
                             Price = 2170000m,
@@ -1470,17 +1841,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ddda7675-e334-418f-8165-61c7f47843b2"),
+                            Id = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
                             AverageRating = 4.9m,
                             Brand = "Converse",
                             Category = "Gym & Training",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4220),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5865),
                             Description = "90S REMIX\r\n\r\nWant some '90s flair? Throw on this Weapon that pays homage to our basketball and skate shoes from that era. A durable, leather upper in retro colors gives it the look of a pre-Y2K favorite.\r\n\r\nFeatures And Benefits\r\n Leather and nubuck upper, with that classic Weapon look\r\n CX cushioning helps provide next-level comfort\r\n Flat cotton laces offer durability\r\n Iconic, woven All Star tongue label reps the legacy",
                             Discount = 10.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4220),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5866),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Weapon",
                             Price = 2500000m,
@@ -1489,17 +1860,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87"),
+                            Id = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
                             AverageRating = 4.7m,
                             Brand = "Converse",
                             Category = "Yoga",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4223),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5870),
                             Description = "Nothing combines '90s-inspired edge and everyday comfort like the ultra-lightweight Chuck Taylor All Star Cruise. Add fresh colors to the mix, and you get a style that's ready to take on any adventure.\r\n\r\nFeatures And Benefits\r\nA lightweight, canvas-and-suede upper gives you that classic Chucks look\r\nOrthoLite cushioning helps provide optimal comfort\r\nFresh colors give your rotation a boost\r\nIconic Chuck Taylor All Star patch reps the legacy",
                             Discount = 22.0m,
                             Gender = 2,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4224),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5871),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Converse Cruise",
                             Price = 1520000m,
@@ -1508,17 +1879,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c5ca193f-d2fc-4eb1-980e-79b1fb9b6d98"),
+                            Id = new Guid("eddc8379-6a41-4ed1-90ad-7981e48742ce"),
                             AverageRating = 7m,
                             Brand = "Nike",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4227),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5898),
                             Description = "The seventy returned with joy, saying, “Lord, even the demons are subject to us in your name!”\r\n\r\n18 And he said to them,“I saw Satan fall like lightning from heaven.\r\n\r\n24 Behold, I have given you authority to tread on serpents and scorpions, and over all the power of the enemy, and nothing shall hurt you.\r\n\r\n20 Nevertheless do not rejoice in this, that the spirits are subject to you; but rejoice that your names are written in heaven.”",
                             Discount = 0.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = false,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4227),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5899),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Satan ",
                             Price = 10460000m,
@@ -1527,17 +1898,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5b7595bd-b173-4203-8469-932fe3fb7603"),
+                            Id = new Guid("0a26a72b-622f-42e4-aaa2-cefc17634ec5"),
                             AverageRating = 4.6m,
                             Brand = "Nike",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4230),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5903),
                             Description = "One of the best shoes for basketball and the symbol of Nike's World. You won't be able to take your eyes off of this brand new Jordan, where every details have been scopefully arted.",
                             Discount = 20.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4231),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5903),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Jordan 1 Low Bred Toe 2.0",
                             Price = 1813000m,
@@ -1546,17 +1917,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1910b7fa-cdc1-4a52-b846-9bedc063e1de"),
+                            Id = new Guid("ddc8dcd6-295c-416f-b618-b379c76dba63"),
                             AverageRating = 4.2m,
                             Brand = "Adidas",
                             Category = "Basketball",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4234),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5907),
                             Description = "One of the best shoes for basketball and the symbol of Adidas's World. You won't be able to take your eyes off of this brand new SuperStan, where every details have been scopefully arted.",
                             Discount = 20.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4234),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5907),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Adidas Original StanSmith",
                             Price = 1713000m,
@@ -1565,17 +1936,17 @@ namespace BackEnd_ASP.NET.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1831d69a-711f-47d4-9b6e-6fb35fd9cec9"),
+                            Id = new Guid("b2fb9e8b-aac8-42a4-a618-69e68c86649b"),
                             AverageRating = 4.7m,
                             Brand = "Puma",
                             Category = "Football",
-                            CreateDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4239),
+                            CreateDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5911),
                             Description = "One of the best shoes for football and the symbol of Puma's World. You won't be able to take your eyes off of this brand new FUTURE, where every details have been scopefully arted.",
                             Discount = 20.0m,
                             Gender = 1,
                             ImageUrl = "images/shoes/noimage.webp",
                             IsSale = true,
-                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 10, 35, 739, DateTimeKind.Local).AddTicks(4239),
+                            LastModifiedDate = new DateTime(2024, 10, 21, 21, 40, 3, 252, DateTimeKind.Local).AddTicks(5912),
                             Material = "Leather, fabric, foam, and rubber.",
                             Name = "Puma FUTURE 7 Ultimate FG/AG The Forever Faster",
                             Price = 2713000m,
@@ -1606,854 +1977,854 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2b3f6c46-78da-47bc-91b4-da849876147d"),
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("0791a105-d945-4646-81fe-dbe7841d4812"),
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Url = "images/shoes/[IDGiay_1]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("0a0927f4-6897-400b-97a1-106200c7ca86"),
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("c4a71735-28ba-4e6a-a1c6-928265a9d34c"),
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Url = "images/shoes/[IDGiay_1]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("96e985e9-b9ae-4a5a-aa64-bdc45c7ca288"),
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("002cc3e5-f32d-4d2e-9e83-8e66644370a7"),
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Url = "images/shoes/[IDGiay_1]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("af9be5b8-4e76-4138-a5c6-189985a229da"),
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("3b5558c7-31db-4a98-991e-c72386cf3a90"),
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Url = "images/shoes/[IDGiay_1]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("48c7f8a9-41e4-4409-9061-ba424acddd37"),
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1"),
+                            Id = new Guid("ec0dc99b-c55d-48d4-a26f-0f17a2ca55c0"),
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429"),
                             Url = "images/shoes/[IDGiay_1]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("61910b89-f5ea-4fed-82c3-b518f2a193dd"),
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b"),
+                            Id = new Guid("e008d5f6-4dd1-4597-a5e4-408fe7cd225f"),
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Url = "images/shoes/[IDGiay_2]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("64bf39e0-b635-4989-841b-f37676ff9eab"),
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b"),
+                            Id = new Guid("47eea62f-9126-4779-a825-b4843040e095"),
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Url = "images/shoes/[IDGiay_2]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("3c3553b3-c55f-4004-8a93-487b5c4bd0c1"),
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b"),
+                            Id = new Guid("74b8856c-e200-4d7b-8a43-40c42c7dd985"),
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Url = "images/shoes/[IDGiay_2]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("0e627a04-78b8-4c16-9793-557a6a6acd87"),
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b"),
+                            Id = new Guid("47c03084-95e1-479c-9d71-fde7559d9b0f"),
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Url = "images/shoes/[IDGiay_2]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("95a2d3b8-6444-4063-8625-443904282d17"),
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b"),
+                            Id = new Guid("7e124df1-48ff-434f-a99b-ae2e98a1db2f"),
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f"),
                             Url = "images/shoes/[IDGiay_2]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("29222de0-d5e8-4b99-b954-5bd51f2367c7"),
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4"),
+                            Id = new Guid("a06e8cc6-730a-403a-9d7c-c0391de1da1d"),
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Url = "images/shoes/[IDGiay_3]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("098638c3-d43b-4dbb-8e80-df2ce9ac17cb"),
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4"),
+                            Id = new Guid("33cfc9ad-a79a-4874-b2b8-e85cf76a9f07"),
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Url = "images/shoes/[IDGiay_3]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("f96fd307-063b-4fca-bc32-36276c674823"),
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4"),
+                            Id = new Guid("649506cc-133c-4387-a484-6f06ae7e3f14"),
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Url = "images/shoes/[IDGiay_3]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("576bacb4-e956-46d5-8177-cc2b77acd2b1"),
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4"),
+                            Id = new Guid("c69cda3b-88cf-48af-82c8-e19d1a847e37"),
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Url = "images/shoes/[IDGiay_3]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("7420e858-5109-474c-b03d-ad30b8062b4a"),
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4"),
+                            Id = new Guid("b1ff4bd5-8351-44e3-b88c-1b896a0fda70"),
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af"),
                             Url = "images/shoes/[IDGiay_3]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("5399c5fd-3ca7-4094-8ed2-919bf241ece8"),
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b"),
+                            Id = new Guid("3cd293aa-d645-41b0-adf8-f4f479e0a229"),
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
                             Url = "images/shoes/[IDGiay_4]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("86387908-1eb1-4cc9-8504-a8a7c0b767c4"),
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b"),
+                            Id = new Guid("197a76ca-22b5-4ac0-a519-c925209b336d"),
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
                             Url = "images/shoes/[IDGiay_4]_AnhPhu_1.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("c36030c2-7d5b-4c61-b04b-43a06ed14da2"),
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b"),
+                            Id = new Guid("b032f188-3820-475b-bad4-eb26dfa48800"),
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
                             Url = "images/shoes/[IDGiay_4]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("6d1e08e2-777a-4c08-8179-12766c94101e"),
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b"),
+                            Id = new Guid("ac0e9dad-f17f-4d93-bfc6-4f816485bc54"),
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
                             Url = "images/shoes/[IDGiay_4]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("e3fdb678-9dd2-42ef-8c90-8a7be9e33b48"),
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b"),
+                            Id = new Guid("eadb5b93-ebe2-40ac-9c03-2c589eab031b"),
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7"),
                             Url = "images/shoes/[IDGiay_4]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("cb702786-7520-46b9-9e87-386374579511"),
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef"),
+                            Id = new Guid("8feb11bf-550c-4fc8-a9f7-c11d98450380"),
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Url = "images/shoes/[IDGiay_5]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("334e0c79-29d0-41ff-9594-af2848675c42"),
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef"),
+                            Id = new Guid("1972213a-85c2-4364-9e2a-21575f1c9c14"),
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Url = "images/shoes/[IDGiay_5]_AnhPhu_1.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("ec42db4f-acb5-44e8-b028-bce02cdee870"),
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef"),
+                            Id = new Guid("f928bdc0-3364-49a4-b8e3-938b32ead1dd"),
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Url = "images/shoes/[IDGiay_5]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("3bc6635f-bceb-44bd-9a29-70ee6f2723de"),
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef"),
+                            Id = new Guid("1108b953-baff-4761-8940-22cd3fe786a5"),
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Url = "images/shoes/[IDGiay_5]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("e6d56633-372c-4cd0-9a0a-6eda72f46733"),
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef"),
+                            Id = new Guid("868dbda2-1a3e-4dbb-b103-2c1d00dd24ff"),
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08"),
                             Url = "images/shoes/[IDGiay_5]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("69d528f6-7888-4f89-a137-a4c8a27baf0b"),
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
+                            Id = new Guid("6e9c48ca-cc0e-44ce-8e5b-3bde006cf5e2"),
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
                             Url = "images/shoes/[IDGiay_6]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("57e2c130-1def-47e5-b664-c5abb7aae840"),
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
+                            Id = new Guid("d5acd2bf-79df-4ce6-8897-9dd3a400e12e"),
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
                             Url = "images/shoes/[IDGiay_6]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("8af61908-d1ff-4a00-b558-0dfa5448abbb"),
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
+                            Id = new Guid("8b3bb606-b208-4c6e-a99a-288896da50c6"),
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
                             Url = "images/shoes/[IDGiay_6]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("33ac3f79-209d-4ab6-b99e-77cc15c925ee"),
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
+                            Id = new Guid("4fcf12d2-0cc7-4e3f-8d84-5682ed9628b0"),
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
                             Url = "images/shoes/[IDGiay_6]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("44f5832e-08f6-49d0-9607-dbad7630faf1"),
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b"),
+                            Id = new Guid("b2b2ae38-c4bf-4915-9bcc-9ba93100afa4"),
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7"),
                             Url = "images/shoes/[IDGiay_6]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("9a156a06-a648-45f5-93d3-66a682537c46"),
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1"),
+                            Id = new Guid("25df818a-bfbe-4a4b-a72b-dff68887e2b5"),
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Url = "images/shoes/[IDGiay_7]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b206013a-6941-4500-bba3-50d1b41f8a1d"),
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1"),
+                            Id = new Guid("b2dcfda8-3ee5-40be-a30f-944a65526a31"),
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Url = "images/shoes/[IDGiay_7]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("814c1045-2623-42d9-8e0e-8da91a54cac5"),
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1"),
+                            Id = new Guid("f21e825a-593e-4a0d-9c5f-efe6078c96c7"),
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Url = "images/shoes/[IDGiay_7]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("ce44bd4b-8b8b-4a16-a1cc-8a4a1c588978"),
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1"),
+                            Id = new Guid("efd63bc4-5a2c-4aee-868e-ff5f361e6f41"),
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Url = "images/shoes/[IDGiay_7]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("8b4b4715-4256-48d7-b024-e9fcca4720d0"),
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1"),
+                            Id = new Guid("53ade21b-16fd-44dd-a816-83225e0a25f3"),
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063"),
                             Url = "images/shoes/[IDGiay_7]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("41dfe750-3d73-4998-877a-baa0087e1cb0"),
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242"),
+                            Id = new Guid("6d962edb-1226-4697-8803-519ca57fcb6a"),
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Url = "images/shoes/[IDGiay_8]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("de434bf3-19a6-415e-a69e-c2a67e93fd5e"),
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242"),
+                            Id = new Guid("259cf133-e7bd-410b-8aa7-8d08316fb45c"),
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Url = "images/shoes/[IDGiay_8]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a3ba1d7d-3668-414c-88df-9a6a5ec40a79"),
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242"),
+                            Id = new Guid("a296637b-645e-47ba-bade-e7bddce3b8eb"),
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Url = "images/shoes/[IDGiay_8]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("3a3f741d-4b09-4502-b28e-01e93cc55541"),
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242"),
+                            Id = new Guid("5cd4b3dd-df1b-4ab2-be51-24a732360fef"),
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Url = "images/shoes/[IDGiay_8]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("d2b664ba-0e96-406c-8d84-b25c5b5e20e0"),
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242"),
+                            Id = new Guid("0564b497-8ed4-4f81-9c03-847ae9d5c7b9"),
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4"),
                             Url = "images/shoes/[IDGiay_8]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("5687eba2-e7ef-4854-beab-6b47b6b11202"),
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece"),
+                            Id = new Guid("95379d7b-c9a0-4d75-a533-eba25f71d45e"),
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
                             Url = "images/shoes/[IDGiay_9]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("27a36810-de8a-4d67-b616-bbee1561a6e4"),
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece"),
+                            Id = new Guid("beacc3a1-86d1-4b33-8fe3-f56cb2441375"),
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
                             Url = "images/shoes/[IDGiay_9]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("69d61645-55b4-4f36-b350-3a7385cd53c4"),
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece"),
+                            Id = new Guid("9d84f395-c238-4a32-9b25-0e1565a513ef"),
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
                             Url = "images/shoes/[IDGiay_9]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b5e5353a-1b2e-4576-83e6-893d145280b1"),
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece"),
+                            Id = new Guid("a01d71fd-02b1-48e0-ad62-e098d10d421a"),
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
                             Url = "images/shoes/[IDGiay_9]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("d8bd31fb-5e8b-440f-bcc4-5d175233224b"),
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece"),
+                            Id = new Guid("b6cc7548-639c-4cfc-9a96-8011a458d419"),
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4"),
                             Url = "images/shoes/[IDGiay_9]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("d5bdc962-6a0e-452e-bc74-fc63232996e2"),
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699"),
+                            Id = new Guid("a296f704-957a-4679-85b2-89ba721e78a4"),
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
                             Url = "images/shoes/[IDGiay_10]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a7bd2a06-d066-4149-a3e2-b310efc66446"),
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699"),
+                            Id = new Guid("7cc53d69-9680-45d8-b26e-2f21c83380e3"),
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
                             Url = "images/shoes/[IDGiay_10]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("67dfefc2-d419-475f-a3e7-abcee14ef7d9"),
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699"),
+                            Id = new Guid("9e26b1f0-e771-4104-8606-7b7300bd9383"),
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
                             Url = "images/shoes/[IDGiay_10]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("0bd3420c-7e81-45c5-a15c-3fa8d2a53c84"),
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699"),
+                            Id = new Guid("9e87c79d-6a3b-4f41-8eae-741567dbab66"),
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
                             Url = "images/shoes/[IDGiay_10]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b0f92e6e-8234-417e-8b18-6bc68da3b2ae"),
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699"),
+                            Id = new Guid("7e934749-bd53-499b-a493-a34a88bf98ca"),
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b"),
                             Url = "images/shoes/[IDGiay_10]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("73642749-5445-49cf-96f9-34a29ebc5c8a"),
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
+                            Id = new Guid("422bd580-b34b-42d4-ac8e-ac7912740b66"),
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
                             Url = "images/shoes/[IDGiay_11]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("db327dc3-52d2-40e1-a4a5-ca5266a808cf"),
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
+                            Id = new Guid("3ea39b1e-24bb-4c41-b21e-d681a585510a"),
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
                             Url = "images/shoes/[IDGiay_11]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("5d1e2d0e-5f71-4330-832a-dcc9b4a850c3"),
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
+                            Id = new Guid("358a8f1d-5429-48a2-904e-e0de99eecaab"),
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
                             Url = "images/shoes/[IDGiay_11]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("324b32a5-206b-436a-81f7-fef341b8a02e"),
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
+                            Id = new Guid("224cc53d-1d8a-4ef4-bee6-2e5710df7db3"),
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
                             Url = "images/shoes/[IDGiay_11]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("eb813c8c-d090-40a3-a482-84cf20c08bd0"),
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a"),
+                            Id = new Guid("23fa071d-7b02-4820-90a4-c593eedb7a25"),
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973"),
                             Url = "images/shoes/[IDGiay_11]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("31556814-4fe6-4541-bbfd-47bb1a0aa765"),
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242"),
+                            Id = new Guid("d7e629ee-06a8-405c-9fd4-a5a40a56194b"),
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
                             Url = "images/shoes/[IDGiay_12]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("c6c2d571-0592-43e3-88a9-7c8653598a58"),
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242"),
+                            Id = new Guid("e487a17c-6130-4fd8-9ebb-1abd86d565a1"),
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
                             Url = "images/shoes/[IDGiay_12]_AnhPhu_1.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("a2c4ce55-f23d-4f7c-a193-e9b8f05f2caa"),
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242"),
+                            Id = new Guid("1f9ae1af-2974-404d-9ea0-ba62b94f04c0"),
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
                             Url = "images/shoes/[IDGiay_12]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("d31e39e7-c9d0-4ca8-ad73-989f68136ef5"),
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242"),
+                            Id = new Guid("a05cb3b1-97ed-4ac7-a34e-95ffb30c7860"),
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
                             Url = "images/shoes/[IDGiay_12]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("4688aa70-0582-4420-bc8d-0c1d5f17839c"),
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242"),
+                            Id = new Guid("e4aa7486-fa62-4c54-9a0a-5cf709ef0ab7"),
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340"),
                             Url = "images/shoes/[IDGiay_12]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("9307c089-be1f-446a-8a1e-21dd59d77dbd"),
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c"),
+                            Id = new Guid("858dd249-12e8-4825-b314-621ff5893f50"),
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
                             Url = "images/shoes/[IDGiay_13]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("ff88eabb-a54a-48ce-8cb0-b9fae5b625d0"),
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c"),
+                            Id = new Guid("a8f2dbde-3ff4-46b3-804c-274262af553e"),
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
                             Url = "images/shoes/[IDGiay_13]_AnhPhu_1.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("26b29bc1-6cb5-4e4a-aa54-bfbfce4d69e7"),
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c"),
+                            Id = new Guid("8c44a0e2-7b8c-43df-83da-052637d806a8"),
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
                             Url = "images/shoes/[IDGiay_13]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("3c84dee9-8b58-4482-807a-e92784c084ae"),
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c"),
+                            Id = new Guid("78088692-fe5a-4eb8-9fed-ca0b1752bbdb"),
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
                             Url = "images/shoes/[IDGiay_13]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("be7f2574-e9b7-4496-961a-bb0a7219ebf6"),
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c"),
+                            Id = new Guid("60ec9c12-019f-4b0a-aa39-ea62e945b2de"),
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3"),
                             Url = "images/shoes/[IDGiay_13]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("bf9a881b-65c6-4a36-b46d-2bd02d11ef68"),
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826"),
+                            Id = new Guid("5e5ed15d-1462-4506-83a7-7f118465bd36"),
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
                             Url = "images/shoes/[IDGiay_14]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("2db11bae-aa51-46be-8b7f-eb913ac54774"),
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826"),
+                            Id = new Guid("b5fb6fc8-68b1-4a49-ae33-33ff9f3d59ab"),
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
                             Url = "images/shoes/[IDGiay_14]_AnhPhu_1.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("2d66c102-bdc5-4b99-86bc-adc74ecfac9e"),
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826"),
+                            Id = new Guid("75ce75ae-c6cd-4f26-a651-1771620a8bc7"),
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
                             Url = "images/shoes/[IDGiay_14]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("042e3422-cc05-4c0d-8cb1-8f6778153d6f"),
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826"),
+                            Id = new Guid("fb80020f-891e-406c-bc43-c3f03818bc15"),
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
                             Url = "images/shoes/[IDGiay_14]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("3e826b14-ad2b-4ba8-a591-b94cf20d1923"),
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826"),
+                            Id = new Guid("8c0daee2-053c-42a7-a777-02492d9a4088"),
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523"),
                             Url = "images/shoes/[IDGiay_14]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("cdb597bf-d60b-4850-8e4d-8ff99856a9c8"),
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f"),
+                            Id = new Guid("7ddf8f94-ac99-4a95-ba0d-48df82538bf9"),
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
                             Url = "images/shoes/[IDGiay_15]_AnhChinh.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("9e4fffc1-371a-4c0d-aabd-a3b53cc80d41"),
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f"),
+                            Id = new Guid("d46e32e8-4949-49f6-8e05-33798bb45e1f"),
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
                             Url = "images/shoes/[IDGiay_15]_AnhPhu_1.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("837735ef-18f6-465f-82b3-469e14bd5252"),
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f"),
+                            Id = new Guid("fb499a50-6e25-4231-ad80-0980fe484559"),
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
                             Url = "images/shoes/[IDGiay_15]_AnhPhu_2.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("7c05c0b3-4620-4ae3-84bc-2f4fe012f604"),
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f"),
+                            Id = new Guid("6a473350-06d8-43f5-888a-7fde2ac24445"),
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
                             Url = "images/shoes/[IDGiay_15]_AnhPhu_3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("1500e63b-5503-447e-85a3-7ea1f8df9ff3"),
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f"),
+                            Id = new Guid("14d5759e-a536-4f70-96b5-b838ba606ebc"),
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4"),
                             Url = "images/shoes/[IDGiay_15]_AnhPhu_4.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("1cd1b07e-6dff-4187-aff8-d4c472eebd0d"),
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
+                            Id = new Guid("0f3a6c49-e7cd-4cde-8148-d5c9ccf64331"),
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
                             Url = "images/shoes/[IDGiay_16]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("786a3afb-5320-4d97-87e5-a8d9679e8e5a"),
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
+                            Id = new Guid("14d747e2-cf96-4dfa-80cf-fef67fcb9e16"),
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
                             Url = "images/shoes/[IDGiay_16]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("1678f104-fe5f-42c6-b906-1707b57a05d8"),
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
+                            Id = new Guid("db27aae1-fc8b-49d3-9ab6-2a05f15447ba"),
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
                             Url = "images/shoes/[IDGiay_16]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("28376223-f84a-4cf5-bb89-6d8fd97ee5a8"),
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
+                            Id = new Guid("e2f6440c-36f0-4c3b-a9c4-28b077d62f61"),
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
                             Url = "images/shoes/[IDGiay_16]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("72fee934-a6c5-47f8-b4b1-809b92a5ad96"),
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e"),
+                            Id = new Guid("2ce48e3c-31e6-43ba-986c-e711dd33f73d"),
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c"),
                             Url = "images/shoes/[IDGiay_16]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("280a4f0a-9a65-4b25-836f-31f45d0c4e26"),
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed"),
+                            Id = new Guid("432a136c-3a9e-4d7f-abb0-fd38594c9750"),
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
                             Url = "images/shoes/[IDGiay_17]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("b932bfa9-240a-45d4-9396-d0f9b4c4cafc"),
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed"),
+                            Id = new Guid("4ea2e994-323b-435b-a650-0ea93b7db95a"),
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
                             Url = "images/shoes/[IDGiay_17]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("8704831a-a6da-4558-9296-e71b3820394c"),
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed"),
+                            Id = new Guid("1adf1b91-c708-48cf-9b7d-6c26f9c9aca2"),
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
                             Url = "images/shoes/[IDGiay_17]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("dfee3bb5-150d-4174-b144-b777128d4ec8"),
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed"),
+                            Id = new Guid("5a8828ef-9dcc-4971-ad16-626c02820374"),
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
                             Url = "images/shoes/[IDGiay_17]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("7f239ecf-b532-4362-a85a-a38105dc363e"),
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed"),
+                            Id = new Guid("48c4eb45-154c-4434-a2a3-6573387f5b05"),
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0"),
                             Url = "images/shoes/[IDGiay_17]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("62111389-e42c-4d49-825d-763c01a652e5"),
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d"),
+                            Id = new Guid("bff6d39f-e105-41b7-b6c4-d126cc6ae46b"),
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
                             Url = "images/shoes/[IDGiay_18]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("7edc59d1-96ec-48a9-915f-d74b729d48f3"),
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d"),
+                            Id = new Guid("fc30de11-93fa-4d25-8185-a009203220f0"),
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
                             Url = "images/shoes/[IDGiay_18]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("b1476d11-eb11-4ede-85f4-168717f8cbb8"),
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d"),
+                            Id = new Guid("675caf63-dd54-46a1-9a55-246d234cfb1f"),
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
                             Url = "images/shoes/[IDGiay_18]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("ead65b72-af7a-4637-9e9a-0ac208c0c82c"),
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d"),
+                            Id = new Guid("d253d4ba-dfb8-4308-a4a3-966de7709e0a"),
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
                             Url = "images/shoes/[IDGiay_18]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("505052a9-606a-41b2-894a-b33960ec23b6"),
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d"),
+                            Id = new Guid("d11d7035-75a7-491f-9723-0a027fabe9dd"),
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0"),
                             Url = "images/shoes/[IDGiay_18]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("fb32da02-4eb1-4dc9-a400-ec13863cc062"),
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07"),
+                            Id = new Guid("c08bd008-6105-4199-9044-672533c41f08"),
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
                             Url = "images/shoes/[IDGiay_19]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("e08b5741-c23e-402d-bc13-edd3c97e0bf4"),
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07"),
+                            Id = new Guid("db5f7f75-340a-4d9a-b90b-04aaaa5558b6"),
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
                             Url = "images/shoes/[IDGiay_19]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("ffaf9dc6-425c-40c6-8641-0e7eedf1a1e8"),
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07"),
+                            Id = new Guid("7cadd9f4-b208-42ef-98d0-24a3b1eac351"),
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
                             Url = "images/shoes/[IDGiay_19]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("0fc0d9a7-e3e0-45c1-9944-f97c0eb15604"),
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07"),
+                            Id = new Guid("7f4d7a50-389d-4f04-b6b2-d0037961dcbe"),
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
                             Url = "images/shoes/[IDGiay_19]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("ef43afcc-375f-4756-90fc-30fe5a97241e"),
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07"),
+                            Id = new Guid("c58804d2-1267-4d42-b7bc-2131b4afd03c"),
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c"),
                             Url = "images/shoes/[IDGiay_19]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("12024185-1111-4aa8-8ae8-fb50b01ad128"),
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae"),
+                            Id = new Guid("92ff008c-6e12-4bf9-97a7-60d036ba3fdd"),
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
                             Url = "images/shoes/[IDGiay_20]_AnhChinh.png"
                         },
                         new
                         {
-                            Id = new Guid("81b2b6f5-ff0f-495c-a3d2-3b39759503ba"),
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae"),
+                            Id = new Guid("9e8d2e9c-b46f-438e-9745-f771e1916595"),
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
                             Url = "images/shoes/[IDGiay_20]_AnhPhu_1.png"
                         },
                         new
                         {
-                            Id = new Guid("a4b25fda-b4c4-489a-9d46-dbd84aece651"),
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae"),
+                            Id = new Guid("62840e53-aec1-4baf-b2ef-70d3c16a1017"),
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
                             Url = "images/shoes/[IDGiay_20]_AnhPhu_2.png"
                         },
                         new
                         {
-                            Id = new Guid("38afe8d1-d49f-4ad8-a017-ccd156c65545"),
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae"),
+                            Id = new Guid("8751e2d1-5448-45e7-ab24-191a95df6f29"),
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
                             Url = "images/shoes/[IDGiay_20]_AnhPhu_3.png"
                         },
                         new
                         {
-                            Id = new Guid("0a070a40-384f-47f0-a342-2c4d0bc9b6b2"),
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae"),
+                            Id = new Guid("642e33c3-b972-46f9-8694-fe59c257c4d5"),
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35"),
                             Url = "images/shoes/[IDGiay_20]_AnhPhu_4.png"
                         },
                         new
                         {
-                            Id = new Guid("a88b96c2-5745-47d4-b4a8-4419032d77c8"),
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("31e4f698-9e2b-47cc-bdaf-264e43edf726"),
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
                             Url = "images/shoes/[IDGiay_21]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("de2785c4-c830-4db8-a46a-38e35cd3a49c"),
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("16bed770-6bd7-402a-936d-0b02daf1b5b0"),
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
                             Url = "images/shoes/[IDGiay_21]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("0df6fb4e-8c7d-4850-b1b8-ccfde3aa0e97"),
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("9478f919-c373-41f8-91a0-afa9ffe015d2"),
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
                             Url = "images/shoes/[IDGiay_21]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("2f8596c4-2e08-4fae-b95a-d7f4163be37c"),
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("7550289e-abdd-4ec7-8974-fcb08254009e"),
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
                             Url = "images/shoes/[IDGiay_21]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("98370506-dbf2-4c7b-90a4-9ad5581c0410"),
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a"),
+                            Id = new Guid("00f21f92-96fc-4808-86bf-2d03074c06eb"),
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a"),
                             Url = "images/shoes/[IDGiay_21]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("cb2a53b5-b49d-4eeb-b085-6430b3532a6f"),
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("f1fdd150-c062-4c31-a699-d7d9b0896911"),
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
                             Url = "images/shoes/[IDGiay_22]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("7b0d57ab-f85a-4bb1-be7b-dcd6dedd69c6"),
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("80806e78-e49f-472c-9c4a-38ca535427af"),
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
                             Url = "images/shoes/[IDGiay_22]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("7cd3ecaf-0865-47d0-bb17-6b70b1f148bd"),
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("6df40e33-aadd-4ae4-acb0-83cd13e75b5f"),
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
                             Url = "images/shoes/[IDGiay_22]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("bb3c6d18-e98d-4344-82f2-97cfe745b9c7"),
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("5361016a-a3e5-4d76-adaf-27b11d847b2b"),
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
                             Url = "images/shoes/[IDGiay_22]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("39287087-f390-471b-b0e4-3d6dac8c201e"),
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60"),
+                            Id = new Guid("e38f561d-af50-4a2d-84d3-f2e72ceaeab9"),
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f"),
                             Url = "images/shoes/[IDGiay_22]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b679b698-c440-4924-b526-842a44a1e050"),
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567"),
+                            Id = new Guid("573485ee-5bc7-4591-81ed-a7bdfc29e616"),
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
                             Url = "images/shoes/[IDGiay_23]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("1d390a90-d8fd-4a19-93f5-3a8415c3960b"),
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567"),
+                            Id = new Guid("d98a030b-3863-4b9a-835f-7ff3f32ad862"),
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
                             Url = "images/shoes/[IDGiay_23]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("22f824ac-905d-47eb-94c0-a43ba5b489b3"),
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567"),
+                            Id = new Guid("274501e9-3ff3-45c8-9454-8261b7e52a95"),
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
                             Url = "images/shoes/[IDGiay_23]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("4c325a2b-ce65-4291-a796-82ab0bf5e3b8"),
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567"),
+                            Id = new Guid("30add362-5908-4bf2-a930-0f4ad3b5231f"),
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
                             Url = "images/shoes/[IDGiay_23]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("022ddb58-b457-4fb7-8c3e-0cc914c6bcd6"),
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567"),
+                            Id = new Guid("70436d5d-80eb-49f4-a803-b917fc408faf"),
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4"),
                             Url = "images/shoes/[IDGiay_23]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("d09c81a0-c3b9-41ab-9d40-836851fbc164"),
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2"),
+                            Id = new Guid("04a9b62e-4eec-417b-b60f-10c6e79be98f"),
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
                             Url = "images/shoes/[IDGiay_24]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("112e9335-8466-48e2-b0a6-06e74f133934"),
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2"),
+                            Id = new Guid("744f6bfe-c053-4610-95ac-732f0826e85e"),
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
                             Url = "images/shoes/[IDGiay_24]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("27a4e6b9-a416-4e81-a5f7-e251f5dd1073"),
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2"),
+                            Id = new Guid("4abec5ae-12ae-4819-b7cf-09bff3f3eeb4"),
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
                             Url = "images/shoes/[IDGiay_24]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a815d5e5-37ec-46ae-b383-e7904e0470f3"),
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2"),
+                            Id = new Guid("ada5b1ae-6802-45b0-b6be-93e11cb31593"),
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
                             Url = "images/shoes/[IDGiay_24]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("8b5cdb73-cf4e-4b05-adfb-41b4b0290962"),
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2"),
+                            Id = new Guid("a94d0f2d-f81d-4777-ab26-b1f79c9efe1f"),
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44"),
                             Url = "images/shoes/[IDGiay_24]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("50caca2d-a80f-4ac4-b463-56cd48567230"),
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87"),
+                            Id = new Guid("aa549250-fc63-49ad-b34d-3dcdab6b9c4a"),
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
                             Url = "images/shoes/[IDGiay_25]_AnhChinh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a1054639-5c85-4a23-bccc-13bf3d84b605"),
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87"),
+                            Id = new Guid("7879c12a-33a3-4bf3-b221-9e8476c718f8"),
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
                             Url = "images/shoes/[IDGiay_25]_AnhPhu_1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("68edc5cd-1e18-4d67-9895-eb1c0a297061"),
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87"),
+                            Id = new Guid("7b963066-d143-47d1-a01c-4dacbb7bbbbf"),
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
                             Url = "images/shoes/[IDGiay_25]_AnhPhu_2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("4a4fb7e5-5a1e-4585-a4e4-cdad16c9f663"),
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87"),
+                            Id = new Guid("16faf82d-d01d-4188-abf6-69699509d874"),
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
                             Url = "images/shoes/[IDGiay_25]_AnhPhu_3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a6fb7b3f-20db-434d-b0e6-95d4362249dd"),
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87"),
+                            Id = new Guid("d8fef1ae-5b7d-40c9-9939-4eb892279acb"),
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef"),
                             Url = "images/shoes/[IDGiay_25]_AnhPhu_4.jpg"
                         },
                         new
                         {
-                            Id = new Guid("e71a6a38-7673-4df1-b796-c854a103e3df"),
-                            ShoeId = new Guid("c5ca193f-d2fc-4eb1-980e-79b1fb9b6d98"),
+                            Id = new Guid("81d1d1fe-2e15-45cc-9f47-3ba84a2b412f"),
+                            ShoeId = new Guid("eddc8379-6a41-4ed1-90ad-7981e48742ce"),
                             Url = "https://gossipdergi.com/wp-content/uploads/2021/04/nikeayakkabi.gif"
                         },
                         new
                         {
-                            Id = new Guid("6de41122-402f-4033-b291-ddc73be68b43"),
-                            ShoeId = new Guid("c5ca193f-d2fc-4eb1-980e-79b1fb9b6d98"),
+                            Id = new Guid("3e742454-d073-43dc-8c9f-012f0612de42"),
+                            ShoeId = new Guid("eddc8379-6a41-4ed1-90ad-7981e48742ce"),
                             Url = "https://i.pinimg.com/originals/c0/cf/d1/c0cfd1545f10c56793e888e991b60487.png"
                         },
                         new
                         {
-                            Id = new Guid("eed48b9d-c90a-4b32-841a-4b0b46675657"),
-                            ShoeId = new Guid("c5ca193f-d2fc-4eb1-980e-79b1fb9b6d98"),
+                            Id = new Guid("21cd26f0-3e84-4bfd-b835-37910d5423bb"),
+                            ShoeId = new Guid("eddc8379-6a41-4ed1-90ad-7981e48742ce"),
                             Url = "https://c.files.bbci.co.uk/1081F/production/_117751676_satan-shoes2.jpg"
                         },
                         new
                         {
-                            Id = new Guid("859bd4af-fcbd-44f7-a595-a4becf1b3d2e"),
-                            ShoeId = new Guid("c5ca193f-d2fc-4eb1-980e-79b1fb9b6d98"),
+                            Id = new Guid("ce910536-f541-4456-9870-996f09127d86"),
+                            ShoeId = new Guid("eddc8379-6a41-4ed1-90ad-7981e48742ce"),
                             Url = "https://media.cnn.com/api/v1/images/stellar/prod/210328223753-03-lil-nas-x-satan-shoes.jpg?q=w_3000,h_3000,x_0,y_0,c_fill"
                         },
                         new
                         {
-                            Id = new Guid("bf3bdd58-f515-4510-8480-4d4379a3f56a"),
-                            ShoeId = new Guid("c5ca193f-d2fc-4eb1-980e-79b1fb9b6d98"),
+                            Id = new Guid("ae19fe8c-1e29-4abb-a9f1-3daaf388f62a"),
+                            ShoeId = new Guid("eddc8379-6a41-4ed1-90ad-7981e48742ce"),
                             Url = "https://photo.znews.vn/w660/Uploaded/rohunwa/2021_03_26/SHOES3.jpeg"
                         },
                         new
                         {
-                            Id = new Guid("406dc302-c456-43d7-9d22-9f3c52d3217a"),
-                            ShoeId = new Guid("5b7595bd-b173-4203-8469-932fe3fb7603"),
+                            Id = new Guid("39c8991b-9215-4b66-9861-7d2dde8e8198"),
+                            ShoeId = new Guid("0a26a72b-622f-42e4-aaa2-cefc17634ec5"),
                             Url = "https://dmpkickz.com/cdn/shop/files/6_78fd24e0-cd30-400a-8fa1-e5e6cd3c5b0b.png?v=1696679846&width=480"
                         },
                         new
                         {
-                            Id = new Guid("06c97c7f-9295-494f-8090-da4403ca0cba"),
-                            ShoeId = new Guid("5b7595bd-b173-4203-8469-932fe3fb7603"),
+                            Id = new Guid("614760b0-7d18-4343-881d-67b7e6a2ee7a"),
+                            ShoeId = new Guid("0a26a72b-622f-42e4-aaa2-cefc17634ec5"),
                             Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBQXFHswxHuyjT_e8rb5XOaWUzEe3pphPPw&s"
                         },
                         new
                         {
-                            Id = new Guid("f26ee9e9-afd9-42a5-a8bd-8f3f95ca7e54"),
-                            ShoeId = new Guid("5b7595bd-b173-4203-8469-932fe3fb7603"),
+                            Id = new Guid("0153bfda-5ca6-4752-8531-aecb028bffb6"),
+                            ShoeId = new Guid("0a26a72b-622f-42e4-aaa2-cefc17634ec5"),
                             Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQPenW_eiwOe1RkKeaF_kg5TraxKiem6NJ_Q&s"
                         },
                         new
                         {
-                            Id = new Guid("7403e72b-1655-4378-b66e-cc5b51363ee8"),
-                            ShoeId = new Guid("5b7595bd-b173-4203-8469-932fe3fb7603"),
+                            Id = new Guid("56d9a257-da91-47b7-a297-bae054d4960a"),
+                            ShoeId = new Guid("0a26a72b-622f-42e4-aaa2-cefc17634ec5"),
                             Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3rZPCUSKRHdQA5_g3YBJRdcmIf_6PpZcNZg&s"
                         },
                         new
                         {
-                            Id = new Guid("bc5e4056-d337-4f1b-b994-e01dc0123faf"),
-                            ShoeId = new Guid("1910b7fa-cdc1-4a52-b846-9bedc063e1de"),
+                            Id = new Guid("d2bf1846-f71c-4773-bef7-94915812602b"),
+                            ShoeId = new Guid("ddc8dcd6-295c-416f-b618-b379c76dba63"),
                             Url = "https://likelihood.us/cdn/shop/files/stansmith_angle_1200x.png?v=1691430477"
                         },
                         new
                         {
-                            Id = new Guid("232d689e-cadd-4932-b24e-29a4169200ca"),
-                            ShoeId = new Guid("1910b7fa-cdc1-4a52-b846-9bedc063e1de"),
+                            Id = new Guid("1d076f34-8ec5-4020-a40d-95317c9c0239"),
+                            ShoeId = new Guid("ddc8dcd6-295c-416f-b618-b379c76dba63"),
                             Url = "https://assets.adidas.com/images/w_1880,f_auto,q_auto/e53b9a57b0a745be924bac1e00f54427_9366/FX5502_42_detail.jpg"
                         },
                         new
                         {
-                            Id = new Guid("afcfcfb7-6a88-497b-b179-fc73d7146f7a"),
-                            ShoeId = new Guid("1910b7fa-cdc1-4a52-b846-9bedc063e1de"),
+                            Id = new Guid("1754affd-660a-43cb-b991-d2597502eec1"),
+                            ShoeId = new Guid("ddc8dcd6-295c-416f-b618-b379c76dba63"),
                             Url = "https://sneakerholicvietnam.vn/wp-content/uploads/2021/06/adidas-stan-smith-green-m20324-1.jpg"
                         },
                         new
                         {
-                            Id = new Guid("dfe23e3d-e1b1-48fd-9fc1-43dd04e112b1"),
-                            ShoeId = new Guid("1910b7fa-cdc1-4a52-b846-9bedc063e1de"),
+                            Id = new Guid("691e5919-83aa-4d13-842b-692c69a79989"),
+                            ShoeId = new Guid("ddc8dcd6-295c-416f-b618-b379c76dba63"),
                             Url = "https://sneakerholicvietnam.vn/wp-content/uploads/2021/06/adidas-stan-smith-green-m20324-3.jpg"
                         },
                         new
                         {
-                            Id = new Guid("8d2f8e8e-927f-4ee2-8930-fac5a5ef3493"),
-                            ShoeId = new Guid("1831d69a-711f-47d4-9b6e-6fb35fd9cec9"),
+                            Id = new Guid("96fa3b50-c12c-4607-b900-1daf20847c47"),
+                            ShoeId = new Guid("b2fb9e8b-aac8-42a4-a618-69e68c86649b"),
                             Url = "https://thumblr.uniid.it/product/336262/8307c19dcf3d.jpg?width=3840&format=webp&q=75"
                         },
                         new
                         {
-                            Id = new Guid("0f870ea0-84e4-42fa-a42e-0e0d9dc89c76"),
-                            ShoeId = new Guid("1831d69a-711f-47d4-9b6e-6fb35fd9cec9"),
+                            Id = new Guid("a1906795-7aff-403a-997c-d1df9093cca7"),
+                            ShoeId = new Guid("b2fb9e8b-aac8-42a4-a618-69e68c86649b"),
                             Url = "https://thumblr.uniid.it/product/336262/a92a6cadc8a6.jpg?width=3840&format=webp&q=75"
                         },
                         new
                         {
-                            Id = new Guid("fbb30369-5141-440e-91d4-221696afb2e9"),
-                            ShoeId = new Guid("1831d69a-711f-47d4-9b6e-6fb35fd9cec9"),
+                            Id = new Guid("9a0ca80a-c79e-4fcc-b0d3-d59a7b1d1e6b"),
+                            ShoeId = new Guid("b2fb9e8b-aac8-42a4-a618-69e68c86649b"),
                             Url = "https://thumblr.uniid.it/product/336262/57daee260d2a.jpg?width=3840&format=webp&q=75"
                         },
                         new
                         {
-                            Id = new Guid("f5c0f8cf-ea55-4e5e-8f84-7001d13817e3"),
-                            ShoeId = new Guid("1831d69a-711f-47d4-9b6e-6fb35fd9cec9"),
+                            Id = new Guid("b0c90155-82e6-4479-bb5b-94e9200b7b7f"),
+                            ShoeId = new Guid("b2fb9e8b-aac8-42a4-a618-69e68c86649b"),
                             Url = "https://www.prosoccer.com/cdn/shop/files/PumaFuture7UltimateFGAG-ForeverFasterPack_SP24_Model1_1500x.png?v=1713488175"
                         });
                 });
@@ -2480,309 +2851,309 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("114a53a1-0e03-4809-8caa-6b82af663c5b"),
+                            Id = new Guid("3c07f3b6-6705-4771-930f-a526052e8a2e"),
                             Season = "Summer",
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1")
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429")
                         },
                         new
                         {
-                            Id = new Guid("87eade11-698b-44e9-bce0-d0aa6bfbf61f"),
+                            Id = new Guid("9665ac68-b55d-46b1-8826-04b69e9e7e6e"),
                             Season = "Spring",
-                            ShoeId = new Guid("146ef5fa-0003-43aa-a851-db453637a6b1")
+                            ShoeId = new Guid("ba702c5f-bf56-4d5b-ba98-5aad27eb0429")
                         },
                         new
                         {
-                            Id = new Guid("382e31e8-e752-45d6-a8c2-5b152c1e32f7"),
+                            Id = new Guid("7b30c05c-8606-480f-bbe3-591aace1a80b"),
                             Season = "Winter",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("c7a4294c-8dad-4fba-8545-f8a971bdf424"),
+                            Id = new Guid("093ca10e-bd02-430e-b90a-971b54d1edf1"),
                             Season = "Summer",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("160d8a0f-5d89-4eec-9ede-60e61c38fcd9"),
+                            Id = new Guid("c13f3e08-5f78-4bc2-8b82-0650f7343cf7"),
                             Season = "Fall",
-                            ShoeId = new Guid("de5a65d8-684e-4d42-a5ac-01ce5fdf173b")
+                            ShoeId = new Guid("8bd76b6d-92a6-4247-b675-12e1c7c1b72f")
                         },
                         new
                         {
-                            Id = new Guid("9774b174-9e3c-4322-b1e7-df5c625d46d3"),
+                            Id = new Guid("31660023-2bb6-4f59-8c78-5a3597b5e2e9"),
                             Season = "Spring",
-                            ShoeId = new Guid("9868e163-0f3a-49a2-a883-426bd38d83a4")
+                            ShoeId = new Guid("b2e50506-bf7c-4dfc-b8d6-e5541a6357af")
                         },
                         new
                         {
-                            Id = new Guid("10d4d59e-873e-41a6-a0d0-bb833940d3ff"),
+                            Id = new Guid("7ece9bff-76f2-49a5-8bc3-4bbc29718bdb"),
                             Season = "Fall",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("0f079488-9462-4377-bde0-3b39215df855"),
+                            Id = new Guid("3084c6fd-bc2a-4d97-affb-6c2ea6ca0763"),
                             Season = "Winter",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("7962d7b0-ba6b-4555-a94c-f5ed167f361e"),
+                            Id = new Guid("1f01322b-fef0-488f-897d-11577dc4954b"),
                             Season = "Spring",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("f87e8ad7-1a73-4e04-9481-b47256f0863e"),
+                            Id = new Guid("a7109a7a-3c39-4223-ba35-a012566e945d"),
                             Season = "Summer",
-                            ShoeId = new Guid("4e80b8af-91a4-445c-88ac-5c6e3cedbb3b")
+                            ShoeId = new Guid("46c1fd94-bbc3-4290-984a-2b9929291ca7")
                         },
                         new
                         {
-                            Id = new Guid("904d25b8-6b74-4066-930e-6679ad274e88"),
+                            Id = new Guid("d767b77a-5fc1-48e8-ae9f-38da6e350783"),
                             Season = "Fall",
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef")
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08")
                         },
                         new
                         {
-                            Id = new Guid("07d4b666-6b69-430b-9475-10dcf9e87083"),
+                            Id = new Guid("1a5e48cb-f296-4e2f-bf13-b41c917bc594"),
                             Season = "Winter",
-                            ShoeId = new Guid("4063f14b-c97d-4fb4-8e87-9621f5d1b3ef")
+                            ShoeId = new Guid("0ccb4d47-0c78-4b74-b8d7-a21536a1ce08")
                         },
                         new
                         {
-                            Id = new Guid("08ef1544-584b-43cf-a756-77c140b9729b"),
+                            Id = new Guid("3a22a26a-0694-4fbf-a1cb-374f480f9068"),
                             Season = "Summer",
-                            ShoeId = new Guid("c022bcf3-d5dc-4745-a48d-47625a0c957b")
+                            ShoeId = new Guid("ab4cee84-012d-4013-8faf-e660cda1fca7")
                         },
                         new
                         {
-                            Id = new Guid("7ded12cc-141d-4357-b6ca-e9c0ac311933"),
+                            Id = new Guid("d5c77425-dbcb-4737-8f9e-4829d7d96fd5"),
                             Season = "Spring",
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1")
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063")
                         },
                         new
                         {
-                            Id = new Guid("2fe47141-1277-4042-a06a-ed68abd8904b"),
+                            Id = new Guid("f2aeaefa-6245-4a20-b808-bb5a0b8f74d9"),
                             Season = "Summer",
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1")
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063")
                         },
                         new
                         {
-                            Id = new Guid("918453f2-1393-470a-9c00-8144e1e9e1ae"),
+                            Id = new Guid("8f99413a-ced2-4d44-b5b6-1734d8a03cf7"),
                             Season = "Fall",
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1")
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063")
                         },
                         new
                         {
-                            Id = new Guid("37df4f12-aac9-4d27-a7a6-62a2144b27fb"),
+                            Id = new Guid("f5ae5abd-672d-4b53-a63d-12d110b5e9ac"),
                             Season = "Winter",
-                            ShoeId = new Guid("9ba0c988-6f6d-4f6b-83c8-1d658edabaa1")
+                            ShoeId = new Guid("bbd8684e-9b33-49b3-b096-7b69bf42c063")
                         },
                         new
                         {
-                            Id = new Guid("5bdc017c-e732-42b0-aa76-1d7ad6756ae3"),
+                            Id = new Guid("f34f6e0f-4b2b-407b-9f58-8959be3b72f7"),
                             Season = "Spring",
-                            ShoeId = new Guid("07d21ad5-fb87-4f28-add4-a3384ecf3242")
+                            ShoeId = new Guid("712cea1e-9860-4b7f-88f3-ee06c25a92f4")
                         },
                         new
                         {
-                            Id = new Guid("203eef4e-efcf-4a7c-8b75-4c1577adb9a6"),
+                            Id = new Guid("0baf060a-4d0c-43a7-a27f-31d320b62350"),
                             Season = "Summer",
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece")
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4")
                         },
                         new
                         {
-                            Id = new Guid("82572d4d-60dc-4fab-8bc2-de8a493b9bf0"),
+                            Id = new Guid("543db967-21e2-4464-91d7-0781a25fe4e1"),
                             Season = "Winter",
-                            ShoeId = new Guid("84544985-372a-4f1b-a0a0-25dc47aa7ece")
+                            ShoeId = new Guid("3e1edeb8-e5d6-455f-af85-75042dd6bfe4")
                         },
                         new
                         {
-                            Id = new Guid("dd3094a9-3477-4f1f-8f44-37a57d217601"),
+                            Id = new Guid("0fbd9c9c-4e38-4a9b-b3f8-382c1521738a"),
                             Season = "Summer",
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699")
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b")
                         },
                         new
                         {
-                            Id = new Guid("ce3c0e1d-9475-4688-9417-1703ffbb02eb"),
+                            Id = new Guid("d4bd806e-3f3e-4ca3-aa28-101d6caea641"),
                             Season = "Spring",
-                            ShoeId = new Guid("7596ba34-6eb8-4eec-b90f-63383cdba699")
+                            ShoeId = new Guid("9d34da5c-e479-490b-a07c-529975aca15b")
                         },
                         new
                         {
-                            Id = new Guid("7469c2a6-2b5a-4a59-b497-1d4455f2cc61"),
+                            Id = new Guid("48338925-a544-4897-adc2-c90acba06c66"),
                             Season = "Fall",
-                            ShoeId = new Guid("b4a61797-b823-47fb-8818-8e6b698cba1a")
+                            ShoeId = new Guid("49b2c377-7d9e-4c91-baf0-ff1f101cc973")
                         },
                         new
                         {
-                            Id = new Guid("61094270-1752-48ce-af96-b3606dcf2739"),
+                            Id = new Guid("65f514fe-72f4-4de7-ae92-0724330f5c61"),
                             Season = "Spring",
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242")
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340")
                         },
                         new
                         {
-                            Id = new Guid("3bd751f6-9d55-41e3-9365-581cfc09c2db"),
+                            Id = new Guid("62ea7ad2-ff21-451e-9bc0-a4c4d7bf4d36"),
                             Season = "Fall",
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242")
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340")
                         },
                         new
                         {
-                            Id = new Guid("6ad2276e-aaa5-4130-9643-789f5221863f"),
+                            Id = new Guid("865a8b72-e478-482e-bfc9-4940f767b49e"),
                             Season = "Winter",
-                            ShoeId = new Guid("533e7f4b-2d19-44f1-b4db-cdaec0e75242")
+                            ShoeId = new Guid("7e61c6bb-6750-4785-9393-95ccb7ff4340")
                         },
                         new
                         {
-                            Id = new Guid("b08c9670-cc07-45a3-9e3c-03b1cee02901"),
+                            Id = new Guid("aa136d57-3f6c-4620-aa37-450262fc770a"),
                             Season = "Summer",
-                            ShoeId = new Guid("38f37e90-2ccf-4e37-8d9e-3c8b3284b47c")
+                            ShoeId = new Guid("3beebc53-8b61-4b6b-8341-6e620fdb01c3")
                         },
                         new
                         {
-                            Id = new Guid("6055bf1d-8c7e-4d1e-a917-abf0440e77bb"),
+                            Id = new Guid("33007bbe-3b0f-4b34-ad89-703c98826c82"),
                             Season = "Spring",
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826")
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523")
                         },
                         new
                         {
-                            Id = new Guid("c32153c6-a258-4034-bb9d-1a33af4f027a"),
+                            Id = new Guid("7abdd5dd-64a1-4a2e-b51c-5e80d265353b"),
                             Season = "Summer",
-                            ShoeId = new Guid("2953a508-72cb-4c65-a512-31f0a15e2826")
+                            ShoeId = new Guid("178094dc-564b-47a8-bf9b-9f3da772e523")
                         },
                         new
                         {
-                            Id = new Guid("74544b40-fd4b-4a4d-87d5-176b6f01811c"),
+                            Id = new Guid("42c55363-f3bf-4465-aa0d-5ab9ec6537b0"),
                             Season = "Spring",
-                            ShoeId = new Guid("641637cd-8ad5-40b9-89d2-9483c76e8c8f")
+                            ShoeId = new Guid("89197c81-5d15-4d7a-a1cb-5b0a40ec8fb4")
                         },
                         new
                         {
-                            Id = new Guid("febe3995-5762-4894-94b3-cad6186a48dd"),
+                            Id = new Guid("54067e71-8dfb-4e9c-9bb9-b999bccbbcce"),
                             Season = "Spring",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("f257b4fa-9170-4669-bc1a-461f50aab4fc"),
+                            Id = new Guid("96cf4f81-6473-4e79-a1cc-43a521eaa668"),
                             Season = "Summer",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("e2028660-1301-46c5-8474-a525c187e21d"),
+                            Id = new Guid("7555ee23-1b5e-414c-8f1a-a79859b553e5"),
                             Season = "Fall",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("54db6c25-2658-4c3b-88ce-c2b75a9bb0f2"),
+                            Id = new Guid("9a8b79ca-6f9d-4701-997a-876cc803a766"),
                             Season = "Winter",
-                            ShoeId = new Guid("c3d04a55-3869-49db-811b-695393e9756e")
+                            ShoeId = new Guid("bb7e224c-10fd-44aa-b560-5cae8b99e93c")
                         },
                         new
                         {
-                            Id = new Guid("ba1c37d7-9c1d-4ca5-88ef-44960600f363"),
+                            Id = new Guid("316894e1-dbe3-4f39-b184-18dc85fbd496"),
                             Season = "Winter",
-                            ShoeId = new Guid("b6d7fc0c-b5c9-49bc-b4e4-df9544510bed")
+                            ShoeId = new Guid("fbe6527b-99b6-43d8-aa3d-b38df2b3d3d0")
                         },
                         new
                         {
-                            Id = new Guid("ba4b036e-29ad-4af2-a042-317371df6315"),
+                            Id = new Guid("639f2bcd-e46c-4ae7-ba15-4169cb4b48ee"),
                             Season = "Summer",
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d")
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0")
                         },
                         new
                         {
-                            Id = new Guid("bfe3ee09-5ba5-416c-b6e2-6f2bd8a2ae85"),
+                            Id = new Guid("fecf1906-f4ec-4006-9202-c9e170528520"),
                             Season = "Spring",
-                            ShoeId = new Guid("a9118c5e-d66a-413a-be09-69211a56249d")
+                            ShoeId = new Guid("c692523f-1436-41a6-ac9e-e101109de5f0")
                         },
                         new
                         {
-                            Id = new Guid("f6e40f4c-2a26-4a31-b536-d51356fef3ad"),
+                            Id = new Guid("c0d16bab-3bc6-46c2-b6f1-05201046229a"),
                             Season = "Winter",
-                            ShoeId = new Guid("d0cc4a4a-cf8e-401f-8972-4f3c199c0e07")
+                            ShoeId = new Guid("667909e0-8cc4-4619-a7a7-1d971ecc349c")
                         },
                         new
                         {
-                            Id = new Guid("886ddb6e-2c4f-4031-9220-30f779d3fe25"),
+                            Id = new Guid("749751a0-1d60-4739-88c6-5a7b2edce1c5"),
                             Season = "Spring",
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae")
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35")
                         },
                         new
                         {
-                            Id = new Guid("7a010247-2204-4fe9-936b-12d5a7125608"),
+                            Id = new Guid("05a82193-d91b-4c6f-a818-6cc971b16208"),
                             Season = "Summer",
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae")
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35")
                         },
                         new
                         {
-                            Id = new Guid("76c86625-9784-44ce-a341-e20a0cb891b9"),
+                            Id = new Guid("7eefd11b-e3cb-46a2-8815-86921e25349d"),
                             Season = "Winter",
-                            ShoeId = new Guid("7f8fd7a1-b24f-41f2-883a-2eaa6389bfae")
+                            ShoeId = new Guid("2e6fa1c9-9b1d-49d0-a006-ca786169ad35")
                         },
                         new
                         {
-                            Id = new Guid("da854569-8d58-441d-8222-74f39ae8afa6"),
+                            Id = new Guid("f6620a0e-7944-4dad-a250-56c545bfc300"),
                             Season = "Spring",
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a")
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a")
                         },
                         new
                         {
-                            Id = new Guid("60202f9e-21e1-496b-bb20-051d78c02ce4"),
+                            Id = new Guid("f11d3106-5f29-4b78-9153-04f4a5c6c66b"),
                             Season = "Summer",
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a")
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a")
                         },
                         new
                         {
-                            Id = new Guid("99bb76f3-c0b2-4a16-9016-4b8527b3e0bb"),
+                            Id = new Guid("ae915b68-9f9f-4b55-9372-91b629e664ea"),
                             Season = "Fall",
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a")
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a")
                         },
                         new
                         {
-                            Id = new Guid("96b1fe95-7057-47eb-b58d-931c21781428"),
+                            Id = new Guid("9d3bdec6-db25-4d65-ba2a-133ced4e884e"),
                             Season = "Winter",
-                            ShoeId = new Guid("645f3f7c-f68d-4f59-8c02-6fe385aaaa9a")
+                            ShoeId = new Guid("21b597b6-4049-4457-8414-413d2fd8226a")
                         },
                         new
                         {
-                            Id = new Guid("63bbd48c-47d0-4f81-9bf0-9ae418d75609"),
+                            Id = new Guid("23fdd47f-e70d-4b3c-9def-66feefc0dafe"),
                             Season = "Summer",
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60")
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f")
                         },
                         new
                         {
-                            Id = new Guid("5976de84-af65-4f17-a94f-dd381c271d6d"),
+                            Id = new Guid("8235347d-61a0-4491-ab45-88c3d1ecd258"),
                             Season = "Winter",
-                            ShoeId = new Guid("afe193c8-4b14-4ecf-a487-2501196c5c60")
+                            ShoeId = new Guid("4b583fac-3567-4821-a214-6ae29e8cf33f")
                         },
                         new
                         {
-                            Id = new Guid("545a22b1-604b-4907-bc25-bfa2e33896b4"),
+                            Id = new Guid("868d1c1d-7d30-44bc-9fa2-cad5617194d7"),
                             Season = "Winter",
-                            ShoeId = new Guid("0169631e-aad8-4aef-ba37-19c51fca1567")
+                            ShoeId = new Guid("362f30ba-8c18-4e81-a036-23165ad8f5b4")
                         },
                         new
                         {
-                            Id = new Guid("efa17e78-985f-47c0-9cda-cc38042ad6df"),
+                            Id = new Guid("205bd89f-a31d-4ad4-adf8-892d54b65fb7"),
                             Season = "Spring",
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2")
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44")
                         },
                         new
                         {
-                            Id = new Guid("38eba8de-483f-4fce-a652-8b2dfa2110ab"),
+                            Id = new Guid("3c1f0c5b-3bf2-4463-be81-af1f0268d12c"),
                             Season = "Fall",
-                            ShoeId = new Guid("ddda7675-e334-418f-8165-61c7f47843b2")
+                            ShoeId = new Guid("eb3ad240-aef2-4b44-bee5-b80acd448c44")
                         },
                         new
                         {
-                            Id = new Guid("e692ae0e-6231-4597-bb9e-e385df9c16f8"),
+                            Id = new Guid("ab6ccf8c-d125-421c-bef3-757e83fe44a8"),
                             Season = "Spring",
-                            ShoeId = new Guid("fa4af5bb-5089-4d07-b88a-153f702f0a87")
+                            ShoeId = new Guid("595f023c-1fde-445c-9b4f-4518af4d88ef")
                         });
                 });
 
@@ -2883,9 +3254,9 @@ namespace BackEnd_ASP.NET.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e2f1674b-6db8-4428-9e8d-54cc03438a3e"),
+                            Id = new Guid("6e092fbf-e844-4370-a532-11510c9afa9f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd388f97-ccbe-411d-b971-30aa105b8ffa",
+                            ConcurrencyStamp = "80eb9d79-c1eb-487d-acaf-c503d5f88431",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2204, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "machgiahuy@gmail.com",
@@ -2900,16 +3271,16 @@ namespace BackEnd_ASP.NET.Migrations
                             NormalizedUserName = "JOHN.DOE",
                             PasswordHash = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("c14ae901-91eb-4fdc-be92-622250d013e2"),
+                            RoleId = new Guid("1d5de0aa-0161-4c4e-9f6f-b2ef737a1ef9"),
                             TotalMoney = 1000m,
                             TwoFactorEnabled = false,
                             UserName = "Mach Gia Huy"
                         },
                         new
                         {
-                            Id = new Guid("d961cc80-020a-46bb-ad17-1890a68cbc0f"),
+                            Id = new Guid("e8063795-2a83-4ac4-858a-a60bddbc27c0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "72fb5b3b-e5b6-4ed2-9720-af9163bca0ff",
+                            ConcurrencyStamp = "60a01be4-0c26-4ed7-830a-fc024223cd31",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2004, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -2924,7 +3295,7 @@ namespace BackEnd_ASP.NET.Migrations
                             NormalizedUserName = "JANE.SMITH",
                             PasswordHash = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("841c88ea-5020-4ca9-ba23-668b564514b7"),
+                            RoleId = new Guid("a49b1b99-be22-4f03-b9cf-20cba524a165"),
                             TotalMoney = 1500m,
                             TwoFactorEnabled = false,
                             UserName = "jane.smith"
