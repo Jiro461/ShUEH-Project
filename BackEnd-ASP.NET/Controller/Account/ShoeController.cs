@@ -59,7 +59,7 @@ namespace BackEnd_ASP.NET.Controller.Shoe
             return await shoeService.UpdateShoeAsync(id, shoe);
         }
 
-        [HttpGet("cart")]
+        [HttpPost("cart")]
         public async Task<IActionResult> GetCartShoe([FromBody] List<Guid> shoeIds)
         {
             if (shoeIds == null || shoeIds.Count == 0)
