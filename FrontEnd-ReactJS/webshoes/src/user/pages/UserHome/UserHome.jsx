@@ -7,14 +7,20 @@ import UserMostPopular from "./sections/UserMostPopular";
 import UserAdvantage from "./sections/UserAdvantage";
 import UserCollaboration from "./sections/UserCollaboration";
 import UserReview from "./sections/UserReview";
+import Login from "../../components/login/Login";
+import Register from "../../components/register/Register";
+import UserProductCustom from "./sections/UserProductCustom";
 
 const UserHome = () => {
     return (
         <>
+        {/* <Login/> */}
+        {/* <Register/> */}
         <UserIntroduction/>
         <UserProducts/>
-        <UserBrandShoes/>
+        {/* <UserProductCustom></UserProductCustom> */}
         <UserMostPopular/>
+        <UserBrandShoes/>
         <UserAdvantage></UserAdvantage>
         <UserCollaboration></UserCollaboration>
         <UserReview></UserReview>
