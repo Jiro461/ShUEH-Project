@@ -18,6 +18,7 @@ public static class ServiceExtensions
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
         ConfigureCors(services);
+        services.AddMemoryCache();
         services.AddControllers();//AddJsonOptions(options =>
         //     {
         //         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
