@@ -34,8 +34,9 @@ namespace BackEnd_ASP.NET.Services
             foreach(var id in shoeIdandQuantity)
             {
                 var shoe = await context.Shoes.Where(shoe => shoe.Id == id.ShoeId).Include(shoe => shoe.shoeDetails).FirstOrDefaultAsync();
-                var shoeDetail = shoe?.shoeDetails.FirstOrDefault(detail => detail.Size == listShoeOrderDetail.SingleOrDefault(sd => sd.Size == detail.Size)?.Size) ?? null;
-                if(shoe == null || shoeDetail == null) return NotFound("Shoe or ShoeDetail not found");
+                if(shoe == null) return NotFound("Shoe not found");
+                var shoeDetail = shoe.shoeDetails.FirstOrDefault(detail => detail.Size == listShoeOrderDetail.SingleOrDefault(sd => sd.Size == detail.Size)?.Size) ?? null;
+                if(shoeDetail == null) return NotFound("ShoeDetail not found");
                 shoeDetail.Quantity -= id.Quantity;
                 shoe.Sold += id.Quantity;
                 if(shoeDetail.Quantity < 0) return BadRequest("ShoeDetail quantity is not enough");

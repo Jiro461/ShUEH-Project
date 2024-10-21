@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using BackEnd_ASP.NET.Models.ShoeDetail;
+using BackEnd_ASP.NET.Models;
 namespace BackEnd_ASP_NET.Models
 {
     [Table("Shoes")]
@@ -48,6 +49,7 @@ namespace BackEnd_ASP_NET.Models
         public ICollection<ShoeImage> OtherImages { get; set; } = new HashSet<ShoeImage>();
         public ICollection<ShoeSeason> Seasons { get; set; } = new HashSet<ShoeSeason>();
 
+        public ICollection<ShoeColor> Colors { get; set; } = new HashSet<ShoeColor>();
         public ICollection<ShoeDetail> shoeDetails { get; set; } = new HashSet<ShoeDetail>();
 
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();

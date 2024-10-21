@@ -22,9 +22,14 @@ public class OrderRepository : IOrderRepository
         return order;
     }
 
-    public Task<bool> DeleteOrderAsync(Guid id)
+    public async Task<bool> DeleteOrderAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var order = await dbSet.FindAsync(id);
+        if(order == null) return false;
+        context.OrderItems.RemoveRange(context.OrderItems.Where(od => od.OrderId == id));
+        dbSet.Remove(order);
+        await context.SaveChangesAsync();
+        return true;
     }
 
     public Task<IEnumerable<OrderDTO>> GetAllOrdersAsync()

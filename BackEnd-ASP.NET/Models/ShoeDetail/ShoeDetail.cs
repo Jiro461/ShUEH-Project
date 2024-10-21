@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
 
 namespace BackEnd_ASP.NET.Models.ShoeDetail
@@ -23,3 +24,4 @@ namespace BackEnd_ASP.NET.Models.ShoeDetail
     }
 
 }
+

@@ -42,6 +42,8 @@ namespace BackEnd_ASP.NET.Models
         public ICollection<ShoeSeason>? Seasons { get; set; } = new HashSet<ShoeSeason>();
         [Required(ErrorMessage = "ShoeDetail are required.")]
         public ICollection<ShoeDetailDTO>? shoeDetails { get; set; } = new HashSet<ShoeDetailDTO>();
+        [Required(ErrorMessage = "Colors are required.")]
+        public ICollection<ShoeColorDTO>? Colors { get; set; } = new HashSet<ShoeColorDTO>();
         public DateTime CreatedAt { get; set; }
     }
 
@@ -86,6 +88,8 @@ namespace BackEnd_ASP.NET.Models
 
         [Required(ErrorMessage = "Shoe Detail are required.")]
         public ICollection<ShoeDetailDTO> shoeDetails { get; set; } = new HashSet<ShoeDetailDTO>();
+        [Required(ErrorMessage = "Colors are required.")]
+        public ICollection<ShoeColorDTO> Colors { get; set; } = new HashSet<ShoeColorDTO>();
     }
 
 }

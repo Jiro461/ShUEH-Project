@@ -59,6 +59,7 @@ namespace BackEnd_ASP.NET.Services
                 Id = newShoeId,
                 Name = shoe.Name,
                 Brand = shoe.Brand,
+                Gender = shoe.Gender,
                 Material = shoe.Material,
                 Category = shoe.Category,
                 ImageUrl = await FileHelper.AddShoeImageAsync(webHostEnvironment, newShoeId, shoe),
@@ -67,6 +68,12 @@ namespace BackEnd_ASP.NET.Services
                 IsSale = shoe.IsSale,
                 shoeDetails = shoeDetails,
                 Discount = shoe.Discount,
+                Colors = shoe.Colors.Select(color => new ShoeColor
+                {
+                    Id = Guid.NewGuid(),
+                    Color = color.Color,
+                    ShoeId = newShoeId
+                }).ToList()
             };
 
             await AddShoeDetailsAsync(newShoe, shoe); // Thêm các chi tiết của giày
@@ -91,6 +98,11 @@ namespace BackEnd_ASP.NET.Services
             existingShoe.Price = updateShoe.Price;
             existingShoe.IsSale = updateShoe.IsSale;
             existingShoe.Discount = updateShoe.Discount;
+            existingShoe.Colors = UpdateShoeAttributes(existingShoe.Colors, updateShoe.Colors, (color) => new ShoeColor
+            {
+                Color = color.Color,
+                Shoe = existingShoe
+            });
             existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
 
             // Cập nhật các hình ảnh phụ

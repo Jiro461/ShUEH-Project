@@ -1,3 +1,4 @@
+using BackEnd_ASP.NET.Models;
 using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.Extensions;
@@ -1166,6 +1167,376 @@ namespace BackEnd_ASP.NET.Data
                 }
             );
 
+
+  modelBuilder.Entity<ShoeColor>().HasData(
+            // NIKE 1 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_1,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_1,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_1,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                },
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_1,
+                    Id = Guid.NewGuid(),
+                    Color = "Purple"
+                },
+                // NIKE 2 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_2,
+                    Id = Guid.NewGuid(),
+                    Color = "Red"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_2,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_2,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_2,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // NIKE 3 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_3,
+                    Id = Guid.NewGuid(),
+                    Color = "Yellow"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_3,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_3,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_3,
+                    Id = Guid.NewGuid(),
+                    Color = "Pink"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_3,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // NIKE 4 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_4,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_4,
+                    Id = Guid.NewGuid(),
+                    Color = "Brown"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_4,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                // NIKE 5 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_5,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_5,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_5,
+                    Id = Guid.NewGuid(),
+                    Color = "Orange"
+                },
+                // ADIDAS 1 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_6,
+                    Id = Guid.NewGuid(),
+                    Color = "Orange"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_6,
+                    Id = Guid.NewGuid(),
+                    Color = "Green"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_6,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_6,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_6,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_6,
+                    Id = Guid.NewGuid(),
+                    Color = "Red"
+                },
+                // ADIDAS 2 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_7,
+                    Id = Guid.NewGuid(),
+                    Color = "Red"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_7,
+                    Id = Guid.NewGuid(),
+                    Color = "Yellow"
+                },
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_8,
+                    Id = Guid.NewGuid(),
+                    Color = "Pink"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_8,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_8,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_8,
+                    Id = Guid.NewGuid(),
+                    Color = "Red"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_8,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // ADIDAS 4 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_9,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                // ADIDAS 5 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_10,
+                    Id = Guid.NewGuid(),
+                    Color = "Pink"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_10,
+                    Id = Guid.NewGuid(),
+                    Color = "Purple"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_10,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_10,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                // PUMA 1 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_11,
+                    Id = Guid.NewGuid(),
+                    Color = "Orange"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_11,
+                    Id = Guid.NewGuid(),
+                    Color = "Purple"
+                },
+                // PUMA 2 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_12,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_12,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_12,
+                    Id = Guid.NewGuid(),
+                    Color = "Green"
+                },
+                // PUMA 3 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_13,
+                    Id = Guid.NewGuid(),
+                    Color = "Orange"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_13,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                // PUMA 4 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_14,
+                    Id = Guid.NewGuid(),
+                    Color = "Pink"
+                },
+                // PUMA 5 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_15,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_15,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                },
+                // REEBOK 1 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_16,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_16,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_16,
+                    Id = Guid.NewGuid(),
+                    Color = "Grey"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_16,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // REEBOK 2 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_17,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_17,
+                    Id = Guid.NewGuid(),
+                    Color = "Pink"
+                },
+                // REEBOK 3 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_18,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // REEBOK 4 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_19,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                },
+                // REEBOK 5 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_20,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // CONVERSE 1 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_21,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                // CONVERSE 2 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_22,
+                    Id = Guid.NewGuid(),
+                    Color = "Black"
+                },
+                // CONVERSE 3 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_23,
+                    Id = Guid.NewGuid(),
+                    Color = "Blue"
+                },
+                // CONVERSE 4 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_24,
+                    Id = Guid.NewGuid(),
+                    Color = "Brown"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_24,
+                    Id = Guid.NewGuid(),
+                    Color = "White"
+                },
+                // CONVERSE 5 Colors
+                new ShoeColor
+                {
+                    ShoeId = IDGiay_25,
+                    Id = Guid.NewGuid(),
+                    Color = "Green"
+                }, new ShoeColor
+                {
+                    ShoeId = IDGiay_25,
+                    Id = Guid.NewGuid(),
+                    Color = "Brown"
+                }
+            );
         modelBuilder.Entity<ShoeImage>().HasData(
             // NIKE 1
             new ShoeImage
@@ -2095,5 +2466,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<ShoeImage> ShoeImages { get; set; }
         public DbSet<ShoeDetail> ShoeDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<ShoeColor> ShoeColors { get; set; }
     }
 }
