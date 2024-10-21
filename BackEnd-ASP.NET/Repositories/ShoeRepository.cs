@@ -13,7 +13,12 @@ public class ShoeRepository : IShoeRepository
         _context = context;
         _dbSet = context.Shoes;
     }
-
+    public async Task<List<Shoe>> GetShoesByIdsAsync(List<Guid> shoeIds)
+    {
+        return await _dbSet
+                    .Where(shoe => shoeIds.Contains(shoe.Id))
+                    .ToListAsync();
+    }
     public async Task<IEnumerable<ShoeGetDTO>> GetAllShoesAsync()
     {
         return await _dbSet
@@ -59,7 +64,7 @@ public class ShoeRepository : IShoeRepository
             throw new ArgumentException("Invalid shoe ID");
         }
         return await _dbSet
-                .Where(shoe => shoe.Id == id)   
+                .Where(shoe => shoe.Id == id)
                 .Select(shoe => new ShoeGetDTO
                 {
                     Id = shoe.Id,
@@ -103,15 +108,9 @@ public class ShoeRepository : IShoeRepository
 
     public async Task<Shoe> UpdateShoeAsync(Shoe shoe)
     {
-        var existingShoe = await _dbSet.FindAsync(shoe.Id);
-        if (existingShoe == null)
-        {
-            throw new KeyNotFoundException($"Shoe with ID {shoe.Id} not found.");
-        }
-
-        _context.Entry(existingShoe).CurrentValues.SetValues(shoe);
+        _dbSet.Update(shoe);
         await _context.SaveChangesAsync();
-        return existingShoe;
+        return shoe;
     }
 
     public async Task<bool> DeleteShoeAsync(Guid id)

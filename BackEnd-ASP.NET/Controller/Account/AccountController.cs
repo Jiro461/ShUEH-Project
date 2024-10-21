@@ -28,18 +28,17 @@ namespace BackEnd_ASP.NET.Controller.Account
             this.shUEHContext = shUEHContext;
         }
 
-        [HttpGet("delete")]
+        [HttpGet("user/delete")]
         public async Task<IActionResult> Delete()
         {
             return await accountService.DeleteUserAsync(HttpContext);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("user/{id}")]
         public async Task<IActionResult> GetByIdFromQuery(Guid id)
         {
-            Guid userId = id;
-            if (userId == Guid.Empty) return Unauthorized();
-            return await accountService.GetByIdAsync(userId);
+            if (id == Guid.Empty) return Unauthorized();
+            return await accountService.GetByIdAsync(id);
         }
         [HttpGet("cookieGetId")]
         public async Task<IActionResult> GetByIdFromCookie()

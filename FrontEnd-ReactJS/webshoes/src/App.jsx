@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
-import UserHome from './user/pages/UserHome/UserHome.jsx';
 import AdminHome from './admin/pages/AdminHome/AdminHome.jsx';
 import AdminLayout from './layouts/admin/AdminLayout.jsx';
 import UserLayout from './layouts/user/UserLayout.jsx';
+import Users from './admin/pages/Users/Users.jsx';
 import './App.scss';
 
 // Định nghĩa component SignInComponent
@@ -345,10 +345,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <UserHome />,
-      },
-      {
-        path: "/sign-in",
         element: <SignInComponent />, // Thêm route cho SignInComponent
       },
     ],
@@ -360,6 +356,10 @@ const router = createBrowserRouter([
       {
         path: "",
       element: <AdminHome />, // Giả định AdminClient đã được định nghĩa
+      },
+      {
+        path: "/admin/users",
+        element: <Users />,
       },
     ],
   },

@@ -21,10 +21,11 @@ namespace BackEnd_ASP.NET.Controller.Shoe
     public class ShoeController : ControllerBase
     {
         private readonly IShoeService shoeService;
-
-        public ShoeController(IShoeService shoeService)
+        private readonly IShoeRepository shoeRepository;
+        public ShoeController(IShoeService shoeService, IShoeRepository shoeRepository)
         {
             this.shoeService = shoeService;
+            this.shoeRepository = shoeRepository;
         }
 
         [HttpGet("all")]
@@ -33,7 +34,7 @@ namespace BackEnd_ASP.NET.Controller.Shoe
             return await shoeService.GetAllShoesAsync();
         }
 
-        [HttpGet("shoe/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetShoeByIdAsync(Guid id)
         {
             return await shoeService.GetShoeByIdAsync(id);
@@ -52,12 +53,36 @@ namespace BackEnd_ASP.NET.Controller.Shoe
             }
         }
 
-        [HttpPut("update/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateShoeById(Guid id, [FromForm] ShoePostDTO shoe)
         {
             return await shoeService.UpdateShoeAsync(id, shoe);
         }
 
+        [HttpGet("cart")]
+        public async Task<IActionResult> GetCartShoe([FromBody] List<Guid> shoeIds)
+        {
+            if (shoeIds == null || shoeIds.Count == 0)
+            {
+                return BadRequest("No shoe IDs provided.");
+            }
+
+            var shoes = await shoeRepository.GetShoesByIdsAsync(shoeIds);
+            var shoesCartDTO = shoes.Select(shoe => new ShoeOrderDTO
+            {
+                ShoeId = shoe.Id,
+                Name = shoe.Name,
+                Brand = shoe.Brand,
+                MainImageUrl = shoe.ImageUrl,
+            }).ToList();
+
+            if (shoesCartDTO == null || shoesCartDTO.Count == 0)
+            {
+                return NotFound("No shoes found for the provided IDs.");
+            }
+
+            return Ok(shoesCartDTO);
+        }
 
     }
 }
