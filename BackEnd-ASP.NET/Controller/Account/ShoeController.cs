@@ -22,12 +22,32 @@ namespace BackEnd_ASP.NET.Controller.Shoe
     {
         private readonly IShoeService shoeService;
         private readonly IShoeRepository shoeRepository;
-        public ShoeController(IShoeService shoeService, IShoeRepository shoeRepository)
+        private readonly ShUEHContext context;
+        public ShoeController(IShoeService shoeService, IShoeRepository shoeRepository, ShUEHContext context)
         {
             this.shoeService = shoeService;
             this.shoeRepository = shoeRepository;
+            this.context = context;
+        }
+        [HttpGet("home")]
+        public async Task<IActionResult> GetHomeShoe()
+        {
+            var shoes = await context.Shoes.OrderByDescending(s => s.Discount).Take(4).ToListAsync();
+            return Ok(shoes);
+        }
+        [HttpGet("most-sold")]
+        public async Task<IActionResult> GetMostSoldShoe()
+        {
+            var shoes = await context.Shoes.OrderByDescending(s => s.Sold).Take(10).ToListAsync();
+            return Ok(shoes);
         }
 
+        [HttpGet("collaboration")]
+        public async Task<IActionResult> GetCollaborationShoe()
+        {
+            var shoes = await context.Shoes.Where(s => s.Name == "Satan" && s.Brand == "Nike").FirstOrDefaultAsync();
+            return Ok(shoes);
+        }
         [HttpGet("all")]
         public async Task<IActionResult> GetAllShoesAsync()
         {
