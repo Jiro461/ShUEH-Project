@@ -8,9 +8,6 @@ namespace BackEnd_ASP.NET.Models.ShoeDetail
 	    [Required(ErrorMessage = "Size is required.")]
         public int Size { get; set; }
 
-        [Required(ErrorMessage = "Color is required.")]
-        public string? Color { get; set; }
-
         [Required(ErrorMessage = "Quantity is required.")]
         public int Quantity { get; set; }
 

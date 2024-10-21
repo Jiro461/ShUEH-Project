@@ -4,6 +4,7 @@ using BackEnd_ASP.NET.Data;
 using Microsoft.EntityFrameworkCore;
 using BackEnd_ASP.NET.Models;
 using BackEnd_ASP_NET.Utilities.FileHelpers;
+using BackEnd_ASP.NET.Models.ShoeDetail;
 
 namespace BackEnd_ASP.NET.Services
 {
@@ -30,21 +31,20 @@ namespace BackEnd_ASP.NET.Services
             if (user == null) return NotFound("User not found");
 
             var listShoeOrderDetail = order.OrderItems.Select(item => item.ShoeDetail).ToList();
-            var shoeIdandQuantity = order.OrderItems.Select(detail => new { detail.ShoeId, detail.Quantity }).ToList();
-            foreach(var id in shoeIdandQuantity)
+            var shoeIdAndQuantity = order.OrderItems.Select(detail => new { detail.ShoeId, detail.Quantity }).ToList();
+            foreach(var item in shoeIdAndQuantity)
             {
-                var shoe = await context.Shoes.Where(shoe => shoe.Id == id.ShoeId).Include(shoe => shoe.shoeDetails).FirstOrDefaultAsync();
+                var shoe = await context.Shoes.Where(shoe => shoe.Id == item.ShoeId).Include(shoe => shoe.shoeDetails).FirstOrDefaultAsync();
                 if(shoe == null) return NotFound("Shoe not found");
-                var shoeDetail = shoe.shoeDetails.FirstOrDefault(detail => detail.Size == listShoeOrderDetail.SingleOrDefault(sd => sd.Size == detail.Size)?.Size) ?? null;
+                var shoeDetail = shoe.shoeDetails.FirstOrDefault(detail => detail.Size == listShoeOrderDetail.SingleOrDefault(sd => sd?.Size == detail.Size)?.Size) ?? null;
                 if(shoeDetail == null) return NotFound("ShoeDetail not found");
-                shoeDetail.Quantity -= id.Quantity;
-                shoe.Sold += id.Quantity;
+                shoeDetail.Quantity -= item.Quantity;
+                shoe.Sold += item.Quantity;
                 if(shoeDetail.Quantity < 0) return BadRequest("ShoeDetail quantity is not enough");
                 context.ShoeDetails.Update(shoeDetail);
                 context.Shoes.Update(shoe);
-                await context.SaveChangesAsync();
             }
-
+            await context.SaveChangesAsync();
 
             var newOrder = new Order
             {
@@ -59,7 +59,11 @@ namespace BackEnd_ASP.NET.Services
                     ShoeId = item.ShoeId,
                     Quantity = item.Quantity,
                     UnitPrice = item.ShoePrice,
-                    ShoeDetail = item.ShoeDetail,
+                    ShoeDetail = item.ShoeDetail == null ? null : new ShoeDetail
+                    {
+                        Size = item.ShoeDetail.Size,
+                        Quantity = item.ShoeDetail.Quantity,
+                    },
                     TotalPrice = item.TotalPrice,
                 }).ToList(),
             };

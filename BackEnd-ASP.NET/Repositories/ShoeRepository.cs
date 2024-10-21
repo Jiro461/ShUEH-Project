@@ -49,7 +49,11 @@ public class ShoeRepository : IShoeRepository
                         Id = season.Id,
                         Season = season.Season
                     }).ToList(),
-                    CreatedAt = shoe.CreateDate
+                    CreatedAt = shoe.CreateDate,
+                    Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColorDTO
+                    {
+                        Color = color.Color
+                    }).ToList(),
                 })
                 .ToListAsync();
     }
@@ -88,6 +92,10 @@ public class ShoeRepository : IShoeRepository
                         Id = season.Id,
                         Season = season.Season
                     }).ToList(),
+                    Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColorDTO
+                    {
+                        Color = color.Color
+                    }).ToList(),
                 }).SingleOrDefaultAsync();
     }
 
@@ -111,6 +119,7 @@ public class ShoeRepository : IShoeRepository
         if (shoe == null)
             return false;
         _context.ShoeImages.RemoveRange(_context.ShoeImages.Where(s => s.ShoeId == id));
+        _context.ShoeColors.RemoveRange(_context.ShoeColors.Where(s => s.ShoeId == id));
         _context.ShoeSeasons.RemoveRange(_context.ShoeSeasons.Where(s => s.ShoeId == id));
         _context.ShoeDetails.RemoveRange(_context.ShoeDetails.Where(s => s.ShoeId == id));
         _dbSet.Remove(shoe);
