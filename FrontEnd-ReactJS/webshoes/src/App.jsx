@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { API_BASE_URL } from './constants/apiUrls.jsx'
-import { Route, Routes, BrowserRouter } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom"
 import AdminClient from './admin/AdminClient.jsx'
-import UserClient from './user/UserClient.jsx';
+import UserClient from './layouts/user/UserLayout.jsx';
 import Profile from './user/components/Profile/Content/UserProfile/index.jsx';
 import Product from './user/pages/Product/index.jsx';
 import Favorite from './user/components/Profile/Content/Favorite/index.jsx';
@@ -12,25 +11,26 @@ import ProfilePage from './user/pages/ProfilePage/index.jsx';
 import './App.css';
 import PaymentPage from './user/pages/PaymentPage/index.jsx';
 import ProductDetail from './user/pages/ProductDetail/index.jsx';
+import UserLayout from './layouts/user/UserLayout.jsx';
 
 function App() {
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <UserLayout/>,
+        children: [
+          {
+            path: 'product',
+            element: <Product />
+          }
+        ],
+      },
+    ]
+  );
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<UserClient />}>
-          <Route path='product' element={<Product />}>
-          </Route>
-          <Route path='product/detail-product' element={<ProductDetail />}/>
-          <Route path='profile' element={<ProfilePage />}>
-            <Route path='' element={<Profile />}/>
-            <Route path='setting' element={<Setting />}/>
-            <Route path='favorite' element={<Favorite />}/>
-            <Route path='ordered' element={<Ordered />}/>
-          </Route>
-          <Route path='payment' element={<PaymentPage />}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   );
   // const [forecast, setForecast] = useState([]);
   // const [loading, setLoading] = useState(true);

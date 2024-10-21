@@ -1,11 +1,9 @@
-import Header from "../../layouts/Header";
 import "./style.css"
 import { Outlet, Link } from 'react-router-dom';
 
 function ProfilePage() {
     return (
         <>
-            <Header />
             <div className="row profile">
                 {/* Sidebar */}
                 <div className="col-lg-3 col-12 sidebar">

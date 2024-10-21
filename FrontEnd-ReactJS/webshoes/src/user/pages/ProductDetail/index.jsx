@@ -5,7 +5,7 @@ import Description from '../../components/ProductDetail/Description';
 
 const ProductDetail = () => {
   return (
-    <div className="container-fluid main-container">
+    <div className="main-container">
       <DetailProduct />
       <Description />
     </div>

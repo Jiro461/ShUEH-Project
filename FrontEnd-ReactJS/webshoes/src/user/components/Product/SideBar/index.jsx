@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { genders, sports, minPrices, maxPrices, colors, sizes } from './dataSidebar';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 function SideBar() {
     // State for storing selected values
@@ -116,13 +117,7 @@ function SideBar() {
             onClick={() => handleColorChange(color.id, color.col)}
         >
             {selectedColors.some(c => c.id === color.id) && (
-                <span style={{
-                    position: 'absolute',
-                    top: '2px',
-                    right: '9px',
-                    fontSize: '16px',
-                    color: 'white'
-                }}>✔</span>
+                <span><i className="fa-solid fa-check"></i></span>
             )}
         </div>
     ));
@@ -131,11 +126,7 @@ function SideBar() {
         <div
             key={index}
             id={size.id}
-            className="col-1 size"
-            style={{
-                backgroundColor: selectedSizes.some(s => s.id === size.id) ? '#6E6E6E' : '#fff',
-                color: selectedSizes.some(s => s.id === size.id) ? '#fff' : '#000'
-            }}
+            className={`col-1 size ${selectedSizes.some(s => s.id === size.id) ? 'selected' : ''}`}
             onClick={() => handleSizeChange(size.id, size.value)}
         >
             {size.value}

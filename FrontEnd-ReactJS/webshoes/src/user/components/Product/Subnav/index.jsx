@@ -8,7 +8,7 @@ function SubNav() {
 
     return (
         <div className="row subNav">
-            <div className='col-1 menu'><i class="fa-solid fa-bars"></i></div>
+            <div className='col-1 menu'><i className="fa-solid fa-bars"></i></div>
             <div className="col-xl-7 brand">
                 {brandList}
             </div>
@@ -17,10 +17,10 @@ function SubNav() {
                 <div><a href="#">UK size</a></div>
             </div>
             <div className="col-1 btn-filter">
-                <i class="fa-solid fa-filter btn-filter"></i>
+                <i className="fa-solid fa-filter btn-filter"></i>
             </div>
             <div className="col-1 col-lg-1 col-xl-1 btn-exit">
-                <i className="fa-solid fa-xmark" />
+                <div><i className="fa-solid fa-xmark" /></div>
             </div>
         </div>
     );
