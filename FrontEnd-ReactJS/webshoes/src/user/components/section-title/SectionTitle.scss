@@ -4,9 +4,15 @@
     -webkit-text-stroke-width: 1;
     -webkit-text-stroke-color: rgba(0, 0, 0, 0.70);
     font-family: "adineue PRO";
-    font-size: 70px;
+    font-size: 5vw;
     font-style: normal;
     font-weight: var(--sds-typography-weight-extra-bold);
     line-height: normal;
     letter-spacing: 2.1px;
+}
+
+@media (max-width: 767px){
+    .section-title{
+        font-size: 8vw;
+    }
 }
