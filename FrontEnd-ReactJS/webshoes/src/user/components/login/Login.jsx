@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.scss'
 
+//Tại sao push k viết hoa folder ?
 const Login = () => {
     return (
         <div className="overlay">

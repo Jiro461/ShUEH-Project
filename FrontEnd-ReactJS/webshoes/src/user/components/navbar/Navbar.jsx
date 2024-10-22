@@ -2,8 +2,8 @@ import React from 'react';
 import './Navbar.scss'
 import Container from 'react-bootstrap/Container';
 
+//Tại sao push k viết hoa folder ?
 const Navbar = () => {
-
     return (
             <div className='navbar-block'>
             

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Register.scss'
 
+//Tại sao push k viết hoa folder ?
 const Register = () => {
     return (
         <div className="overlay">
