@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import './UserIntroduction.scss'
 import PropTypes from 'prop-types';
-import AddBlock from '../../../components/home/introduction/AddBlock';
-import PromotionTag from "../../../components/promotion-tag/PromotionTag";
+import AddBlock from '../../../components/AddBlock/AddBlock';
+import PromotionTag from "../../../components/PromotionTag/PromotionTag";
 import { motion, useInView } from "framer-motion";
+import axios from "axios";
 
-const UserIntroduction = () => {
+const UserIntroduction =  () => {
     const ref = useRef(null)
     const isInView = useInView(ref)
     const productStyle = {

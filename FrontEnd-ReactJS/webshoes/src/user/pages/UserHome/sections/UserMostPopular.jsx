@@ -1,9 +1,8 @@
 import React from 'react';
 import './UserMostPopular.scss'
-import ProductPopular from "../../../components/product-popular/ProductPopular";
-import SectionTitle from "../../../components/section-title/SectionTitle";
+import ProductPopular from "../../../components/HomeProductPopular/ProductPopular";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Slider from "react-slick";
-import '../../../../../styles/slider.scss'
 import { Reveal } from "../../../components/utils/Reveal.tsx";
 
 const UserMostPopular = () => {
@@ -24,7 +23,7 @@ const UserMostPopular = () => {
                 </Reveal>
             </div>
             <div className="product-popular d-none d-md-block">
-                    <Reveal>
+                    
                     <div className="sub-left fit-content">
                         <ProductPopular></ProductPopular>
                     </div>
@@ -34,7 +33,7 @@ const UserMostPopular = () => {
                     <div className="sub-right fit-content">
                         <ProductPopular></ProductPopular>
                     </div>
-                </Reveal>
+                
             </div>
 
             <div className="slider-container d-md-none d-sm-block">

@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserCollaboration.scss'
-import SectionTitle from "../../../components/section-title/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const UserCollaboration = () => {
     return (

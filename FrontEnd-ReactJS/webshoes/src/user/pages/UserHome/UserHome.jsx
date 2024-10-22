@@ -7,8 +7,8 @@ import UserMostPopular from "./sections/UserMostPopular";
 import UserAdvantage from "./sections/UserAdvantage";
 import UserCollaboration from "./sections/UserCollaboration";
 import UserReview from "./sections/UserReview";
-import Login from "../../components/login/Login";
-import Register from "../../components/register/Register";
+import Login from "../../components/Login/Login";
+import Register from "../../components/Register/Register";
 import UserProductCustom from "./sections/UserProductCustom";
 
 const UserHome = () => {

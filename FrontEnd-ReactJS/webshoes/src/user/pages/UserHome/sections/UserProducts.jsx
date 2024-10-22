@@ -1,9 +1,9 @@
 import React from 'react';
 import './UserProducts.scss'
-import Product from "../../../components/product/Product";
+import Product from "../../../components/HomeProduct/Product.jsx";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle.jsx"
 import Slider from 'react-slick'
-import '../../../../../styles/slider.scss'
-import {Reveal} from "../../../components/utils/Reveal.tsx";
+import {Reveal} from "../../../components/Animation/Reveal.tsx";
 
 const UserProducts = () => {
     const images = [
@@ -21,7 +21,7 @@ const UserProducts = () => {
         dots: true,
         infinite: true,
         speed: 500,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 3000,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -29,7 +29,7 @@ const UserProducts = () => {
     return (
         <div className="products">
             <Reveal>
-                <h3>PRODUCTS</h3>
+                <SectionTitle title="PRODUCTS"></SectionTitle>
             </Reveal>
 
             <div className="navbar d-none d-md-flex">
@@ -106,11 +106,9 @@ const UserProducts = () => {
             <div className="slider-container d-sm-block d-md-none">
                 <Slider {...settings}>
                     {images.map((item, index) => {
-                        return <Reveal>
-                            <div key={index} className="slider-item">
+                        return <div key={index} className="slider-item">
                                 <Product width="90%"  imgSrc={item.src}></Product>
                             </div>
-                        </Reveal>
                     })}
                 </Slider>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
-import Product from "../../../components/product/Product";
+import Product from "../../../components/HomeProduct/Product";
 import './UserBrandShoes.scss'
-import SectionTitle from "../../../components/section-title/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const UserBrandShoes = () => {
     return (

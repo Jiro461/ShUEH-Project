@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserReview.scss'
-import SectionTitle from "../../../components/section-title/SectionTitle";
-import CustomerReview from "../../../components/customer-review/CustomerReview";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import CustomerReview from "../../../components/CustomerReview/CustomerReview";
 
 const UserReview = () => {
     return (

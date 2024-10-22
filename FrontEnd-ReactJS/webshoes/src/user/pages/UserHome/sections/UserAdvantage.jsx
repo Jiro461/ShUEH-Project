@@ -1,9 +1,8 @@
 import React from 'react';
 import './UserAdvantage.scss'
-import ProductAdvantage from "../../../components/product-advantage/ProductAdvantage";
-import SectionTitle from "../../../components/section-title/SectionTitle";
+import ProductAdvantage from "../../../components/HomeProductAdvantage/ProductAdvantage";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Slider from 'react-slick'
-import '../../../../../styles/slider.scss'
 
 const UserAdvantage = () => {
     var settings = {
