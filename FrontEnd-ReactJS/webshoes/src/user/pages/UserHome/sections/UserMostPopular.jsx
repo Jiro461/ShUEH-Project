@@ -3,7 +3,7 @@ import './UserMostPopular.scss'
 import ProductPopular from "../../../components/HomeProductPopular/ProductPopular";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Slider from "react-slick";
-import { Reveal } from "../../../components/utils/Reveal.tsx";
+import { Reveal } from "../../../components/Animation/Reveal.tsx";
 
 const UserMostPopular = () => {
     var settings = {
