@@ -45,9 +45,11 @@ public static class ServiceExtensions
     private static void ConfigureScopedServices(IServiceCollection services)
     {
         /*Repository*/
+        services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IShoeRepository, ShoeRepository>();
         /*Services*/
+        services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IShoeService, ShoeService>();

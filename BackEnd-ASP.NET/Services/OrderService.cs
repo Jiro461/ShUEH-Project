@@ -30,16 +30,20 @@ namespace BackEnd_ASP.NET.Services
             var user = await context.Users.FindAsync(userId);
             if (user == null) return NotFound("User not found");
 
-            var listShoeOrderDetail = order.OrderItems.Select(item => item.ShoeDetail).ToList();
-            var shoeIdAndQuantity = order.OrderItems.Select(detail => new { detail.ShoeId, detail.Quantity }).ToList();
-            foreach(var item in shoeIdAndQuantity)
+            if(order.OrderItems.Count == 0) return BadRequest("Order items is empty");
+            
+
+
+
+            foreach(var orderItem in order.OrderItems)
             {
-                var shoe = await context.Shoes.Where(shoe => shoe.Id == item.ShoeId).Include(shoe => shoe.shoeDetails).FirstOrDefaultAsync();
-                if(shoe == null) return NotFound("Shoe not found");
-                var shoeDetail = shoe.shoeDetails.FirstOrDefault(detail => detail.Size == listShoeOrderDetail.SingleOrDefault(sd => sd?.Size == detail.Size)?.Size) ?? null;
-                if(shoeDetail == null) return NotFound("ShoeDetail not found");
-                shoeDetail.Quantity -= item.Quantity;
-                shoe.Sold += item.Quantity;
+                if(orderItem == null) return BadRequest("Order items is empty");
+                var shoe = await context.Shoes.Where(shoe => shoe.Id == orderItem.ShoeId ).Include(shoe => shoe.shoeDetails).FirstOrDefaultAsync();
+                if(shoe == null) return NotFound("Shoe with id " + orderItem.ShoeId + " not found");
+                var shoeDetail = shoe.shoeDetails.FirstOrDefault(detail => detail.Size == orderItem.Size);
+                if(shoeDetail == null || shoeDetail.Quantity < orderItem.Quantity) return NotFound("ShoeDetail with size " + orderItem.Size + " not found or quantity is not enough");
+                shoeDetail.Quantity -= orderItem.Quantity;
+                shoe.Sold += orderItem.Quantity;
                 if(shoeDetail.Quantity < 0) return BadRequest("ShoeDetail quantity is not enough");
                 context.ShoeDetails.Update(shoeDetail);
                 context.Shoes.Update(shoe);
@@ -57,13 +61,9 @@ namespace BackEnd_ASP.NET.Services
                 {
                     OrderId = newOrderId,
                     ShoeId = item.ShoeId,
-                    Quantity = item.Quantity,
                     UnitPrice = item.ShoePrice,
-                    ShoeDetail = item.ShoeDetail == null ? null : new ShoeDetail
-                    {
-                        Size = item.ShoeDetail.Size,
-                        Quantity = item.ShoeDetail.Quantity,
-                    },
+                    Size = item.Size,
+                    Quantity = item.Quantity,
                     TotalPrice = item.TotalPrice,
                 }).ToList(),
             };
@@ -71,7 +71,8 @@ namespace BackEnd_ASP.NET.Services
             await userRepository.UpdateAsync(user);
             await orderRepository.AddOrderAsync(newOrder);
             await notificationService.CreateNotificationForOrder(newOrder, userId);
-            return CreatedAtAction(nameof(GetOrderByIdAsync), new { id = newOrder.Id }, newOrder);
+            return Ok(new {newOrder.Id, newOrder.OrderDate, newOrder.TotalPrice, newOrder.Status});
+            
         }
 
         public Task<IActionResult> DeleteOrderAsync(Guid id)

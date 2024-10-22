@@ -19,7 +19,7 @@ namespace BackEnd_ASP_NET.Models
 
         public Shoe? Shoe { get; set; }
 
-        public ShoeDetail?  ShoeDetail { get; set; } = new ShoeDetail();
+        public int Size { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
