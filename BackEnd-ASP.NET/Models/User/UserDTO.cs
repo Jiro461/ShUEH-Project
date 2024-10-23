@@ -24,7 +24,7 @@ namespace BackEnd_ASP.NET.Models.User
         public bool? Gender { get; set; }
         public decimal? TotalMoney { get; set; }
         public Wishlist? Wishlist { get; set; }
-        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
     }
     public class UserGetDTO
     {
@@ -45,10 +45,11 @@ namespace BackEnd_ASP.NET.Models.User
         public string? AvatarUrl { get; set; }
         public bool? Gender { get; set; }
         public decimal? TotalMoney { get; set; }
-        public Wishlist? Wishlist { get; set; }
-        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public ICollection<WishlistItemDTO>? WishlistItems { get; set; } = new HashSet<WishlistItemDTO>();
+        public ICollection<OrderDTO>? Orders { get; set; } = new HashSet<OrderDTO>();
         public DateTime? CreatedAt { get; set; }
         public bool? EmailConfirmed { get; set; }
+        public bool? IsExternalLogin { get; set; }
     }
 
     public class UserInfoDTO
@@ -62,5 +63,6 @@ namespace BackEnd_ASP.NET.Models.User
         public string? Email { get; set; }
         public string? Role { get; set; }
         public bool? EmailConfirmed { get; set; }
+        public bool? IsExternalLogin { get; set; }
     }
 }

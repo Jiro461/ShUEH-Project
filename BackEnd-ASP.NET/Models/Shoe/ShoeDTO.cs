@@ -39,11 +39,12 @@ namespace BackEnd_ASP.NET.Models
         [Required(ErrorMessage = "Other images are required.")]
         public ICollection<ShoeImage>? OtherImages { get; set; } = new HashSet<ShoeImage>();
         [Required(ErrorMessage = "Seasons are required.")]
-        public ICollection<ShoeSeason>? Seasons { get; set; } = new HashSet<ShoeSeason>();
+        public ICollection<ShoeSeasonDTO>? Seasons { get; set; } = new HashSet<ShoeSeasonDTO>();
         [Required(ErrorMessage = "ShoeDetail are required.")]
         public ICollection<ShoeDetailDTO>? shoeDetails { get; set; } = new HashSet<ShoeDetailDTO>();
         [Required(ErrorMessage = "Colors are required.")]
         public ICollection<ShoeColorDTO>? Colors { get; set; } = new HashSet<ShoeColorDTO>();
+        public bool IsNew { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 

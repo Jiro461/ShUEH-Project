@@ -11,17 +11,17 @@ namespace BackEnd_ASP_NET.Models
         public Guid Id { get; set; }
 
         [ForeignKey("Order")]
-        public Guid? OrderId { get; set; }
+        public Guid OrderId { get; set; }
         public Order? Order { get; set; }
 
         [ForeignKey("Shoe")]
-        public Guid? ShoeId { get; set; }
+        public Guid ShoeId { get; set; }
 
         public Shoe? Shoe { get; set; }
 
         public int Size { get; set; }
         public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal ShoePrice { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }

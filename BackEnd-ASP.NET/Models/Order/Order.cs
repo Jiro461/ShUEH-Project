@@ -11,7 +11,7 @@ public class Order : IDateTracking
 
     [ForeignKey("User")]
     [Required(ErrorMessage = "User ID is required.")]
-    public Guid? UserId { get; set; }
+    public Guid UserId { get; set; }
     public User? User { get; set; }
 
     public DateTime OrderDate { get; set; } 
