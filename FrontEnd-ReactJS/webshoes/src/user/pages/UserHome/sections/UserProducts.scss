@@ -1,0 +1,29 @@
+.products{
+    width: 100vw;
+    background: #333235;
+    display: block;
+
+    h3{
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .navbar{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        ul{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;     
+        }
+
+        ul li{
+            list-style: none;
+            margin-right: 20px;
+        }
+    }
+
+}
+

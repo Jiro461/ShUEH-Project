@@ -1,0 +1,14 @@
+.brand-shoes{
+    padding: 5vw 2vw 0; 
+    background: #333235;
+    .img-brand-block{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    img{
+        width: 30vw;
+    }
+}

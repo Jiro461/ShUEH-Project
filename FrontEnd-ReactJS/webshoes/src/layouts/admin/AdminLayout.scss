@@ -1,0 +1,52 @@
+@import '../../../styles/variables.scss';
+/*----------------------------------------*/
+/*  Layout chung cho trang Admin
+/*----------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.main {
+    font-family: "Inter", sans-serif;
+    background-color: $main-bg;
+    color: $main-color;
+}
+
+.container {
+    display: flex;
+}
+
+.menuContainer {
+    height: 85vh;
+    width: 250px;
+    padding: 5px 20px;
+    border-right: 2px solid $soft-bg;
+}
+
+.contentContainer {
+    padding: 5px 20px;
+    width: 100%;
+}
+
+//Đây là scss cho thanh scroll bar
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: $main-color;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $soft-bg;
+}
+
+//Kết thúc scss cho thanh scroll bar

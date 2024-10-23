@@ -1,0 +1,21 @@
+.user-advantage{
+    background: #333235;
+    padding-top: 12vw;
+    .section-title-custom{
+        margin-bottom: 10vw;
+    }
+    .container-fluid{
+        position: relative;
+        width: 85vw;
+        margin: 0 auto;
+            
+            .col:first-child, .col:nth-child(3){
+                display: flex;
+                align-items: flex-end;
+            }
+    }
+}
+
+
+
+

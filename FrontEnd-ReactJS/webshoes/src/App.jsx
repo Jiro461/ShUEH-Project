@@ -5,7 +5,8 @@ import Product from './user/pages/ProductPage/ProductPage.jsx';
 import PaymentPage from './user/pages/PaymentPage/PaymentPage.jsx';
 import ProductDetailPage from './user/pages/ProductDetailPage/ProductDetailPage.jsx';
 import ProfilePage from './user/pages/ProfilePage/ProfilePage.jsx';
-import './App.css';
+import './App.scss';
+import UserHome from './user/pages/UserHome/UserHome.jsx';
 
 function App() {
   const router = createBrowserRouter(
@@ -14,6 +15,10 @@ function App() {
         path: "/",
         element: <UserLayout/>,
         children: [
+          {
+            path: '/',
+            element: <UserHome />
+          },
           {
             path: 'product',
             element: <Product />

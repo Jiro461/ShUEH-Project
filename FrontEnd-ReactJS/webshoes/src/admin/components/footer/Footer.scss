@@ -1,0 +1,28 @@
+/*----------------------------------------*/
+/*  Footer
+/*----------------------------------------*/
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+
+    span {
+        border-radius: 15px;
+        padding: 7px;
+        font-size: 20px;
+        transition: background-color 0.3s ease, font-size 0.3s ease;
+
+        &:first-child {
+            font-weight: bold;
+        }
+
+        &:last-child {
+            font-size: 14px;
+        }
+
+        &:hover {
+            background-color: rgb(230, 186, 186);
+        }
+    }
+}

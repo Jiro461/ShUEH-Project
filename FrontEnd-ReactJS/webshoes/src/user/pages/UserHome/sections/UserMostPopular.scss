@@ -1,0 +1,47 @@
+.user-most-popular{
+    background: #242425;
+    height: 100vh;
+    padding-top: 50px;
+    
+    .fit-content{
+        height: fit-content;
+        width: fit-content;
+    }
+
+    .title{
+        text-align: center;
+    }
+
+    .product-popular{
+        background: #333235;
+        position: relative;
+        margin: 0 auto;
+        width: 90vw;
+
+        .center-product{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .sub-left{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .sub-right{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}
+
+@media (max-width: 768px){
+    .user-most-popular{
+        height: 80vh;
+    }
+}

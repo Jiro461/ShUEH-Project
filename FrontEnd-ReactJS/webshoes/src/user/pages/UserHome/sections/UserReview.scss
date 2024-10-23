@@ -1,0 +1,44 @@
+.review-section{
+
+    background: #333235;
+    position: relative;
+    padding: 5vw 0;
+
+    .decor{
+        position: absolute;
+        top: -3%;
+        left: 0;
+        z-index: 1;
+
+        img{
+            width: 7vw;
+        }
+
+        img:nth-child(2){
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+    }
+
+    .review-title{
+        position: relative;
+        z-index: 2;
+    }
+
+    .customer-review-block{
+        width: 90vw;
+        margin: 10vw auto;
+        display: flex;
+    }
+}
+
+@media (max-width: 767px){
+    .review-section{
+        .customer-review-block{
+            flex-direction: column;
+            gap: 10vw;
+            align-items: center;
+        }
+    }
+}
