@@ -22,21 +22,14 @@ public class UserRepository : IUserRepository
         await _dbSet.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
-
-    public async Task AddWishlistAsync(Wishlist wishlist, Guid? userId = null)
+    public async Task<bool> DeleteAsync(Guid id, Guid? userId = null)
     {
-        await _context.Wishlists.AddAsync(wishlist);
+        var user = await _dbSet.FindAsync(id);
+        if (user == null) return false;
+        _context.WishlistItems.RemoveRange(_context.WishlistItems.Where(s => s.UserId == id));
+        _dbSet.Remove(user);
         await _context.SaveChangesAsync();
-    }
-
-    public async Task DeleteAsync(Guid id, Guid? userId = null)
-    {
-        var entity = await GetByIdAsync(id);
-        if (entity != null)
-        {
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
+        return true;
     }
 
     public async Task<IEnumerable<User>> GetAllAsync()
@@ -70,7 +63,7 @@ public class UserRepository : IUserRepository
         return await _dbSet
         .Where(user => user.Id == id)
         .Include(user => user.Orders!).ThenInclude(order => order.OrderItems!)
-        .Include(user => user.Wishlist!).ThenInclude(wishlist => wishlist.WishlistItems!)
+        .Include(user => user.WishlistItems!)
         .FirstOrDefaultAsync();
     }
 
