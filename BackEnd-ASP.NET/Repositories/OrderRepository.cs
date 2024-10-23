@@ -46,15 +46,26 @@ public class OrderRepository : IOrderRepository
     {
         return await dbSet
         .Include(order => order.OrderItems!)
+        .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
         .Include(order => order.Status)
         .ToListAsync();
     }
 
+    public async Task<IEnumerable<Order>> GetOrdersByStatusAsync(OrderStatus status)
+    {
+        return await dbSet.Where(order => order.Status == status)
+        .Include(order => order.OrderItems!)
+        .ThenInclude(item => item.Shoe!)
+        .Include(order => order.User!)
+        .Include(order => order.Status)
+        .ToListAsync();
+    }
     public Task<Order?> GetOrderByIdAsync(Guid? id)
     {
         return dbSet.Where(order => order.Id == id)
         .Include(order => order.OrderItems!)
+        .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
         .Include(order => order.Status)
         .FirstOrDefaultAsync();
