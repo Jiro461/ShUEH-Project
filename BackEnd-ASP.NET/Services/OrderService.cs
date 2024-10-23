@@ -22,19 +22,14 @@ namespace BackEnd_ASP.NET.Services
             this.context = context;
             this.notificationService = notificationService;
         }
-
+        //User xác nhận đặt hàng
         public async Task<IActionResult> AddOrderAsync(OrderDTO order, Guid userId)
         {
             Guid newOrderId = Guid.NewGuid();
-
             var user = await context.Users.FindAsync(userId);
             if (user == null) return NotFound("User not found");
-
-            if(order.OrderItems.Count == 0) return BadRequest("Order items is empty");
-            
-
+            if(order.OrderItems.Count == 0) return BadRequest("Order items is empty"); 
             decimal totalPrice = 0;
-
             foreach(var orderItem in order.OrderItems)
             {
                 if(orderItem == null) return BadRequest("Order items is empty");
@@ -72,8 +67,34 @@ namespace BackEnd_ASP.NET.Services
             await userRepository.UpdateAsync(user);
             await orderRepository.AddOrderAsync(newOrder);
             await notificationService.CreateNotificationForOrder(newOrder, userId);
-            return Ok(new {newOrder.Id, newOrder.OrderDate, newOrder.TotalPrice, newOrder.Status});
+            return Ok("Create order successfully");
             
+        }
+
+        public async Task<IActionResult> GetOrdersByUserIdAsync(Guid userId)
+        {
+            var orders = await orderRepository.GetOrdersByUserIdAsync(userId);
+            if(orders == null) return NotFound("Orders not found");
+            var orderDTOs = orders.Select(order => new OrderDTO
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Status = order.Status,
+                UserId = order.UserId,
+                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
+                {
+                    ShoeId = item.ShoeId,
+                    ShoePrice = item.ShoePrice,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice,
+                    ShoeName = item.Shoe?.Name ?? string.Empty,
+                    ShoeImage = item.Shoe?.OtherImages.FirstOrDefault()?.Url ?? string.Empty,
+                    ShoeColorDTO = item.Shoe?.Colors.FirstOrDefault()?.Color ?? string.Empty,
+                }).ToList(),
+            });
+            return Ok(orderDTOs);
         }
 
         public Task<IActionResult> DeleteOrderAsync(Guid id)
@@ -85,6 +106,7 @@ namespace BackEnd_ASP.NET.Services
         {
             throw new NotImplementedException();
         }
+
 
         public Task<IActionResult> GetOrderByIdAsync(Guid id)
         {
