@@ -17,7 +17,7 @@ out/
 *.suo
 *.userosscache
 *.sln.docstates
-
+appsettings.json
 # Logs and databases
 *.log
 *.sql

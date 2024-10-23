@@ -1,29 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd_ASP_NET.Models;
-using BackEnd_ASP_NET.Utilities;
 //using BackEnd-ASP.NET.Models;
 
 namespace BackEnd_ASP_NET.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("AllowSpecificOrigins")]
+    [EnableCors("CorsPolicy")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries =
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "VeryCold", "VeryHot"
         };
 
         [HttpGet]
         public IActionResult Get()
         {
-            double a = 5;
             var forecast = Enumerable.Range(1, 5).Select(index =>
             {
                 var weather = new WeatherForecast

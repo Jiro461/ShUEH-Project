@@ -3,28 +3,27 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../../admin/components/navbar/Navbar';
 import Menu from '../../admin/components/menu/Menu';
 import Footer from '../../admin/components/footer/Footer';
-import './AdminLayout.scss'
 import PropTypes from 'prop-types';
-
+import "./AdminLayout.scss"
 const AdminLayout = () => {
     return (
         <div className='main'>
-            <Navbar/>
+            <Navbar />
             <div className='container'>
                 <div className='menuContainer'>
-                    <Menu/>
+                    <Menu />
                 </div>
                 <div className='contentContainer'>
-                    <Outlet/>
+                    <Outlet />
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 };
 
 AdminLayout.propTypes = {
-    
+
 };
 
 export default AdminLayout;
