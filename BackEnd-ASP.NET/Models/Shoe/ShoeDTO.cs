@@ -48,6 +48,7 @@ namespace BackEnd_ASP.NET.Models
         public ICollection<ShoeColorDTO>? Colors { get; set; } = new HashSet<ShoeColorDTO>();
         public ICollection<Comment>? Comments { get; set; } = new HashSet<Comment>();
         public bool IsNew { get; set; }
+        public bool IsLiked { get; set; }
         public DateTime CreateDate { get; set; }
     }
 

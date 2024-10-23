@@ -18,13 +18,9 @@ namespace BackEnd_ASP.NET.Models.User
         [Required(ErrorMessage = "Profile name is required.")]
         [MaxLength(50, ErrorMessage = "Profile name cannot exceed 50 characters.")]
         public string? ProfileName { get; set; }
-        public string? AvatarUrl { get; set; }
         public IFormFile? Avatar { get; set; } = null;
         [Required(ErrorMessage = "Gender is required.")]
         public bool? Gender { get; set; }
-        public decimal? TotalMoney { get; set; }
-        public Wishlist? Wishlist { get; set; }
-        public ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
     }
     public class UserGetDTO
     {
@@ -45,8 +41,6 @@ namespace BackEnd_ASP.NET.Models.User
         public string? AvatarUrl { get; set; }
         public bool? Gender { get; set; }
         public decimal? TotalMoney { get; set; }
-        public ICollection<WishlistItemDTO>? WishlistItems { get; set; } = new HashSet<WishlistItemDTO>();
-        public ICollection<OrderDTO>? Orders { get; set; } = new HashSet<OrderDTO>();
         public DateTime? CreatedAt { get; set; }
         public bool? EmailConfirmed { get; set; }
         public bool? IsExternalLogin { get; set; }
