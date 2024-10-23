@@ -60,11 +60,25 @@ public class ShoeRepository : IShoeRepository
         var shoe = await _dbSet.FindAsync(id);
         if (shoe == null)
             return false;
+        //Xóa image của shoe
         _context.ShoeImages.RemoveRange(_context.ShoeImages.Where(s => s.ShoeId == id));
+        //Xóa color của shoe
         _context.ShoeColors.RemoveRange(_context.ShoeColors.Where(s => s.ShoeId == id));
+        //Xóa season của shoe
         _context.ShoeSeasons.RemoveRange(_context.ShoeSeasons.Where(s => s.ShoeId == id));
+        //Xóa detail của shoe
         _context.ShoeDetails.RemoveRange(_context.ShoeDetails.Where(s => s.ShoeId == id));
-        _context.Comments.RemoveRange(_context.Comments.Where(s => s.ShoeId == id));
+        //Lấy comment của shoe
+        var shoeComments = await _context.Comments.Where(s => s.ShoeId == id)
+                                                .Include(s => s.CommentLikes)
+                                                .ToListAsync();    
+        //Xóa like của comment
+        foreach (var comment in shoeComments)
+        {
+            _context.CommentLikes.RemoveRange(_context.CommentLikes.Where(s => s.CommentId == comment.Id));
+        }
+        //Xóa comment
+        _context.Comments.RemoveRange(shoeComments);
         _dbSet.Remove(shoe);
         await _context.SaveChangesAsync();
         return true;
