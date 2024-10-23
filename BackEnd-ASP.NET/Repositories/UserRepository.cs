@@ -69,9 +69,9 @@ public class UserRepository : IUserRepository
     {
         return await _dbSet
         .Where(user => user.Id == id)
-        .Include(user => user.Orders).ThenInclude(order => order.OrderItems)
-        .Include(user => user.Wishlist).ThenInclude(wishlist => wishlist.WishlistItems)
-        .SingleOrDefaultAsync();
+        .Include(user => user.Orders!).ThenInclude(order => order.OrderItems!)
+        .Include(user => user.Wishlist!).ThenInclude(wishlist => wishlist.WishlistItems!)
+        .FirstOrDefaultAsync();
     }
 
     public async Task UpdateAsync(User entity, Guid? userId = null)

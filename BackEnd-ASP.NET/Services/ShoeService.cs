@@ -39,7 +39,10 @@ namespace BackEnd_ASP.NET.Services
                 Price = shoe.Price,
                 IsSale = shoe.IsSale,
                 Discount = shoe.Discount,
-                CreatedAt = shoe.CreateDate,
+                TotalRatings = shoe.TotalRatings,
+                AverageRating = shoe.AverageRating,
+                CreateDate = shoe.CreateDate,
+                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
                 OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage
                 {
                     Id = image.Id,
@@ -75,9 +78,15 @@ namespace BackEnd_ASP.NET.Services
                 Name = shoe.Name,
                 Brand = shoe.Brand,
                 Gender = shoe.Gender,
-                Price = shoe.Price,
                 Material = shoe.Material ?? string.Empty,
                 Category = shoe.Category ?? string.Empty,
+                IsSale = shoe.IsSale,
+                Discount = shoe.Discount,
+                Price = shoe.Price,
+                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
+                CreateDate = shoe.CreateDate,
+                TotalRatings = shoe.TotalRatings,
+                AverageRating = shoe.AverageRating,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Description = shoe.Description ?? string.Empty,
                 OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage

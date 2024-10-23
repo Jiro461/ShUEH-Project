@@ -26,6 +26,7 @@ public class ShoeRepository : IShoeRepository
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
+                            .Include(shoe => shoe.Comments)
                             .ToListAsync();
     }
 
@@ -36,6 +37,7 @@ public class ShoeRepository : IShoeRepository
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
+                            .Include(shoe => shoe.Comments)
                             .FirstOrDefaultAsync();
     }
 
@@ -62,6 +64,7 @@ public class ShoeRepository : IShoeRepository
         _context.ShoeColors.RemoveRange(_context.ShoeColors.Where(s => s.ShoeId == id));
         _context.ShoeSeasons.RemoveRange(_context.ShoeSeasons.Where(s => s.ShoeId == id));
         _context.ShoeDetails.RemoveRange(_context.ShoeDetails.Where(s => s.ShoeId == id));
+        _context.Comments.RemoveRange(_context.Comments.Where(s => s.ShoeId == id));
         _dbSet.Remove(shoe);
         await _context.SaveChangesAsync();
         return true;

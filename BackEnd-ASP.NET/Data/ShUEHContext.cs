@@ -2534,5 +2534,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<ShoeDetail> ShoeDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<ShoeColor> ShoeColors { get; set; }
+        public DbSet<CommentLike> CommentLikes { get; set; }
     }
 }
