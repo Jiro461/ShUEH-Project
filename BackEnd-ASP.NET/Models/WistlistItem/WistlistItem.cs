@@ -9,9 +9,9 @@ namespace BackEnd_ASP_NET.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [ForeignKey("Wishlist")]
-        public Guid? WishlistId { get; set; }
-        public Wishlist? Wishlist { get; set; }
+        [ForeignKey("User")]
+        public Guid? UserId { get; set; }
+        public User? User { get; set; }
 
         [ForeignKey("Shoe")]
         public Guid? ShoeId { get; set; }
