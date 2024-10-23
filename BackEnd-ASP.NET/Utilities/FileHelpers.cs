@@ -50,6 +50,7 @@ namespace BackEnd_ASP_NET.Utilities.FileHelpers
             // Trả về đường dẫn tương đối của ảnh để lưu vào database
             return Path.Combine("images", "avatars", fileName).Replace("\\", "/");
         }
+        //Update shoe image from User
         public static async Task<string> UpdateShoeImageAsync(
            IWebHostEnvironment webHostEnvironment,
            Shoe shoe,
@@ -90,6 +91,7 @@ namespace BackEnd_ASP_NET.Utilities.FileHelpers
             // Trả về đường dẫn tương đối của ảnh để lưu vào database
             return Path.Combine("images", "shoes", fileName).Replace("\\", "/");
         }
+        //Add shoe image from Admin
         public static async Task<string> AddShoeImageAsync(
            IWebHostEnvironment webHostEnvironment,
            Guid shoeId,
@@ -130,6 +132,7 @@ namespace BackEnd_ASP_NET.Utilities.FileHelpers
             // Trả về đường dẫn tương đối của ảnh để lưu vào database
             return Path.Combine("images", "shoes", fileName).Replace("\\", "/");
         }
+        //Update shoe other image from Admin
         public static async Task<string> UpdateShoeOtherImageAsync(
            IWebHostEnvironment webHostEnvironment,
            ShoeImage image,
@@ -159,6 +162,7 @@ namespace BackEnd_ASP_NET.Utilities.FileHelpers
             // Trả về đường dẫn tương đối của ảnh để lưu vào database
             return Path.Combine("images", "shoes", fileName).Replace("\\", "/");
         }
+        //Add shoe other image from Admin
         public static async Task<string> AddShoeOtherImageAsync(
            IWebHostEnvironment webHostEnvironment,
            Guid shoeId,
