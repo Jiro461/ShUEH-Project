@@ -9,6 +9,12 @@ namespace BackEnd_ASP_NET.Models
         Canceled
     }
 
+    public enum DiscountType
+    {
+        ShippingFee,
+        OrderFee,
+    }
+
     public static class RoleName {
 
         public const string User = "User";

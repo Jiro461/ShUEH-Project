@@ -14,10 +14,15 @@ namespace BackEnd_ASP_NET.Models
         public string? Code { get; set; }
 
         [Required(ErrorMessage = "Percentage is required.")]
-        public decimal Percentage { get; set; }
-
+        public decimal? Percentage { get; set; }
+        public decimal? Amount { get; set; }
+        public DiscountType Type { get; set; }
+        public int Quantity { get; set; }
+        public decimal? MaximumDiscount { get; set; }
+        public decimal? MinimumOrder { get; set; }
         public DateTime ExpiryDate { get; set; }
-
+        public DateTime CreateDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
         [NotMapped]
         public bool IsValid
         {
@@ -26,9 +31,5 @@ namespace BackEnd_ASP_NET.Models
                 return DateTime.Now <= ExpiryDate;
             }
         }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime LastModifiedDate { get; set; }
     }
 }
