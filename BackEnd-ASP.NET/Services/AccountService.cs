@@ -30,7 +30,7 @@ namespace BackEnd_ASP.NET.Services
             this.userManager = userManager;
             this.context = context;
             this.signInManager = signInManager;
-            this.notificationService =  notificationService;
+            this.notificationService = notificationService;
             this._webHostEnvironment = webHostEnvironment;
         }
         private async Task SignInWithCookies(User user, HttpContext httpContext, bool rememberMe)
@@ -84,7 +84,8 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = user.CreateDate,
                 Email = user.Email,
                 Role = user.Role?.Name,
-                EmailConfirmed = user.EmailConfirmed
+                EmailConfirmed = user.EmailConfirmed,
+                IsExternalLogin = user.IsExternalLogin
             });
             return Ok(userInfoDTOs);
         }
@@ -103,10 +104,24 @@ namespace BackEnd_ASP.NET.Services
                 ProfileName = user.ProfileName,
                 AvatarUrl = user.AvatarUrl,
                 TotalMoney = user.TotalMoney,
-                Wishlist = user.Wishlist,
-                Orders = user.Orders,
+                WishlistItems = user.Wishlist?.WishlistItems?.Select(item => new WishlistItemDTO { ShoeId = item.ShoeId }).ToList(),
+                Orders = user.Orders?.Select(order => new OrderDTO 
+                { 
+                    Id = order.Id, 
+                    OrderDate = order.OrderDate,
+                    TotalPrice = order.TotalPrice,
+                    OrderItems = order.OrderItems.Select(item => new OrderItemDTO 
+                    { 
+                        ShoeId = item.ShoeId, 
+                        Quantity = item.Quantity,
+                        ShoePrice = item.ShoePrice,
+                        TotalPrice = item.TotalPrice,
+                        Size = item.Size 
+                    }).ToList() 
+                }).ToList(),
                 CreatedAt = user.CreateDate,
-                EmailConfirmed = user.EmailConfirmed
+                EmailConfirmed = user.EmailConfirmed,
+                IsExternalLogin = user.IsExternalLogin
             };
 
             return Ok(userDto);
@@ -148,7 +163,7 @@ namespace BackEnd_ASP.NET.Services
         {
             var user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
             user.ProfileName = userDto.ProfileName;
@@ -228,6 +243,33 @@ namespace BackEnd_ASP.NET.Services
         {
             await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok("Sign Out Successfully");
+        }
+
+        public async Task<IActionResult> ResetPassword(string? email, string? newPassword)
+        {
+            if (string.IsNullOrWhiteSpace(email) ||
+                            string.IsNullOrWhiteSpace(newPassword))
+            {
+                return BadRequest("Email and new password are required.");
+            }
+
+            // Tìm người dùng bằng email
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return BadRequest("User not found.");
+            if (user.IsExternalLogin == true) return BadRequest("User is external login.");
+
+            // Đặt lại mật khẩu bằng mã thông báo (token)
+            var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await userManager.ResetPasswordAsync(user, resetToken, newPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok("Password reset successfully.");
+            }
+
+            // Nếu lỗi xảy ra, trả về thông báo lỗi chi tiết
+            return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
+
         }
         private async Task<IActionResult> CreateUserAndWishlistAsync(User user, string? password = null)
         {

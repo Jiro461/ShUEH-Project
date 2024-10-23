@@ -33,7 +33,7 @@ namespace BackEnd_ASP.NET.Services
             if(order.OrderItems.Count == 0) return BadRequest("Order items is empty");
             
 
-
+            decimal totalPrice = 0;
 
             foreach(var orderItem in order.OrderItems)
             {
@@ -47,6 +47,7 @@ namespace BackEnd_ASP.NET.Services
                 if(shoeDetail.Quantity < 0) return BadRequest("ShoeDetail quantity is not enough");
                 context.ShoeDetails.Update(shoeDetail);
                 context.Shoes.Update(shoe);
+                totalPrice += orderItem.TotalPrice;
             }
             await context.SaveChangesAsync();
 
@@ -55,13 +56,13 @@ namespace BackEnd_ASP.NET.Services
                 Id = newOrderId,
                 UserId = userId,
                 OrderDate = order.OrderDate,
-                TotalPrice = order.TotalPrice,
+                TotalPrice = totalPrice,
                 Status = OrderStatus.Pending,
                 OrderItems = order.OrderItems.Select(item => new OrderItem
                 {
                     OrderId = newOrderId,
                     ShoeId = item.ShoeId,
-                    UnitPrice = item.ShoePrice,
+                    ShoePrice = item.ShoePrice,
                     Size = item.Size,
                     Quantity = item.Quantity,
                     TotalPrice = item.TotalPrice,
