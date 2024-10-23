@@ -87,10 +87,13 @@ namespace BackEnd_ASP.NET.Controller.Shoe
         }
         #endregion
         #region ComplexAPI
+        //Get all shoes
         [HttpGet("all")]
         public async Task<IActionResult> GetAllShoesAsync()
         {
-            return await shoeService.GetAllShoesAsync();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return await shoeService.GetAllShoesAsync();
+            return await shoeService.GetAllShoesAsync(Guid.Parse(userId));
         }
 
         [HttpGet("{id}")]
