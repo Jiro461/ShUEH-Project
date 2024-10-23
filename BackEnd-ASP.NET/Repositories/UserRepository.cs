@@ -69,48 +69,8 @@ public class UserRepository : IUserRepository
     {
         return await _dbSet
         .Where(user => user.Id == id)
-        .Select(user => new User
-        {
-            Id = user.Id,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            DateOfBirth = user.DateOfBirth,
-            Gender = user.Gender,
-            PhoneNumber = user.PhoneNumber,
-            CreateDate = user.CreateDate,
-            Email = user.Email,
-            ProfileName = user.ProfileName,
-            AvatarUrl = user.AvatarUrl,
-            TotalMoney = user.TotalMoney,
-            EmailConfirmed = user.EmailConfirmed,
-            Wishlist = user.Wishlist != null ? new Wishlist
-            {
-                Id = user.Wishlist.Id,
-                UserId = user.Wishlist.UserId,
-                WishlistItems = user.Wishlist.WishlistItems != null ? 
-                    user.Wishlist.WishlistItems.Select(wi => new WishlistItem
-                    {
-                        Id = wi.Id,
-                        WishlistId = wi.WishlistId,
-                        ShoeId = wi.ShoeId
-                    }).ToList() : null
-            } : null,
-            Orders = user.Orders.Select(o => new Order
-            {
-                Id = o.Id,
-                UserId = o.UserId,
-                OrderDate = o.OrderDate,
-                TotalPrice = o.TotalPrice,
-                OrderItems = o.OrderItems.Select(oi => new OrderItem
-                {
-                    Id = oi.Id,
-                    OrderId = oi.OrderId,
-                    ShoeId = oi.ShoeId,
-                    Quantity = oi.Quantity,
-                    UnitPrice = oi.UnitPrice
-                }).ToList()
-            }).ToList()
-        })
+        .Include(user => user.Orders).ThenInclude(order => order.OrderItems)
+        .Include(user => user.Wishlist).ThenInclude(wishlist => wishlist.WishlistItems)
         .SingleOrDefaultAsync();
     }
 
