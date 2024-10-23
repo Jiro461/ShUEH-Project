@@ -29,16 +29,53 @@ namespace BackEnd_ASP.NET.Controller.Shoe
             this.shoeRepository = shoeRepository;
             this.context = context;
         }
-        [HttpGet("home")]
-        public async Task<IActionResult> GetHomeShoe()
+        #region SimpleAPI
+        [HttpGet("newest/{number}")]
+        public async Task<IActionResult> GetNewestShoe(int number)
         {
-            var shoes = await context.Shoes.OrderByDescending(s => s.Discount).Take(4).ToListAsync();
+            var shoes = await context.Shoes.OrderByDescending(s => s.CreateDate).Take(number).ToListAsync();
             return Ok(shoes);
         }
-        [HttpGet("most-sold")]
-        public async Task<IActionResult> GetMostSoldShoe()
+        [HttpGet("page/{page}")]
+        public async Task<IActionResult> GetPageShoe(int page, int pageSize)
         {
-            var shoes = await context.Shoes.OrderByDescending(s => s.Sold).Take(10).ToListAsync();
+            if (page <= 0 || pageSize <= 0)
+            {
+                return BadRequest("Invalid page or page size");
+            }
+            var shoes = await context.Shoes.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            if (!shoes.Any())
+            {
+                return NotFound("No shoes found");
+            }
+            var totalShoes = await context.Shoes.CountAsync();
+            //Tạo response dạng object để trả về cho client
+            var response = new
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalShoes / pageSize),
+                Data = shoes
+            };
+            return Ok(response);
+        }
+        //Get total shoe
+        [HttpGet("total")]
+        public async Task<IActionResult> GetTotalShoe()
+        {
+            var totalShoe = await context.Shoes.CountAsync();
+            return Ok(totalShoe);
+        }
+        [HttpGet("home/{number}")]
+        public async Task<IActionResult> GetHomeShoe(int number)
+        {
+            var shoes = await context.Shoes.OrderByDescending(s => s.Discount).Take(number).ToListAsync();
+            return Ok(shoes);
+        }
+        [HttpGet("most-sold/{number}")]
+        public async Task<IActionResult> GetMostSoldShoe(int number)
+        {
+            var shoes = await context.Shoes.OrderByDescending(s => s.Sold).Take(number).ToListAsync();
             return Ok(shoes);
         }
 
@@ -48,6 +85,8 @@ namespace BackEnd_ASP.NET.Controller.Shoe
             var shoes = await context.Shoes.Where(s => s.Name == "Satan" && s.Brand == "Nike").FirstOrDefaultAsync();
             return Ok(shoes);
         }
+        #endregion
+        #region ComplexAPI
         [HttpGet("all")]
         public async Task<IActionResult> GetAllShoesAsync()
         {
@@ -103,6 +142,6 @@ namespace BackEnd_ASP.NET.Controller.Shoe
 
             return Ok(shoesCartDTO);
         }
-
+        #endregion
     }
 }

@@ -24,16 +24,16 @@ namespace BackEnd_ASP.NET.Controller.Order
         {
             this.orderService = orderService;
         }
-        [HttpPost("add-order")]
+        [HttpPost("add")]
 
         public async Task<IActionResult> AddOrderAsync(OrderDTO order)
         {
-           // var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            //if (userId == null)
-            //{
-            //    return Unauthorized();
-            //}
-            return await orderService.AddOrderAsync(order, Guid.Parse("6e092fbf-e844-4370-a532-11510c9afa9f"));
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            return await orderService.AddOrderAsync(order, Guid.Parse(userId));
         }
 
         

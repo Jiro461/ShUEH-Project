@@ -21,14 +21,10 @@ namespace BackEnd_ASP.NET.Controller.Account
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;
-        private readonly ShUEHContext shUEHContext;
-        private readonly UserManager<User> _userManager;
 
         public AccountController(IAccountService accountService, ShUEHContext shUEHContext, UserManager<User> userManager)
         {
             this.accountService = accountService;
-            this.shUEHContext = shUEHContext;
-            _userManager = userManager;
         }
 
         [HttpGet("user/delete")]
@@ -43,7 +39,7 @@ namespace BackEnd_ASP.NET.Controller.Account
             if (id == Guid.Empty) return Unauthorized();
             return await accountService.GetByIdAsync(id);
         }
-        [HttpGet("cookieGetId")]
+        [HttpGet("cookieGetById")]
         public async Task<IActionResult> GetByIdFromCookie()
         {
             Guid userId = Guid.Parse(Request.Cookies["userId"] ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
@@ -103,28 +99,7 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Email) ||
-                string.IsNullOrWhiteSpace(request.NewPassword))
-            {
-                return BadRequest("Email and new password are required.");
-            }
-
-            // Tìm người dùng bằng email
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null) return BadRequest("User not found.");
-            if (user.IsExternalLogin == true) return BadRequest("User is external login.");
-            
-            // Đặt lại mật khẩu bằng mã thông báo (token)
-            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var result = await _userManager.ResetPasswordAsync(user, resetToken, request.NewPassword);
-
-            if (result.Succeeded)
-            {
-                return Ok("Password reset successfully.");
-            }
-
-            // Nếu lỗi xảy ra, trả về thông báo lỗi chi tiết
-            return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
+            return await accountService.ResetPassword(request.Email, request.NewPassword);
         }
     }
 
