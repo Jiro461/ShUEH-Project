@@ -4,6 +4,9 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
 {
     public static class StringExtensions
     {
+        public static int GenderBinding(this bool? gender){
+            return gender == null ? 2 : gender == true ? 1 : 0;
+        }
         /// <summary>
         /// Chuyển đổi một số thập phân thành phần trăm.
         /// </summary>
