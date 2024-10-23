@@ -17,10 +17,12 @@ namespace BackEnd_ASP_NET.Models
 
         [Range(1, 5, ErrorMessage = "Rate must be between 1 and 5.")]
         public decimal Rate { get; set; }
+        public int TotalLike { get; set; }
 
         [ForeignKey("Shoe")]
         public Guid? ShoeId { get; set; }
         public Shoe? Shoe { get; set; }
+        public HashSet<Guid> LikedByUsers { get; set; } = new HashSet<Guid>();
 
         public ICollection<Reply>? Replies { get; set; }
 
