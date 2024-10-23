@@ -2527,7 +2527,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Discount> Discounts { get; set; }
-        public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
         public DbSet<ShoeSeason> ShoeSeasons { get; set; }
         public DbSet<ShoeImage> ShoeImages { get; set; }
