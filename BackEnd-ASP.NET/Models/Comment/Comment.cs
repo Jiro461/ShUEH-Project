@@ -22,9 +22,8 @@ namespace BackEnd_ASP_NET.Models
         [ForeignKey("Shoe")]
         public Guid? ShoeId { get; set; }
         public Shoe? Shoe { get; set; }
-        public HashSet<Guid> LikedByUsers { get; set; } = new HashSet<Guid>();
-
         public ICollection<Reply>? Replies { get; set; }
+        public ICollection<CommentLike>? CommentLikes { get; set; }
 
         public DateTime CreateDate { get; set; }
 
