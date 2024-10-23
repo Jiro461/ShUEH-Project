@@ -1,35 +1,27 @@
+using BackEnd_ASP.NET.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-// Add CORS services
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigins",
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:3000") // Địa chỉ của frontend
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});
+
+builder.Services.AddProjectServices(builder.Configuration);
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+app.UseStaticFiles();
+// app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Enable CORS
-app.UseCors("AllowSpecificOrigins"); //Sử dụng Cors
-
-app.UseHttpsRedirection();
-
-app.MapControllers(); // Ensure you have this if using controllers
+app.UseRouting();
+app.UseCors("CorsPolicy");
+app.UseAuthentication(); // Phải có để sử dụng xác thực
+app.UseAuthorization();
+// Ensure you have this if using controllers
+app.MapControllers();
 
 app.Run();

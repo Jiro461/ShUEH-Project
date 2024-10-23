@@ -1,8 +1,9 @@
 @import '../../../../styles/variables.scss';
+@import '../../../../styles/responsive.scss';
 /*----------------------------------------*/
 /*  Thanh NavBar
 /*----------------------------------------*/
-.navbar {
+.adminnavbar {
     width: 100%;
     padding: 20px;
     display: flex;
@@ -13,6 +14,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 10px;
 
         img {
             width: 60px;
@@ -27,7 +29,7 @@
     .icons {
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: 20px;
 
         img {
             -webkit-user-select: none;
@@ -41,10 +43,26 @@
             &.icon:hover {
                 background-color: $soft-bg;
             }
+
+            &.icon-expand{
+                @include md{
+                  display: none;
+                }
+            }
+
+            &.icon-settings{
+                @include md{
+                    display: none;
+                }
+            }
         }
-
-
-
+        &.icon-app{
+            display: none;
+            @include md{
+              display: block;
+            }
+        }
+        
         .notification {
             position: relative;
 
@@ -65,7 +83,16 @@
                 flex-direction: column;
                 font-size: 16px;
                 -webkit-user-select: none;
+                
             }
+
+            @include md{
+                display: none;
+            }
+        }
+
+        @include md{
+            gap: 10px;
         }
     }
 
