@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackEnd_ASP.NET.Models.ShoeDetail
 {
-    public class ShoeDetailDTO
+    public sealed class ShoeDetailDTO
     {
 
 	    [Required(ErrorMessage = "Size is required.")]

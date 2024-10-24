@@ -4,7 +4,7 @@ using BackEnd_ASP_NET.Models;
 
 namespace BackEnd_ASP.NET.Models
 {
-    public class ShoeGetDTO
+    public sealed class ShoeGetDTO
     {
         [Required(ErrorMessage = "Shoe ID is required")]
         public Guid Id { get; set; }

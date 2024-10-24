@@ -13,7 +13,7 @@ namespace BackEnd_ASP.NET.Models.ShoeDetail
         public Guid Id { get; set; }
 
         [ForeignKey("Shoe")]
-        public Guid? ShoeId { get; set; }
+        public Guid ShoeId { get; set; }
         public Shoe? Shoe { get; set; }
 
         [Required(ErrorMessage = "Size is required.")]
