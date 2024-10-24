@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
+using BackEnd_ASP.NET.Services.VnPay;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.FileHelpers;
 using Microsoft.AspNetCore.Authentication;
@@ -24,13 +25,16 @@ public static class ServiceExtensions
         //         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
         //     }); ;
         ConfigureTransientServices(services);
+        ConfigureSingletonServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
         ConfigureEntityFramework(services, configuration);
         ConfigureSwagger(services);
         services.AddHttpContextAccessor();
     }
-
+    private static void ConfigureSingletonServices(IServiceCollection services){
+        services.AddSingleton<IVnPayService, VnPayService>();
+    }
     /// <summary>
     /// Cấu hình các dịch vụ Transient.
     /// </summary>
