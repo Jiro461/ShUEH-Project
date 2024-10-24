@@ -25,7 +25,6 @@ namespace BackEnd_ASP.NET.Services
         //User xác nhận đặt hàng
         public async Task<IActionResult> AddOrderAsync(OrderDTO order, Guid userId)
         {
-            Guid newOrderId = Guid.NewGuid();
             var user = await context.Users.FindAsync(userId);
             if (user == null) return NotFound("User not found");
             if(order.OrderItems.Count == 0) return BadRequest("Order items is empty"); 
@@ -45,7 +44,8 @@ namespace BackEnd_ASP.NET.Services
                 totalPrice += orderItem.TotalPrice;
             }
             await context.SaveChangesAsync();
-
+            
+            Guid newOrderId = Guid.NewGuid();
             var newOrder = new Order
             {
                 Id = newOrderId,
@@ -53,6 +53,7 @@ namespace BackEnd_ASP.NET.Services
                 OrderDate = order.OrderDate,
                 TotalPrice = totalPrice,
                 Status = OrderStatus.Pending,
+                PaymentMethod = order.PaymentMethod,
                 OrderItems = order.OrderItems.Select(item => new OrderItem
                 {
                     OrderId = newOrderId,

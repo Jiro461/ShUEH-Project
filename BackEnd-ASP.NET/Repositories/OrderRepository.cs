@@ -29,7 +29,6 @@ public class OrderRepository : IOrderRepository
         .ThenInclude(item => item.Shoe!)
         .ThenInclude(shoe => shoe.Colors)
         .Include(order => order.User!)
-        .Include(order => order.Status)
         .ToListAsync();
     }
     public async Task<bool> DeleteOrderAsync(Guid id)
@@ -48,7 +47,6 @@ public class OrderRepository : IOrderRepository
         .Include(order => order.OrderItems!)
         .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
-        .Include(order => order.Status)
         .ToListAsync();
     }
 

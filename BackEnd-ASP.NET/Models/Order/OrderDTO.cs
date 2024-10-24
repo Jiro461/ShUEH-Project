@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using BackEnd_ASP_NET.Models;
 
-public class OrderDTO
+public sealed class OrderDTO
 {
     public Guid Id { get; set; }
     public DateTime OrderDate { get; set; }
@@ -10,6 +10,9 @@ public class OrderDTO
     public OrderStatus Status { get; set; }
     public ICollection<OrderItemDTO> OrderItems { get; set; } = new HashSet<OrderItemDTO>();
     public decimal TotalPrice { get; set; } //Co kem theo ship fee (neu co)
+    public PaymentMethod PaymentMethod { get; set; }
 }
+
+
 
 

@@ -20,6 +20,7 @@ public class Order : IDateTracking
     public decimal TotalPrice { get; set; }
 
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
+    public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
 
     public ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
 
