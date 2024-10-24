@@ -22,7 +22,7 @@ namespace BackEnd_ASP.NET.Models.User
         [Required(ErrorMessage = "Gender is required.")]
         public bool? Gender { get; set; }
     }
-    public class UserGetDTO
+    public sealed class UserGetDTO
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "First name is required.")]
