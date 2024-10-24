@@ -2518,7 +2518,7 @@ namespace BackEnd_ASP.NET.Data
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
         }
         //NIKE1
-
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Shoe> Shoes { get; set; }
@@ -2534,5 +2534,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<ShoeColor> ShoeColors { get; set; }
         public DbSet<CommentLike> CommentLikes { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }
