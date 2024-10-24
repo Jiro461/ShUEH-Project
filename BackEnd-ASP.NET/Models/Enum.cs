@@ -15,6 +15,12 @@ namespace BackEnd_ASP_NET.Models
         OrderFee,
     }
 
+    public enum PaymentMethod
+    {
+        VnPay,
+        Cash,
+    }
+
     public static class RoleName {
 
         public const string User = "User";
