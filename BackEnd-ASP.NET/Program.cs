@@ -18,7 +18,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseRouting();
-app.UseCors("CorsPolicy");
+app.UseCors(x => x
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true) // allow any origin
+                    .AllowCredentials()); // allow credentials
+//app.UseCors("CorsPolicy");
 app.UseAuthentication(); // Phải có để sử dụng xác thực
 app.UseAuthorization();
 // Ensure you have this if using controllers

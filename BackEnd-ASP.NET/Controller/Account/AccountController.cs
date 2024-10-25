@@ -17,7 +17,6 @@ namespace BackEnd_ASP.NET.Controller.Account
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;

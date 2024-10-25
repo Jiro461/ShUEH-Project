@@ -17,7 +17,6 @@ namespace BackEnd_ASP.NET.Controller.Cart
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class CartController : ControllerBase
     {
         public const string CartSessionKey = "CartId";

@@ -17,7 +17,6 @@ namespace BackEnd_ASP.NET.Controller.Shoe
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class ShoeController : ControllerBase
     {
         private readonly IShoeService shoeService;

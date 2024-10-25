@@ -16,7 +16,6 @@ namespace BackEnd_ASP.NET.Controller.Order
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;

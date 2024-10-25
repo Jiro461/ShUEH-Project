@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Cors;
 using BackEnd_ASP.NET.Services;
 using System.Security.Claims;
 using BackEnd_ASP_NET.Models;
-namespace MomoPaymentAPI.Controllers
+using System.Net;
+namespace PaymentAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class PaymentController : ControllerBase
     {
         private readonly IVnPayService _vnPayService;
@@ -24,7 +24,7 @@ namespace MomoPaymentAPI.Controllers
             _vnPayService = vnPayService;
             _orderService = orderService;
         }
-        [HttpPost("payment")]
+        [HttpPost]
         public async Task<IActionResult> PaymentVnPay([FromBody] OrderDTO order)
         {
             //Lấy user id từ token
@@ -48,7 +48,7 @@ namespace MomoPaymentAPI.Controllers
                 OrderId = order.Id
             };
             //Tạo url thanh toán VNPAY
-            return Ok(new { status = "Success", PaymentUrl = _vnPayService.CreatePaymentUrl(HttpContext, vnPaymentRequestModel) });
+            return Ok(new { status = "Redirect", PaymentUrl = _vnPayService.CreatePaymentUrl(HttpContext, vnPaymentRequestModel) });
         }
 
         [HttpGet("payment-callback")]
