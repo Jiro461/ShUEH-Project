@@ -65,31 +65,6 @@ namespace BackEnd_ASP.NET.Controller
             var shoesDTO = shoeService.ConvertToShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
-
-        [HttpGet("page/{page}")]
-        public async Task<IActionResult> GetPageShoe(int page, int pageSize)
-        {
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (page <= 0 || pageSize <= 0) return BadRequest("Invalid page or page size");
-
-            var shoes = await context.Shoes
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            if (!shoes.Any()) return NotFound("No shoes found");
-
-            var totalShoes = await context.Shoes.CountAsync();
-            var response = new
-            {
-                Page = page,
-                PageSize = pageSize,
-                TotalPages = (int)Math.Ceiling((double)totalShoes / pageSize),
-                Data = shoeService.ConvertToShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null)
-            };
-            return Ok(response);
-        }
-
         [HttpGet("total")]
         public async Task<IActionResult> GetTotalShoe()
         {
@@ -140,9 +115,23 @@ namespace BackEnd_ASP.NET.Controller
         [HttpGet("all/{page}/{pageSize}")]
         public async Task<IActionResult> GetAllShoesAsync(int page, int pageSize)
         {
+            if (page <= 0 || pageSize <= 0) return BadRequest("Invalid page or page size");
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null) return await shoeService.GetAllShoesAsync(page: page, pageSize: pageSize);
-            return await shoeService.GetAllShoesAsync(Guid.Parse(userId), page: page, pageSize: pageSize);
+            var totalShoes = await context.Shoes.CountAsync();
+
+            var shoes = userId == null
+                ? await shoeService.GetAllShoesAsync(page: page, pageSize: pageSize)
+                : await shoeService.GetAllShoesAsync(Guid.Parse(userId), page: page, pageSize: pageSize);
+
+            var response = new
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalShoes / pageSize),
+                Data = shoes
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
