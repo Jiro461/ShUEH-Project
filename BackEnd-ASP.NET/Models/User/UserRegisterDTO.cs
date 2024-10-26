@@ -1,6 +1,6 @@
 namespace BackEnd_ASP_NET.Models
 {
-    public sealed class UserRegisterDto
+    public class UserRegisterDto
     {
         public string UserName { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
@@ -10,5 +10,9 @@ namespace BackEnd_ASP_NET.Models
         public string DateOfBirth { get; set; } = string.Empty;
         public bool Gender { get; set; }
 
+    }
+    public sealed class UserAddDTO : UserRegisterDto
+    {
+        public string Role { get; set; } = "User";
     }
 }
