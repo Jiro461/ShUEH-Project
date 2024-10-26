@@ -22,10 +22,11 @@ namespace BackEnd_ASP.NET.Services.VnPay
             vnpay.AddRequestData("vnp_CurrCode", _config["VnPay:CurrCode"]);
             vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress(context));
             vnpay.AddRequestData("vnp_Locale", _config["VnPay:Locale"]);
-            vnpay.AddRequestData("vnp_OrderInfo", "Thanh toán đơn hàng " + model.OrderId);
+            vnpay.AddRequestData("vnp_OrderInfo", $"{model.FullName} thanh toán đơn hàng {model.OrderId} với tổng giá {model.Amount}");
             vnpay.AddRequestData("vnp_OrderType", "other");
             vnpay.AddRequestData("vnp_ReturnUrl", _config["VnPay:PaymentBackReturnUrl"]);
             vnpay.AddRequestData("vnp_TxnRef", tick);
+            vnpay.AddRequestData("vnp_OrderID", model.OrderId.ToString());
             var paymentUrl = vnpay.CreateRequestUrl(_config["VnPay:BaseUrl"], _config["VnPay:HashSecret"]);
             return paymentUrl;
         }
@@ -43,7 +44,7 @@ namespace BackEnd_ASP.NET.Services.VnPay
             var vnp_SecureHash = collections.FirstOrDefault(x => x.Key == "vnp_SecureHash").Value;
             var vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
             var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
-            bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, _config["VnPay:HashSecret"] ?? "");
+            bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash!, _config["VnPay:HashSecret"] ?? string.Empty);
             if(!checkSignature){
                 return new VnPaymentResponseModel{
                     Success = false,
@@ -55,7 +56,7 @@ namespace BackEnd_ASP.NET.Services.VnPay
                 OrderDescription = vnp_OrderInfo,
                 OrderId = vnp_orderId.ToString(),
                 TransactionId = vnp_TransactionId.ToString(),
-                Token = vnp_SecureHash,
+                Token = vnp_SecureHash!,
                 VnPayResponseCode = vnp_ResponseCode
             };
         }
