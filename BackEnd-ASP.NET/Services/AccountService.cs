@@ -160,6 +160,22 @@ namespace BackEnd_ASP.NET.Services
             await notificationService.CreateUpdateNotificationForEntityChange(user, user.Id);
             return Ok("Update Successfully");
         }
+        public async Task<IActionResult> AddUserAsync(UserAddDTO userDto)
+        {
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name == userDto.Role);
+            if (role == null) return BadRequest($"Role {userDto.Role} not found.");
+            var user = CreateNewUser(
+                userName: userDto.UserName,
+                email: userDto.Email,
+                firstName: userDto.FirstName,
+                lastName: userDto.LastName,
+                dateOfBirth: userDto.DateOfBirth.ToDateTime(),
+                guestRole: role,
+                gender: userDto.Gender,
+                isExternalLogin: false
+            );
+            return await CreateUserAsync(user, userDto.Password);
+        }
         public async Task<IActionResult> GoogleAuthen(HttpContext httpContext)
         {
             var result = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -269,12 +285,12 @@ namespace BackEnd_ASP.NET.Services
             return new User
             {
                 Id = Guid.NewGuid(),
-                UserName = userName,
+                UserName = userName.Trim(),
                 NormalizedUserName = userName.ToUpper(),
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
-                FirstName = firstName,
-                LastName = lastName,
+                FirstName = firstName.Trim(),
+                LastName = lastName.Trim(),
                 Gender = gender,
                 ProfileName = $"{firstName} {lastName}",
                 AvatarUrl = avatarUrl ?? $"/images/avatars/noavatar.png",
