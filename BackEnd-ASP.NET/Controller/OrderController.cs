@@ -25,7 +25,7 @@ namespace BackEnd_ASP.NET.Controller.Order
         }
         [HttpPost("add")]
 
-        public async Task<IActionResult> AddOrderAsync(OrderDTO order)
+        public async Task<IActionResult> AddOrderAsync(OrderPostDTO order)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
