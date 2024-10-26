@@ -23,27 +23,23 @@ namespace BackEnd_ASP.NET.Services
             this.notificationService = notificationService;
             this.webHostEnvironment = webHostEnvironment;
         }
-
         // Lấy tất cả giày từ kho
-
-
-
-        public async Task<IActionResult> GetAllShoesAsync(Guid? userId = null)
+        public async Task<IActionResult> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10)
         {
-            var shoes = await shoeRepository.GetAllShoesAsync();
-            IEnumerable<ShoeGetDTO>? shoesDTO;
+            var shoes = await shoeRepository.GetAllShoesAsync(page, pageSize);
+            IEnumerable<ShoeGetAllDTO>? shoesDTO;
             if (userId != null)
             {
                 shoesDTO = GetAllShoeByUserID(shoes, userId);
                 if (shoesDTO == null) return NotFound("No shoes found.");
                 return Ok(shoesDTO);
             }
-            shoesDTO = GetAllShoe(shoes);
+            shoesDTO = ConvertToShoeGetAllDTO(shoes.ToList(), null);
             if (shoesDTO == null) return NotFound("No shoes found.");
             return Ok(shoesDTO);
 
         }
-        private IEnumerable<ShoeGetDTO>? GetAllShoeByUserID(IEnumerable<Shoe> shoes, Guid? userId)
+        private IEnumerable<ShoeGetAllDTO>? GetAllShoeByUserID(IEnumerable<Shoe> shoes, Guid? userId)
         {
             if (userId == null) return null;
             var user = context.Users.FirstOrDefault(user => user.Id == userId);
@@ -51,90 +47,15 @@ namespace BackEnd_ASP.NET.Services
             var genderBinding = user.Gender.GenderBinding();
             var userWishlist = context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList();
             shoes = shoes.OrderByDescending(shoe => shoe.Gender == genderBinding || shoe.Gender == 2);
-            var shoesDTO = shoes.Select(shoe => new ShoeGetDTO
-            {
-                Id = shoe.Id,
-                Name = shoe.Name,
-                Brand = shoe.Brand,
-                Gender = shoe.Gender,
-                Material = shoe.Material ?? string.Empty,
-                Category = shoe.Category ?? string.Empty,
-                ImageUrl = shoe.ImageUrl ?? string.Empty,
-                Price = shoe.Price,
-                IsSale = shoe.IsSale,
-                Discount = shoe.Discount,
-                TotalRatings = shoe.TotalRatings,
-                AverageRating = shoe.AverageRating,
-                IsLiked = userWishlist.Contains(shoe.Id),
-                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
-                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage
-                {
-                    Id = image.Id,
-                    Url = image.Url
-                }).ToList(),
-                Seasons = shoe.Seasons == null ? null : shoe.Seasons.Select(season => new ShoeSeasonDTO
-                {
-                    Season = season.Season
-                }).ToList(),
-                Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColorDTO
-                {
-                    Color = color.Color
-                }).ToList(),
-                shoeDetails = shoe.shoeDetails == null ? null : shoe.shoeDetails.Select(detail => new ShoeDetailDTO
-                {
-                    Size = detail.Size,
-                    Quantity = detail.Quantity
-                }).ToList(),
-                IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14)
-            }).ToList();
-            return shoesDTO;
-        }
-        private IEnumerable<ShoeGetDTO> GetAllShoe(IEnumerable<Shoe> shoes)
-        {
-            var shoesDTO = shoes.Select(shoe => new ShoeGetDTO
-            {
-                Id = shoe.Id,
-                Name = shoe.Name,
-                Brand = shoe.Brand,
-                Gender = shoe.Gender,
-                Material = shoe.Material ?? string.Empty,
-                Category = shoe.Category ?? string.Empty,
-                ImageUrl = shoe.ImageUrl ?? string.Empty,
-                Price = shoe.Price,
-                IsSale = shoe.IsSale,
-                Discount = shoe.Discount,
-                TotalRatings = shoe.TotalRatings,
-                AverageRating = shoe.AverageRating,
-                IsLiked = false,
-                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
-                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage
-                {
-                    Id = image.Id,
-                    Url = image.Url
-                }).ToList(),
-                Seasons = shoe.Seasons == null ? null : shoe.Seasons.Select(season => new ShoeSeasonDTO
-                {
-                    Season = season.Season
-                }).ToList(),
-                Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColorDTO
-                {
-                    Color = color.Color
-                }).ToList(),
-                shoeDetails = shoe.shoeDetails == null ? null : shoe.shoeDetails.Select(detail => new ShoeDetailDTO
-                {
-                    Size = detail.Size,
-                    Quantity = detail.Quantity
-                }).ToList(),
-                IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14)
-            }).ToList();
-            return shoesDTO;
+            return ConvertToShoeGetAllDTO(shoes.ToList(), userId);
         }
         // Lấy giày theo ID
-        public async Task<IActionResult> GetShoeByIdAsync(Guid id)
+        public async Task<IActionResult> GetShoeByIdAsync(Guid id, Guid? userId = null)
         {
             var shoe = await shoeRepository.GetShoeByIdAsync(id);
             if (shoe == null)
                 return NotFound($"Shoe with ID {id} not found."); // Trả về NotFound nếu không tìm thấy
+            var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
             var shoeDTO = new ShoeGetDTO
             {
                 Id = shoe.Id,
@@ -145,11 +66,14 @@ namespace BackEnd_ASP.NET.Services
                 Category = shoe.Category ?? string.Empty,
                 IsSale = shoe.IsSale,
                 Discount = shoe.Discount,
+                ViewCount = shoe.ViewCount,
                 Price = shoe.Price,
+                IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
                 SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
                 CreateDate = shoe.CreateDate,
                 TotalRatings = shoe.TotalRatings,
                 AverageRating = shoe.AverageRating,
+                Sold = shoe.Sold,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Description = shoe.Description ?? string.Empty,
                 OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage
@@ -203,6 +127,7 @@ namespace BackEnd_ASP.NET.Services
                 Price = shoe.Price,
                 IsSale = shoe.IsSale,
                 shoeDetails = newshoeDetails,
+                Sold = 0,
                 Discount = shoe.Discount,
                 Colors = shoe.Colors.Select(color => new ShoeColor
                 {
@@ -324,6 +249,70 @@ namespace BackEnd_ASP.NET.Services
                 }
             }
             return newImagesList;
+        }
+        public List<ShoeGetDTO> ConvertToShoeGetDTO(List<Shoe> shoes, Guid? userId = null)
+        {
+            var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
+            return shoes.Select(shoe => new ShoeGetDTO
+            {
+                Id = shoe.Id,
+                Name = shoe.Name,
+                Brand = shoe.Brand,
+                Material = shoe.Material ?? string.Empty,
+                Category = shoe.Category ?? string.Empty,
+                Gender = shoe.Gender,
+                ImageUrl = shoe.ImageUrl ?? string.Empty,
+                Price = shoe.Price,
+                AverageRating = shoe.AverageRating,
+                Sold = shoe.Sold,
+                IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14),
+                CreateDate = shoe.CreateDate,
+                IsSale = shoe.IsSale,
+                Discount = shoe.Discount,
+                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
+                IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
+                shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetailDTO
+                {
+                    Size = detail.Size,
+                    Quantity = detail.Quantity
+                }).ToList()
+            }).ToList();
+        }
+        public List<ShoeGetAllDTO> ConvertToShoeGetAllDTO(List<Shoe> shoes, Guid? userId = null)
+        {
+            var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
+            return shoes.Select(shoe => new ShoeGetAllDTO
+            {
+                Id = shoe.Id,
+                Name = shoe.Name,
+                Brand = shoe.Brand,
+                Gender = shoe.Gender,
+                Material = shoe.Material ?? string.Empty,
+                Category = shoe.Category ?? string.Empty,
+                ImageUrl = shoe.ImageUrl ?? string.Empty,
+                AverageRating = shoe.AverageRating,
+                TotalRatings = shoe.TotalRatings,
+                Sold = shoe.Sold,
+                Price = shoe.Price,
+                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
+                IsSale = shoe.IsSale,
+                Discount = shoe.Discount,
+                Seasons = shoe.Seasons.Select(season => new ShoeSeasonDTO
+                {
+                    Season = season.Season
+                }).ToList(),
+                Colors = shoe.Colors.Select(color => new ShoeColorDTO
+                {
+                    Color = color.Color
+                }).ToList(),
+                shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetailDTO
+                {
+                    Size = detail.Size,
+                    Quantity = detail.Quantity
+                }).ToList(),
+                IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14),
+                IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false
+            }).ToList();
         }
     }
 

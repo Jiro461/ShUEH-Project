@@ -20,13 +20,15 @@ public class ShoeRepository : IShoeRepository
                     .Where(shoe => shoeIds.Contains(shoe.Id))
                     .ToListAsync();
     }
-    public async Task<IEnumerable<Shoe>> GetAllShoesAsync()
+    public async Task<IEnumerable<Shoe>> GetAllShoesAsync(int page, int pageSize)
     {
         return await _dbSet.Include(shoe => shoe.shoeDetails)
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
                             .Include(shoe => shoe.Comments)
+                            .Skip(page * pageSize)
+                            .Take(pageSize)
                             .ToListAsync();
     }
 
