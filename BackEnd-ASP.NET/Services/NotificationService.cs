@@ -48,8 +48,8 @@ namespace BackEnd_ASP.NET.Services
             var user = await _context.Users.FindAsync(userId);
             var notification = new Notification
             {
-                UserMessage = $"Đơn hàng {order.Id} của bạn đã được tạo.",
-                AdminMessage = $"User {order.User?.UserName} đã tạo Order {order.Id}.",
+                UserMessage = $"Đơn hàng {order.Id} của bạn đã được đặt.",
+                AdminMessage = $"User {order.User?.UserName} đã đặt đơn hàng {order.Id} với tổng giá {order.TotalPrice} với phương thức {order.PaymentMethod}.",
                 User = user,
                 OrderId = order.Id,
                 CreateDate = MyDateTime.VietNam.DateTime
