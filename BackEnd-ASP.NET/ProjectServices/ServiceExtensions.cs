@@ -18,7 +18,8 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
-        ConfigureCors(services);
+        //ConfigureCors(services);
+        services.AddHttpClient();
         services.AddMemoryCache();
         services.AddControllers();//AddJsonOptions(options =>
         //     {
@@ -57,6 +58,7 @@ public static class ServiceExtensions
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IShoeService, ShoeService>();
+        services.AddScoped<IPaymentService, PaymentService>();
         /*Identity*/
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();
