@@ -32,14 +32,14 @@ function ProfileUser() {
 
     return (
         <>
-            <div className="container user-profile">
+            <div className="user-profile">
                 {
                     isEditing ? (
-                        <div className="edit">
+                        <div className="edit-profile">
                             <div>
                                 {/* Hình ảnh (Avatar) */}
                                 <div className="mb-3 form-ava">
-                                    <label htmlFor="avatar" className="form-label"><img src={updatedInfo.avatar} alt=""/></label>
+                                    <label htmlFor="avatar" className="form-label"><img src={updatedInfo.avatar} alt="" /></label>
                                     <input
                                         type="file"
                                         className="form-control"
@@ -49,7 +49,7 @@ function ProfileUser() {
                                     />
                                 </div>
                             </div>
-                            
+
                             <form onSubmit={handleUpdate}>
                                 {/* Tên người dùng */}
                                 <div className="mb-3 form">
@@ -140,7 +140,6 @@ function ProfileUser() {
                             <div className="row user-info">
                                 <img className="col-md-2 col-sm-12"
                                     src={userInfo.avatar} // Hiển thị ảnh đại diện
-                                    alt="Avatar"
                                 />
 
                                 <div className="col info">
@@ -161,11 +160,10 @@ function ProfileUser() {
                                         <p>{userInfo.dateOfBirth}</p>
                                     </div>
                                 </div>
-
-                                
                             </div>
+
                             {/* Nút để chuyển sang chế độ chỉnh sửa */}
-                            <button className="btn-edit" onClick={() => setIsEditing(true)}>Edit</button>
+                            <div className="btn-edit"><button onClick={() => setIsEditing(true)}>Edit</button></div>
                         </>
                     )
                 }

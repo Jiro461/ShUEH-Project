@@ -18,8 +18,9 @@ function ProductsList({ filters }) {
                     id: product.id,
                     name: product.name,
                     price: product.price,
+                    brand: product.brand,
                     gender: product.gender, // Giả định dữ liệu sản phẩm có thuộc tính gender
-                    sport: product.sport, // Giả định dữ liệu sản phẩm có thuộc tính sport
+                    sport: product.category, // Giả định dữ liệu sản phẩm có thuộc tính sport
                     size: product.size, // Giả định dữ liệu sản phẩm có thuộc tính size
                     color: product.color, // Giả định dữ liệu sản phẩm có thuộc tính color
                     isOnSale: product.isOnSale, // Giả định dữ liệu sản phẩm có thuộc tính isOnSale
@@ -44,9 +45,8 @@ function ProductsList({ filters }) {
         const matchesColor = filters.selectedColors.length === 0 || filters.selectedColors.some(c => c.color === product.color);
         const matchesPrice = product.price >= filters.minValue && product.price <= filters.maxValue;
         const matchesSale = !filters.isOnSale || product.isOnSale;
-        console.log(matchesBrand + "1");
-        // return matchesGender && matchesSport && matchesSize && matchesColor && matchesPrice && matchesSale;
-        return matchesBrand;
+        return matchesBrand && matchesGender && matchesSport && matchesSize;
+        //   && matchesColor && matchesPrice && matchesSale
     });
 
     const indexOfLastItem = currentPage * itemsPerPage;

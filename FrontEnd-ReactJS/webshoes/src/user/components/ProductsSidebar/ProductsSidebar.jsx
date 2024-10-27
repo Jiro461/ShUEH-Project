@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { genders, sports, minPrices, maxPrices, colors, sizes } from './dataSidebar';
 
-function ProductsSidebar({ filters, updateFilters }) {
+function ProductsSidebar({ filters, updateFilters, isMenuSidebarVisible }) {
         // Gender ---------------------------------------------------------------------------------------------------------------
     // Render gender
     const genderList = genders.map((gender, index) => (
@@ -145,7 +145,7 @@ function ProductsSidebar({ filters, updateFilters }) {
     };
 
     return (
-        <div className="col-lg-2 col-md-1 sidebar">
+        <div className={`col-lg-2 col-md-1 sidebar ${isMenuSidebarVisible ? 'active' : ''}`}>
             <h1 className="heading">Filter</h1>
             <div className="gender">{genderList}</div>
             <div className="dividing-line" />

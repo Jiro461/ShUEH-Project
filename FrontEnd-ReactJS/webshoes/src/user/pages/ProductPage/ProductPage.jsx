@@ -21,7 +21,7 @@ function ProductPage() {
         isSizeUK: false,
     });
 
-    console.log(filters);
+    // console.log(filters.selectedBrands);
     const updateFilters = (newFilters) => {
         setFilters((prevFilters) => ({
             ...prevFilters,
@@ -47,13 +47,20 @@ function ProductPage() {
             }
         );
     }
+
+    const [isMenuSidebarVisible, setIsMenuSidebarVisible] = useState(false);
+
+    const toggleMenuSidebar = () => {
+        setIsMenuSidebarVisible(!isMenuSidebarVisible);
+        console.log(isMenuSidebarVisible);
+    }
     
     return (
         <div className="container-fluid">
             <div className="row product">
-                <ProductsSidebar filters={filters} updateFilters={updateFilters}/>
+                <ProductsSidebar filters={filters} updateFilters={updateFilters} isMenuSidebarVisible={isMenuSidebarVisible}/>
                 <div className="col content">
-                    <ProductsSubnav filters={filters} updateFilters={updateFilters} deleteFilters={deleteFilters}/>
+                    <ProductsSubnav filters={filters} updateFilters={updateFilters} deleteFilters={deleteFilters} toggleMenuSidebar={toggleMenuSidebar}/>
                     <ProductsList filters={filters}/>
                 </div>
             </div>

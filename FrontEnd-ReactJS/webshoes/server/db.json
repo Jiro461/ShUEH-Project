@@ -10,13 +10,26 @@
       "images": "/images/shoe1.png",
       "color": "#333",
       "sizes": [
-        { "size": 40, "stock": 10 },
-        { "size": 41, "stock": 15 },
-        { "size": 42, "stock": 5 }
+        {
+          "size": 12,
+          "stock": 10
+        },
+        {
+          "size": 41,
+          "stock": 15
+        },
+        {
+          "size": 42,
+          "stock": 5
+        }
       ],
       "rating": 4.5,
       "reviews": [
-        { "user": "John Doe", "comment": "Great shoes for playing basketball!", "rating": 5 }
+        {
+          "user": "John Doe",
+          "comment": "Great shoes for playing basketball!",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     },
@@ -30,13 +43,26 @@
       "images": "/images/shoe2.png",
       "color": "#555",
       "sizes": [
-        { "size": 40, "stock": 20 },
-        { "size": 41, "stock": 18 },
-        { "size": 42, "stock": 12 }
+        {
+          "size": 40,
+          "stock": 20
+        },
+        {
+          "size": 41,
+          "stock": 18
+        },
+        {
+          "size": 42,
+          "stock": 12
+        }
       ],
       "rating": 4.7,
       "reviews": [
-        { "user": "Jane Smith", "comment": "Best running shoes ever!", "rating": 5 }
+        {
+          "user": "Jane Smith",
+          "comment": "Best running shoes ever!",
+          "rating": 5
+        }
       ],
       "gender": "Woman"
     },
@@ -50,13 +76,26 @@
       "images": "/images/shoe3.png",
       "color": "#777",
       "sizes": [
-        { "size": 39, "stock": 8 },
-        { "size": 40, "stock": 12 },
-        { "size": 41, "stock": 5 }
+        {
+          "size": 39,
+          "stock": 8
+        },
+        {
+          "size": 40,
+          "stock": 12
+        },
+        {
+          "size": 41,
+          "stock": 5
+        }
       ],
       "rating": 4.3,
       "reviews": [
-        { "user": "Michael Lee", "comment": "Very comfortable for daily use.", "rating": 4 }
+        {
+          "user": "Michael Lee",
+          "comment": "Very comfortable for daily use.",
+          "rating": 4
+        }
       ],
       "gender": "Man"
     },
@@ -70,13 +109,26 @@
       "images": "/images/shoe4.png",
       "color": "#999",
       "sizes": [
-        { "size": 40, "stock": 15 },
-        { "size": 42, "stock": 9 },
-        { "size": 43, "stock": 7 }
+        {
+          "size": 40,
+          "stock": 15
+        },
+        {
+          "size": 42,
+          "stock": 9
+        },
+        {
+          "size": 43,
+          "stock": 7
+        }
       ],
       "rating": 4.6,
       "reviews": [
-        { "user": "Chris P.", "comment": "Excellent for CrossFit!", "rating": 5 }
+        {
+          "user": "Chris P.",
+          "comment": "Excellent for CrossFit!",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     },
@@ -90,13 +142,26 @@
       "images": "/images/shoe5.png",
       "color": "#111",
       "sizes": [
-        { "size": 41, "stock": 13 },
-        { "size": 42, "stock": 10 },
-        { "size": 43, "stock": 6 }
+        {
+          "size": 41,
+          "stock": 13
+        },
+        {
+          "size": 42,
+          "stock": 10
+        },
+        {
+          "size": 43,
+          "stock": 6
+        }
       ],
       "rating": 4.4,
       "reviews": [
-        { "user": "Anna K.", "comment": "Stylish and comfy.", "rating": 4 }
+        {
+          "user": "Anna K.",
+          "comment": "Stylish and comfy.",
+          "rating": 4
+        }
       ],
       "gender": "Woman"
     },
@@ -110,13 +175,26 @@
       "images": "/images/shoe6.png",
       "color": "#222",
       "sizes": [
-        { "size": 40, "stock": 7 },
-        { "size": 42, "stock": 14 },
-        { "size": 44, "stock": 5 }
+        {
+          "size": 40,
+          "stock": 7
+        },
+        {
+          "size": 42,
+          "stock": 14
+        },
+        {
+          "size": 44,
+          "stock": 5
+        }
       ],
       "rating": 4.8,
       "reviews": [
-        { "user": "Tom R.", "comment": "Perfect for long-distance runs.", "rating": 5 }
+        {
+          "user": "Tom R.",
+          "comment": "Perfect for long-distance runs.",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     },
@@ -130,13 +208,26 @@
       "images": "/images/shoe7.png",
       "color": "#444",
       "sizes": [
-        { "size": 40, "stock": 16 },
-        { "size": 41, "stock": 12 },
-        { "size": 43, "stock": 9 }
+        {
+          "size": 40,
+          "stock": 16
+        },
+        {
+          "size": 41,
+          "stock": 12
+        },
+        {
+          "size": 43,
+          "stock": 9
+        }
       ],
       "rating": 4.7,
       "reviews": [
-        { "user": "Emily W.", "comment": "Great cushioning and comfort.", "rating": 5 }
+        {
+          "user": "Emily W.",
+          "comment": "Great cushioning and comfort.",
+          "rating": 5
+        }
       ],
       "gender": "Woman"
     },
@@ -150,13 +241,26 @@
       "images": "/images/shoe8.png",
       "color": "#000",
       "sizes": [
-        { "size": 40, "stock": 30 },
-        { "size": 42, "stock": 25 },
-        { "size": 44, "stock": 15 }
+        {
+          "size": 40,
+          "stock": 30
+        },
+        {
+          "size": 42,
+          "stock": 25
+        },
+        {
+          "size": 44,
+          "stock": 15
+        }
       ],
       "rating": 4.5,
       "reviews": [
-        { "user": "Sara M.", "comment": "Timeless style!", "rating": 5 }
+        {
+          "user": "Sara M.",
+          "comment": "Timeless style!",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     },
@@ -170,13 +274,26 @@
       "images": "/images/shoe9.png",
       "color": "#333",
       "sizes": [
-        { "size": 39, "stock": 25 },
-        { "size": 40, "stock": 20 },
-        { "size": 42, "stock": 10 }
+        {
+          "size": 39,
+          "stock": 25
+        },
+        {
+          "size": 40,
+          "stock": 20
+        },
+        {
+          "size": 42,
+          "stock": 10
+        }
       ],
       "rating": 4.6,
       "reviews": [
-        { "user": "Peter L.", "comment": "Great for skating and casual wear.", "rating": 4 }
+        {
+          "user": "Peter L.",
+          "comment": "Great for skating and casual wear.",
+          "rating": 4
+        }
       ],
       "gender": "Man"
     },
@@ -190,13 +307,26 @@
       "images": "/images/shoe10.png",
       "color": "#666",
       "sizes": [
-        { "size": 40, "stock": 18 },
-        { "size": 42, "stock": 14 },
-        { "size": 43, "stock": 6 }
+        {
+          "size": 40,
+          "stock": 18
+        },
+        {
+          "size": 42,
+          "stock": 14
+        },
+        {
+          "size": 43,
+          "stock": 6
+        }
       ],
       "rating": 4.2,
       "reviews": [
-        { "user": "Nancy F.", "comment": "Love the chunky style!", "rating": 4 }
+        {
+          "user": "Nancy F.",
+          "comment": "Love the chunky style!",
+          "rating": 4
+        }
       ],
       "gender": "Woman"
     },
@@ -210,13 +340,26 @@
       "images": "/images/shoe11.png",
       "color": "#888",
       "sizes": [
-        { "size": 39, "stock": 12 },
-        { "size": 40, "stock": 8 },
-        { "size": 42, "stock": 10 }
+        {
+          "size": 39,
+          "stock": 12
+        },
+        {
+          "size": 40,
+          "stock": 8
+        },
+        {
+          "size": 42,
+          "stock": 10
+        }
       ],
       "rating": 4.9,
       "reviews": [
-        { "user": "Kevin B.", "comment": "Amazing for races!", "rating": 5 }
+        {
+          "user": "Kevin B.",
+          "comment": "Amazing for races!",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     },
@@ -230,13 +373,26 @@
       "images": "/images/shoe12.png",
       "color": "#555",
       "sizes": [
-        { "size": 41, "stock": 22 },
-        { "size": 42, "stock": 18 },
-        { "size": 44, "stock": 10 }
+        {
+          "size": 41,
+          "stock": 22
+        },
+        {
+          "size": 42,
+          "stock": 18
+        },
+        {
+          "size": 44,
+          "stock": 10
+        }
       ],
       "rating": 4.8,
       "reviews": [
-        { "user": "Derek S.", "comment": "Perfect for the court.", "rating": 5 }
+        {
+          "user": "Derek S.",
+          "comment": "Perfect for the court.",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     },
@@ -250,13 +406,26 @@
       "images": "/images/shoe13.png",
       "color": "#111",
       "sizes": [
-        { "size": 40, "stock": 12 },
-        { "size": 42, "stock": 16 },
-        { "size": 43, "stock": 10 }
+        {
+          "size": 40,
+          "stock": 12
+        },
+        {
+          "size": 42,
+          "stock": 16
+        },
+        {
+          "size": 43,
+          "stock": 10
+        }
       ],
       "rating": 4.7,
       "reviews": [
-        { "user": "Olivia H.", "comment": "Incredibly soft and smooth.", "rating": 5 }
+        {
+          "user": "Olivia H.",
+          "comment": "Incredibly soft and smooth.",
+          "rating": 5
+        }
       ],
       "gender": "Woman"
     },
@@ -270,13 +439,26 @@
       "images": "/images/shoe14.png",
       "color": "#333",
       "sizes": [
-        { "size": 41, "stock": 15 },
-        { "size": 42, "stock": 12 },
-        { "size": 44, "stock": 5 }
+        {
+          "size": 41,
+          "stock": 15
+        },
+        {
+          "size": 42,
+          "stock": 12
+        },
+        {
+          "size": 44,
+          "stock": 5
+        }
       ],
       "rating": 4.9,
       "reviews": [
-        { "user": "James P.", "comment": "So comfortable for long runs.", "rating": 5 }
+        {
+          "user": "James P.",
+          "comment": "So comfortable for long runs.",
+          "rating": 5
+        }
       ],
       "gender": "Man"
     }

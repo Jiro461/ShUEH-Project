@@ -8,9 +8,8 @@ function ProfilePage() {
                 {/* Sidebar */}
                 <div className="col-lg-3 col-12 sidebar">
                     <Link className="sidebar-selection" to=''>Profile</Link>
-                    <Link className="sidebar-selection" to='favorite'>Favorite</Link>
+                    <Link className="sidebar-selection" to='favour'>Favorite</Link>
                     <Link className="sidebar-selection" to='ordered'>Ordered</Link>
-                    <Link className="sidebar-selection" to='setting'>Setting</Link>
                 </div>
 
                 {/* Content */}

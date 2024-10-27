@@ -4,12 +4,13 @@ import AdminHome from './admin/pages/AdminHome/AdminHome.jsx';
 import AdminLayout from './layouts/admin/AdminLayout.jsx';
 import UserLayout from './layouts/user/UserLayout.jsx';
 import Users from './admin/pages/Users/Users.jsx';
-import Product from './user/pages/ProductPage/ProductPage.jsx';
-import PaymentPage from './user/pages/PaymentPage/PaymentPage.jsx';
-import ProductDetailPage from './user/pages/ProductDetailPage/ProductDetailPage.jsx';
 import ProfilePage from './user/pages/ProfilePage/ProfilePage.jsx';
 import UserHome from './user/pages/UserHome/UserHome.jsx';
+import ProfileFavorite from './user/components/ProfileFavorite/ProfileFavorite.jsx';
+import ProductPage from './user/pages/ProductPage/ProductPage.jsx';
 import './App.scss';
+import ProfileUser from './user/components/ProfileUser/ProfileUser.jsx';
+import ProfileOrdered from './user/components/ProfileOrdered/ProfileOrdered.jsx';
 
 // Định nghĩa component SignInComponent
 const SignInComponent = () => {
@@ -350,6 +351,32 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <UserHome />,
+      },
+      {
+        path: "product",
+        element: <ProductPage />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+        children: [
+          {
+            path: "",
+            element: <ProfileUser/>
+          },
+          {
+            path: "favour",
+            element: <ProfileFavorite/>
+          },
+          {
+            path: "ordered",
+            element: <ProfileOrdered/>
+          },
+        ]
+      },
+      {
+        path: "/sign-in-component",
         element: <SignInComponent />, // Thêm route cho SignInComponent
       },
     ],
