@@ -52,35 +52,24 @@ namespace BackEnd_ASP.NET.Middleware
                 .FirstOrDefaultAsync(v => v.ProductId == productId &&
                                           (v.UserId == userId));
 
-            if (productView == null || productView.LastViewedDate < today)
+            if (productView == null || productView.ViewedDate.Month < today.Month)
             {
-                if (productView == null)
+                productView = new ProductView
                 {
-                    productView = new ProductView
-                    {
-                        ProductId = productId,
-                        UserId = userId,
-                        LastViewedDate = today
-                    };
-                    dbContext.ProductViews.Add(productView);
-                }
-                else
-                {
-                    productView.LastViewedDate = today;
-                    dbContext.ProductViews.Update(productView);
-                }
-
-                // Tăng view count của sản phẩm
-                var product = await dbContext.Shoes.FindAsync(productId);
-                if (product != null)
-                {
-                    product.ViewCount++;
-                    dbContext.Shoes.Update(product);
-                }
-
-                
-                await dbContext.SaveChangesAsync();
+                    ProductId = productId,
+                    UserId = userId,
+                    ViewedDate = today
+                };
+                dbContext.ProductViews.Add(productView);
             }
+            // Tăng view count của sản phẩm
+            var product = await dbContext.Shoes.FindAsync(productId);
+            if (product != null)
+            {
+                product.ViewCount++;
+                dbContext.Shoes.Update(product);
+            }
+            await dbContext.SaveChangesAsync();
         }
     }
 }
