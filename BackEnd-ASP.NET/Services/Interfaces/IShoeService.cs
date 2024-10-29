@@ -7,11 +7,15 @@ namespace BackEnd_ASP.NET.Services
     public interface IShoeService
     {
         Task<IActionResult> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10);
-        Task<IActionResult> GetShoeByIdAsync(Guid id, Guid? userId = null);
+        Task<IActionResult> GetShoeByIdFromUserAsync(Guid id, Guid? userId = null);
+        Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id);
         Task<IActionResult> AddShoeAsync(ShoePostDTO shoe);
         Task<IActionResult> UpdateShoeAsync(Guid shoeId, ShoePostDTO shoe);
         Task<IActionResult> DeleteShoeAsync(Guid id);
-        List<ShoeGetDTO> ConvertToShoeGetDTO(List<Shoe> shoes, Guid? userId = null);
-        List<ShoeGetAllDTO> ConvertToShoeGetAllDTO(List<Shoe> shoes, Guid? userId = null);
+        #region Convert
+        ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null);
+        List<ShoeGetDTO> ConvertListToListShoeGetDTO(List<Shoe> shoes, Guid? userId = null);
+        List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTO(List<Shoe> shoes, Guid? userId = null);
+        #endregion
     }
 }

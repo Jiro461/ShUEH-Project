@@ -49,7 +49,7 @@ namespace BackEnd_ASP.NET.Controller
                 .OrderByDescending(s => s.CreateDate)
                 .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertToShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
 
@@ -62,7 +62,7 @@ namespace BackEnd_ASP.NET.Controller
                     .Take(number)
                     .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertToShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
         [HttpGet("total")]
@@ -81,7 +81,7 @@ namespace BackEnd_ASP.NET.Controller
                 .Take(number)
                 .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertToShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
 
@@ -94,7 +94,7 @@ namespace BackEnd_ASP.NET.Controller
                 .Take(number)
                 .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertToShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
 
@@ -106,7 +106,7 @@ namespace BackEnd_ASP.NET.Controller
                 .FirstOrDefaultAsync(s => s.Name == "Satan" && s.Brand == "Nike");
 
             if (shoe == null) return NotFound("No collaboration shoe found.");
-            var shoeDTO = shoeService.ConvertToShoeGetDTO(new List<Shoe> { shoe }, userId != null ? Guid.Parse(userId) : null).First();
+            var shoeDTO = shoeService.ConvertShoeToShoeGetDTO(shoe, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoeDTO);
         }
         #endregion
@@ -138,7 +138,14 @@ namespace BackEnd_ASP.NET.Controller
         public async Task<IActionResult> GetShoeByIdAsync(Guid id)
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return await shoeService.GetShoeByIdAsync(id, userId != null ? Guid.Parse(userId) : null);
+            return await shoeService.GetShoeByIdFromUserAsync(id, userId != null ? Guid.Parse(userId) : null);
+        }
+        [HttpGet("admin/{id}")]
+        public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
+        {
+            var IsAdmin = HttpContext.User.IsInRole("Admin");
+            if (!IsAdmin) return Unauthorized();
+            return await shoeService.GetShoeByIdFromAdminAsync(id);
         }
 
         [HttpPost("create")]
