@@ -13,6 +13,6 @@ namespace BackEnd_ASP_NET.Models
         public Guid ProductId { get; set; }
         public Guid? UserId { get; set; }
         public string? IPAddress { get; set; }
-        public DateTime LastViewedDate { get; set; } = DateTime.Now;
+        public DateTime ViewedDate { get; set; } = DateTime.Now;
     }
 }

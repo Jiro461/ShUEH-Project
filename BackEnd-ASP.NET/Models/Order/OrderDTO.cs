@@ -7,6 +7,9 @@ public sealed class OrderGetDTO
     public Guid Id { get; set; }
     public DateTime OrderDate { get; set; }
     public Guid UserId { get; set; }
+    public string UserName { get; set; } = string.Empty;
+    public string UserEmail { get; set; } = string.Empty;
+    public string ImageUrl { get; set; } = "/noavatar.png";
     public OrderStatus Status { get; set; }
     public ICollection<OrderItemDTO> OrderItems { get; set; } = new HashSet<OrderItemDTO>();
     public decimal TotalPrice { get; set; } //Co kem theo ship fee (neu co)

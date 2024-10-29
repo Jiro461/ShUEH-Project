@@ -1,7 +1,8 @@
 public class ReplyDTO
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public string Description { get; set; } = string.Empty;
-    public Guid UserId { get; set; }    
+    public Guid CommentId { get; set; }
     public DateTime CreateDate { get; set; }
 }
+
