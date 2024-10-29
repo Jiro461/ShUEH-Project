@@ -106,11 +106,35 @@ namespace BackEnd_ASP.NET.Services
 
         public async Task<IActionResult> GetAllOrdersAsync()
         {
-            if (await orderRepository.GetAllOrdersAsync() == null)
+            var orders = await orderRepository.GetAllOrdersAsync();
+            if (orders == null) return NotFound("Orders not found");
+            var orderDTOs = orders.Select(order => new OrderGetDTO
             {
-                return NotFound("Orders not found");
-            }
-            return Ok("Get all orders successfully");
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                UserId = order.UserId,
+                UserName = order.User?.UserName ?? string.Empty,
+                UserEmail = order.User?.Email ?? string.Empty,
+                ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
+                Status = order.Status,
+                PaymentMethod = order.PaymentMethod,
+                TotalPrice = order.TotalPrice,
+                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
+                {
+                    ShoeId = item.ShoeId,
+                    ShoePrice = item.ShoePrice,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice,
+                    ShoeName = item.Shoe?.Name ?? string.Empty,
+                    ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
+                }).ToList(),
+            });
+            var response = new {
+                OrderDTOs = orderDTOs,
+                Total = orderDTOs.Count()
+            };
+            return Ok(response);
         }
 
         public async Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status)
@@ -126,6 +150,9 @@ namespace BackEnd_ASP.NET.Services
                 Status = order.Status,
                 PaymentMethod = order.PaymentMethod,
                 UserId = order.UserId,
+                UserName = order.User?.UserName ?? string.Empty,
+                UserEmail = order.User?.Email ?? string.Empty,
+                ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
                 OrderItems = order.OrderItems.Select(item => new OrderItemDTO
                 {
                     ShoeId = item.ShoeId,
@@ -156,6 +183,9 @@ namespace BackEnd_ASP.NET.Services
                 Status = order.Status,
                 PaymentMethod = order.PaymentMethod,
                 UserId = order.UserId,
+                UserName = order.User?.UserName ?? string.Empty,
+                UserEmail = order.User?.Email ?? string.Empty,
+                ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
                 OrderItems = order.OrderItems.Select(item => new OrderItemDTO
                 {
                     ShoeId = item.ShoeId,
@@ -180,6 +210,7 @@ namespace BackEnd_ASP.NET.Services
             if (order == null) return NotFound("Order not found");
             order.Status = status;
             await orderRepository.UpdateOrderAsync(order);
+            await notificationService.CreateUpdateNotificationForEntityChange(order);
             return Ok("Update order successfully");
         }
 
