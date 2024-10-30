@@ -133,6 +133,9 @@ namespace BackEnd_ASP.NET.Data
             Guid IDGiay_27 = Guid.NewGuid();
             Guid IDGiay_28 = Guid.NewGuid();
             Guid IDGiay_29 = Guid.NewGuid();
+            Guid IDGiay_Home_1 = Guid.NewGuid();
+            Guid IDGiay_Home_2 = Guid.NewGuid();
+            Guid IDGiay_Home_3 = Guid.NewGuid();
             // Seed data shoe
             modelBuilder.Entity<Shoe>().HasData(
 
@@ -791,7 +794,71 @@ namespace BackEnd_ASP.NET.Data
                      CreateDate = DateTime.Now,
                      LastModifiedDate = DateTime.Now
                  }
+                 ,
+                 // HOME 1
+                 new Shoe
+                 {
+                     Id = IDGiay_Home_1,
+                     Name = "Nike Youth React Presto Extreme",
+                     Brand = "Nike",
+                     Gender = 2,
+                     Material = "Rubber, yarns and textiles.",
+                     Category = "Gym & Training",
+                     ImageUrl = "images/shoes/[IDGiay_Home_1]_AnhChinh_1.png",
+                     Description = "Nike Youth React Presto Extreme combines lightweight React technology and a flexible upper to provide comfort and support for everyday activities and gym training.",
+                     Price = 2069000M,
+                     Sold = 78,
+                     AverageRating = 4.5M,
+                     TotalRatings = 60,
+                     IsSale = true,
+                     Discount = 40,
+                     CreateDate = DateTime.Now.AddDays(-30),
+                     LastModifiedDate = DateTime.Now.AddDays(-30)
+                 },
+
+                // HOME 2
+                new Shoe
+                {
+                    Id = IDGiay_Home_2,
+                    Name = "Nike Air Max 270",
+                    Brand = "Nike",
+                    Gender = 1,
+                    Material = "Plastics, yarns and textiles.",
+                    Category = "Gym & Training",
+                    ImageUrl = "images/shoes/[IDGiay_Home_2]_AnhChinh_1.png",
+                    Description = "Nike's first lifestyle Air Max brings you style, comfort and big attitude in the Nike Air Max 270. The design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colors.",
+                    Price = 4059000M,
+                    Sold = 8,
+                    AverageRating = 4.5M,
+                    TotalRatings = 3,
+                    IsSale = true,
+                    Discount = 40,
+                    CreateDate = DateTime.Now.AddDays(-30),
+                    LastModifiedDate = DateTime.Now.AddDays(-30)
+                },
+
+                // HOME 3
+                new Shoe
+                {
+                    Id = IDGiay_Home_3,
+                    Name = "Nike Downshifter 13",
+                    Brand = "Nike",
+                    Gender = 1,
+                    Material = "Plastics, yarns and textiles.",
+                    Category = "Gym & Training",
+                    ImageUrl = "images/shoes/[IDGiay_Home_3]_AnhChinh_1.png",
+                    Description = "Whether you're starting your running journey or an expert eager to switch up your pace, the Downshifter 13 is down for the ride. With a revamped upper, cushioning and durability, it helps you find that extra gear or take that first stride towards chasing down your goals.",
+                    Price = 2069000M,
+                    Sold = 78,
+                    AverageRating = 4.5M,
+                    TotalRatings = 20,
+                    IsSale = true,
+                    Discount = 40,
+                    CreateDate = DateTime.Now.AddDays(-30),
+                    LastModifiedDate = DateTime.Now.AddDays(-30)
+                }
             );
+
             //ShoeSeason Seeding
             modelBuilder.Entity<ShoeSeason>().HasData(
                 new ShoeSeason
@@ -1185,7 +1252,61 @@ namespace BackEnd_ASP.NET.Data
                     ShoeId = IDGiay_26,
                     Id = Guid.NewGuid(),
                     Season = "Winter"
+                },
+                //1
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Summer",
+                    ShoeId = IDGiay_Home_1
+                },
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Spring",
+                    ShoeId = IDGiay_Home_1
+                },
+
+                //2
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Summer",
+                    ShoeId = IDGiay_Home_2
+                },
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Spring",
+                    ShoeId = IDGiay_Home_2
+                },
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Fall",
+                    ShoeId = IDGiay_Home_2
+                },
+
+                //3
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Summer",
+                    ShoeId = IDGiay_Home_3
                 }
+                ,
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Winter",
+                    ShoeId = IDGiay_Home_3
+                },
+            new ShoeSeason
+            {
+                Id = Guid.NewGuid(),
+                Season = "Fall",
+                ShoeId = IDGiay_Home_3
+            }
 
             );
 
@@ -1570,8 +1691,72 @@ namespace BackEnd_ASP.NET.Data
                               ShoeId = IDGiay_26,
                               Id = Guid.NewGuid(),
                               Color = "Red"
-                          }
-                      );
+                          },
+                          new ShoeColor
+                          {
+                              Id = Guid.NewGuid(),
+                              ShoeId = IDGiay_Home_1,
+                              Color = "Black"
+                          },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_1,
+                            Color = "White"
+                        },
+
+                        // SECOND
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "Blue"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "Pink"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "Black"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "White"
+                        },
+
+                        // NIKE 3 Colors
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "Red"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "Blue"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "Black"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "White"
+                        }
+                );
             modelBuilder.Entity<ShoeImage>().HasData(
                 // NIKE 1
                 new ShoeImage
@@ -2407,6 +2592,7 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_27,
+
                                 Url = "https://dmpkickz.com/cdn/shop/files/6_78fd24e0-cd30-400a-8fa1-e5e6cd3c5b0b.png?v=1696679846&width=480"
                             },
 
@@ -2482,6 +2668,83 @@ namespace BackEnd_ASP.NET.Data
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_29,
                                 Url = "https://www.prosoccer.com/cdn/shop/files/PumaFuture7UltimateFGAG-ForeverFasterPack_SP24_Model1_1500x.png?v=1713488175"
+                            },
+                            //FIRST
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_1.jpg"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_2.jpg"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_3.jpg"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_4.jpg"
+                            },
+
+                            //SECOND
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_1.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_2.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_3.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_4.png"
+                            },
+
+                            //THRID
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_1.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_2.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_3.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_4.png"
                             }
                         );
             Random rand = new Random();
@@ -2491,7 +2754,8 @@ namespace BackEnd_ASP.NET.Data
                 IDGiay_11, IDGiay_12, IDGiay_13, IDGiay_14, IDGiay_15,
                 IDGiay_16, IDGiay_17, IDGiay_18, IDGiay_19, IDGiay_20,
                 IDGiay_21, IDGiay_22, IDGiay_23, IDGiay_24, IDGiay_25,
-                IDGiay_26
+                IDGiay_26,
+                IDGiay_Home_1, IDGiay_Home_2, IDGiay_Home_3,
             };
             List<ShoeDetail> shoeDetails = new List<ShoeDetail>();
             for (int i = 0; i < shoeIds.Length; i++)
@@ -2509,13 +2773,137 @@ namespace BackEnd_ASP.NET.Data
                         Id = Guid.NewGuid(),
                         ShoeId = shoeIds[i], // Sử dụng Guid đã được tạo trước
                         Size = currentSize, // Size đảm bảo theo logic
-                        Quantity = rand.Next(0, 55) // Quantity ngẫu nhiên từ 0 tới 20
+                        Quantity = rand.Next(0, 150) // Quantity ngẫu nhiên từ 0 tới 20
                     });
 
                 }
             }
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
+            RandomData(modelBuilder);
+        }
+
+        private void RandomData(ModelBuilder modelBuilder)
+        {
+            Random random = new Random();
+            string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
+            string[] materials = { "Leather", "Synthetic", "Mesh", "Canvas", "Rubber" };
+            string[] categories = { "Running", "Football", "Basketball", "Tennis", "Gym & Training" };
+            string[] seasons = { "Summer", "Spring", "Winter", "Autumn" };
+            string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange" };
+            string[] descriptions = {
+                    "Perfect for all sports activities.",
+                    "Provides excellent comfort and support.",
+                    "Stylish design for both casual and athletic wear.",
+                    "Lightweight and durable for high-performance.",
+                    "Designed for optimum traction on various surfaces.",
+                    "Breathable material keeps your feet cool and dry.",
+                    "A versatile shoe for any occasion.",
+                    "Enhances performance and boosts confidence."
+            };
+            for (int i = 1; i <= 29; i++)
+            {
+                Guid idGiay = Guid.NewGuid();
+                string brand = brands[random.Next(brands.Length)];
+                bool isSale = random.Next(0, 2) == 1;
+
+                // Tạo tên ngẫu nhiên cho giày
+                string name = $"{brand} Model {GenerateRandomString(5)}";
+
+                modelBuilder.Entity<Shoe>().HasData(
+                    new Shoe
+                    {
+                        Id = idGiay,
+                        Name = name,
+                        Brand = brand,
+                        Gender = random.Next(0, 3), // 0: nữ, 1: nam, 2: cả hai
+                        Material = materials[random.Next(materials.Length)],
+                        Category = categories[random.Next(categories.Length)],
+                        ImageUrl = "images/shoes/noimage.webp",
+                        Description = GenerateRandomDescription(descriptions),
+                        Price = random.Next(1000000, 4000000), // Random price between 1.5M and 3M
+                        Sold = random.Next(1, 350), // Random sold quantity
+                        AverageRating = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+                        TotalRatings = random.Next(1, 200), // Random total ratings
+                        IsSale = isSale,
+                        Discount = isSale ? random.Next(5, 45) : 0, // Discount only if IsSale is true
+                        CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)), // Random date within the last 30 days
+                        LastModifiedDate = DateTime.Now
+                    }
+                );
+
+                // Shoe Seasons: Chọn ngẫu nhiên số mùa (từ 2 đến 5)
+                int seasonCount = random.Next(2, 6);
+                var selectedSeasons = seasons.OrderBy(x => random.Next()).Take(seasonCount).ToList();
+
+                foreach (var season in selectedSeasons)
+                {
+                    modelBuilder.Entity<ShoeSeason>().HasData(
+                        new ShoeSeason
+                        {
+                            ShoeId = idGiay,
+                            Id = Guid.NewGuid(),
+                            Season = season
+                        }
+                    );
+                }
+
+                // Shoe Colors: Randomly add between 1 to 4 colors
+                for (int j = 0; j < random.Next(1, 5); j++)
+                {
+                    modelBuilder.Entity<ShoeColor>().HasData(
+                        new ShoeColor
+                        {
+                            ShoeId = idGiay,
+                            Id = Guid.NewGuid(),
+                            Color = colors[random.Next(colors.Length)]
+                        }
+                    );
+                }
+
+                // Shoe Images: All images are set to the same URL
+                modelBuilder.Entity<ShoeImage>().HasData(
+                    new ShoeImage
+                    {
+                        Id = Guid.NewGuid(),
+                        ShoeId = idGiay,
+                        Url = "images/shoes/noimage.webp"
+                    }
+                );
+                int initialSize = random.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
+                int maxAdditionalSizes = random.Next(3, 5);
+                for (int j = 0; j <= maxAdditionalSizes; j++)
+                {
+                    int currentSize = initialSize + j;
+                    // Nếu là size đầu tiên, sử dụng initialSize, 
+                    // các size tiếp theo sẽ lớn hơn size trước đó và nhỏ hơn 45
+
+                    modelBuilder.Entity<ShoeDetail>().HasData(
+                        new ShoeDetail
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = idGiay, // Sử dụng Guid đã được tạo trước
+                            Size = currentSize, // Size đảm bảo theo logic
+                            Quantity = random.Next(0, 55) // Quantity ngẫu nhiên từ 0 tới 20
+                        }
+                    );
+                }
+            }
+
+        }
+        private string GenerateRandomDescription(string[] descriptions)
+        {
+            Random random = new Random();
+            // Chọn ngẫu nhiên một mô tả từ danh sách
+            return descriptions[random.Next(descriptions.Length)];
+        }
+
+        private string GenerateRandomString(int length)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
         //NIKE1
 
@@ -2527,12 +2915,14 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Discount> Discounts { get; set; }
-        public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
         public DbSet<ShoeSeason> ShoeSeasons { get; set; }
         public DbSet<ShoeImage> ShoeImages { get; set; }
         public DbSet<ShoeDetail> ShoeDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<ShoeColor> ShoeColors { get; set; }
+        public DbSet<CommentLike> CommentLikes { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<ProductView> ProductViews { get; set; }
     }
 }

@@ -8,7 +8,6 @@ namespace BackEnd_ASP.NET.Controller.Email
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class EmailController : ControllerBase
     {
         private readonly IEmailSender _emailSender;

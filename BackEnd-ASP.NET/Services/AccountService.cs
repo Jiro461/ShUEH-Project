@@ -38,12 +38,12 @@ namespace BackEnd_ASP.NET.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.UserName ?? "Unknown"),
                 new Claim(ClaimTypes.Email, user.Email ?? "NoEmail"),
                 new Claim(ClaimTypes.Role, user.RoleId?.ToString() ?? "None"),
                 new Claim(ClaimTypes.Gender, user.Gender.ToString() ?? "Both"),
                 new Claim("Provider", user.ProviderName ?? "Local"),  // Thêm Provider vào Claim
-                new Claim("IsExternal", user.IsExternalLogin.ToString()),
+                new Claim("IsExternal", user.IsExternalLogin.ToString() ?? "False"),
                 new Claim("IPAddress", httpContext.Connection.RemoteIpAddress?.ToString() ?? "Undefined")
             };
 
@@ -64,7 +64,7 @@ namespace BackEnd_ASP.NET.Services
         {
             if (string.IsNullOrEmpty(userLoginDto.UserName) || string.IsNullOrEmpty(userLoginDto.Password)) return BadRequest("Username and Password are required.");
             var user = await userManager.FindByNameAsync(userLoginDto.UserName);
-            if (user == null) return BadRequest(new { message = "Invalid username or userLoginDto.Password" });
+            if (user == null) return BadRequest(new { message = "Invalid username or password" });
             var result = await signInManager.CheckPasswordSignInAsync(user, userLoginDto.Password, true);
             if (!result.Succeeded) return BadRequest($"Invalid Username or Password");
             await SignInWithCookies(user, httpContext, userLoginDto.rememberMe);
@@ -104,21 +104,6 @@ namespace BackEnd_ASP.NET.Services
                 ProfileName = user.ProfileName,
                 AvatarUrl = user.AvatarUrl,
                 TotalMoney = user.TotalMoney,
-                WishlistItems = user.Wishlist?.WishlistItems?.Select(item => new WishlistItemDTO { ShoeId = item.ShoeId }).ToList(),
-                Orders = user.Orders?.Select(order => new OrderDTO 
-                { 
-                    Id = order.Id, 
-                    OrderDate = order.OrderDate,
-                    TotalPrice = order.TotalPrice,
-                    OrderItems = order.OrderItems.Select(item => new OrderItemDTO 
-                    { 
-                        ShoeId = item.ShoeId, 
-                        Quantity = item.Quantity,
-                        ShoePrice = item.ShoePrice,
-                        TotalPrice = item.TotalPrice,
-                        Size = item.Size 
-                    }).ToList() 
-                }).ToList(),
                 CreatedAt = user.CreateDate,
                 EmailConfirmed = user.EmailConfirmed,
                 IsExternalLogin = user.IsExternalLogin
@@ -155,7 +140,7 @@ namespace BackEnd_ASP.NET.Services
                 gender: userDto.Gender,
                 isExternalLogin: false
             );
-            return await CreateUserAndWishlistAsync(user, userDto.Password);
+            return await CreateUserAsync(user, userDto.Password);
         }
 
 
@@ -174,6 +159,22 @@ namespace BackEnd_ASP.NET.Services
             await userRepository.UpdateAsync(user);
             await notificationService.CreateUpdateNotificationForEntityChange(user, user.Id);
             return Ok("Update Successfully");
+        }
+        public async Task<IActionResult> AddUserAsync(UserAddDTO userDto)
+        {
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name == userDto.Role);
+            if (role == null) return BadRequest($"Role {userDto.Role} not found.");
+            var user = CreateNewUser(
+                userName: userDto.UserName,
+                email: userDto.Email,
+                firstName: userDto.FirstName,
+                lastName: userDto.LastName,
+                dateOfBirth: userDto.DateOfBirth.ToDateTime(),
+                guestRole: role,
+                gender: userDto.Gender,
+                isExternalLogin: false
+            );
+            return await CreateUserAsync(user, userDto.Password);
         }
         public async Task<IActionResult> GoogleAuthen(HttpContext httpContext)
         {
@@ -210,7 +211,7 @@ namespace BackEnd_ASP.NET.Services
                     isExternalLogin: true
                 );
 
-                await CreateUserAndWishlistAsync(existingUser);
+                await CreateUserAsync(existingUser);
             }
             else
             {
@@ -224,20 +225,15 @@ namespace BackEnd_ASP.NET.Services
 
         public async Task<IActionResult> DeleteUserAsync(HttpContext httpContext)
         {
-            var userId = httpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            var user = await context.Users
-                .Include(u => u.Wishlist) // Load các wishlist liên quan
-                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-            if (user != null && user.Wishlist != null)
-            {
-                context.Wishlists.RemoveRange(user.Wishlist);
-
-                // Xóa user
-                await userRepository.DeleteAsync(user.Id);
-
+            var userId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null) return BadRequest("User ID is required.");
+            var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
+            if (user == null) return BadRequest("User not found.");
+            if (await userRepository.DeleteAsync(Guid.Parse(userId))) {
+                await notificationService.CreateNotificationForEntityDelete(user);
+                return Ok("Delete Succesfully");
             }
-
-            return Ok("Delete Succesfully");
+            return BadRequest("Delete Failed");
         }
         public async Task<IActionResult> SignOutUser(HttpContext httpContext)
         {
@@ -271,10 +267,9 @@ namespace BackEnd_ASP.NET.Services
             return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
 
         }
-        private async Task<IActionResult> CreateUserAndWishlistAsync(User user, string? password = null)
+        private async Task<IActionResult> CreateUserAsync(User user, string? password = null)
         {
             IdentityResult result;
-            user.Wishlist = new Wishlist { UserId = user.Id };
             result = string.IsNullOrEmpty(password) ? await userManager.CreateAsync(user) : await userManager.CreateAsync(user, password);
 
             if (!result.Succeeded) return BadRequest(
@@ -290,15 +285,15 @@ namespace BackEnd_ASP.NET.Services
             return new User
             {
                 Id = Guid.NewGuid(),
-                UserName = userName,
+                UserName = userName.Trim(),
                 NormalizedUserName = userName.ToUpper(),
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
-                FirstName = firstName,
-                LastName = lastName,
+                FirstName = firstName.Trim(),
+                LastName = lastName.Trim(),
                 Gender = gender,
                 ProfileName = $"{firstName} {lastName}",
-                AvatarUrl = avatarUrl ?? $"{MyURL.Host}/images/avatars/noavatar.png",
+                AvatarUrl = avatarUrl ?? $"/images/avatars/noavatar.png",
                 DateOfBirth = dateOfBirth,
                 Role = guestRole,
                 ProviderName = providerName,

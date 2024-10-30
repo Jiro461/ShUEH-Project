@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
+using BackEnd_ASP.NET.Services.VnPay;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.FileHelpers;
 using Microsoft.AspNetCore.Authentication;
@@ -17,20 +18,43 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
-        ConfigureCors(services);
-        services.AddMemoryCache();
-        services.AddControllers();//AddJsonOptions(options =>
-        //     {
-        //         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-        //     }); ;
+        //ConfigureCors(services);
+        services.AddControllers();
+        ConfigureMemoryCache(services);
+        ConfigureHttpService(services);
         ConfigureTransientServices(services);
+        ConfigureSingletonServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
         ConfigureEntityFramework(services, configuration);
         ConfigureSwagger(services);
+        ConfigureSessionService(services);
+    }
+    private static void ConfigureHttpService (IServiceCollection services){
+        services.AddHttpClient();
         services.AddHttpContextAccessor();
     }
-
+    /// <summary>
+    /// Cấu hình dịch vụ Session
+    /// </summary>
+    private static void ConfigureSessionService (IServiceCollection services){
+        services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+            options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+            options.Cookie.IsEssential = true; // Make the session cookie essential
+        });
+    }
+    /// <summary>
+    /// Cấu hình các dịch vụ Cache
+    /// </summary>
+    private static void ConfigureMemoryCache(IServiceCollection services){
+        services.AddMemoryCache();
+        services.AddDistributedMemoryCache();
+    }
+    private static void ConfigureSingletonServices(IServiceCollection services){
+        services.AddSingleton<IVnPayService, VnPayService>();
+    }
     /// <summary>
     /// Cấu hình các dịch vụ Transient.
     /// </summary>
@@ -48,11 +72,16 @@ public static class ServiceExtensions
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IShoeRepository, ShoeRepository>();
+        services.AddScoped<IWishListRepository, WishListRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IWishListService, WishListService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IShoeService, ShoeService>();
+        services.AddScoped<IPaymentService, PaymentService>();
         /*Identity*/
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();

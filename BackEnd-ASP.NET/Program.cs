@@ -1,11 +1,11 @@
+using System.Text;
 using BackEnd_ASP.NET.Data;
+using BackEnd_ASP.NET.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddProjectServices(builder.Configuration);
-
 
 var app = builder.Build();
 
@@ -17,8 +17,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseSession();
+app.UseMiddleware<ProductViewMiddleware>();
 app.UseRouting();
-app.UseCors("CorsPolicy");
+app.UseCors(x => x.AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .SetIsOriginAllowed(origin => true) // allow any origin
+                  .AllowCredentials()                 // allow credentials
+
+            ); 
+//app.UseCors("CorsPolicy");
 app.UseAuthentication(); // Phải có để sử dụng xác thực
 app.UseAuthorization();
 // Ensure you have this if using controllers

@@ -16,7 +16,6 @@ namespace BackEnd_ASP.NET.Controller.Order
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;
@@ -26,7 +25,7 @@ namespace BackEnd_ASP.NET.Controller.Order
         }
         [HttpPost("add")]
 
-        public async Task<IActionResult> AddOrderAsync(OrderDTO order)
+        public async Task<IActionResult> AddOrderAsync(OrderPostDTO order)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
@@ -36,6 +35,16 @@ namespace BackEnd_ASP.NET.Controller.Order
             return await orderService.AddOrderAsync(order, Guid.Parse(userId));
         }
 
+        [HttpGet("user")]
+        public async Task<IActionResult> GetOrdersByUserIdAsync()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            return await orderService.GetOrdersByUserIdAsync(Guid.Parse(userId));
+        }
         
     }
 
