@@ -5,7 +5,7 @@ import ProductDescription from '../../components/ProductDescription/ProductDescr
 
 const ProductDetailPage = () => {
   return (
-    <div className="main-container">
+    <div className="product-detail-container">
       <div className="row detail-product">
         <ProductDetail />
       </div>

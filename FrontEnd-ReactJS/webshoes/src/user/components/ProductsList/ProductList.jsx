@@ -10,8 +10,10 @@ function ProductsList({ filters }) {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
+    const api_port = "http://localhost:5118/api/Shoe/all";
+
     useEffect(() => {
-        fetch('http://localhost:3004/shoes')
+        fetch(api_port)
             .then((response) => response.json())
             .then((data) => {
                 const filteredData = data.map((product) => ({
@@ -19,11 +21,12 @@ function ProductsList({ filters }) {
                     name: product.name,
                     price: product.price,
                     brand: product.brand,
-                    gender: product.gender, // Giả định dữ liệu sản phẩm có thuộc tính gender
-                    sport: product.category, // Giả định dữ liệu sản phẩm có thuộc tính sport
-                    size: product.size, // Giả định dữ liệu sản phẩm có thuộc tính size
-                    color: product.color, // Giả định dữ liệu sản phẩm có thuộc tính color
-                    isOnSale: product.isOnSale, // Giả định dữ liệu sản phẩm có thuộc tính isOnSale
+                    gender: product.gender,
+                    sport: product.category,
+                    size: product.size,
+                    color: product.color,
+                    isOnSale: product.isOnSale,
+                    imageURL: product.imageURL
                 }));
                 setProducts(filteredData);
             })

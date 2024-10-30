@@ -12,6 +12,7 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 // app.UseHttpsRedirection();
+Console.WriteLine($"Current Environment: {app.Environment.EnvironmentName}");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

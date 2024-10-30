@@ -11,6 +11,7 @@ import ProductPage from './user/pages/ProductPage/ProductPage.jsx';
 import './App.scss';
 import ProfileUser from './user/components/ProfileUser/ProfileUser.jsx';
 import ProfileOrdered from './user/components/ProfileOrdered/ProfileOrdered.jsx';
+import ProductDetailPage from './user/pages/ProductDetailPage/ProductDetailPage.jsx';
 
 // Định nghĩa component SignInComponent
 const SignInComponent = () => {
@@ -356,6 +357,10 @@ const router = createBrowserRouter([
       {
         path: "product",
         element: <ProductPage />,
+      },
+      {
+        path: "product/:id",
+        element: <ProductDetailPage />,
       },
       {
         path: "profile",

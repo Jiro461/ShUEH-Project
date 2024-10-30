@@ -10,7 +10,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:3004/shoes/${id}`);
+                const response = await fetch(`http://localhost:5118/api/Shoe/${id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -41,11 +41,6 @@ const ProductDetail = () => {
             {/* Product Image Section */}
             <div className="col-md-12 col-lg-6 col-xl-6 g img-background box">
                 <img src={process.env.PUBLIC_URL + "/img/airford1.png"} alt="Nike PG 2.5" className="shoe-img" />
-                <div className="color-selection">
-                    <div className="color"></div>
-                    <div className="color"></div>
-                    <div className="color"></div>
-                </div>
             </div>
 
             {/* Thumbnail Image Selection */}
@@ -83,8 +78,8 @@ const ProductDetail = () => {
                 </div>
 
                 {/* Add to Cart */}
-                <div className="add-cart">
-                    <button className="add">Add to cart</button>
+                <div className="add-to-cart">
+                    <button className="add-cart">Add to cart</button>
                     <div className="heart">
                         <i className="fa-regular fa-heart"></i>
                     </div>
