@@ -16,4 +16,9 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
         public static string ClientURL = "http://localhost:3000";
     }
 
+    public static class PaymentType{
+        public const string VNPAY = "VnPay";
+        public const string COD = "COD";
+    }
+
 }

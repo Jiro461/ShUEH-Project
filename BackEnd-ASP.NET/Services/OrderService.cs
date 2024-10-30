@@ -12,88 +12,208 @@ namespace BackEnd_ASP.NET.Services
     {
         private readonly IOrderRepository orderRepository; // Repository để thao tác với dữ liệu giày
         private readonly IUserRepository userRepository;
+        private readonly IPaymentService paymentService;
         private readonly ShUEHContext context; // Context của EF Core
         private readonly INotificationService notificationService;
 
-        public OrderService(IOrderRepository orderRepository, IUserRepository userRepository, ShUEHContext context, INotificationService notificationService)
+        public OrderService(IOrderRepository orderRepository, 
+            IUserRepository userRepository, 
+            ShUEHContext context, 
+            INotificationService notificationService,
+            IPaymentService paymentService)
         {
             this.orderRepository = orderRepository;
             this.userRepository = userRepository;
             this.context = context;
             this.notificationService = notificationService;
+            this.paymentService = paymentService;
         }
-
-        public async Task<IActionResult> AddOrderAsync(OrderDTO order, Guid userId)
+        //User xác nhận đặt hàng
+        public async Task<IActionResult> AddOrderAsync(OrderPostDTO order, Guid userId)
         {
-            Guid newOrderId = Guid.NewGuid();
-
             var user = await context.Users.FindAsync(userId);
             if (user == null) return NotFound("User not found");
+            if (order.OrderItems.Count == 0) return BadRequest("Order items are empty");
 
-            if(order.OrderItems.Count == 0) return BadRequest("Order items is empty");
-            
-
-            decimal totalPrice = 0;
-
-            foreach(var orderItem in order.OrderItems)
-            {
-                if(orderItem == null) return BadRequest("Order items is empty");
-                var shoe = await context.Shoes.Where(shoe => shoe.Id == orderItem.ShoeId ).Include(shoe => shoe.shoeDetails).FirstOrDefaultAsync();
-                if(shoe == null) return NotFound("Shoe with id " + orderItem.ShoeId + " not found");
-                var shoeDetail = shoe.shoeDetails.FirstOrDefault(detail => detail.Size == orderItem.Size);
-                if(shoeDetail == null || shoeDetail.Quantity < orderItem.Quantity) return NotFound("ShoeDetail with size " + orderItem.Size + " not found or quantity is not enough");
-                shoeDetail.Quantity -= orderItem.Quantity;
-                shoe.Sold += orderItem.Quantity;
-                if(shoeDetail.Quantity < 0) return BadRequest("ShoeDetail quantity is not enough");
-                context.ShoeDetails.Update(shoeDetail);
-                context.Shoes.Update(shoe);
-                totalPrice += orderItem.TotalPrice;
-            }
-            await context.SaveChangesAsync();
-
+            decimal totalPrice = order.OrderItems.Sum(item => item.TotalPrice);
+            var orderId = Guid.NewGuid();
+            //Tạo đơn hàng mới
             var newOrder = new Order
             {
-                Id = newOrderId,
+                Id = orderId,
                 UserId = userId,
                 OrderDate = order.OrderDate,
                 TotalPrice = totalPrice,
                 Status = OrderStatus.Pending,
+                PaymentMethod = order.PaymentMethod,
                 OrderItems = order.OrderItems.Select(item => new OrderItem
                 {
-                    OrderId = newOrderId,
+                    ShoeId = item.ShoeId,
+                    ShoePrice = item.ShoePrice,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice
+                }).ToList(),
+            };
+            await orderRepository.AddOrderAsync(newOrder);
+            if (order.PaymentMethod == PaymentMethod.Cash) 
+                await paymentService.HandleSuccessfulPaymentAsync(newOrder.Id);
+        
+            return Ok(new { orderId = orderId, Message = "Create order successfully" });
+        }
+
+        public async Task<IActionResult> GetOrdersByUserIdAsync(Guid userId)
+        {
+            var orders = await orderRepository.GetOrdersByUserIdAsync(userId);
+            if (orders == null) return NotFound("Orders not found");
+            var orderDTOs = orders.Select(order => new OrderGetDTO
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Status = order.Status,
+                PaymentMethod = order.PaymentMethod,
+                UserId = order.UserId,
+                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
+                {
                     ShoeId = item.ShoeId,
                     ShoePrice = item.ShoePrice,
                     Size = item.Size,
                     Quantity = item.Quantity,
                     TotalPrice = item.TotalPrice,
+                    ShoeName = item.Shoe?.Name ?? string.Empty,
+                    ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
+                    ShoeColorDTO = item.Shoe?.Colors.Select(color => new ShoeColorDTO
+                    {
+                        Color = color.Color,
+                    }).ToList() ?? new List<ShoeColorDTO>(),
+                }).ToList(),
+            });
+            return Ok(orderDTOs);
+        }
+
+        public async Task<IActionResult> DeleteOrderAsync(Guid id)
+        {
+            var order = await orderRepository.GetOrderByIdAsync(id);
+            if (order == null) return NotFound("Order not found");
+            if (await orderRepository.DeleteOrderAsync(id))
+            {
+                await notificationService.CreateNotificationForEntityDelete(order);
+                return Ok("Delete order successfully");
+            }
+            return BadRequest("Delete order failed");
+        }
+
+        public async Task<IActionResult> GetAllOrdersAsync()
+        {
+            var orders = await orderRepository.GetAllOrdersAsync();
+            if (orders == null) return NotFound("Orders not found");
+            var orderDTOs = orders.Select(order => new OrderGetDTO
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                UserId = order.UserId,
+                UserName = order.User?.UserName ?? string.Empty,
+                UserEmail = order.User?.Email ?? string.Empty,
+                ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
+                Status = order.Status,
+                PaymentMethod = order.PaymentMethod,
+                TotalPrice = order.TotalPrice,
+                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
+                {
+                    ShoeId = item.ShoeId,
+                    ShoePrice = item.ShoePrice,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice,
+                    ShoeName = item.Shoe?.Name ?? string.Empty,
+                    ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
+                }).ToList(),
+            });
+            var response = new {
+                OrderDTOs = orderDTOs,
+                Total = orderDTOs.Count()
+            };
+            return Ok(response);
+        }
+
+        public async Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status)
+        {
+            if (!Enum.IsDefined(typeof(OrderStatus), status)) return BadRequest("Invalid status");
+            var orders = await orderRepository.GetOrdersByStatusAsync(status);
+            if (orders == null) return NotFound("Orders not found");
+            var orderDTOs = orders.Select(order => new OrderGetDTO
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Status = order.Status,
+                PaymentMethod = order.PaymentMethod,
+                UserId = order.UserId,
+                UserName = order.User?.UserName ?? string.Empty,
+                UserEmail = order.User?.Email ?? string.Empty,
+                ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
+                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
+                {
+                    ShoeId = item.ShoeId,
+                    ShoePrice = item.ShoePrice,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice,
+                    ShoeName = item.Shoe?.Name ?? string.Empty,
+                    ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
+                    ShoeColorDTO = item.Shoe?.Colors.Select(color => new ShoeColorDTO
+                    {
+                        Color = color.Color,
+                    }).ToList() ?? new List<ShoeColorDTO>(),
+                }).ToList(),
+            });
+            return Ok(orderDTOs);
+        }
+
+        public async Task<IActionResult> GetOrderByIdAsync(Guid id)
+        {
+            var order = await orderRepository.GetOrderByIdAsync(id);
+            if (order == null) return NotFound("Order not found");
+            var orderDTO = new OrderGetDTO
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Status = order.Status,
+                PaymentMethod = order.PaymentMethod,
+                UserId = order.UserId,
+                UserName = order.User?.UserName ?? string.Empty,
+                UserEmail = order.User?.Email ?? string.Empty,
+                ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
+                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
+                {
+                    ShoeId = item.ShoeId,
+                    ShoePrice = item.ShoePrice,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice,
+                    ShoeName = item.Shoe?.Name ?? string.Empty,
+                    ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
+                    ShoeColorDTO = item.Shoe?.Colors.Select(color => new ShoeColorDTO
+                    {
+                        Color = color.Color,
+                    }).ToList() ?? new List<ShoeColorDTO>(),
                 }).ToList(),
             };
-            user.TotalMoney += order.TotalPrice;
-            await userRepository.UpdateAsync(user);
-            await orderRepository.AddOrderAsync(newOrder);
-            await notificationService.CreateNotificationForOrder(newOrder, userId);
-            return Ok(new {newOrder.Id, newOrder.OrderDate, newOrder.TotalPrice, newOrder.Status});
-            
+            return Ok(orderDTO);
         }
 
-        public Task<IActionResult> DeleteOrderAsync(Guid id)
+        public async Task<IActionResult> UpdateOrderAsync(Guid orderId, OrderStatus status)
         {
-            throw new NotImplementedException();
+            var order = await orderRepository.GetOrderByIdAsync(orderId);
+            if (order == null) return NotFound("Order not found");
+            order.Status = status;
+            await orderRepository.UpdateOrderAsync(order);
+            await notificationService.CreateUpdateNotificationForEntityChange(order);
+            return Ok("Update order successfully");
         }
 
-        public Task<IActionResult> GetAllOrdersAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IActionResult> GetOrderByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IActionResult> UpdateOrderAsync(Guid orderId, OrderDTO order)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

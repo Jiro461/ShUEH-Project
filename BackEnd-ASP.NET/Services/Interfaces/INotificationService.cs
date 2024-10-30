@@ -1,4 +1,5 @@
 using BackEnd_ASP_NET.Models;
+using Microsoft.AspNetCore.Mvc;
 namespace BackEnd_ASP.NET.Services
 {
     public interface INotificationService
@@ -11,5 +12,7 @@ namespace BackEnd_ASP.NET.Services
         Task CreateUpdateNotificationForEntityChange<T>(T entity, Guid? userId = null) where T : class;
         Task CreateNotificationForShoe(Shoe shoe);
         Task CreateNotificationForEntityDelete<T>(T entity) where T : class;
+        Task<IActionResult> GetUserNotifications(HttpContext httpContext);
+        Task<IActionResult> GetAdminNotifications(HttpContext httpContext);
     }
 }

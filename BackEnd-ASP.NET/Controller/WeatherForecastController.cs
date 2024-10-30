@@ -7,7 +7,6 @@ namespace BackEnd_ASP_NET.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries =

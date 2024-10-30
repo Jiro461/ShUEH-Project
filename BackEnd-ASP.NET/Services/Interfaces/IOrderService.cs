@@ -7,9 +7,11 @@ namespace BackEnd_ASP.NET.Services
     public interface IOrderService
     {
         Task<IActionResult> GetAllOrdersAsync();
+        Task<IActionResult> GetOrdersByUserIdAsync(Guid userId);
+        Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status);
         Task<IActionResult> GetOrderByIdAsync(Guid id);
-        Task<IActionResult> AddOrderAsync(OrderDTO order, Guid userId);
-        Task<IActionResult> UpdateOrderAsync(Guid orderId, OrderDTO order);
+        Task<IActionResult> AddOrderAsync(OrderPostDTO order, Guid userId);
+        Task<IActionResult> UpdateOrderAsync(Guid orderId, OrderStatus status);
         Task<IActionResult> DeleteOrderAsync(Guid id);
     }
 }
