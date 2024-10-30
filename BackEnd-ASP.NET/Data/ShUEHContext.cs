@@ -799,13 +799,13 @@ namespace BackEnd_ASP.NET.Data
                  new Shoe
                  {
                      Id = IDGiay_Home_1,
-                     Name = "Nike Downshifter 13",
+                     Name = "Nike Youth React Presto Extreme",
                      Brand = "Nike",
-                     Gender = 1,
-                     Material = "Plastics, yarns and textiles.",
+                     Gender = 2,
+                     Material = "Rubber, yarns and textiles.",
                      Category = "Gym & Training",
                      ImageUrl = "images/shoes/[IDGiay_Home_1]_AnhChinh_1.png",
-                     Description = "Whether you're starting your running journey or an expert eager to switch up your pace, the Downshifter 13 is down for the ride. With a revamped upper, cushioning and durability, it helps you find that extra gear or take that first stride towards chasing down your goals.",
+                     Description = "Nike Youth React Presto Extreme combines lightweight React technology and a flexible upper to provide comfort and support for everyday activities and gym training.",
                      Price = 2069000M,
                      Sold = 78,
                      AverageRating = 4.5M,
@@ -2592,7 +2592,7 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_27,
-                                
+
                                 Url = "https://dmpkickz.com/cdn/shop/files/6_78fd24e0-cd30-400a-8fa1-e5e6cd3c5b0b.png?v=1696679846&width=480"
                             },
 
