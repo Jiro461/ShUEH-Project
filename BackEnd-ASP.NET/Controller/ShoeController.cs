@@ -91,7 +91,7 @@ namespace BackEnd_ASP.NET.Controller
                 ImageUrl = shoe.ImageUrl,
                 Price = shoe.Price,
                 Id = shoe.Id
-            });
+            }).OrderByDescending(g => g.Gender);
             return Ok(shoesDTO);
         }
 
