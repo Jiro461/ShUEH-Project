@@ -1758,13 +1758,7 @@ namespace BackEnd_ASP.NET.Data
                         }
                 );
             modelBuilder.Entity<ShoeImage>().HasData(
-                // NIKE 1
-                new ShoeImage
-                {
-                    Id = Guid.NewGuid(),
-                    ShoeId = IDGiay_1,
-                    Url = "images/shoes/[IDGiay_1]_AnhChinh.png"
-                },
+                            // NIKE 1
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1795,12 +1789,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_2,
-                                Url = "images/shoes/[IDGiay_2]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_2,
                                 Url = "images/shoes/[IDGiay_2]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -1823,12 +1811,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //NIKE 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_3,
-                                Url = "images/shoes/[IDGiay_3]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1860,12 +1842,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_4,
-                                Url = "images/shoes/[IDGiay_4]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_4,
                                 Url = "images/shoes/[IDGiay_4]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1892,12 +1868,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_5,
-                                Url = "images/shoes/[IDGiay_5]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_5,
                                 Url = "images/shoes/[IDGiay_5]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1919,12 +1889,6 @@ namespace BackEnd_ASP.NET.Data
                                 Url = "images/shoes/[IDGiay_5]_AnhPhu_4.jpeg"
                             },
                             //ADIDAS 1
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_6,
-                                Url = "images/shoes/[IDGiay_6]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1955,12 +1919,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_7,
-                                Url = "images/shoes/[IDGiay_7]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_7,
                                 Url = "images/shoes/[IDGiay_7]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -1983,12 +1941,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //ADIDAS 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_8,
-                                Url = "images/shoes/[IDGiay_8]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2019,12 +1971,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_9,
-                                Url = "images/shoes/[IDGiay_9]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_9,
                                 Url = "images/shoes/[IDGiay_9]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2047,12 +1993,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //ADIDAS 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_10,
-                                Url = "images/shoes/[IDGiay_10]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2083,12 +2023,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_11,
-                                Url = "images/shoes/[IDGiay_11]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_11,
                                 Url = "images/shoes/[IDGiay_11]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2111,12 +2045,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //PUMA 2
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_12,
-                                Url = "images/shoes/[IDGiay_12]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2147,12 +2075,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_13,
-                                Url = "images/shoes/[IDGiay_13]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_13,
                                 Url = "images/shoes/[IDGiay_13]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -2175,12 +2097,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //PUMA 4
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_14,
-                                Url = "images/shoes/[IDGiay_14]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2211,12 +2127,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_15,
-                                Url = "images/shoes/[IDGiay_15]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_15,
                                 Url = "images/shoes/[IDGiay_15]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -2238,12 +2148,6 @@ namespace BackEnd_ASP.NET.Data
                                 Url = "images/shoes/[IDGiay_15]_AnhPhu_4.jpeg"
                             },
                             // REBOK 1 
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_16,
-                                Url = "images/shoes/[IDGiay_16]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2274,12 +2178,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_17,
-                                Url = "images/shoes/[IDGiay_17]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_17,
                                 Url = "images/shoes/[IDGiay_17]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2302,12 +2200,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // REBOK 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_18,
-                                Url = "images/shoes/[IDGiay_18]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2338,12 +2230,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_19,
-                                Url = "images/shoes/[IDGiay_19]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_19,
                                 Url = "images/shoes/[IDGiay_19]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2366,12 +2252,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // REBOK 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_20,
-                                Url = "images/shoes/[IDGiay_20]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2402,12 +2282,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_21,
-                                Url = "images/shoes/[IDGiay_21]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_21,
                                 Url = "images/shoes/[IDGiay_21]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2430,12 +2304,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // CONVERSE 2
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_22,
-                                Url = "images/shoes/[IDGiay_22]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2466,12 +2334,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_23,
-                                Url = "images/shoes/[IDGiay_23]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_23,
                                 Url = "images/shoes/[IDGiay_23]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2498,12 +2360,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_24,
-                                Url = "images/shoes/[IDGiay_24]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_24,
                                 Url = "images/shoes/[IDGiay_24]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2526,12 +2382,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // CONVERSE 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_25,
-                                Url = "images/shoes/[IDGiay_25]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
