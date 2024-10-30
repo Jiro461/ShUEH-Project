@@ -42,10 +42,10 @@ namespace PaymentAPI.Controllers
             if (addingOrder is not OkObjectResult)
                 return BadRequest("Can't add order with VNPAY");
             //Tạo request thanh toán VNPAY
-            if(addingOrder is OkObjectResult okObjectResult)
+            if (addingOrder is OkObjectResult okObjectResult)
             {
                 dynamic data = okObjectResult?.Value!;
-                if(data == null) return BadRequest("Can't get order");
+                if (data == null) return BadRequest("Can't get order");
                 Guid orderId = Guid.Parse(data.orderId);
                 var vnPaymentRequestModel = new VnPaymentRequestModel
                 {
@@ -66,7 +66,7 @@ namespace PaymentAPI.Controllers
         {
             var vnPayResponse = _vnPayService.PaymentExecute(HttpContext.Request.Query);
 
-            if (vnPayResponse == null 
+            if (vnPayResponse == null
                 || vnPayResponse.VnPayResponseCode != "00"
                 || !vnPayResponse.Success
                 || vnPayResponse.OrderId == null)
