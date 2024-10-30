@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ProductsList({ filters }) {
-    const itemsPerPage = 12; 
+    const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
     const [animate, setAnimate] = useState(false);
     const [favorites, setFavorites] = useState([]); 

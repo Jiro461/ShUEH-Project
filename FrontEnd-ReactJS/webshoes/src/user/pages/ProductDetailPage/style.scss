@@ -39,14 +39,15 @@
       border-radius: 50%;
       z-index: 1;
       position: relative;
+      overflow: hidden;
   
       .shoe-img {
-        width: 42vw;
+        width: 50%;
         min-width: 440px;
         position: absolute;
         right: 50%;
         top: 50%;
-        transform: translate(50%, -25%);
+        transform: translate(50%, -30%);
       }
     }
   
@@ -84,7 +85,7 @@
       z-index: 1;
     
       h2 {
-        font-size: 44px;
+        font-size: 40px;
         text-transform: uppercase;
       }
     

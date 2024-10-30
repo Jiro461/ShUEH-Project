@@ -33,6 +33,12 @@ const ProductDetail = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    const img_shoe = product.otherImages.slice(1).map((img_url) => {
+        return (
+            <div className="ava-shoe"><img src={`http://localhost:5118/` + img_url.url} alt="Thumbnail 1" /></div>
+        )
+    });
     
     return (
         <>
@@ -40,21 +46,18 @@ const ProductDetail = () => {
 
             {/* Product Image Section */}
             <div className="col-md-12 col-lg-6 col-xl-6 g img-background box">
-                <img src={process.env.PUBLIC_URL + "/img/airford1.png"} alt="Nike PG 2.5" className="shoe-img" />
+                <img src={`http://localhost:5118/` + product.imageUrl} alt="Nike PG 2.5" className="shoe-img" />
             </div>
 
             {/* Thumbnail Image Selection */}
             <div className="col-md-12 col-lg-1 col-xl-1 ava-shoe-selection">
-                <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_1.png'} alt="Thumbnail 1" /></div>
-                <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_2.png'} alt="Thumbnail 2" /></div>
-                <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_3.png'} alt="Thumbnail 3" /></div>
-                <div className="ava-shoe"><img src={process.env.PUBLIC_URL + '/img/airjordan1_4.png'} alt="Thumbnail 4" /></div>
+                {img_shoe}
             </div>
 
             {/* Product Info Section */}
             <div className="col-md-12 col-lg-12 col-xl-3 detail-style">
-                <h2>Nike PG 2.5</h2>
-                <h3>{product.name}</h3>
+                <h2>{product.name}</h2>
+                <h3>Playstation '{product.colors[0].color}'</h3>
                 <h4>${product.price}</h4>
 
                 {/* Size Selection */}
