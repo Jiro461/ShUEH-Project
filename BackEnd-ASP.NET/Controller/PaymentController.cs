@@ -65,18 +65,19 @@ namespace PaymentAPI.Controllers
         public async Task<IActionResult> PaymentCallback()
         {
             var vnPayResponse = _vnPayService.PaymentExecute(HttpContext.Request.Query);
-
+            Guid orderId;
+            if (!Guid.TryParse(vnPayResponse.OrderId, out orderId)) return BadRequest("Invalid order ID");
             if (vnPayResponse == null
                 || vnPayResponse.VnPayResponseCode != "00"
                 || !vnPayResponse.Success
                 || vnPayResponse.OrderId == null)
             {
-                var result = await _paymentService.HandleFailedPaymentAsync(Guid.Parse(vnPayResponse?.OrderId!));
+                var result = await _paymentService.HandleFailedPaymentAsync(orderId);
                 if (result is not OkObjectResult) return BadRequest("Thanh toán VNPAY không thành công.");
                 return Ok(result);
             }
 
-            var paymentResult = await _paymentService.HandleSuccessfulPaymentAsync(Guid.Parse(vnPayResponse.OrderId));
+            var paymentResult = await _paymentService.HandleSuccessfulPaymentAsync(orderId);
             if (paymentResult is not OkObjectResult) return BadRequest("Xử lý đơn hàng không thành công.");
 
             // Chuyển hướng về React khi thanh toán thành công

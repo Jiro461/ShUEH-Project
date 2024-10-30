@@ -130,9 +130,6 @@ namespace BackEnd_ASP.NET.Data
             Guid IDGiay_24 = Guid.NewGuid();
             Guid IDGiay_25 = Guid.NewGuid();
             Guid IDGiay_26 = Guid.NewGuid();
-            Guid IDGiay_27 = Guid.NewGuid();
-            Guid IDGiay_28 = Guid.NewGuid();
-            Guid IDGiay_29 = Guid.NewGuid();
             Guid IDGiay_Home_1 = Guid.NewGuid();
             Guid IDGiay_Home_2 = Guid.NewGuid();
             Guid IDGiay_Home_3 = Guid.NewGuid();
@@ -727,74 +724,7 @@ namespace BackEnd_ASP.NET.Data
                      Discount = 0.0M,
                      CreateDate = DateTime.Now,
                      LastModifiedDate = DateTime.Now
-                 },
-
-                 // Transparent Nike
-                 new Shoe
-                 {
-                     Id = IDGiay_27,
-                     Name = "Jordan 1 Low Bred Toe 2.0",
-                     Brand = "Nike",
-                     Gender = 1,
-                     Material = "Leather, fabric, foam, and rubber.",
-                     Category = "Basketball",
-                     ImageUrl = "images/shoes/noimage.webp",
-                     Description = "One of the best shoes for basketball and the symbol of Nike's World. You won't be able to take your eyes off of this brand new Jordan, where every details have been scopefully arted.",
-                     Price = 1813000m,
-
-                     Sold = 45,
-                     AverageRating = 4.6M,
-                     TotalRatings = 23,
-                     IsSale = true,
-                     Discount = 20.0M,
-                     CreateDate = DateTime.Now,
-                     LastModifiedDate = DateTime.Now
-                 },
-
-                 // Transparent Adidas
-                 new Shoe
-                 {
-                     Id = IDGiay_28,
-                     Name = "Adidas Original StanSmith",
-                     Brand = "Adidas",
-                     Gender = 1,
-                     Material = "Leather, fabric, foam, and rubber.",
-                     Category = "Basketball",
-                     ImageUrl = "images/shoes/noimage.webp",
-                     Description = "One of the best shoes for basketball and the symbol of Adidas's World. You won't be able to take your eyes off of this brand new SuperStan, where every details have been scopefully arted.",
-                     Price = 1713000m,
-
-                     Sold = 65,
-                     AverageRating = 4.2M,
-                     TotalRatings = 33,
-                     IsSale = true,
-                     Discount = 20.0M,
-                     CreateDate = DateTime.Now,
-                     LastModifiedDate = DateTime.Now
-                 },
-
-                 // Transparent Puma
-                 new Shoe
-                 {
-                     Id = IDGiay_29,
-                     Name = "Puma FUTURE 7 Ultimate FG/AG The Forever Faster",
-                     Brand = "Puma",
-                     Gender = 1,
-                     Material = "Leather, fabric, foam, and rubber.",
-                     Category = "Football",
-                     ImageUrl = "images/shoes/noimage.webp",
-                     Description = "One of the best shoes for football and the symbol of Puma's World. You won't be able to take your eyes off of this brand new FUTURE, where every details have been scopefully arted.",
-                     Price = 2713000m,
-
-                     Sold = 78,
-                     AverageRating = 4.7M,
-                     TotalRatings = 55,
-                     IsSale = true,
-                     Discount = 20.0M,
-                     CreateDate = DateTime.Now,
-                     LastModifiedDate = DateTime.Now
-                 }
-                 ,
+                 },    
                  // HOME 1
                  new Shoe
                  {
@@ -1758,13 +1688,7 @@ namespace BackEnd_ASP.NET.Data
                         }
                 );
             modelBuilder.Entity<ShoeImage>().HasData(
-                // NIKE 1
-                new ShoeImage
-                {
-                    Id = Guid.NewGuid(),
-                    ShoeId = IDGiay_1,
-                    Url = "images/shoes/[IDGiay_1]_AnhChinh.png"
-                },
+                            // NIKE 1
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1795,12 +1719,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_2,
-                                Url = "images/shoes/[IDGiay_2]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_2,
                                 Url = "images/shoes/[IDGiay_2]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -1823,12 +1741,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //NIKE 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_3,
-                                Url = "images/shoes/[IDGiay_3]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1860,12 +1772,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_4,
-                                Url = "images/shoes/[IDGiay_4]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_4,
                                 Url = "images/shoes/[IDGiay_4]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1892,12 +1798,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_5,
-                                Url = "images/shoes/[IDGiay_5]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_5,
                                 Url = "images/shoes/[IDGiay_5]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1919,12 +1819,6 @@ namespace BackEnd_ASP.NET.Data
                                 Url = "images/shoes/[IDGiay_5]_AnhPhu_4.jpeg"
                             },
                             //ADIDAS 1
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_6,
-                                Url = "images/shoes/[IDGiay_6]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1955,12 +1849,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_7,
-                                Url = "images/shoes/[IDGiay_7]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_7,
                                 Url = "images/shoes/[IDGiay_7]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -1983,12 +1871,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //ADIDAS 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_8,
-                                Url = "images/shoes/[IDGiay_8]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2019,12 +1901,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_9,
-                                Url = "images/shoes/[IDGiay_9]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_9,
                                 Url = "images/shoes/[IDGiay_9]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2047,12 +1923,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //ADIDAS 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_10,
-                                Url = "images/shoes/[IDGiay_10]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2083,12 +1953,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_11,
-                                Url = "images/shoes/[IDGiay_11]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_11,
                                 Url = "images/shoes/[IDGiay_11]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2111,12 +1975,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //PUMA 2
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_12,
-                                Url = "images/shoes/[IDGiay_12]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2147,12 +2005,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_13,
-                                Url = "images/shoes/[IDGiay_13]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_13,
                                 Url = "images/shoes/[IDGiay_13]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -2175,12 +2027,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //PUMA 4
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_14,
-                                Url = "images/shoes/[IDGiay_14]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2211,12 +2057,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_15,
-                                Url = "images/shoes/[IDGiay_15]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_15,
                                 Url = "images/shoes/[IDGiay_15]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -2238,12 +2078,6 @@ namespace BackEnd_ASP.NET.Data
                                 Url = "images/shoes/[IDGiay_15]_AnhPhu_4.jpeg"
                             },
                             // REBOK 1 
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_16,
-                                Url = "images/shoes/[IDGiay_16]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2274,12 +2108,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_17,
-                                Url = "images/shoes/[IDGiay_17]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_17,
                                 Url = "images/shoes/[IDGiay_17]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2302,12 +2130,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // REBOK 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_18,
-                                Url = "images/shoes/[IDGiay_18]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2338,12 +2160,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_19,
-                                Url = "images/shoes/[IDGiay_19]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_19,
                                 Url = "images/shoes/[IDGiay_19]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2366,12 +2182,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // REBOK 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_20,
-                                Url = "images/shoes/[IDGiay_20]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2402,12 +2212,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_21,
-                                Url = "images/shoes/[IDGiay_21]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_21,
                                 Url = "images/shoes/[IDGiay_21]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2430,12 +2234,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // CONVERSE 2
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_22,
-                                Url = "images/shoes/[IDGiay_22]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2466,12 +2264,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_23,
-                                Url = "images/shoes/[IDGiay_23]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_23,
                                 Url = "images/shoes/[IDGiay_23]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2494,12 +2286,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // CONVERSE 4
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_24,
-                                Url = "images/shoes/[IDGiay_24]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2530,12 +2316,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_25,
-                                Url = "images/shoes/[IDGiay_25]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_25,
                                 Url = "images/shoes/[IDGiay_25]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2561,114 +2341,28 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://gossipdergi.com/wp-content/uploads/2021/04/nikeayakkabi.gif"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_1.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://i.pinimg.com/originals/c0/cf/d1/c0cfd1545f10c56793e888e991b60487.png"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_2.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://c.files.bbci.co.uk/1081F/production/_117751676_satan-shoes2.jpg"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_3.jpg"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://media.cnn.com/api/v1/images/stellar/prod/210328223753-03-lil-nas-x-satan-shoes.jpg?q=w_3000,h_3000,x_0,y_0,c_fill"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_26,
-                                Url = "https://photo.znews.vn/w660/Uploaded/rohunwa/2021_03_26/SHOES3.jpeg"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_4.jpg"
                             },
                             // Transparent Nike
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
 
-                                Url = "https://dmpkickz.com/cdn/shop/files/6_78fd24e0-cd30-400a-8fa1-e5e6cd3c5b0b.png?v=1696679846&width=480"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBQXFHswxHuyjT_e8rb5XOaWUzEe3pphPPw&s"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQPenW_eiwOe1RkKeaF_kg5TraxKiem6NJ_Q&s"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3rZPCUSKRHdQA5_g3YBJRdcmIf_6PpZcNZg&s"
-                            },
-                            // Transparent Nike
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://likelihood.us/cdn/shop/files/stansmith_angle_1200x.png?v=1691430477"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://assets.adidas.com/images/w_1880,f_auto,q_auto/e53b9a57b0a745be924bac1e00f54427_9366/FX5502_42_detail.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://sneakerholicvietnam.vn/wp-content/uploads/2021/06/adidas-stan-smith-green-m20324-1.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://sneakerholicvietnam.vn/wp-content/uploads/2021/06/adidas-stan-smith-green-m20324-3.jpg"
-                            },
-                            // Transparent PUMA
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://thumblr.uniid.it/product/336262/8307c19dcf3d.jpg?width=3840&format=webp&q=75"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://thumblr.uniid.it/product/336262/a92a6cadc8a6.jpg?width=3840&format=webp&q=75"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://thumblr.uniid.it/product/336262/57daee260d2a.jpg?width=3840&format=webp&q=75"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://www.prosoccer.com/cdn/shop/files/PumaFuture7UltimateFGAG-ForeverFasterPack_SP24_Model1_1500x.png?v=1713488175"
-                            },
                             //FIRST
                             new ShoeImage
                             {
@@ -2780,7 +2474,7 @@ namespace BackEnd_ASP.NET.Data
             }
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
-            RandomData(modelBuilder);
+            //RandomData(modelBuilder);
         }
 
         private void RandomData(ModelBuilder modelBuilder)
