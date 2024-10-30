@@ -6,7 +6,7 @@ namespace BackEnd_ASP.NET.Services
 {
     public interface IShoeService
     {
-        Task<IActionResult> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10);
+        Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10);
         Task<IActionResult> GetShoeByIdFromUserAsync(Guid id, Guid? userId = null);
         Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id);
         Task<IActionResult> AddShoeAsync(ShoePostDTO shoe);

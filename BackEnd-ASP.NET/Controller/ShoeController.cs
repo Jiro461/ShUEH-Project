@@ -132,6 +132,7 @@ namespace BackEnd_ASP.NET.Controller
                 ? await shoeService.GetAllShoesAsync(page: page, pageSize: pageSize)
                 : await shoeService.GetAllShoesAsync(Guid.Parse(userId), page: page, pageSize: pageSize);
 
+            if (shoes == null) return NotFound("Not Found Any Shoe");
             var response = new
             {
                 Page = page,
