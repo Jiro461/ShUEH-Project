@@ -19,7 +19,7 @@ namespace BackEnd_ASP.NET.Controller
     [Route("api/[controller]")]
     public class ShoeController : ControllerBase
     {
-        private readonly string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
+        private readonly string[] brands = { "NIKE", "ADIDAS", "PUMA", "REEBOK", "UNDER ARMOUR" };
         private readonly string[] homeShoe = { "Nike Youth React Presto Extreme", "Nike Air Max 270", "Nike Downshifter 13" };
         private readonly IShoeService shoeService;
         private readonly ShUEHContext context;
@@ -42,7 +42,7 @@ namespace BackEnd_ASP.NET.Controller
         [HttpGet("brand")]
         public async Task<IActionResult> GetShoeByBrand(string brand)
         {
-            if (!brands.Contains(brand)) return NotFound("Invalid brand");
+            if (!brands.Contains(brand.ToUpper())) return NotFound("Invalid brand");
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var shoes = await context.Shoes
                 .Where(s => s.Brand == brand)
