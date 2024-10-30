@@ -78,7 +78,6 @@ namespace BackEnd_ASP.NET.Controller
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var shoes = await context.Shoes
                             .Where(shoe => homeShoe.Contains(shoe.Name))
-                            .OrderByDescending(o => o.Gender)
                             .ToListAsync();
 
             var shoesDTO = shoes.Select(shoe => new
