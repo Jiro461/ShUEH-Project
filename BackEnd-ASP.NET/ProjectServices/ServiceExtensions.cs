@@ -19,19 +19,38 @@ public static class ServiceExtensions
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
         //ConfigureCors(services);
-        services.AddHttpClient();
-        services.AddMemoryCache();
-        services.AddControllers();//AddJsonOptions(options =>
-        //     {
-        //         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-        //     }); ;
+        services.AddControllers();
+        ConfigureMemoryCache(services);
+        ConfigureHttpService(services);
         ConfigureTransientServices(services);
         ConfigureSingletonServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
         ConfigureEntityFramework(services, configuration);
         ConfigureSwagger(services);
+        ConfigureSessionService(services);
+    }
+    private static void ConfigureHttpService (IServiceCollection services){
+        services.AddHttpClient();
         services.AddHttpContextAccessor();
+    }
+    /// <summary>
+    /// Cấu hình dịch vụ Session
+    /// </summary>
+    private static void ConfigureSessionService (IServiceCollection services){
+        services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+            options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+            options.Cookie.IsEssential = true; // Make the session cookie essential
+        });
+    }
+    /// <summary>
+    /// Cấu hình các dịch vụ Cache
+    /// </summary>
+    private static void ConfigureMemoryCache(IServiceCollection services){
+        services.AddMemoryCache();
+        services.AddDistributedMemoryCache();
     }
     private static void ConfigureSingletonServices(IServiceCollection services){
         services.AddSingleton<IVnPayService, VnPayService>();
@@ -53,8 +72,12 @@ public static class ServiceExtensions
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IShoeRepository, ShoeRepository>();
+        services.AddScoped<IWishListRepository, WishListRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IWishListService, WishListService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IShoeService, ShoeService>();
