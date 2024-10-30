@@ -3,7 +3,7 @@ import "./add.scss";
 
 
 const Add = (props) => {
-
+console.log(props);
   // TEST THE API
 
   // const queryClient = useQueryClient();
@@ -42,16 +42,16 @@ const Add = (props) => {
   };
   return (
     <div className="add">
-      <div className="modal">
+      <div className="add-modal">
         <span className="close" onClick={() => props.setOpen(false)}>
           X
         </span>
         <h1>Add new {props.slug}</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>  
           {props.columns
             .filter((item) => item.field !== "id" && item.field !== "img")
-            .map((column) => (
-              <div className="item">
+            .map((column, index) => (
+              <div key={index} className="item">
                 <label>{column.headerName}</label>
                 <input type={column.type} placeholder={column.field} />
               </div>

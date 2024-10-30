@@ -1,16 +1,16 @@
 
 import DataTable from "../../components/dataTable/DataTable";
-import "./Users.scss";
+import "./Orders.scss";
 import { useEffect, useState } from "react";
 import Add from "../../components/add/Add";
 import { userRows } from "../../data";
-import axios from 'axios'
+import axios from "axios";
 // import { useQuery } from "@tanstack/react-query";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
-    field: "avatarUrl",
+    field: "img",
     headerName: "Avatar",
     width: 100,
     renderCell: (params) => {
@@ -55,7 +55,7 @@ const columns = [
   },
 ];
 
-const Users =  () => {
+const Orders = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -76,19 +76,19 @@ const Users =  () => {
     fetchData(); // Gọi hàm fetchData
   }, []); // Chỉ chạy một lần sau khi component mount
   return (
-    <div className="users">
+    <div className="orders">
       <div className="info">
-        <h1>Users</h1>
-        <button onClick={() => setOpen(true)}>Add New User</button>
+        <h1>Orders</h1>
+        <button onClick={() => setOpen(true)}>Add New Order</button>
       </div>
       {isLoading ? (
         "Loading..."
       ) : (
-        <DataTable slug="users" columns={columns} rows={data} />
+        <DataTable slug="orders" columns={columns} rows={data} />
       )}
-      {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
+      {open && <Add slug="order" columns={columns} setOpen={setOpen} />}
     </div>
   );
 };
 
-export default Users;
+export default Orders;

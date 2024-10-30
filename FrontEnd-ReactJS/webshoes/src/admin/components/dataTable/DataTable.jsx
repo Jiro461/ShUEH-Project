@@ -34,11 +34,11 @@ import {
     const actionColumn = {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
         return (
           <div className="action">
-            <Link to={`/${props.slug}/${params.row.id}`}>
+            <Link to={`/admin/${props.slug}/${params.row.id}`}>
               <img src="/view.svg" alt="" />
             </Link>
             <div className="delete" onClick={() => handleDelete(params.row.id)}>
@@ -62,7 +62,7 @@ import {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 10,
+                pageSize: 5,
               },
             },
           }}

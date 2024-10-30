@@ -10,6 +10,7 @@
   }
   html{
     overflow-x: hidden;
+
   }
   a {
     text-decoration: none;
@@ -23,7 +24,7 @@
     width: 100%;
     min-height: 100vh; // Đảm bảo chiều cao trang ít nhất là 100% chiều cao màn hình
 
-      .container {
+      .admin-container{
         display: flex;
         width: 100%;
         flex-grow: 1;

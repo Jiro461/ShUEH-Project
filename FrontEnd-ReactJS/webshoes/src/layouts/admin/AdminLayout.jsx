@@ -9,7 +9,7 @@ const AdminLayout = () => {
     return (
         <div className='main'>
             <Navbar />
-            <div className='container'>
+            <div className='admin-container'>
                 <div className='menuContainer'>
                     <Menu />
                 </div>
