@@ -20,7 +20,7 @@ namespace BackEnd_ASP.NET.Controller
     public class ShoeController : ControllerBase
     {
         private readonly string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
-
+        private readonly string[] homeShoe = { "Nike Youth React Presto Extreme", "Nike Air Max 270", "Nike Downshifter 13" };
         private readonly IShoeService shoeService;
         private readonly ShUEHContext context;
         private readonly IShoeRepository shoeRepository;
@@ -72,16 +72,25 @@ namespace BackEnd_ASP.NET.Controller
             return Ok(totalShoe);
         }
 
-        [HttpGet("home/{number}")]
-        public async Task<IActionResult> GetHomeShoe(int number)
+        [HttpGet("home")]
+        public async Task<IActionResult> GetHomeShoe()
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var shoes = await context.Shoes
-                .OrderByDescending(s => s.Discount)
-                .Take(number)
-                .ToListAsync();
+                            .Where(shoe => homeShoe.Contains(shoe.Name))
+                            .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoes.Select(shoe => new
+            {
+                Name = shoe.Name,
+                Gender = shoe.Gender,
+                Brand = shoe.Brand,
+                Discount = shoe.Discount,
+                Description = shoe.Description,
+                ImageUrl = shoe.ImageUrl,
+                Price = shoe.Price,
+                Id = shoe.Id
+            }).OrderByDescending(g => g.Gender);
             return Ok(shoesDTO);
         }
 

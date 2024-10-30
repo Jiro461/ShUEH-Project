@@ -19,7 +19,6 @@ public sealed class OrderGetDTO
 public sealed class OrderPostDTO
 {
     public DateTime OrderDate { get; set; }
-    public Guid UserId { get; set; }
     public OrderStatus Status { get; set; }
     public ICollection<OrderItemDTO> OrderItems { get; set; } = new HashSet<OrderItemDTO>();
     public decimal TotalPrice { get; set; } //Co kem theo ship fee (neu co)
