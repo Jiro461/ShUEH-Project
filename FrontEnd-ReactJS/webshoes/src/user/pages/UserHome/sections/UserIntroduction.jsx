@@ -1,12 +1,24 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './UserIntroduction.scss'
 import PropTypes from 'prop-types';
 import AddBlock from '../../../components/AddBlock/AddBlock';
 import PromotionTag from "../../../components/PromotionTag/PromotionTag";
 import { motion, useInView } from "framer-motion";
 import axios from "axios";
+import * as homeIntroductionService from "../../../../apiServices/homeIntroductionService"
 
 const UserIntroduction =  () => {
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        const fetchApi = async () => {
+            setLoading(true)
+            const res = await homeIntroductionService.getProducts(4)
+            setData(res)
+            setLoading(false)
+        }
+        fetchApi()
+    }, [])
     const ref = useRef(null)
     const isInView = useInView(ref)
     const productStyle = {
@@ -17,7 +29,7 @@ const UserIntroduction =  () => {
     }
     const titleStyle = {
         zIndex: 6,
-        transform: isInView ? "none" : "translateX(-200px)",
+        transform: isInView ? "none" : "translateY(200px)",
         opacity: isInView ? 1 : 0,
         transition: "all 2s"
     }
@@ -28,7 +40,7 @@ const UserIntroduction =  () => {
                 </div>
 
                 <div className="product" ref={ref} style={productStyle}>
-                    <img className="product-img" src='/intro-product.svg' alt='intro-product'></img>
+                    <img className="product-img" src={`http://localhost:5118/${data[0]?.imageUrl}` ||  '/intro-product.svg'} alt='intro-product'></img>
 
                     <div className='product-promotion'>
                         <PromotionTag></PromotionTag>

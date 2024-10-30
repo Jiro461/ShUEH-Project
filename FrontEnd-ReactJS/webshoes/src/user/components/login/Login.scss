@@ -11,17 +11,44 @@
     overflow: auto;
     z-index: 1000;
     .login-block{
-        background: #fff;
+        position: fixed;
+        border-radius: 50px;
+        z-index: -1;
         padding: 30px;
+        &::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -2;
+            background: #fff;
+            border-radius: inherit;
+        }
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            opacity: .08;
+            background-image: radial-gradient(#ffffff40, #fff0 40%), radial-gradient(hsl(44, 100%, 66%) 30%, hsl(338, 68%, 65%), hsla(338, 68%, 65%, .4) 41%, transparent 52%), radial-gradient(hsl(272, 100%, 60%) 37%, transparent 46%), linear-gradient(155deg, transparent 65%, hsl(142, 70%, 49%) 95%), linear-gradient(45deg, #0065e0, #0f8bff);
+            background-size: 200% 200%, 285% 500%, 285% 500%, cover, cover;
+            background-position: bottom left, 109% 68%, 109% 68%, center, center;
+            border-radius: inherit;
+        }
         .login-content{
-            width: 40vw;
+            width: 35vw;
             height: 80vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             .logo{
-                margin: 10px auto 0;
+                margin: 0 auto;
                 width: 7vw;
                 min-width: 100px;
                 
@@ -88,11 +115,34 @@
                 .btn-create{
                     margin: 5px auto 0;
                     width: 25vw;
-                   
-                    
                     padding: 15px 30px;
                     border-radius: 60px;
                     background: #A3A3A3;
+                }
+                .btn-login-google{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 25vw;
+                    height: 44px;
+                    padding-left: 16px;
+                    margin: 20px auto 0;
+                    border: 2px solid #dce0e3;
+                    border-radius: 44px;
+                    background-color: #fff;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: background-color .2s;
+                    img{
+                        position: absolute;
+                        top: 50%;
+                        translate: 0 -50%;
+                        left: 16px;
+                    }
+                    span{
+                        font-size: 1rem;
+                    }
                 }
             }
         }
@@ -108,7 +158,7 @@
                     input{
                         width: 40vw;
                     }
-                    .btn-create{
+                    .btn-create, .btn-login-google{
                         width: 35vw;
                     }
                 }
@@ -126,7 +176,7 @@
                     input{
                         width: 50vw;
                     }
-                    .btn-create{
+                    .btn-create, .btn-login-google{
                         width: 45vw;
                     }
                 }
@@ -144,7 +194,7 @@
                     input{
                         width: 60vw;
                     }
-                    .btn-create{
+                    .btn-create, .btn-login-google{
                         font-size: 0.8rem;
                         min-width: 200px;
                     }

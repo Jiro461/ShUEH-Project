@@ -9,6 +9,52 @@
             }
         }
     }
+    .img-container{
+        position: relative;
+        .img-product{
+            width: 100%;
+        }
+        .product-promotion-sale{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .product-promotion-tag-new{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+    .product-price{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        .original-price{
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #FFFFFF80;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%; /* Điều chỉnh giá trị này để thay đổi vị trí của đường gạch ngang */
+                left: 0;
+                width: 100%; /* Độ dài của đường ngang theo chiều rộng của chữ */
+                height: 1px; /* Độ dày của đường */
+                background-color: #fff; /* Màu đường gạch sẽ giống với màu chữ */
+                transform: translateY(-50%); /* Đưa đường gạch vào giữa theo chiều dọc */
+            }
+        }
+        .sale-price{
+            background: linear-gradient(118deg, #FF6262 21.5%, #FCAD72 78.5%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
 }
 
 

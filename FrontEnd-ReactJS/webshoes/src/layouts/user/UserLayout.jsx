@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../../user/components/Navbar/Navbar';
+import Navbar from '../../user/components/Navbar/Navbar.jsx';
 
 import './UserLayout.scss'
 import PropTypes from 'prop-types';

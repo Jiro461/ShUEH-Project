@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserProducts.scss'
 import Product from "../../../components/HomeProduct/Product.jsx";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle.jsx"
 import Slider from 'react-slick'
 import {Reveal} from "../../../components/Animation/Reveal.tsx";
+import * as homeProductService from "../../../../apiServices/homeProductService.jsx"
 
 const UserProducts = () => {
+    const [data, setData] = useState()
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        const fetchApi = async () => {
+            setLoading(true)
+            const res = await homeProductService.getProducts(4)
+            setData(res)
+            setLoading(false)
+        }
+        fetchApi()
+    }, [])
     const images = [
         {id: 2,
             src: "/product-2.svg"
@@ -55,7 +67,7 @@ const UserProducts = () => {
                 <div className="row g-0">
                         <div className="col-4 g-0">
                     <Reveal>
-                            <Product imgClassName='img-custom' imgSrc="/product-1.svg"></Product>
+                            <Product imgClassName='img-custom' imgSrc=""></Product>
                     </Reveal>
                         </div>
                     <div className="col-8">
