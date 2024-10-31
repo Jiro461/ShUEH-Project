@@ -34,7 +34,7 @@ namespace BackEnd_ASP.NET.Services
             var user = await context.Users.FindAsync(userId);
             if (user == null) return NotFound("User not found");
             if (order.OrderItems.Count == 0) return BadRequest("Order items are empty");
-
+            
             decimal totalPrice = order.OrderItems.Sum(item => item.TotalPrice);
             var orderId = Guid.NewGuid();
             //Tạo đơn hàng mới
