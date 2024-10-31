@@ -13,12 +13,12 @@ namespace BackEnd_ASP.NET.Services
 
         #region Comment
         Task<IActionResult> GetAllCommentsAsync(Guid shoeId);
-        Task<IActionResult> AddCommentAsync(CommentDTO commentDTO);
-        Task<IActionResult> DeleteCommentAsync(Guid id);
+        Task<IActionResult> AddCommentAsync(CommentDTO commentDTO, HttpContext httpContext);
+        Task<IActionResult> DeleteCommentAsync(Guid id, HttpContext httpContext);
         #endregion
 
         #region Like Comment
-        Task<IActionResult> ToggleLikeCommentAsync(CommentLikeDTO commentLikeDTO);
+        Task<IActionResult> ToggleLikeCommentAsync(CommentLikeDTO commentLikeDTO, HttpContext httpContext);
         #endregion
     }
 }

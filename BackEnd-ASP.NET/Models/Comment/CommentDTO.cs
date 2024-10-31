@@ -6,8 +6,8 @@ public class CommentDTO
     public string Comment { get; set; } = string.Empty;
     public decimal Rate { get; set; }
     public int TotalLike { get; set; }
-    public Guid ShoeId { get; set; }
-    public Guid UserId { get; set; }
+    public Guid? ShoeId { get; set; }
+    public Guid? UserId { get; set; }
     public string UserName { get; set; } = string.Empty;
     public string UserAvatar { get; set; } = string.Empty;
     public ICollection<ReplyDTO>? Replies { get; set; }

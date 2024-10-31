@@ -13,10 +13,12 @@ namespace BackEnd_ASP.NET.Services
     public class CommentService : ControllerBase, ICommentService
     {
         private readonly ICommentRepository commentRepository;
+        private readonly INotificationService notificationService;
 
-        public CommentService(ICommentRepository commentRepository)
+        public CommentService(ICommentRepository commentRepository, INotificationService notificationService)
         {
             this.commentRepository = commentRepository;
+            this.notificationService = notificationService;
         }
         #region Reply
         public async Task<IActionResult> AddReplyAsync(ReplyDTO replyDTO, HttpContext httpContext)
@@ -61,21 +63,24 @@ namespace BackEnd_ASP.NET.Services
         #endregion
 
         #region Like Comment
-        public async Task<IActionResult> ToggleLikeCommentAsync(CommentLikeDTO commentLikeDTO)
+        public async Task<IActionResult> ToggleLikeCommentAsync(CommentLikeDTO commentLikeDTO, HttpContext httpContext)
         {
-            var commentLike = await commentRepository.GetCommentLikeByCommentIdAndUserIdAsync(commentLikeDTO.CommentId, commentLikeDTO.UserId); 
+            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return Unauthorized();
+            var commentLike = await commentRepository.GetCommentLikeByCommentIdAndUserIdAsync(commentLikeDTO.CommentId, Guid.Parse(userId)); 
             if (commentLike == null)
             {
                 var newCommentLike = new CommentLike
                 {
                     CommentId = commentLikeDTO.CommentId,
-                    UserId = commentLikeDTO.UserId
+                    UserId = Guid.Parse(userId)
                 };
+                await notificationService.CreateNotificationForCommentLike(newCommentLike, Guid.Parse(userId));
                 await commentRepository.AddCommentLikeAsync(newCommentLike);
             }
             else
             {
-                await commentRepository.DeleteCommentLikeAsync(commentLikeDTO.CommentId, commentLikeDTO.UserId);
+                await commentRepository.DeleteCommentLikeAsync(commentLikeDTO.CommentId, Guid.Parse(userId));
             }
             return Ok();
         }   
@@ -91,8 +96,8 @@ namespace BackEnd_ASP.NET.Services
                 Id = comment.Id,
                 Comment = comment.Description ?? string.Empty,
                 Rate = comment.Rate,
-                ShoeId = comment.ShoeId ?? Guid.Empty,
-                UserId = comment.UserId ?? Guid.Empty,
+                ShoeId = comment.ShoeId,
+                UserId = comment.UserId,
                 UserName = comment.User?.UserName ?? string.Empty,
                 UserAvatar = comment.User?.AvatarUrl ?? "noavatar.png",
                 CreateDate = comment.CreateDate,
@@ -107,14 +112,16 @@ namespace BackEnd_ASP.NET.Services
             return Ok(commentDTOs);
         }
 
-        public async Task<IActionResult> AddCommentAsync(CommentDTO commentDTO)
+        public async Task<IActionResult> AddCommentAsync(CommentDTO commentDTO, HttpContext httpContext)
         {
+            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return Unauthorized();
             var comment = new Comment
             {
                 Description = commentDTO.Comment,
                 Rate = commentDTO.Rate,
                 ShoeId = commentDTO.ShoeId,
-                UserId = commentDTO.UserId,
+                UserId = Guid.Parse(userId),
                 TotalLike = 0,
                 CreateDate = MyDateTime.VietNam.DateTime,
             };
@@ -122,8 +129,10 @@ namespace BackEnd_ASP.NET.Services
             return Ok(addedComment);
         }
         
-        public async Task<IActionResult> DeleteCommentAsync(Guid id)
+        public async Task<IActionResult> DeleteCommentAsync(Guid id, HttpContext httpContext)
         {
+            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return Unauthorized();
             if (await commentRepository.DeleteCommentAsync(id))
                 return Ok();
             return NotFound();
