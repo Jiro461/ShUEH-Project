@@ -15,7 +15,7 @@ namespace BackEnd_ASP.NET.Models
         public string? Brand { get; set; }
         [Required]
         [Range(0, 2, ErrorMessage = "Gender must be between 0 and 2")]
-        public byte Gender { get; set; }
+        public int Gender { get; set; }
         [Required]
         [MaxLength(100, ErrorMessage = "Material cannot be longer than 50 characters")]
         public string Material { get; set; } = string.Empty;
