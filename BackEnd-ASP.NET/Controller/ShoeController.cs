@@ -93,7 +93,11 @@ namespace BackEnd_ASP.NET.Controller
             }).OrderByDescending(g => g.Gender);
             return Ok(shoesDTO);
         }
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteShoe(Guid id)
+        {
+            return await shoeService.DeleteShoeAsync(id);
+        }
         [HttpGet("most-sold/{number}")]
         public async Task<IActionResult> GetMostSoldShoe(int number)
         {
@@ -120,6 +124,17 @@ namespace BackEnd_ASP.NET.Controller
         }
         #endregion
         #region ComplexAPI
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllShoesAdminAsync()
+        {
+            var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails)
+                                            .Include(shoe => shoe.Seasons)
+                                            .Include(shoe => shoe.Colors)
+                                            .Include(shoe => shoe.OtherImages)
+                                            .ToListAsync();
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes);
+            return Ok(shoesDTO);
+        }
         //Get all shoes
         [HttpGet("all/{page}/{pageSize}")]
         public async Task<IActionResult> GetAllShoesAsync(int page, int pageSize)

@@ -6,6 +6,7 @@ namespace BackEnd_ASP.NET.Services
     {
         Task CreateNotificationForNewUser(User newUser);
         Task CreateNotificationForComment(Comment comment, Guid? userId);
+        Task CreateNotificationForCommentLike(CommentLike commentLike, Guid? userId);
         Task CreateNotificationForOrder(Order order, Guid? userId);
         Task CreateNotificationForWishlist(WishlistItem wishlistItem, Guid? userId);
         Task CreateNotificationForReply(Reply reply, Guid? userId);

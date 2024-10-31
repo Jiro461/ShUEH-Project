@@ -21,7 +21,7 @@ namespace BackEnd_ASP.NET.Controller.Account
     {
         private readonly IAccountService accountService;
 
-        public AccountController(IAccountService accountService, ShUEHContext shUEHContext, UserManager<User> userManager)
+        public AccountController(IAccountService accountService)
         {
             this.accountService = accountService;
         }

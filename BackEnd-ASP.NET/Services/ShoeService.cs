@@ -59,6 +59,7 @@ namespace BackEnd_ASP.NET.Services
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
             return Ok(shoeDTO);
         }
+        
         // Lấy giày theo ID từ admin
         public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
         {

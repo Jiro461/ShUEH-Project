@@ -45,7 +45,31 @@ namespace BackEnd_ASP.NET.Controller.Order
             }
             return await orderService.GetOrdersByUserIdAsync(Guid.Parse(userId));
         }
-        
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteOrderAsync(Guid id)
+        {
+            return await orderService.DeleteOrderAsync(id);
+        }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllOrdersAsync()
+        {
+            return await orderService.GetAllOrdersAsync();
+        }
+        [HttpGet("status/{status}")]
+        public async Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status)
+        {
+            return await orderService.GetOrdersByStatusAsync(status);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrderByIdAsync(Guid id)
+        {
+            return await orderService.GetOrderByIdAsync(id);
+        }
+        [HttpPut("update/{id}/{status}")]
+        public async Task<IActionResult> UpdateOrderAsync(Guid id, OrderStatus status)
+        {
+            return await orderService.UpdateOrderAsync(id, status);
+        }
     }
 
 
