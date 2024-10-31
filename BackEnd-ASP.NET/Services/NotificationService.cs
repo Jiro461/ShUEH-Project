@@ -31,13 +31,25 @@ namespace BackEnd_ASP.NET.Services
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
+        public async Task CreateNotificationForCommentLike(CommentLike commentLike, Guid? userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            var notification = new Notification
+            {
+                UserMessage = $"Bạn đã thích 1 bình luận.",
+                AdminMessage = $"{user?.UserName} đã thích 1 bình luận.",
+                User = user,
+                CommentId = commentLike.CommentId,
+                CreateDate = MyDateTime.VietNam.DateTime
+            };
+        }
         public async Task CreateNotificationForComment(Comment comment, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
             var notification = new Notification
             {
                 UserMessage = $"Bạn đã bình luận trên sản phẩm {comment.Shoe?.Name}.",
-                AdminMessage = $"User {comment.User?.UserName} đã bình luận trên sản phẩm {comment.Shoe?.Name}.",
+                AdminMessage = $"{comment.User?.UserName} đã bình luận trên sản phẩm {comment.Shoe?.Name}.",
                 User = user,
                 CommentId = comment.Id,
                 ShoeId = comment.ShoeId,
@@ -70,7 +82,7 @@ namespace BackEnd_ASP.NET.Services
             var notification = new Notification
             {
                 UserMessage = $"Bạn đã thêm giày {wishlistItem.Shoe?.Name} vào Wishlist.",
-                AdminMessage = $"User {userId} đã thêm giày vào Wishlist.",
+                AdminMessage = $"{user?.UserName} đã thêm giày {wishlistItem.Shoe?.Name} vào Wishlist.",
                 User = user,
                 ShoeId = wishlistItem.ShoeId,
                 CreateDate = MyDateTime.VietNam.DateTime
@@ -83,12 +95,18 @@ namespace BackEnd_ASP.NET.Services
         public async Task CreateNotificationForReply(Reply reply, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
+            var commentId = reply.CommentId;
+            var comment = await _context.Comments
+            .Include(c => c.Shoe)
+            .FirstOrDefaultAsync(c => c.Id == commentId);
+            var shoeName = comment?.Shoe?.Name;
             var notification = new Notification
             {
-                UserMessage = $"Bạn đã trả lời bình luận.",
-                AdminMessage = $"User {reply.User?.ProfileName} đã trả lời bình luận.",
+                UserMessage = $"Admin đã trả lời bình luận của bạn ở sản phẩm {shoeName}.",
+                AdminMessage = $"Bạn đã trả lời bình luận của {user?.ProfileName} ở sản phẩm {shoeName}.",
                 User = user,
                 CommentId = reply.CommentId,
+                ShoeId = comment?.ShoeId,
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 

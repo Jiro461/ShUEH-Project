@@ -17,7 +17,10 @@ public class CommentRepository : ICommentRepository
     #region Reply
     public async Task<Reply?> GetReplyByIdAsync(Guid id)
     {
-        return await context.Replies.FindAsync(id);
+        return await context.Replies
+                    .Include(r => r.Comment)
+                    .ThenInclude(c => c!.Shoe)
+                    .FirstOrDefaultAsync(r => r.Id == id);
     }
     public async Task<bool> AddReplyAsync(Reply reply)
     {

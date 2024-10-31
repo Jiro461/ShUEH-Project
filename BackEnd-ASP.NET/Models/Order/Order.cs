@@ -19,6 +19,13 @@ public class Order : IDateTracking
     [Required(ErrorMessage = "Total price is required.")]
     public decimal TotalPrice { get; set; }
 
+    public bool IsUsingDiscount { get; set; } = false;
+
+    //Mã giảm giá được sử dụng
+    [ForeignKey("Discount")]
+    public Guid? DiscountId { get; set; }
+    public Discount? Discount { get; set; }
+
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
     public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
 

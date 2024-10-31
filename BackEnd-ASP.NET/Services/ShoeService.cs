@@ -59,6 +59,7 @@ namespace BackEnd_ASP.NET.Services
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
             return Ok(shoeDTO);
         }
+        
         // Lấy giày theo ID từ admin
         public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
         {
@@ -249,7 +250,7 @@ namespace BackEnd_ASP.NET.Services
                 IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
                 SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
                 CreateDate = shoe.CreateDate,
-                TotalRatings = shoe.TotalRatings,
+                TotalRatings = shoe.Comments?.Count ?? 0,
                 AverageRating = shoe.AverageRating,
                 Sold = shoe.Sold,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
@@ -291,6 +292,7 @@ namespace BackEnd_ASP.NET.Services
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Price = shoe.Price,
                 AverageRating = shoe.AverageRating,
+                TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
                 IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14),
                 CreateDate = shoe.CreateDate,
@@ -318,7 +320,7 @@ namespace BackEnd_ASP.NET.Services
                 Category = shoe.Category ?? string.Empty,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 AverageRating = shoe.AverageRating,
-                TotalRatings = shoe.TotalRatings,
+                TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
                 Price = shoe.Price,
                 SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,

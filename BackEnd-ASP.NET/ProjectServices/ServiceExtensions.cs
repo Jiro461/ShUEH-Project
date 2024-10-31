@@ -18,7 +18,7 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //ConfigureCors(services);
+        //ConfigureCors(services); 
         services.AddControllers();
         ConfigureMemoryCache(services);
         ConfigureHttpService(services);
@@ -29,15 +29,18 @@ public static class ServiceExtensions
         ConfigureEntityFramework(services, configuration);
         ConfigureSwagger(services);
         ConfigureSessionService(services);
+
     }
-    private static void ConfigureHttpService (IServiceCollection services){
+    private static void ConfigureHttpService(IServiceCollection services)
+    {
         services.AddHttpClient();
         services.AddHttpContextAccessor();
     }
     /// <summary>
     /// Cấu hình dịch vụ Session
     /// </summary>
-    private static void ConfigureSessionService (IServiceCollection services){
+    private static void ConfigureSessionService(IServiceCollection services)
+    {
         services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
@@ -48,11 +51,13 @@ public static class ServiceExtensions
     /// <summary>
     /// Cấu hình các dịch vụ Cache
     /// </summary>
-    private static void ConfigureMemoryCache(IServiceCollection services){
+    private static void ConfigureMemoryCache(IServiceCollection services)
+    {
         services.AddMemoryCache();
         services.AddDistributedMemoryCache();
     }
-    private static void ConfigureSingletonServices(IServiceCollection services){
+    private static void ConfigureSingletonServices(IServiceCollection services)
+    {
         services.AddSingleton<IVnPayService, VnPayService>();
     }
     /// <summary>
