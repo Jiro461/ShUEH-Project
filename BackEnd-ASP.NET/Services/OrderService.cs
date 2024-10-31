@@ -119,17 +119,9 @@ namespace BackEnd_ASP.NET.Services
                 Status = order.Status,
                 PaymentMethod = order.PaymentMethod,
                 TotalPrice = order.TotalPrice,
-                OrderItems = order.OrderItems.Select(item => new OrderItemDTO
-                {
-                    ShoeId = item.ShoeId,
-                    ShoePrice = item.ShoePrice,
-                    Size = item.Size,
-                    Quantity = item.Quantity,
-                    TotalPrice = item.TotalPrice,
-                    ShoeName = item.Shoe?.Name ?? string.Empty,
-                    ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
-                }).ToList(),
+                TotalItems = order.OrderItems.Sum(item => item.Quantity),
             });
+
             var response = new {
                 OrderDTOs = orderDTOs,
                 Total = orderDTOs.Count()

@@ -10,6 +10,7 @@ public sealed class OrderGetDTO
     public string UserName { get; set; } = string.Empty;
     public string UserEmail { get; set; } = string.Empty;
     public string ImageUrl { get; set; } = "/noavatar.png";
+    public int TotalItems { get; set; }
     public OrderStatus Status { get; set; }
     public ICollection<OrderItemDTO> OrderItems { get; set; } = new HashSet<OrderItemDTO>();
     public decimal TotalPrice { get; set; } //Co kem theo ship fee (neu co)

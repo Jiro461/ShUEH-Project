@@ -12,12 +12,14 @@ namespace BackEnd_ASP.NET.Services
 {
     public class CommentService : ControllerBase, ICommentService
     {
-        private readonly ICommentRepository commentRepository;
+        private readonly ICommentRepository commentRepository;  
+        private readonly IShoeRepository shoeRepository;
         private readonly INotificationService notificationService;
 
-        public CommentService(ICommentRepository commentRepository, INotificationService notificationService)
+        public CommentService(ICommentRepository commentRepository, IShoeRepository shoeRepository, INotificationService notificationService)
         {
             this.commentRepository = commentRepository;
+            this.shoeRepository = shoeRepository;
             this.notificationService = notificationService;
         }
         #region Reply
@@ -116,6 +118,9 @@ namespace BackEnd_ASP.NET.Services
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null) return Unauthorized();
+            var shoe = await shoeRepository.GetShoeByIdAsync(commentDTO.ShoeId ?? Guid.Empty);
+            if (shoe == null) return NotFound();
+            shoe.AverageRating = ((shoe.AverageRating * shoe.TotalRatings) + commentDTO.Rate) / (shoe.TotalRatings + 1);
             var comment = new Comment
             {
                 Description = commentDTO.Comment,
@@ -125,6 +130,7 @@ namespace BackEnd_ASP.NET.Services
                 TotalLike = 0,
                 CreateDate = MyDateTime.VietNam.DateTime,
             };
+            await shoeRepository.UpdateShoeAsync(shoe);
             var addedComment = await commentRepository.AddCommentAsync(comment);
             return Ok(addedComment);
         }
@@ -133,6 +139,12 @@ namespace BackEnd_ASP.NET.Services
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null) return Unauthorized();
+            var comment = await commentRepository.GetCommentByIdAsync(id);
+            if (comment == null) return NotFound();
+            var shoe = await shoeRepository.GetShoeByIdAsync(comment.ShoeId ?? Guid.Empty);
+            if (shoe == null) return NotFound();
+            shoe.AverageRating = ((shoe.AverageRating * shoe.TotalRatings) - comment.Rate) / (shoe.TotalRatings - 1);
+            await shoeRepository.UpdateShoeAsync(shoe);
             if (await commentRepository.DeleteCommentAsync(id))
                 return Ok();
             return NotFound();
