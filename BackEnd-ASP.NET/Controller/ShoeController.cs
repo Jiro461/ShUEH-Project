@@ -93,7 +93,11 @@ namespace BackEnd_ASP.NET.Controller
             }).OrderByDescending(g => g.Gender);
             return Ok(shoesDTO);
         }
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteShoe(Guid id)
+        {
+            return await shoeService.DeleteShoeAsync(id);
+        }
         [HttpGet("most-sold/{number}")]
         public async Task<IActionResult> GetMostSoldShoe(int number)
         {

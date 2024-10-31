@@ -78,9 +78,11 @@ public class ShoeRepository : IShoeRepository
         foreach (var comment in shoeComments)
         {
             _context.CommentLikes.RemoveRange(_context.CommentLikes.Where(s => s.CommentId == comment.Id));
+            _context.Replies.RemoveRange(_context.Replies.Where(r => r.CommentId == comment.Id));
         }
         //Xóa comment
         _context.Comments.RemoveRange(shoeComments);
+
         _dbSet.Remove(shoe);
         await _context.SaveChangesAsync();
         return true;
