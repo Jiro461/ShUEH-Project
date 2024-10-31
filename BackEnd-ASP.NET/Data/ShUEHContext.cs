@@ -2455,7 +2455,7 @@ namespace BackEnd_ASP.NET.Data
             List<ShoeDetail> shoeDetails = new List<ShoeDetail>();
             for (int i = 0; i < shoeIds.Length; i++)
             {
-                int initialSize = rand.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
+                int initialSize = rand.Next(36, 46); // Sinh size đầu tiên từ 36 đến 45
                 int maxAdditionalSizes = rand.Next(3, 5);
                 for (int j = 0; j <= maxAdditionalSizes; j++)
                 {
@@ -2530,7 +2530,7 @@ namespace BackEnd_ASP.NET.Data
             string[] materials = { "Leather", "Synthetic", "Mesh", "Canvas", "Rubber" };
             string[] categories = { "Running", "Football", "Basketball", "Tennis", "Gym & Training" };
             string[] seasons = { "Summer", "Spring", "Winter", "Autumn" };
-            string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange" };
+            string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange", "Pink", "Grey", "Brown" };
             string[] descriptions = {
                     "Perfect for all sports activities.",
                     "Provides excellent comfort and support.",
