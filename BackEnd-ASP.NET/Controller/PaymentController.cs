@@ -69,12 +69,11 @@ namespace PaymentAPI.Controllers
             if (!Guid.TryParse(vnPayResponse.OrderId, out orderId)) return BadRequest("Invalid order ID");
             if (vnPayResponse == null
                 || vnPayResponse.VnPayResponseCode != "00"
-                || !vnPayResponse.Success
-                || vnPayResponse.OrderId == null)
+                || !vnPayResponse.Success)
             {
                 var result = await _paymentService.HandleFailedPaymentAsync(orderId);
                 if (result is not OkObjectResult) return BadRequest("Thanh toán VNPAY không thành công.");
-                return Ok(result);
+                return BadRequest(result);
             }
 
             var paymentResult = await _paymentService.HandleSuccessfulPaymentAsync(orderId);

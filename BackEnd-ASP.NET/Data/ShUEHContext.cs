@@ -59,12 +59,13 @@ namespace BackEnd_ASP.NET.Data
                 new Role { Id = adminRoleId, Name = "Admin", Description = "Role Admin với đầy đủ các quyền hạn" },
                 new Role { Id = userRoleId, Name = "User", Description = "Role User với các quyền hạn có giới hạn và mua hàng" }
             );
-
+            Guid UserId_1 = Guid.NewGuid();
+            Guid UserId_2 = Guid.NewGuid();
             // Seed data for Users
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = UserId_1,
                     FirstName = "Mach",
                     LastName = "Gia Huy",
                     DateOfBirth = "14/11/2204".ToDateTime(), // Adjust your date creation here
@@ -80,7 +81,7 @@ namespace BackEnd_ASP.NET.Data
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = UserId_2,
                     FirstName = "Jane",
                     LastName = "Smith",
                     DateOfBirth = "10/05/2004".ToDateTime(), // Adjust your date creation here
@@ -96,13 +97,13 @@ namespace BackEnd_ASP.NET.Data
                 }
             );
 
-            ShoeSeeding(modelBuilder);
+            ShoeSeeding(modelBuilder, UserId_1, UserId_2);
 
 
             base.OnModelCreating(modelBuilder);
         }
 
-        private void ShoeSeeding(ModelBuilder modelBuilder)
+        private void ShoeSeeding(ModelBuilder modelBuilder, Guid UserId_1, Guid UserId_2)
         {
             Guid IDGiay_1 = Guid.NewGuid();
             Guid IDGiay_2 = Guid.NewGuid();
@@ -724,7 +725,7 @@ namespace BackEnd_ASP.NET.Data
                      Discount = 0.0M,
                      CreateDate = DateTime.Now,
                      LastModifiedDate = DateTime.Now
-                 },    
+                 },
                  // HOME 1
                  new Shoe
                  {
@@ -2474,10 +2475,55 @@ namespace BackEnd_ASP.NET.Data
             }
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
+            RandomCommentData(modelBuilder, shoeIds.ToList(), UserId_1, UserId_2);
             //RandomData(modelBuilder);
         }
+        private void RandomCommentData(ModelBuilder modelBuilder, List<Guid> shoeIds, Guid UserId_1, Guid UserId_2)
+        {
+            string[] descriptions = {
+                "Perfect for all sports activities.",
+                "Provides excellent comfort and support.",
+                "Stylish design for both casual and athletic wear.",
+                "Lightweight and durable for high-performance.",
+                "Designed for optimum traction on various surfaces.",
+                "Breathable material keeps your feet cool and dry.",
+                "A versatile shoe for any occasion.",
+                "Enhances performance and boosts confidence."
+            };
+            Random random = new Random();
+            for (int i = 0; i < shoeIds.Count; i++)
+            {
+                Guid shoeId = shoeIds[i];
+                int totalComments = random.Next(1, 10);
+                for (int j = 0; j < totalComments; j++)
+                {
+                    Guid commentId = Guid.NewGuid();
+                    modelBuilder.Entity<Comment>().HasData(
+                        new Comment
+                        {
+                            Id = commentId,
+                            ShoeId = shoeId,
+                            UserId = UserId_1,
+                            Description = GenerateRandomDescription(descriptions),
+                            Rate = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+                            CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
+                            LastModifiedDate = DateTime.Now
+                        }
+                    );
+                    int totalLike = random.Next(0, 100);
+                    for (int k = 0; k < totalLike; k++)
+                    {
+                        modelBuilder.Entity<CommentLike>().HasData(
+                            new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = UserId_2 }
+                        );
+                    }
+                }
 
-        private void RandomData(ModelBuilder modelBuilder)
+            }
+
+        }
+        //Random Shoe Data
+        private void RandomShoeData(ModelBuilder modelBuilder)
         {
             Random random = new Random();
             string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
