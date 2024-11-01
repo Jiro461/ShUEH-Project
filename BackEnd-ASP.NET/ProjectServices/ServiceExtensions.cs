@@ -2,6 +2,7 @@ using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
 using BackEnd_ASP.NET.Services.VnPay;
+using BackEnd_ASP_NET;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.FileHelpers;
 using Microsoft.AspNetCore.Authentication;
@@ -79,6 +80,7 @@ public static class ServiceExtensions
         services.AddScoped<IShoeRepository, ShoeRepository>();
         services.AddScoped<IWishListRepository, WishListRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<IStatisticRepository, StatisticRepository>();
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICommentService, CommentService>();
