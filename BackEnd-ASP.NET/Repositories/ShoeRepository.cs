@@ -82,7 +82,8 @@ public class ShoeRepository : IShoeRepository
         }
         //Xóa comment
         _context.Comments.RemoveRange(shoeComments);
-
+        //Xóa notification
+        _context.Notifications.RemoveRange(_context.Notifications.Where(n => n.ShoeId == id));
         _dbSet.Remove(shoe);
         await _context.SaveChangesAsync();
         return true;

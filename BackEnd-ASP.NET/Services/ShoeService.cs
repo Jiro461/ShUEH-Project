@@ -89,7 +89,9 @@ namespace BackEnd_ASP.NET.Services
             if (shoe == null)
                 return BadRequest("Shoe data is required."); // Kiểm tra dữ liệu đầu vào
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
-
+            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand ).FirstOrDefault();
+            if(existingShoe != null) 
+            return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
             // Tạo một đối tượng giày mới
             var newshoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
             {
