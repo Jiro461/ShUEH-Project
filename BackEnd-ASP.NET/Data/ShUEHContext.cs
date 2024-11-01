@@ -52,6 +52,7 @@ namespace BackEnd_ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var passwordHasher = new PasswordHasher<User>();
             // Seed data for Roles
             var adminRoleId = Guid.NewGuid();
             var userRoleId = Guid.NewGuid();
@@ -78,7 +79,7 @@ namespace BackEnd_ASP.NET.Data
                     UserName = "Mach Gia Huy",
                     NormalizedUserName = "JOHN.DOE",
                     EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
+                    PasswordHash = passwordHasher.HashPassword(null, "12345678") // Adjust your hashing method here
                 },
                 new User
                 {
@@ -94,7 +95,7 @@ namespace BackEnd_ASP.NET.Data
                     UserName = "jane.smith",
                     NormalizedUserName = "JANE.SMITH",
                     EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
+                    PasswordHash = passwordHasher.HashPassword(null, "12345678") // Adjust your hashing method here
                 }
             );
 
