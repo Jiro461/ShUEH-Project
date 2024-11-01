@@ -202,31 +202,6 @@ namespace BackEnd_ASP.NET.Controller
         {
             return await shoeService.UpdateShoeAsync(id, shoe);
         }
-
-        [HttpPost("cart")]
-        public async Task<IActionResult> GetCartShoe([FromBody] List<Guid> shoeIds)
-        {
-            if (shoeIds == null || shoeIds.Count == 0)
-            {
-                return BadRequest("No shoe IDs provided.");
-            }
-
-            var shoes = await shoeRepository.GetShoesByIdsAsync(shoeIds);
-            var shoesCartDTO = shoes.Select(shoe => new ShoeOrderDTO
-            {
-                ShoeId = shoe.Id,
-                Name = shoe.Name,
-                Brand = shoe.Brand,
-                MainImageUrl = shoe.ImageUrl,
-            }).ToList();
-
-            if (shoesCartDTO == null || shoesCartDTO.Count == 0)
-            {
-                return NotFound("No shoes found for the provided IDs.");
-            }
-
-            return Ok(shoesCartDTO);
-        }
         #endregion
     }
 }
