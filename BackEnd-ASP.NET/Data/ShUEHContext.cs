@@ -1,3 +1,4 @@
+using System.Net;
 using BackEnd_ASP.NET.Models;
 using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
@@ -2476,6 +2477,7 @@ namespace BackEnd_ASP.NET.Data
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
             RandomCommentData(modelBuilder, shoeIds.ToList(), UserId_1, UserId_2);
+            RandomSiteViewAndProductView(modelBuilder, shoeIds.ToList());
             //RandomData(modelBuilder);
         }
         private void RandomCommentData(ModelBuilder modelBuilder, List<Guid> shoeIds, Guid UserId_1, Guid UserId_2)
@@ -2645,8 +2647,93 @@ namespace BackEnd_ASP.NET.Data
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        //NIKE1
+        private void RandomSiteViewAndProductView(ModelBuilder modelBuilder, List<Guid> shoeIds)
+        {
+            const int minViewsPerProduct = 30;
+            const int maxViewsPerProduct = 50;
+            const int monthsBack = 6;
+            Random random = new Random();
+            // Seeding cho SiteViews
+            for (int i = 0; i < monthsBack; i++)
+            {
+                DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
+                SeedSiteViews(modelBuilder, month);
+            }
 
+            // Seeding cho ProductViews
+            foreach (var shoeId in shoeIds)
+            {
+                for (int i = 0; i < monthsBack; i++)
+                {
+                    DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
+                    int viewsToGenerate = random.Next(minViewsPerProduct, maxViewsPerProduct);
+                    SeedProductViews(modelBuilder, shoeId, month, viewsToGenerate);
+                }
+            }
+        }
+        private void SeedSiteViews(ModelBuilder modelBuilder, DateTime month)
+        {
+            int numberOfRecords = new Random().Next(50, 100);
+            var siteViews = new List<SiteView>();
+
+            for (int i = 0; i < numberOfRecords; i++)
+            {
+                siteViews.Add(new SiteView
+                {
+                    Id = Guid.NewGuid(),
+                    Ipaddress = GenerateRandomPublicIpAddress(),
+                    Device = GenerateRandomDevice(),
+                    ViewedDate = month
+                });
+            }
+
+            modelBuilder.Entity<SiteView>().HasData(siteViews.ToArray());
+        }
+
+        private void SeedProductViews(ModelBuilder modelBuilder, Guid productId, DateTime month, int viewsToGenerate)
+        {
+            var random = new Random();
+            var productViews = new List<ProductView>();
+
+            for (int i = 0; i < viewsToGenerate; i++)
+            {
+                productViews.Add(new ProductView
+                {
+                    Id = Guid.NewGuid(),
+                    ProductId = productId,
+                    UserId = Guid.NewGuid(),
+                    IPAddress = null,
+                    ViewedDate = month.AddDays(random.Next(1, 28)).AddHours(random.Next(24)).AddMinutes(random.Next(60))
+                });
+            }
+
+            modelBuilder.Entity<ProductView>().HasData(productViews.ToArray());
+        }
+
+        private static string GenerateRandomPublicIpAddress()
+        {
+            var random = new Random();
+            byte[] data;
+
+            // Địa chỉ IP từ 1.0.0.0 đến 223.255.255.255 là các dải công cộng.
+            do
+            {
+                data = new byte[4];
+                random.NextBytes(data);
+            } while (data[0] == 10 || // Dải riêng 10.0.0.0/8
+                     (data[0] == 172 && (data[1] >= 16 && data[1] <= 31)) || // Dải riêng 172.16.0.0/12
+                     (data[0] == 192 && data[1] == 168)); // Dải riêng 192.168.0.0/16
+
+            IPAddress ip = new IPAddress(data);
+            return ip.ToString();
+        }
+
+
+        private static string GenerateRandomDevice()
+        {
+            string[] devices = { "Laptop", "Desktop", "Mobile", "Tablet" };
+            return devices[new Random().Next(devices.Length)];
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Shoe> Shoes { get; set; }
@@ -2664,5 +2751,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ProductView> ProductViews { get; set; }
+        public DbSet<SiteView> SiteViews { get; set; }
     }
 }

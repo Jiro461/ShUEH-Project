@@ -84,7 +84,7 @@ export const menu_data = [
 
 ]
 
-
+//Thống kê các đơn hàng có giá trị cao nhất
 export const top_Deals = [
     {
         id: 1,
@@ -95,7 +95,7 @@ export const top_Deals = [
     },
     {
         id: 2,
-        img: "/profile.svg",
+        img: "/profile.svg", 
         username: "Mach Gia Huy 2",
         email: "huymachgia555@gmail2.com",
         amount: "3800000"
@@ -143,7 +143,7 @@ export const top_Deals = [
         amount: "3600000"
     },
 ]
-
+//Thống kê số lượng User mỗi tháng
 export const chartBoxUser = {
     color: "#8884d8",
     icon: "/userIcon.svg",
@@ -161,7 +161,7 @@ export const chartBoxUser = {
       { name: "Sat", users: 450 },
     ],
   };
-  
+//Thống kê số lượng sản phẩm mỗi tháng
 export const chartBoxProduct = {
     color: "skyblue",
     icon: "/productIcon.svg",
@@ -179,6 +179,7 @@ export const chartBoxProduct = {
       { name: "Sat", products: 450 },
     ],
   };
+//Thống kê tổng doanh thu mỗi tháng
   export const chartBoxRevenue = {
     color: "teal",
     icon: "/revenueIcon.svg",
@@ -196,6 +197,7 @@ export const chartBoxProduct = {
       { name: "Sat", revenue: 450 },
     ],
   };
+  
   export const chartBoxConversion = {
     color: "gold",
     icon: "/conversionIcon.svg",
