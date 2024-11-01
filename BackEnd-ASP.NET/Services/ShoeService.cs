@@ -24,7 +24,7 @@ namespace BackEnd_ASP.NET.Services
             this.webHostEnvironment = webHostEnvironment;
         }
         // Lấy tất cả giày từ kho
-        public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10)
+        public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = -1, int pageSize = -1)
         {
             var shoes = await shoeRepository.GetAllShoesAsync(page, pageSize);
             IEnumerable<ShoeGetAllDTO>? shoesDTO;

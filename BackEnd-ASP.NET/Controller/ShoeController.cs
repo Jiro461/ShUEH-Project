@@ -125,6 +125,17 @@ namespace BackEnd_ASP.NET.Controller
         #endregion
         #region ComplexAPI
         [HttpGet("all")]
+        public async Task<IActionResult> GetAllShoes()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var shoes = userId == null
+                ? await shoeService.GetAllShoesAsync()
+                : await shoeService.GetAllShoesAsync(Guid.Parse(userId));
+            if (shoes == null) return NotFound("Not Found Any Shoe");
+            return Ok(shoes);
+        }
+        //Get all shoes for admin
+        [HttpGet("admin/all")]
         public async Task<IActionResult> GetAllShoesAdminAsync()
         {
             var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails)
