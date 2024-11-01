@@ -76,7 +76,7 @@ namespace BackEnd_ASP.NET.Data
                     RoleId = adminRoleId, // Use RoleId here
                     Email = "machgiahuy@gmail.com",
                     NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
-                    UserName = "Mach Gia Huy",
+                    UserName = "machgiahuy",
                     NormalizedUserName = "JOHN.DOE",
                     EmailConfirmed = false,
                     PasswordHash = passwordHasher.HashPassword(null, "12345678") // Adjust your hashing method here
