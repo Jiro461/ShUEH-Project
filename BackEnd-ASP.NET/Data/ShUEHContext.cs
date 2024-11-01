@@ -1,3 +1,4 @@
+using System.Net;
 using BackEnd_ASP.NET.Models;
 using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
@@ -51,6 +52,7 @@ namespace BackEnd_ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var passwordHasher = new PasswordHasher<User>();
             // Seed data for Roles
             var adminRoleId = Guid.NewGuid();
             var userRoleId = Guid.NewGuid();
@@ -59,12 +61,13 @@ namespace BackEnd_ASP.NET.Data
                 new Role { Id = adminRoleId, Name = "Admin", Description = "Role Admin với đầy đủ các quyền hạn" },
                 new Role { Id = userRoleId, Name = "User", Description = "Role User với các quyền hạn có giới hạn và mua hàng" }
             );
-
+            Guid UserId_1 = Guid.NewGuid();
+            Guid UserId_2 = Guid.NewGuid();
             // Seed data for Users
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = UserId_1,
                     FirstName = "Mach",
                     LastName = "Gia Huy",
                     DateOfBirth = "14/11/2204".ToDateTime(), // Adjust your date creation here
@@ -73,14 +76,14 @@ namespace BackEnd_ASP.NET.Data
                     RoleId = adminRoleId, // Use RoleId here
                     Email = "machgiahuy@gmail.com",
                     NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
-                    UserName = "Mach Gia Huy",
+                    UserName = "machgiahuy",
                     NormalizedUserName = "JOHN.DOE",
                     EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
+                    PasswordHash = passwordHasher.HashPassword(null, "12345678") // Adjust your hashing method here
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = UserId_2,
                     FirstName = "Jane",
                     LastName = "Smith",
                     DateOfBirth = "10/05/2004".ToDateTime(), // Adjust your date creation here
@@ -92,17 +95,17 @@ namespace BackEnd_ASP.NET.Data
                     UserName = "jane.smith",
                     NormalizedUserName = "JANE.SMITH",
                     EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
+                    PasswordHash = passwordHasher.HashPassword(null, "12345678") // Adjust your hashing method here
                 }
             );
 
-            ShoeSeeding(modelBuilder);
+            ShoeSeeding(modelBuilder, UserId_1, UserId_2);
 
 
             base.OnModelCreating(modelBuilder);
         }
 
-        private void ShoeSeeding(ModelBuilder modelBuilder)
+        private void ShoeSeeding(ModelBuilder modelBuilder, Guid UserId_1, Guid UserId_2)
         {
             Guid IDGiay_1 = Guid.NewGuid();
             Guid IDGiay_2 = Guid.NewGuid();
@@ -724,7 +727,7 @@ namespace BackEnd_ASP.NET.Data
                      Discount = 0.0M,
                      CreateDate = DateTime.Now,
                      LastModifiedDate = DateTime.Now
-                 },    
+                 },
                  // HOME 1
                  new Shoe
                  {
@@ -2454,7 +2457,7 @@ namespace BackEnd_ASP.NET.Data
             List<ShoeDetail> shoeDetails = new List<ShoeDetail>();
             for (int i = 0; i < shoeIds.Length; i++)
             {
-                int initialSize = rand.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
+                int initialSize = rand.Next(36, 46); // Sinh size đầu tiên từ 36 đến 45
                 int maxAdditionalSizes = rand.Next(3, 5);
                 for (int j = 0; j <= maxAdditionalSizes; j++)
                 {
@@ -2474,17 +2477,63 @@ namespace BackEnd_ASP.NET.Data
             }
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
+            RandomCommentData(modelBuilder, shoeIds.ToList(), UserId_1, UserId_2);
+            RandomSiteViewAndProductView(modelBuilder, shoeIds.ToList());
             //RandomData(modelBuilder);
         }
+        private void RandomCommentData(ModelBuilder modelBuilder, List<Guid> shoeIds, Guid UserId_1, Guid UserId_2)
+        {
+            string[] descriptions = {
+                "Perfect for all sports activities.",
+                "Provides excellent comfort and support.",
+                "Stylish design for both casual and athletic wear.",
+                "Lightweight and durable for high-performance.",
+                "Designed for optimum traction on various surfaces.",
+                "Breathable material keeps your feet cool and dry.",
+                "A versatile shoe for any occasion.",
+                "Enhances performance and boosts confidence."
+            };
+            Random random = new Random();
+            for (int i = 0; i < shoeIds.Count; i++)
+            {
+                Guid shoeId = shoeIds[i];
+                int totalComments = random.Next(1, 10);
+                for (int j = 0; j < totalComments; j++)
+                {
+                    Guid commentId = Guid.NewGuid();
+                    modelBuilder.Entity<Comment>().HasData(
+                        new Comment
+                        {
+                            Id = commentId,
+                            ShoeId = shoeId,
+                            UserId = UserId_1,
+                            Description = GenerateRandomDescription(descriptions),
+                            Rate = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+                            CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
+                            LastModifiedDate = DateTime.Now
+                        }
+                    );
+                    int totalLike = random.Next(0, 100);
+                    for (int k = 0; k < totalLike; k++)
+                    {
+                        modelBuilder.Entity<CommentLike>().HasData(
+                            new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = UserId_2 }
+                        );
+                    }
+                }
 
-        private void RandomData(ModelBuilder modelBuilder)
+            }
+
+        }
+        //Random Shoe Data
+        private void RandomShoeData(ModelBuilder modelBuilder)
         {
             Random random = new Random();
             string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
             string[] materials = { "Leather", "Synthetic", "Mesh", "Canvas", "Rubber" };
             string[] categories = { "Running", "Football", "Basketball", "Tennis", "Gym & Training" };
             string[] seasons = { "Summer", "Spring", "Winter", "Autumn" };
-            string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange" };
+            string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange", "Pink", "Grey", "Brown" };
             string[] descriptions = {
                     "Perfect for all sports activities.",
                     "Provides excellent comfort and support.",
@@ -2599,8 +2648,93 @@ namespace BackEnd_ASP.NET.Data
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        //NIKE1
+        private void RandomSiteViewAndProductView(ModelBuilder modelBuilder, List<Guid> shoeIds)
+        {
+            const int minViewsPerProduct = 30;
+            const int maxViewsPerProduct = 50;
+            const int monthsBack = 6;
+            Random random = new Random();
+            // Seeding cho SiteViews
+            for (int i = 0; i < monthsBack; i++)
+            {
+                DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
+                SeedSiteViews(modelBuilder, month);
+            }
 
+            // Seeding cho ProductViews
+            foreach (var shoeId in shoeIds)
+            {
+                for (int i = 0; i < monthsBack; i++)
+                {
+                    DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
+                    int viewsToGenerate = random.Next(minViewsPerProduct, maxViewsPerProduct);
+                    SeedProductViews(modelBuilder, shoeId, month, viewsToGenerate);
+                }
+            }
+        }
+        private void SeedSiteViews(ModelBuilder modelBuilder, DateTime month)
+        {
+            int numberOfRecords = new Random().Next(50, 100);
+            var siteViews = new List<SiteView>();
+
+            for (int i = 0; i < numberOfRecords; i++)
+            {
+                siteViews.Add(new SiteView
+                {
+                    Id = Guid.NewGuid(),
+                    Ipaddress = GenerateRandomPublicIpAddress(),
+                    Device = GenerateRandomDevice(),
+                    ViewedDate = month
+                });
+            }
+
+            modelBuilder.Entity<SiteView>().HasData(siteViews.ToArray());
+        }
+
+        private void SeedProductViews(ModelBuilder modelBuilder, Guid productId, DateTime month, int viewsToGenerate)
+        {
+            var random = new Random();
+            var productViews = new List<ProductView>();
+
+            for (int i = 0; i < viewsToGenerate; i++)
+            {
+                productViews.Add(new ProductView
+                {
+                    Id = Guid.NewGuid(),
+                    ProductId = productId,
+                    UserId = Guid.NewGuid(),
+                    IPAddress = null,
+                    ViewedDate = month.AddDays(random.Next(1, 28)).AddHours(random.Next(24)).AddMinutes(random.Next(60))
+                });
+            }
+
+            modelBuilder.Entity<ProductView>().HasData(productViews.ToArray());
+        }
+
+        private static string GenerateRandomPublicIpAddress()
+        {
+            var random = new Random();
+            byte[] data;
+
+            // Địa chỉ IP từ 1.0.0.0 đến 223.255.255.255 là các dải công cộng.
+            do
+            {
+                data = new byte[4];
+                random.NextBytes(data);
+            } while (data[0] == 10 || // Dải riêng 10.0.0.0/8
+                     (data[0] == 172 && (data[1] >= 16 && data[1] <= 31)) || // Dải riêng 172.16.0.0/12
+                     (data[0] == 192 && data[1] == 168)); // Dải riêng 192.168.0.0/16
+
+            IPAddress ip = new IPAddress(data);
+            return ip.ToString();
+        }
+
+
+        private static string GenerateRandomDevice()
+        {
+            string[] devices = { "Laptop", "Desktop", "Mobile", "Tablet" };
+            return devices[new Random().Next(devices.Length)];
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Shoe> Shoes { get; set; }
@@ -2618,5 +2752,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ProductView> ProductViews { get; set; }
+        public DbSet<SiteView> SiteViews { get; set; }
     }
 }

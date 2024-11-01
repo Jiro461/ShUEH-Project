@@ -139,7 +139,7 @@ namespace BackEnd_ASP.NET.Controller
         [HttpGet("all/{page}/{pageSize}")]
         public async Task<IActionResult> GetAllShoesAsync(int page, int pageSize)
         {
-            if (page <= 0 || pageSize <= 0) return BadRequest("Invalid page or page size");
+            if (page < 0 || pageSize < 0) return BadRequest("Invalid page or page size");
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var totalShoes = await context.Shoes.CountAsync();
 

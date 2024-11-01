@@ -11,7 +11,7 @@ public class VnPayLibrary
 
     public void AddRequestData(string key, string value)
     {
-        if (!string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(key))
         {
             _requestData.Add(key, value);
         }
@@ -146,7 +146,7 @@ public class Utils
 
 public class VnPayCompare : IComparer<string>
 {
-    public int Compare(string x, string y)
+    public int Compare(string? x, string? y)
     {
         if (x == y) return 0;
         if (x == null) return -1;

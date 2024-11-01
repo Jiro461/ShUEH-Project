@@ -12,16 +12,16 @@ namespace BackEnd_ASP.NET.Controller
             _wishListService = wishListService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetWishList(HttpContext httpContext){
-            return await _wishListService.GetWishList(httpContext);
+        public async Task<IActionResult> GetWishList(){
+            return await _wishListService.GetWishList(HttpContext);
         }
         [HttpPost("{shoeId}")]
-        public async Task<IActionResult> AddToWishList(HttpContext httpContext, Guid shoeId){
-            return await _wishListService.AddToWishList(httpContext, shoeId);
+        public async Task<IActionResult> AddToWishList(Guid shoeId){
+            return await _wishListService.AddToWishList(HttpContext, shoeId);
         }
         [HttpDelete("{shoeId}")]
-        public async Task<IActionResult> RemoveFromWishList(HttpContext httpContext, Guid shoeId){
-            return await _wishListService.RemoveFromWishList(httpContext, shoeId);
+        public async Task<IActionResult> RemoveFromWishList(Guid shoeId){
+            return await _wishListService.RemoveFromWishList(HttpContext, shoeId);
         }
     }
 }

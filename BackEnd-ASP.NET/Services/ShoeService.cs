@@ -89,7 +89,9 @@ namespace BackEnd_ASP.NET.Services
             if (shoe == null)
                 return BadRequest("Shoe data is required."); // Kiểm tra dữ liệu đầu vào
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
-
+            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand ).FirstOrDefault();
+            if(existingShoe != null) 
+            return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
             // Tạo một đối tượng giày mới
             var newshoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
             {
@@ -250,7 +252,7 @@ namespace BackEnd_ASP.NET.Services
                 IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
                 SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
                 CreateDate = shoe.CreateDate,
-                TotalRatings = shoe.TotalRatings,
+                TotalRatings = shoe.Comments?.Count ?? 0,
                 AverageRating = shoe.AverageRating,
                 Sold = shoe.Sold,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
@@ -292,6 +294,7 @@ namespace BackEnd_ASP.NET.Services
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Price = shoe.Price,
                 AverageRating = shoe.AverageRating,
+                TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
                 IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14),
                 CreateDate = shoe.CreateDate,
@@ -319,7 +322,7 @@ namespace BackEnd_ASP.NET.Services
                 Category = shoe.Category ?? string.Empty,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 AverageRating = shoe.AverageRating,
-                TotalRatings = shoe.TotalRatings,
+                TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
                 Price = shoe.Price,
                 SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,

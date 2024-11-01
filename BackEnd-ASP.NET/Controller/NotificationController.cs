@@ -24,12 +24,12 @@ namespace BackEnd_ASP.NET.Controller
             _notificationService = notificationService;
         }
         [HttpGet("user")]
-        public async Task<IActionResult> GetUserNotifications(HttpContext httpContext){
-            return await _notificationService.GetUserNotifications(httpContext);
+        public async Task<IActionResult> GetUserNotifications(){
+            return await _notificationService.GetUserNotifications(HttpContext);
         }
         [HttpGet("admin")]
-        public async Task<IActionResult> GetAdminNotifications(HttpContext httpContext){
-            return await _notificationService.GetAdminNotifications(httpContext);
+        public async Task<IActionResult> GetAdminNotifications(){
+            return await _notificationService.GetAdminNotifications(HttpContext);
         }
   
     }

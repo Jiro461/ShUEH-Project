@@ -29,7 +29,14 @@ namespace BackEnd_ASP.NET.Services
             var order = await orderRepository.GetOrderByIdAsync(orderId);
             if (order == null || order.Status != OrderStatus.Pending)
                 return NotFound("Order not found or not in pending state.");
-
+            if(order.IsUsingDiscount)
+            {
+                var discount = await context.Discounts.FindAsync(order.DiscountId);
+                if(discount == null) return NotFound("Discount not found");
+                discount.Quantity -= 1;
+                context.Discounts.Update(discount);
+            }
+            //Giảm số lượng sản phẩm trong kho
             foreach (var item in order.OrderItems)
             {
                 var shoeDetail = await context.ShoeDetails

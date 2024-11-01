@@ -28,20 +28,20 @@ namespace BackEnd_ASP.NET.Controller.Cart
         }
         //Id is ShoeId, Size is ShoeSize
         [HttpPost("add")]
-        public async Task<IActionResult> AddToCart(Guid id, int size)
+        public async Task<IActionResult> AddToCart(Guid shoeId, int size)
         {
             ShoppingCartId = GetCartId();
 
             var cartItem = context.CartItems.SingleOrDefault(
                 c => c.SessionId == ShoppingCartId
-                && c.ShoeId == id && c.Size == size);
+                && c.ShoeId == shoeId && c.Size == size);
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists.                 
                 cartItem = new CartItem
                 {
                     SessionId = ShoppingCartId,
-                    ShoeId = id,
+                    ShoeId = shoeId,
                     Quantity = 1,
                     DateCreated = DateTime.Now,
                     Size = size
