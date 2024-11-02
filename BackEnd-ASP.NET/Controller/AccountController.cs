@@ -35,6 +35,11 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             return await accountService.DeleteUserByUserAsync(HttpContext);
         }
+        [HttpPost("add")]
+        public async Task<IActionResult> Add(UserAddDTO userAddDTO)
+        {
+            return await accountService.AddUserAsync(userAddDTO);
+        }
 
         [HttpGet("user/{id}")]
         public async Task<IActionResult> GetByIdFromQuery(Guid id)
