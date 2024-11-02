@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProductDescription = () => {
+const ProductDescription = ({ product, error, loading }) => {
   const [content, setContent] = useState('about');
 
   const changeContent = (tab, event) => {
@@ -28,6 +28,30 @@ const ProductDescription = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const shoe_color = product.colors.map((colo) => {
+    return (
+      <>
+        {colo.color + ", "}
+      </>
+    );
+  });
+
+  const shoe_season = product.seasons.map((seas) => {
+    return (
+      <>
+        {seas.season + ", "}
+      </>
+    );
+  });
+
   return (
     <>
       <h1>Description</h1>
@@ -39,9 +63,6 @@ const ProductDescription = () => {
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#nav" onClick={(e) => changeContent('size', e)}>Size table</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#nav" onClick={(e) => changeContent('shipping', e)}>Free shipping</a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#nav" onClick={(e) => changeContent('reviews', e)}>Reviews (12)</a>
@@ -57,11 +78,11 @@ const ProductDescription = () => {
       {/* Product Characteristics */}
       <div className="col-lg-3 characterist">
         <h3>Characteristics</h3>
-        <h4><span>Brand</span> Nike</h4>
-        <h4><span>Upper Material</span> Textile, Artificial Material</h4>
-        <h4><span>Color</span> White</h4>
-        <h4><span>Season</span> Summer, Spring</h4>
-        <h4><span>Code</span> A2731</h4>
+        <h4><span>Brand</span> {product.brand}</h4>
+        <h4><span>Upper Material</span> {product.material}</h4>
+        <h4><span>Color</span> {shoe_color}</h4>
+        <h4><span>Season</span> {shoe_season}</h4>
+        {/* <h4><span>Code</span> A2731</h4> */}
       </div>
     </>
 

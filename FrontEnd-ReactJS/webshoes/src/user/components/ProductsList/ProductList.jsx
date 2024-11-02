@@ -5,13 +5,13 @@ function ProductsList({ filters }) {
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
     const [animate, setAnimate] = useState(false);
-    const [favorites, setFavorites] = useState([]); 
+    const [favorites, setFavorites] = useState([]);
     const [isButtonHeld, setIsButtonHeld] = useState(false);
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
-
+    
+    // Fetch API
     const api_port = "http://localhost:5118/api/Shoe/all";
-
     useEffect(() => {
         fetch(api_port)
             .then((response) => response.json())
@@ -25,8 +25,9 @@ function ProductsList({ filters }) {
                     sport: product.category,
                     size: product.size,
                     color: product.color,
-                    isOnSale: product.isOnSale,
-                    imageURL: product.imageURL
+                    isSale: product.isSale,
+                    imageUrl: product.imageUrl,
+                    isNew: product.isNew
                 }));
                 setProducts(filteredData);
             })
@@ -39,17 +40,31 @@ function ProductsList({ filters }) {
         return () => clearTimeout(timer);
     }, [currentPage]);
 
-    // Lọc sản phẩm dựa trên các bộ lọc
+    useEffect(() => {
+        setAnimate(true);
+        const timer = setTimeout(() => setAnimate(false), 500);
+        return () => clearTimeout(timer);
+    }, [filters]);
+
+    console.log(filters.selectedBrands);
     const filteredProducts = products.filter(product => {
-        const matchesGender = filters.selectedGenders.length === 0 || filters.selectedGenders.some(g => g.sex === product.gender);
-        const matchesBrand = filters.selectedBrands.length === 0 || filters.selectedBrands.includes(product.brand);
+        const matchesGender =
+            filters.selectedGenders.length === 0 ||
+            filters.selectedGenders.some(g => g.id === product.gender);
+
+        const matchesBrand = filters.selectedBrands.length === 0 || filters.selectedBrands.some(b => b === product.brand);
+
         const matchesSport = filters.selectedSports.length === 0 || filters.selectedSports.some(s => s.name === product.sport);
+
         const matchesSize = filters.selectedSizes.length === 0 || filters.selectedSizes.some(size => size.value === product.size);
+
         const matchesColor = filters.selectedColors.length === 0 || filters.selectedColors.some(c => c.color === product.color);
+
         const matchesPrice = product.price >= filters.minValue && product.price <= filters.maxValue;
-        const matchesSale = !filters.isOnSale || product.isOnSale;
-        return matchesBrand && matchesGender && matchesSport && matchesSize;
-        //   && matchesColor && matchesPrice && matchesSale
+
+        const matchesSale = !filters.isSale || product.isSale;
+        return matchesGender && matchesBrand && matchesSport ;
+        //  && matchesGender  && matchesSize  && matchesColor  && matchesSale
     });
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -75,7 +90,9 @@ function ProductsList({ filters }) {
     const shoeList = currentItems.map((shoe) => (
         <li key={shoe.id} className={`col item ${animate ? 'fade-in' : ''}`}>
             <div className="image">
-                <img src={process.env.PUBLIC_URL + '/img/revolution7.png'} alt={shoe.name} />
+                <div className='url_img'>
+                    <img src={`http://localhost:5118/` + shoe.imageUrl} alt={shoe.name} />
+                </div>
                 <button
                     type="button"
                     className={`btn-buynow ${isButtonHeld ? 'scale-up' : ''}`}
@@ -87,15 +104,15 @@ function ProductsList({ filters }) {
                 </button>
             </div>
             <a href="" onClick={() => navigate(`/product/${shoe.id}`)}>
-                <div className="new">New</div>
+                <div className={`new + ${shoe.isNew ? "active" : ""}`}>New</div>
                 <div className="item-detail">
-                    <h4>{shoe.name}</h4>
+                    <h4>{shoe.name} / {shoe.brand}</h4>
                     <p>Pricing ${shoe.price}</p>
                 </div>
             </a>
             <div
                 className="btn-heart"
-                onClick={() => toggleFavorite(shoe)} 
+                onClick={() => toggleFavorite(shoe)}
             >
                 <i
                     className={`fa-solid fa-heart ${favorites.includes(shoe) ? 'active-heart' : ''}`}

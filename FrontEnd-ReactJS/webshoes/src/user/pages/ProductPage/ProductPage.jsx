@@ -12,16 +12,15 @@ function ProductPage() {
         isOnSale: false,
         selectedSizes: [],
         selectedColors: [],
-        minValue: 1000,
-        maxValue: 7000,
-        isMinOnTop: false,
-        isMaxOnTop: false,
+        minValue: 1000000,
+        maxValue: 11000000,
         selectedBrands: [],
         isNewest: false,
         isSizeUK: false,
     });
 
-    // console.log(filters.selectedBrands);
+    // cập nhật trạng thái filters với các giá trị mới.
+    // updateFilters nhận một đối tượng newFilters - các bộ lọc mới cần cập nhật.
     const updateFilters = (newFilters) => {
         setFilters((prevFilters) => ({
             ...prevFilters,
@@ -39,8 +38,6 @@ function ProductPage() {
                 selectedColors: [],
                 minValue: 1000,
                 maxValue: 7000,
-                isMinOnTop: false,
-                isMaxOnTop: false,
                 selectedBrands: [],
                 isNewest: false,
                 isSizeUK: false,

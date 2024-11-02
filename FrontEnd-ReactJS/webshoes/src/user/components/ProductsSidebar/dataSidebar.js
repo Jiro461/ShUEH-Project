@@ -1,12 +1,17 @@
 export const genders = [
     {
-        id: "gender" + 1,
+        id: 1,
         sex: "Man"
     },
 
     {
-        id: "gender" + 2,
+        id: 0,
         sex: "Woman"
+    },
+
+    {
+        id: 2,
+        sex: "Unisex"
     }
 ];
 
@@ -44,12 +49,12 @@ export const sports = [
 
 export const minPrices = {
     id: "min",
-    value: 0
+    value: 1000000
 };
 
 export const maxPrices = {
     id: "max",
-    value: 8000
+    value: 11000000
 };
 
 export const colors = [

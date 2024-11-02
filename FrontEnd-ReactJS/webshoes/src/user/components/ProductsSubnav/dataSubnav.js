@@ -7,7 +7,7 @@ export const brands = [
 
     {
         id: 'brands' + 2,
-        name: 'Adidas original',
+        name: 'Adidas',
         amountItem: 57
     },
 
