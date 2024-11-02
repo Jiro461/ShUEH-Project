@@ -94,12 +94,7 @@ namespace BackEnd_ASP.NET.Services
             if (existingShoe != null)
                 return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
             // Tạo một đối tượng giày mới
-            var newshoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
-            {
-                Id = Guid.NewGuid(),
-                Size = detail.Size,
-                Quantity = detail.Quantity
-            }).ToList();
+
             Guid newShoeId = Guid.NewGuid();
             var newShoe = new Shoe
             {
@@ -113,7 +108,12 @@ namespace BackEnd_ASP.NET.Services
                 Description = shoe.Description,
                 Price = shoe.Price,
                 IsSale = shoe.IsSale,
-                shoeDetails = newshoeDetails,
+                shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
+                {
+                    Id = Guid.NewGuid(),
+                    Size = detail.Size,
+                    Quantity = detail.Quantity
+                }).ToList(),
                 Sold = 0,
                 Discount = shoe.Discount,
                 Colors = shoe.Colors.Select(color => new ShoeColor
