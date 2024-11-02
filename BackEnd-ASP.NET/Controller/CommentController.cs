@@ -41,7 +41,7 @@ namespace PaymentAPI.Controllers
         [HttpGet("all/{shoeId}")]
         public async Task<IActionResult> GetAllCommentsAsync(Guid shoeId)
         {
-            return await _commentService.GetAllCommentsAsync(shoeId);
+            return await _commentService.GetAllCommentsAsync(shoeId, HttpContext);
         }
         [HttpPost]
         public async Task<IActionResult> AddCommentAsync(CommentDTO commentDTO)

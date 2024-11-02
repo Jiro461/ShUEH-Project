@@ -12,8 +12,8 @@ namespace BackEnd_ASP_NET
         #endregion
 
         #region Shoes
-        Task<object?> GetMostSoldShoesByMonthAsync();
-        Task<object?> GetMostViewedShoesByMonthAsync();
+        Object? GetMostSoldShoesByMonthAsync();
+        Object? GetMostViewedShoesByMonthAsync();
         Task<object?> GetSoldShoesQuantityByBrandInMonthAsync();
         #endregion
 

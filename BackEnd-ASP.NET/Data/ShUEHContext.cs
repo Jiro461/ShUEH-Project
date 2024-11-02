@@ -11,6 +11,8 @@ namespace BackEnd_ASP.NET.Data
 {
     public class ShUEHContext : DbContext
     {
+        public static bool IsSeeding { get; set; } = false; // Thuộc tính tĩnh để theo dõi quá trình seed
+
         public ShUEHContext(DbContextOptions<ShUEHContext> options) : base(options)
         {
 
@@ -30,6 +32,7 @@ namespace BackEnd_ASP.NET.Data
 
         private void UpdateDateTracking()
         {
+            if (IsSeeding) return;
             var entries = ChangeTracker.Entries()
                 .Where(e => e.Entity is IDateTracking &&
                             (e.State == EntityState.Added || e.State == EntityState.Modified));

@@ -57,16 +57,16 @@ namespace BackEnd_ASP_NET.Controllers
         }
 
         [HttpGet("shoes/most-sold-monthly")]
-        public async Task<IActionResult> GetMostSoldShoesByMonthAsync()
+        public IActionResult GetMostSoldShoesByMonthAsync()
         {
-            var shoes = await _statisticRepository.GetMostSoldShoesByMonthAsync();
+            var shoes = _statisticRepository.GetMostSoldShoesByMonthAsync();
             return Ok(shoes);
         }
 
         [HttpGet("shoes/most-viewed-monthly")]
-        public async Task<IActionResult> GetMostViewedShoesByMonthAsync()
+        public IActionResult GetMostViewedShoesByMonthAsync()
         {
-            var shoes = await _statisticRepository.GetMostViewedShoesByMonthAsync();
+            var shoes = _statisticRepository.GetMostViewedShoesByMonthAsync();
             return Ok(shoes);
         }
 
