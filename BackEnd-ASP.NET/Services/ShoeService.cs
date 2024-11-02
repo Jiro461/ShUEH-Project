@@ -34,7 +34,7 @@ namespace BackEnd_ASP.NET.Services
                 if (shoesDTO == null) return null;
                 return shoesDTO;
             }
-            shoesDTO = ConvertListToListShoeGetAllDTO(shoes.ToList(), null);
+            shoesDTO = ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), null);
             if (shoesDTO == null) return null;
             return shoesDTO;
 
@@ -47,7 +47,7 @@ namespace BackEnd_ASP.NET.Services
             var genderBinding = user.Gender.GenderBinding();
             var userWishlist = context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList();
             shoes = shoes.OrderByDescending(shoe => shoe.Gender == genderBinding || shoe.Gender == 2);
-            return ConvertListToListShoeGetAllDTO(shoes.ToList(), userId);
+            return ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), userId);
         }
         // Lấy giày theo ID từ người dùng
         public async Task<IActionResult> GetShoeByIdFromUserAsync(Guid id, Guid? userId = null)
@@ -280,11 +280,11 @@ namespace BackEnd_ASP.NET.Services
             };
             return shoeDTO;
         }
-        // Chuyển đổi danh sách giày thành danh sách giày từ người dùng
-        public List<ShoeGetDTO> ConvertListToListShoeGetDTO(List<Shoe> shoes, Guid? userId = null)
+        // Chuyển đổi danh sách giày thành DTO cho admin
+        public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForAdmin(List<Shoe> shoes, Guid? userId = null)
         {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
-            return shoes.Select(shoe => new ShoeGetDTO
+            return shoes.Select(shoe => new ShoeGetAllDTO
             {
                 Id = shoe.Id,
                 Name = shoe.Name,
@@ -294,36 +294,16 @@ namespace BackEnd_ASP.NET.Services
                 Gender = shoe.Gender,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Price = shoe.Price,
-                Description = shoe.Description ?? string.Empty,
                 AverageRating = shoe.AverageRating,
                 TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
                 IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14),
-                CreateDate = shoe.CreateDate,
                 IsSale = shoe.IsSale,
                 Discount = shoe.Discount,
-                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
                 IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
-                shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetailDTO
-                {
-                    Size = detail.Size,
-                    Quantity = detail.Quantity
-                }).ToList(),
-                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImageDTO
-                {
-                    Url = image.Url
-                }).ToList(),
-                Seasons = shoe.Seasons == null ? null : shoe.Seasons.Select(season => new ShoeSeasonDTO
-                {
-                    Season = season.Season
-                }).ToList(),
-                Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColorDTO
-                {
-                    Color = color.Color
-                }).ToList()
             }).ToList();
         }
-        public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTO(List<Shoe> shoes, Guid? userId = null)
+        public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForUser(List<Shoe> shoes, Guid? userId = null)
         {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
             return shoes.Select(shoe => new ShoeGetAllDTO
@@ -335,7 +315,6 @@ namespace BackEnd_ASP.NET.Services
                 Material = shoe.Material ?? string.Empty,
                 Category = shoe.Category ?? string.Empty,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
-                Description = shoe.Description ?? string.Empty,
                 AverageRating = shoe.AverageRating,
                 TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
