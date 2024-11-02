@@ -78,7 +78,7 @@ namespace BackEnd_ASP.NET.Models
         [Range(0, 100, ErrorMessage = "Discount must be between 0 and 100")]
         public decimal Discount { get; set; }
         [Required(ErrorMessage = "Other images are required.")]
-        public ICollection<ShoeImage>? OtherImages { get; set; } = new HashSet<ShoeImage>();
+        public ICollection<ShoeImageDTO>? OtherImages { get; set; } = new HashSet<ShoeImageDTO>();
         [Required(ErrorMessage = "Seasons are required.")]
         public ICollection<ShoeSeasonDTO>? Seasons { get; set; } = new HashSet<ShoeSeasonDTO>();
         [Required(ErrorMessage = "ShoeDetail are required.")]

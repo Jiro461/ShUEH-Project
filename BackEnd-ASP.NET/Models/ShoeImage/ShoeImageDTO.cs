@@ -4,7 +4,7 @@ namespace BackEnd_ASP_NET.Models
 {
     public class ShoeImageDTO
     {
-        public IFormFile? Url { get; set; }
+        public string? Url { get; set; }
 
     }
 }
