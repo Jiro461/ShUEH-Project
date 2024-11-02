@@ -2,12 +2,6 @@ using BackEnd_ASP_NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd_ASP.NET.Data;
 using Microsoft.EntityFrameworkCore;
-using BackEnd_ASP.NET.Models;
-using BackEnd_ASP_NET.Utilities.FileHelpers;
-using BackEnd_ASP.NET.Models.ShoeDetail;
-using BackEnd_ASP_NET.Utilities.Extensions;
-using System.Security.Claims;
-using BackEnd_ASP.NET.Services.VnPay;
 
 namespace BackEnd_ASP.NET.Services
 {
@@ -34,6 +28,11 @@ namespace BackEnd_ASP.NET.Services
                 var discount = await context.Discounts.FindAsync(order.DiscountId);
                 if(discount == null) return NotFound("Discount not found");
                 discount.Quantity -= 1;
+                if (discount.Quantity == 0)
+                {
+
+                    return await HandleFailedPaymentAsync(orderId, true);
+                }
                 context.Discounts.Update(discount);
             }
             //Giảm số lượng sản phẩm trong kho
@@ -64,7 +63,7 @@ namespace BackEnd_ASP.NET.Services
             return Ok("Order confirmed and inventory updated.");
         }
 
-        public async Task<IActionResult> HandleFailedPaymentAsync(Guid orderId)
+        public async Task<IActionResult> HandleFailedPaymentAsync(Guid orderId, bool isOutOfStock = false)
         {
             var order = await orderRepository.GetOrderByIdAsync(orderId);
             if (order == null || order.Status != OrderStatus.Pending)
@@ -74,7 +73,7 @@ namespace BackEnd_ASP.NET.Services
             await orderRepository.DeleteOrderAsync(order.Id);
 
             await context.SaveChangesAsync();
-
+            if(isOutOfStock) return BadRequest("Discount is out of stock");
             return Ok("Order cancelled due to failed payment.");
         }
     }

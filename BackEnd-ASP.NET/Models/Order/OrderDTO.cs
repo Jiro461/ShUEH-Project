@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using BackEnd_ASP_NET.Models;
 
-public sealed class OrderGetDTO
+public class OrderGetDTO
 {
     public Guid Id { get; set; }
     public DateTime OrderDate { get; set; }
@@ -17,7 +17,7 @@ public sealed class OrderGetDTO
     public PaymentMethod PaymentMethod { get; set; }
 }
 
-public sealed class OrderPostDTO
+public class OrderPostDTO
 {
     public DateTime OrderDate { get; set; }
     public OrderStatus Status { get; set; }

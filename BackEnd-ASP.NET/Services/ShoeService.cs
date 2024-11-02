@@ -24,7 +24,7 @@ namespace BackEnd_ASP.NET.Services
             this.webHostEnvironment = webHostEnvironment;
         }
         // Lấy tất cả giày từ kho
-        public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10)
+        public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = -1, int pageSize = -1)
         {
             var shoes = await shoeRepository.GetAllShoesAsync(page, pageSize);
             IEnumerable<ShoeGetAllDTO>? shoesDTO;
@@ -34,7 +34,7 @@ namespace BackEnd_ASP.NET.Services
                 if (shoesDTO == null) return null;
                 return shoesDTO;
             }
-            shoesDTO = ConvertListToListShoeGetAllDTO(shoes.ToList(), null);
+            shoesDTO = ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), null);
             if (shoesDTO == null) return null;
             return shoesDTO;
 
@@ -47,7 +47,7 @@ namespace BackEnd_ASP.NET.Services
             var genderBinding = user.Gender.GenderBinding();
             var userWishlist = context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList();
             shoes = shoes.OrderByDescending(shoe => shoe.Gender == genderBinding || shoe.Gender == 2);
-            return ConvertListToListShoeGetAllDTO(shoes.ToList(), userId);
+            return ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), userId);
         }
         // Lấy giày theo ID từ người dùng
         public async Task<IActionResult> GetShoeByIdFromUserAsync(Guid id, Guid? userId = null)
@@ -59,7 +59,7 @@ namespace BackEnd_ASP.NET.Services
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
             return Ok(shoeDTO);
         }
-        
+
         // Lấy giày theo ID từ admin
         public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
         {
@@ -76,7 +76,8 @@ namespace BackEnd_ASP.NET.Services
                 ViewCount = group.Count()
             }).FirstOrDefault();
             if (shoeViewByMonth == null) return NotFound($"Shoe with ID {id} not found.");
-            var response = new {
+            var response = new
+            {
                 shoeDTO,
                 shoeViewByMonth
             };
@@ -89,14 +90,11 @@ namespace BackEnd_ASP.NET.Services
             if (shoe == null)
                 return BadRequest("Shoe data is required."); // Kiểm tra dữ liệu đầu vào
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
-
+            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand).FirstOrDefault();
+            if (existingShoe != null)
+                return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
             // Tạo một đối tượng giày mới
-            var newshoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
-            {
-                Id = Guid.NewGuid(),
-                Size = detail.Size,
-                Quantity = detail.Quantity
-            }).ToList();
+
             Guid newShoeId = Guid.NewGuid();
             var newShoe = new Shoe
             {
@@ -110,7 +108,12 @@ namespace BackEnd_ASP.NET.Services
                 Description = shoe.Description,
                 Price = shoe.Price,
                 IsSale = shoe.IsSale,
-                shoeDetails = newshoeDetails,
+                shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
+                {
+                    Id = Guid.NewGuid(),
+                    Size = detail.Size,
+                    Quantity = detail.Quantity
+                }).ToList(),
                 Sold = 0,
                 Discount = shoe.Discount,
                 Colors = shoe.Colors.Select(color => new ShoeColor
@@ -153,10 +156,11 @@ namespace BackEnd_ASP.NET.Services
                 Color = color.Color,
                 ShoeId = existingShoe.Id
             }).ToList();
-            existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
+            if (updateShoe.MainImage != null)
+                existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
 
-
-            existingShoe.OtherImages = await UpdateShoeImageAsync(existingShoe, updateShoe);
+            if (updateShoe.AdditionalImages != null)
+                existingShoe.OtherImages = await UpdateShoeImageAsync(existingShoe, updateShoe);
 
             existingShoe.shoeDetails = updateShoe.shoeDetails.Select(detail => new ShoeDetail
             {
@@ -233,7 +237,8 @@ namespace BackEnd_ASP.NET.Services
             }
             return newImagesList;
         }
-        public ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null){
+        public ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null)
+        {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
             var shoeDTO = new ShoeGetDTO
             {
@@ -255,9 +260,8 @@ namespace BackEnd_ASP.NET.Services
                 Sold = shoe.Sold,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Description = shoe.Description ?? string.Empty,
-                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage
+                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImageDTO
                 {
-                    Id = image.Id,
                     Url = image.Url
                 }).ToList(),
                 shoeDetails = shoe.shoeDetails == null ? null : shoe.shoeDetails.Select(detail => new ShoeDetailDTO
@@ -277,11 +281,11 @@ namespace BackEnd_ASP.NET.Services
             };
             return shoeDTO;
         }
-        // Chuyển đổi danh sách giày thành danh sách giày từ người dùng
-        public List<ShoeGetDTO> ConvertListToListShoeGetDTO(List<Shoe> shoes, Guid? userId = null)
+        // Chuyển đổi danh sách giày thành DTO cho admin
+        public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForAdmin(List<Shoe> shoes, Guid? userId = null)
         {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
-            return shoes.Select(shoe => new ShoeGetDTO
+            return shoes.Select(shoe => new ShoeGetAllDTO
             {
                 Id = shoe.Id,
                 Name = shoe.Name,
@@ -295,19 +299,12 @@ namespace BackEnd_ASP.NET.Services
                 TotalRatings = shoe.Comments?.Count ?? 0,
                 Sold = shoe.Sold,
                 IsNew = shoe.CreateDate > DateTime.Now.AddDays(-14),
-                CreateDate = shoe.CreateDate,
                 IsSale = shoe.IsSale,
                 Discount = shoe.Discount,
-                SalePrice = shoe.IsSale ? shoe.Price * (1 - shoe.Discount / 100) : null,
                 IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
-                shoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetailDTO
-                {
-                    Size = detail.Size,
-                    Quantity = detail.Quantity
-                }).ToList()
             }).ToList();
         }
-        public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTO(List<Shoe> shoes, Guid? userId = null)
+        public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForUser(List<Shoe> shoes, Guid? userId = null)
         {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
             return shoes.Select(shoe => new ShoeGetAllDTO

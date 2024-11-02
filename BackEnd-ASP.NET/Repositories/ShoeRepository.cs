@@ -14,28 +14,23 @@ public class ShoeRepository : IShoeRepository
         _context = context;
         _dbSet = context.Shoes;
     }
-    public async Task<List<Shoe>> GetShoesByIdsAsync(List<Guid> shoeIds)
-    {
-        return await _dbSet
-                    .Where(shoe => shoeIds.Contains(shoe.Id))
-                    .ToListAsync();
-    }
+
     public async Task<IEnumerable<Shoe>> GetAllShoesAsync(int page, int pageSize)
     {
-        return await _dbSet.Include(shoe => shoe.shoeDetails)
+        var query = await _dbSet.Include(shoe => shoe.shoeDetails.OrderBy(detail => detail.Size))
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
                             .Include(shoe => shoe.Comments)
-                            .Skip(page * pageSize)
-                            .Take(pageSize)
                             .ToListAsync();
+        if(page == -1 && pageSize == -1) return query;
+        return query.Skip(page * pageSize).Take(pageSize);
     }
 
     public async Task<Shoe?> GetShoeByIdAsync(Guid id)
     {
         return await _dbSet.Where(shoe => shoe.Id == id)
-                            .Include(shoe => shoe.shoeDetails)
+                            .Include(shoe => shoe.shoeDetails.OrderBy(detail => detail.Size))
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
@@ -82,7 +77,8 @@ public class ShoeRepository : IShoeRepository
         }
         //Xóa comment
         _context.Comments.RemoveRange(shoeComments);
-
+        //Xóa notification
+        _context.Notifications.RemoveRange(_context.Notifications.Where(n => n.ShoeId == id));
         _dbSet.Remove(shoe);
         await _context.SaveChangesAsync();
         return true;

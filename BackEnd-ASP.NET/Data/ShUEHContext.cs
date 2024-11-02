@@ -1,3 +1,4 @@
+using System.Net;
 using BackEnd_ASP.NET.Models;
 using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
@@ -36,7 +37,6 @@ namespace BackEnd_ASP.NET.Data
             foreach (var entry in entries)
             {
                 var dateTrackingEntity = (IDateTracking)entry.Entity;
-
                 // Sử dụng DateTimeOffset cho thời gian với múi giờ Việt Nam
                 var vietnamTime = MyDateTime.VietNam; // UTC+7
 
@@ -51,59 +51,12 @@ namespace BackEnd_ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Seed data for Roles
-            var adminRoleId = Guid.NewGuid();
-            var userRoleId = Guid.NewGuid();
-
-            modelBuilder.Entity<Role>().HasData(
-                new Role { Id = adminRoleId, Name = "Admin", Description = "Role Admin với đầy đủ các quyền hạn" },
-                new Role { Id = userRoleId, Name = "User", Description = "Role User với các quyền hạn có giới hạn và mua hàng" }
-            );
-            Guid UserId_1 = Guid.NewGuid();
-            Guid UserId_2 = Guid.NewGuid();
-            // Seed data for Users
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = UserId_1,
-                    FirstName = "Mach",
-                    LastName = "Gia Huy",
-                    DateOfBirth = "14/11/2204".ToDateTime(), // Adjust your date creation here
-                    Gender = true,
-                    TotalMoney = 1000m,
-                    RoleId = adminRoleId, // Use RoleId here
-                    Email = "machgiahuy@gmail.com",
-                    NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
-                    UserName = "Mach Gia Huy",
-                    NormalizedUserName = "JOHN.DOE",
-                    EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
-                },
-                new User
-                {
-                    Id = UserId_2,
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    DateOfBirth = "10/05/2004".ToDateTime(), // Adjust your date creation here
-                    Gender = false,
-                    TotalMoney = 1500m,
-                    RoleId = userRoleId, // Use RoleId here
-                    Email = "jane.smith@example.com",
-                    NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
-                    UserName = "jane.smith",
-                    NormalizedUserName = "JANE.SMITH",
-                    EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
-                }
-            );
-
-            ShoeSeeding(modelBuilder, UserId_1, UserId_2);
-
-
+    
+            ShoeSeeding(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
-        private void ShoeSeeding(ModelBuilder modelBuilder, Guid UserId_1, Guid UserId_2)
+        private void ShoeSeeding(ModelBuilder modelBuilder)
         {
             Guid IDGiay_1 = Guid.NewGuid();
             Guid IDGiay_2 = Guid.NewGuid();
@@ -2475,177 +2428,120 @@ namespace BackEnd_ASP.NET.Data
             }
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
-            RandomCommentData(modelBuilder, shoeIds.ToList(), UserId_1, UserId_2);
+            //RandomSiteViewAndProductView(modelBuilder, shoeIds.ToList());
             //RandomData(modelBuilder);
         }
-        private void RandomCommentData(ModelBuilder modelBuilder, List<Guid> shoeIds, Guid UserId_1, Guid UserId_2)
-        {
-            string[] descriptions = {
-                "Perfect for all sports activities.",
-                "Provides excellent comfort and support.",
-                "Stylish design for both casual and athletic wear.",
-                "Lightweight and durable for high-performance.",
-                "Designed for optimum traction on various surfaces.",
-                "Breathable material keeps your feet cool and dry.",
-                "A versatile shoe for any occasion.",
-                "Enhances performance and boosts confidence."
-            };
-            Random random = new Random();
-            for (int i = 0; i < shoeIds.Count; i++)
-            {
-                Guid shoeId = shoeIds[i];
-                int totalComments = random.Next(1, 10);
-                for (int j = 0; j < totalComments; j++)
-                {
-                    Guid commentId = Guid.NewGuid();
-                    modelBuilder.Entity<Comment>().HasData(
-                        new Comment
-                        {
-                            Id = commentId,
-                            ShoeId = shoeId,
-                            UserId = UserId_1,
-                            Description = GenerateRandomDescription(descriptions),
-                            Rate = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
-                            CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
-                            LastModifiedDate = DateTime.Now
-                        }
-                    );
-                    int totalLike = random.Next(0, 100);
-                    for (int k = 0; k < totalLike; k++)
-                    {
-                        modelBuilder.Entity<CommentLike>().HasData(
-                            new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = UserId_2 }
-                        );
-                    }
-                }
-
-            }
-
-        }
+        
         //Random Shoe Data
-        private void RandomShoeData(ModelBuilder modelBuilder)
-        {
-            Random random = new Random();
-            string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
-            string[] materials = { "Leather", "Synthetic", "Mesh", "Canvas", "Rubber" };
-            string[] categories = { "Running", "Football", "Basketball", "Tennis", "Gym & Training" };
-            string[] seasons = { "Summer", "Spring", "Winter", "Autumn" };
-            string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange", "Pink", "Grey", "Brown" };
-            string[] descriptions = {
-                    "Perfect for all sports activities.",
-                    "Provides excellent comfort and support.",
-                    "Stylish design for both casual and athletic wear.",
-                    "Lightweight and durable for high-performance.",
-                    "Designed for optimum traction on various surfaces.",
-                    "Breathable material keeps your feet cool and dry.",
-                    "A versatile shoe for any occasion.",
-                    "Enhances performance and boosts confidence."
-            };
-            for (int i = 1; i <= 29; i++)
-            {
-                Guid idGiay = Guid.NewGuid();
-                string brand = brands[random.Next(brands.Length)];
-                bool isSale = random.Next(0, 2) == 1;
+        // private void RandomShoeData(ModelBuilder modelBuilder)
+        // {
+        //     Random random = new Random();
+        //     string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
+        //     string[] materials = { "Leather", "Synthetic", "Mesh", "Canvas", "Rubber" };
+        //     string[] categories = { "Running", "Football", "Basketball", "Tennis", "Gym & Training" };
+        //     string[] seasons = { "Summer", "Spring", "Winter", "Autumn" };
+        //     string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange", "Pink", "Grey", "Brown" };
+        //     string[] descriptions = {
+        //             "Perfect for all sports activities.",
+        //             "Provides excellent comfort and support.",
+        //             "Stylish design for both casual and athletic wear.",
+        //             "Lightweight and durable for high-performance.",
+        //             "Designed for optimum traction on various surfaces.",
+        //             "Breathable material keeps your feet cool and dry.",
+        //             "A versatile shoe for any occasion.",
+        //             "Enhances performance and boosts confidence."
+        //     };
+        //     for (int i = 1; i <= 29; i++)
+        //     {
+        //         Guid idGiay = Guid.NewGuid();
+        //         string brand = brands[random.Next(brands.Length)];
+        //         bool isSale = random.Next(0, 2) == 1;
 
-                // Tạo tên ngẫu nhiên cho giày
-                string name = $"{brand} Model {GenerateRandomString(5)}";
+        //         // Tạo tên ngẫu nhiên cho giày
+        //         string name = $"{brand} Model {GenerateRandomString(5)}";
 
-                modelBuilder.Entity<Shoe>().HasData(
-                    new Shoe
-                    {
-                        Id = idGiay,
-                        Name = name,
-                        Brand = brand,
-                        Gender = random.Next(0, 3), // 0: nữ, 1: nam, 2: cả hai
-                        Material = materials[random.Next(materials.Length)],
-                        Category = categories[random.Next(categories.Length)],
-                        ImageUrl = "images/shoes/noimage.webp",
-                        Description = GenerateRandomDescription(descriptions),
-                        Price = random.Next(1000000, 4000000), // Random price between 1.5M and 3M
-                        Sold = random.Next(1, 350), // Random sold quantity
-                        AverageRating = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
-                        TotalRatings = random.Next(1, 200), // Random total ratings
-                        IsSale = isSale,
-                        Discount = isSale ? random.Next(5, 45) : 0, // Discount only if IsSale is true
-                        CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)), // Random date within the last 30 days
-                        LastModifiedDate = DateTime.Now
-                    }
-                );
+        //         modelBuilder.Entity<Shoe>().HasData(
+        //             new Shoe
+        //             {
+        //                 Id = idGiay,
+        //                 Name = name,
+        //                 Brand = brand,
+        //                 Gender = random.Next(0, 3), // 0: nữ, 1: nam, 2: cả hai
+        //                 Material = materials[random.Next(materials.Length)],
+        //                 Category = categories[random.Next(categories.Length)],
+        //                 ImageUrl = "images/shoes/noimage.webp",
+        //                 Description = GenerateRandomDescription(descriptions),
+        //                 Price = random.Next(1000000, 4000000), // Random price between 1.5M and 3M
+        //                 Sold = random.Next(1, 350), // Random sold quantity
+        //                 AverageRating = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+        //                 TotalRatings = random.Next(1, 200), // Random total ratings
+        //                 IsSale = isSale,
+        //                 Discount = isSale ? random.Next(5, 45) : 0, // Discount only if IsSale is true
+        //                 CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)), // Random date within the last 30 days
+        //                 LastModifiedDate = DateTime.Now
+        //             }
+        //         );
 
-                // Shoe Seasons: Chọn ngẫu nhiên số mùa (từ 2 đến 5)
-                int seasonCount = random.Next(2, 6);
-                var selectedSeasons = seasons.OrderBy(x => random.Next()).Take(seasonCount).ToList();
+        //         // Shoe Seasons: Chọn ngẫu nhiên số mùa (từ 2 đến 5)
+        //         int seasonCount = random.Next(2, 6);
+        //         var selectedSeasons = seasons.OrderBy(x => random.Next()).Take(seasonCount).ToList();
 
-                foreach (var season in selectedSeasons)
-                {
-                    modelBuilder.Entity<ShoeSeason>().HasData(
-                        new ShoeSeason
-                        {
-                            ShoeId = idGiay,
-                            Id = Guid.NewGuid(),
-                            Season = season
-                        }
-                    );
-                }
+        //         foreach (var season in selectedSeasons)
+        //         {
+        //             modelBuilder.Entity<ShoeSeason>().HasData(
+        //                 new ShoeSeason
+        //                 {
+        //                     ShoeId = idGiay,
+        //                     Id = Guid.NewGuid(),
+        //                     Season = season
+        //                 }
+        //             );
+        //         }
 
-                // Shoe Colors: Randomly add between 1 to 4 colors
-                for (int j = 0; j < random.Next(1, 5); j++)
-                {
-                    modelBuilder.Entity<ShoeColor>().HasData(
-                        new ShoeColor
-                        {
-                            ShoeId = idGiay,
-                            Id = Guid.NewGuid(),
-                            Color = colors[random.Next(colors.Length)]
-                        }
-                    );
-                }
+        //         // Shoe Colors: Randomly add between 1 to 4 colors
+        //         for (int j = 0; j < random.Next(1, 5); j++)
+        //         {
+        //             modelBuilder.Entity<ShoeColor>().HasData(
+        //                 new ShoeColor
+        //                 {
+        //                     ShoeId = idGiay,
+        //                     Id = Guid.NewGuid(),
+        //                     Color = colors[random.Next(colors.Length)]
+        //                 }
+        //             );
+        //         }
 
-                // Shoe Images: All images are set to the same URL
-                modelBuilder.Entity<ShoeImage>().HasData(
-                    new ShoeImage
-                    {
-                        Id = Guid.NewGuid(),
-                        ShoeId = idGiay,
-                        Url = "images/shoes/noimage.webp"
-                    }
-                );
-                int initialSize = random.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
-                int maxAdditionalSizes = random.Next(3, 5);
-                for (int j = 0; j <= maxAdditionalSizes; j++)
-                {
-                    int currentSize = initialSize + j;
-                    // Nếu là size đầu tiên, sử dụng initialSize, 
-                    // các size tiếp theo sẽ lớn hơn size trước đó và nhỏ hơn 45
+        //         // Shoe Images: All images are set to the same URL
+        //         modelBuilder.Entity<ShoeImage>().HasData(
+        //             new ShoeImage
+        //             {
+        //                 Id = Guid.NewGuid(),
+        //                 ShoeId = idGiay,
+        //                 Url = "images/shoes/noimage.webp"
+        //             }
+        //         );
+        //         int initialSize = random.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
+        //         int maxAdditionalSizes = random.Next(3, 5);
+        //         for (int j = 0; j <= maxAdditionalSizes; j++)
+        //         {
+        //             int currentSize = initialSize + j;
+        //             // Nếu là size đầu tiên, sử dụng initialSize, 
+        //             // các size tiếp theo sẽ lớn hơn size trước đó và nhỏ hơn 45
 
-                    modelBuilder.Entity<ShoeDetail>().HasData(
-                        new ShoeDetail
-                        {
-                            Id = Guid.NewGuid(),
-                            ShoeId = idGiay, // Sử dụng Guid đã được tạo trước
-                            Size = currentSize, // Size đảm bảo theo logic
-                            Quantity = random.Next(0, 55) // Quantity ngẫu nhiên từ 0 tới 20
-                        }
-                    );
-                }
-            }
+        //             modelBuilder.Entity<ShoeDetail>().HasData(
+        //                 new ShoeDetail
+        //                 {
+        //                     Id = Guid.NewGuid(),
+        //                     ShoeId = idGiay, // Sử dụng Guid đã được tạo trước
+        //                     Size = currentSize, // Size đảm bảo theo logic
+        //                     Quantity = random.Next(0, 55) // Quantity ngẫu nhiên từ 0 tới 20
+        //                 }
+        //             );
+        //         }
+        //     }
 
-        }
-        private string GenerateRandomDescription(string[] descriptions)
-        {
-            Random random = new Random();
-            // Chọn ngẫu nhiên một mô tả từ danh sách
-            return descriptions[random.Next(descriptions.Length)];
-        }
+        // }
 
-        private string GenerateRandomString(int length)
-        {
-            Random random = new Random();
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-        //NIKE1
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -2664,5 +2560,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ProductView> ProductViews { get; set; }
+        public DbSet<SiteView> SiteViews { get; set; }
     }
 }

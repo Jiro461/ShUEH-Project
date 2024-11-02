@@ -25,11 +25,20 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             this.accountService = accountService;
         }
-
-        [HttpGet("user/delete")]
+        [HttpDelete("admin/delete/{id}")]
+        public async Task<IActionResult> DeleteByAdmin(Guid id)
+        {
+            return await accountService.DeleteUserByAdminAsync(id);
+        }
+        [HttpDelete("user/delete")]
         public async Task<IActionResult> Delete()
         {
-            return await accountService.DeleteUserAsync(HttpContext);
+            return await accountService.DeleteUserByUserAsync(HttpContext);
+        }
+        [HttpPost("add")]
+        public async Task<IActionResult> Add(UserAddDTO userAddDTO)
+        {
+            return await accountService.AddUserAsync(userAddDTO);
         }
 
         [HttpGet("user/{id}")]

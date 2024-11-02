@@ -1,0 +1,298 @@
+// DatabaseSeeder.cs
+using System.Net;
+using BackEnd_ASP.NET.Data;
+using BackEnd_ASP_NET.Models;
+using BackEnd_ASP_NET.Utilities.Extensions;
+using Microsoft.AspNetCore.Identity;
+
+public class DatabaseSeeder
+{
+    private readonly ShUEHContext _context;
+    private readonly UserManager<User> _userManager;
+    private readonly Random _random = new Random();
+
+    public DatabaseSeeder(ShUEHContext context, UserManager<User> userManager)
+    {
+        _context = context;
+        _userManager = userManager;
+    }
+
+    public async Task SeedData(List<Guid> shoeIds)
+    {
+        List<Guid> roleIds = CreateRole();
+        List<Guid> userIds = await CreateUsersAsync(roleIds[1], roleIds[0]);
+        RandomCommentData(shoeIds, userIds);
+        RandomSiteViewAndProductView(shoeIds);
+        _context.SaveChanges();
+    }
+    #region Seed Data
+    private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds)
+    {
+
+        Random random = new Random();
+        for (int i = 0; i < shoeIds.Count; i++)
+        {
+            Guid shoeId = shoeIds[i];
+            int totalComments = random.Next(1, 10);
+            for (int j = 0; j < totalComments; j++)
+            {
+                Guid commentId = Guid.NewGuid();
+                _context.Comments.Add(
+                    new Comment
+                    {
+                        Id = commentId,
+                        ShoeId = shoeId,
+                        UserId = userIds[random.Next(0, userIds.Count)],
+                        Description = GenerateRandomDescription(),
+                        Rate = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+                        CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
+                        LastModifiedDate = DateTime.Now
+                    }
+                );
+                _context.SaveChanges();
+                int totalLike = random.Next(0, 50);
+                for (int k = 0; k < totalLike; k++)
+                {
+                    _context.CommentLikes.Add(
+                        new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] }
+                    );
+                }
+                _context.SaveChanges();
+            }
+
+        }
+        _context.SaveChanges();
+    }
+    private List<Guid> CreateRole()
+    {
+        var adminRoleId = Guid.NewGuid();
+        var userRoleId = Guid.NewGuid();
+        _context.Roles.Add(new Role { Id = adminRoleId, Name = "Admin", Description = "Role Admin với đầy đủ các quyền hạn" });
+        _context.Roles.Add(new Role { Id = userRoleId, Name = "User", Description = "Role User với các quyền hạn có giới hạn và mua hàng" });
+        _context.SaveChanges();
+        return new List<Guid> { adminRoleId, userRoleId };
+    }
+    private async Task<List<Guid>> CreateUsersAsync(Guid userRoleId, Guid adminRoleId)
+    {
+        const int userCount = 300;
+        var users = new List<User>();
+        List<Guid> userIds = new List<Guid>();
+        for (int i = 0; i < userCount; i++)
+        {
+            Guid userId = Guid.NewGuid();
+            User user;
+            if (i == 0)
+            {
+                user = new User
+                {
+                    Id = userId,
+                    FirstName = "Mach Gia",
+                    LastName = "Huy",
+                    DateOfBirth = "14/11/2004".ToDateTime(), // Sử dụng hàm chuyển đổi
+                    Gender = true,
+                    TotalMoney = 1000m,
+                    RoleId = adminRoleId, // Gán vai trò Admin
+                    Email = "machgiahuy@gmail.com",
+                    NormalizedEmail = "MACHGIAHUY@EXAMPLE.COM",
+                    UserName = "machgiahuy",
+                    NormalizedUserName = "MACHGIAHUY",
+                    AvatarUrl = $"/images/avatars/noavatar.png",
+                    ProfileName = $"Mach Gia Huy",
+                    IsExternalLogin = false,
+                    ProviderName = "Local",
+                    EmailConfirmed = true, // Xác nhận email
+                    CreateDate = GenerateRandomCreationDate(),
+                    LastModifiedDate = DateTime.UtcNow
+                };
+
+            }
+            else
+            {
+                // Sinh ra ngày sinh dạng chuỗi
+                string dobString = GenerateRandomDateOfBirthString();
+                string firstName = GenerateRandomFirstName();
+                string lastName = GenerateRandomLastName();
+                string userName = $"{firstName}{lastName}";
+
+                // Tạo user
+                user = new User
+                {
+                    Id = userId,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    DateOfBirth = dobString.ToDateTime(), // Sử dụng hàm chuyển đổi
+                    Gender = _random.Next(0, 2) == 0, // Random giới tính
+                    TotalMoney = 1000m,
+                    RoleId = userRoleId, // Gán vai trò Guest
+                    Email = $"{userName}@example.com",
+                    NormalizedEmail = $"{userName.ToUpper()}@EXAMPLE.COM",
+                    UserName = userName,
+                    NormalizedUserName = userName.ToUpper(),
+                    AvatarUrl = $"/images/avatars/noavatar.png",
+                    ProfileName = $"{firstName} {lastName}",
+                    IsExternalLogin = false,
+                    ProviderName = "Local",
+                    EmailConfirmed = true, // Xác nhận email
+                    CreateDate = GenerateRandomCreationDate(),
+                    LastModifiedDate = DateTime.UtcNow
+                };
+            }
+            var result = await _userManager.CreateAsync(user, "Test123456");
+            if (!result.Succeeded)
+            {
+                Console.WriteLine($"Error creating user {user.UserName}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+            }
+            else
+            {
+                userIds.Add(userId);
+                users.Add(user);
+            }
+        }
+
+        Console.WriteLine($"Created {users.Count} users.");
+        return userIds;
+    }
+    private void RandomSiteViewAndProductView(List<Guid> shoeIds)
+    {
+        const int minViewsPerProduct = 100;
+        const int maxViewsPerProduct = 150;
+        const int monthsBack = 6;
+
+        for (int i = 0; i < monthsBack; i++)
+        {
+            DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
+            SeedSiteViews(month);
+        }
+        _context.SaveChanges();
+
+        foreach (var shoeId in shoeIds)
+        {
+            for (int i = 0; i < monthsBack; i++)
+            {
+                DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
+                int viewsToGenerate = _random.Next(minViewsPerProduct, maxViewsPerProduct);
+                SeedProductViews(shoeId, month, viewsToGenerate);
+            }
+        }
+        _context.SaveChanges();
+    }
+    private void SeedSiteViews(DateTime month)
+    {
+        int numberOfRecords = _random.Next(200, 300);
+        var siteViews = new List<SiteView>();
+
+        for (int i = 0; i < numberOfRecords; i++)
+        {
+            siteViews.Add(new SiteView
+            {
+                Id = Guid.NewGuid(),
+                Ipaddress = GenerateRandomPublicIpAddress(),
+                Device = GenerateRandomDevice(),
+                ViewedDate = month
+            });
+        }
+
+        _context.SiteViews.AddRange(siteViews);
+    }
+
+    private void SeedProductViews(Guid productId, DateTime month, int viewsToGenerate)
+    {
+        var productViews = new List<ProductView>();
+
+        for (int i = 0; i < viewsToGenerate; i++)
+        {
+            productViews.Add(new ProductView
+            {
+                Id = Guid.NewGuid(),
+                ProductId = productId,
+                UserId = Guid.NewGuid(),
+                IPAddress = null,
+                ViewedDate = month.AddDays(_random.Next(1, 28)).AddHours(_random.Next(24)).AddMinutes(_random.Next(60))
+            });
+        }
+
+        _context.ProductViews.AddRange(productViews);
+    }
+
+    #endregion
+    #region Generate Extension
+    // Tạo chuỗi ngày sinh ngẫu nhiên dạng "dd/MM/yyyy"
+    private string GenerateRandomDateOfBirthString()
+    {
+        int yearsBack = _random.Next(18, 60);
+        DateTime randomDob = DateTime.UtcNow.AddYears(-yearsBack).AddDays(_random.Next(-365, 365));
+        return randomDob.ToString("dd/MM/yyyy");
+    }
+
+    // Các hàm khác (tạo tên, thời gian tạo ngẫu nhiên) giữ nguyên
+    private string GenerateRandomFirstName()
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Bảng chữ cái
+        int nameLength = _random.Next(4, 8); // Độ dài tên từ 4-8 ký tự
+
+        return GenerateRandomNameFromChars(chars, nameLength);
+    }
+
+    private string GenerateRandomLastName()
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Bảng chữ cái
+        int nameLength = _random.Next(4, 8); // Độ dài tên từ 4-8 ký tự
+
+        return GenerateRandomNameFromChars(chars, nameLength);
+    }
+
+    private string GenerateRandomNameFromChars(string chars, int length)
+    {
+        char[] name = new char[length];
+        for (int i = 0; i < length; i++)
+        {
+            name[i] = chars[_random.Next(chars.Length)];
+        }
+        return new string(name);
+    }
+
+    private DateTime GenerateRandomCreationDate()
+    {
+        int daysBack = _random.Next(0, 365);
+        return DateTime.UtcNow.AddDays(-daysBack).AddHours(_random.Next(0, 24)).AddMinutes(_random.Next(0, 60));
+    }
+    private static string GenerateRandomPublicIpAddress()
+    {
+        var random = new Random();
+        byte[] data;
+
+        do
+        {
+            data = new byte[4];
+            random.NextBytes(data);
+        } while (data[0] == 10 ||
+                 (data[0] == 172 && (data[1] >= 16 && data[1] <= 31)) ||
+                 (data[0] == 192 && data[1] == 168));
+
+        IPAddress ip = new IPAddress(data);
+        return ip.ToString();
+    }
+
+    private static string GenerateRandomDevice()
+    {
+        string[] devices = { "Laptop", "Desktop", "Mobile", "Tablet" };
+        return devices[new Random().Next(devices.Length)];
+    }
+    private string GenerateRandomDescription()
+    {
+        string[] descriptions = {
+                "Perfect for all sports activities.",
+                "Provides excellent comfort and support.",
+                "Stylish design for both casual and athletic wear.",
+                "Lightweight and durable for high-performance.",
+                "Designed for optimum traction on various surfaces.",
+                "Breathable material keeps your feet cool and dry.",
+                "A versatile shoe for any occasion.",
+                "Enhances performance and boosts confidence."
+            };
+        Random random = new Random();
+        // Chọn ngẫu nhiên một mô tả từ danh sách
+        return descriptions[random.Next(descriptions.Length)];
+    }
+    #endregion
+}

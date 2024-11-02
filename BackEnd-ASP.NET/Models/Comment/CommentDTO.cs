@@ -3,6 +3,7 @@ using BackEnd_ASP_NET.Models;
 public class CommentDTO
 {
     public Guid? Id { get; set; }
+    public GeneralReview GeneralReview { get; set; } = GeneralReview.Average;
     public string Comment { get; set; } = string.Empty;
     public decimal Rate { get; set; }
     public int TotalLike { get; set; }

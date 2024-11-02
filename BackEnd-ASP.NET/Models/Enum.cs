@@ -21,6 +21,15 @@ namespace BackEnd_ASP_NET.Models
         Cash,
     }
 
+    public enum GeneralReview
+    {
+        VeryGood,
+        Good,
+        Average,
+        Bad,
+        VeryBad,
+    }
+
     public static class RoleName {
 
         public const string User = "User";
