@@ -96,6 +96,7 @@ namespace BackEnd_ASP.NET.Services
             var commentDTOs = comments.Select(comment => new CommentDTO 
             {
                 Id = comment.Id,
+                GeneralReview = comment.GeneralReview,
                 Comment = comment.Description ?? string.Empty,
                 Rate = comment.Rate,
                 ShoeId = comment.ShoeId,
@@ -124,6 +125,7 @@ namespace BackEnd_ASP.NET.Services
             var comment = new Comment
             {
                 Description = commentDTO.Comment,
+                GeneralReview = commentDTO.GeneralReview,
                 Rate = commentDTO.Rate,
                 ShoeId = commentDTO.ShoeId,
                 UserId = Guid.Parse(userId),
