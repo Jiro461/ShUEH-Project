@@ -14,15 +14,10 @@ public class ShoeRepository : IShoeRepository
         _context = context;
         _dbSet = context.Shoes;
     }
-    public async Task<List<Shoe>> GetShoesByIdsAsync(List<Guid> shoeIds)
-    {
-        return await _dbSet
-                    .Where(shoe => shoeIds.Contains(shoe.Id))
-                    .ToListAsync();
-    }
+
     public async Task<IEnumerable<Shoe>> GetAllShoesAsync(int page, int pageSize)
     {
-        var query = await _dbSet.Include(shoe => shoe.shoeDetails)
+        var query = await _dbSet.Include(shoe => shoe.shoeDetails.OrderBy(detail => detail.Size))
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
@@ -35,7 +30,7 @@ public class ShoeRepository : IShoeRepository
     public async Task<Shoe?> GetShoeByIdAsync(Guid id)
     {
         return await _dbSet.Where(shoe => shoe.Id == id)
-                            .Include(shoe => shoe.shoeDetails)
+                            .Include(shoe => shoe.shoeDetails.OrderBy(detail => detail.Size))
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)

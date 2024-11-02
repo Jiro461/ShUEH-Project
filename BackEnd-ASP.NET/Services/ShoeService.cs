@@ -156,10 +156,11 @@ namespace BackEnd_ASP.NET.Services
                 Color = color.Color,
                 ShoeId = existingShoe.Id
             }).ToList();
-            existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
+            if (updateShoe.MainImage != null)
+                existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
 
-
-            existingShoe.OtherImages = await UpdateShoeImageAsync(existingShoe, updateShoe);
+            if (updateShoe.AdditionalImages != null)
+                existingShoe.OtherImages = await UpdateShoeImageAsync(existingShoe, updateShoe);
 
             existingShoe.shoeDetails = updateShoe.shoeDetails.Select(detail => new ShoeDetail
             {

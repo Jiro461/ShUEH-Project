@@ -138,7 +138,7 @@ namespace BackEnd_ASP.NET.Controller
         [HttpGet("admin/all")]
         public async Task<IActionResult> GetAllShoesAdminAsync()
         {
-            var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails)
+            var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails.OrderBy(detail => detail.Size))
                                             .Include(shoe => shoe.Seasons)
                                             .Include(shoe => shoe.Colors)
                                             .Include(shoe => shoe.OtherImages)

@@ -37,7 +37,6 @@ namespace BackEnd_ASP.NET.Data
             foreach (var entry in entries)
             {
                 var dateTrackingEntity = (IDateTracking)entry.Entity;
-
                 // Sử dụng DateTimeOffset cho thời gian với múi giờ Việt Nam
                 var vietnamTime = MyDateTime.VietNam; // UTC+7
 
