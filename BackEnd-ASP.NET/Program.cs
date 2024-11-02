@@ -9,6 +9,12 @@ builder.Services.AddProjectServices(builder.Configuration);
 
 var app = builder.Build();
 
+if (args.Contains("seed"))
+{
+    await SeedData.Seed(app.Services);
+    Console.WriteLine("Data seeding completed.");
+    return; // Kết thúc ứng dụng sau khi seed
+}
 
 app.UseStaticFiles();
 // app.UseHttpsRedirection();

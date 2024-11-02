@@ -125,6 +125,17 @@ namespace BackEnd_ASP.NET.Controller
         #endregion
         #region ComplexAPI
         [HttpGet("all")]
+        public async Task<IActionResult> GetAllShoes()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var shoes = userId == null
+                ? await shoeService.GetAllShoesAsync()
+                : await shoeService.GetAllShoesAsync(Guid.Parse(userId));
+            if (shoes == null) return NotFound("Not Found Any Shoe");
+            return Ok(shoes);
+        }
+        //Get all shoes for admin
+        [HttpGet("admin/all")]
         public async Task<IActionResult> GetAllShoesAdminAsync()
         {
             var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails)
@@ -190,31 +201,6 @@ namespace BackEnd_ASP.NET.Controller
         public async Task<IActionResult> UpdateShoeById(Guid id, [FromForm] ShoePostDTO shoe)
         {
             return await shoeService.UpdateShoeAsync(id, shoe);
-        }
-
-        [HttpPost("cart")]
-        public async Task<IActionResult> GetCartShoe([FromBody] List<Guid> shoeIds)
-        {
-            if (shoeIds == null || shoeIds.Count == 0)
-            {
-                return BadRequest("No shoe IDs provided.");
-            }
-
-            var shoes = await shoeRepository.GetShoesByIdsAsync(shoeIds);
-            var shoesCartDTO = shoes.Select(shoe => new ShoeOrderDTO
-            {
-                ShoeId = shoe.Id,
-                Name = shoe.Name,
-                Brand = shoe.Brand,
-                MainImageUrl = shoe.ImageUrl,
-            }).ToList();
-
-            if (shoesCartDTO == null || shoesCartDTO.Count == 0)
-            {
-                return NotFound("No shoes found for the provided IDs.");
-            }
-
-            return Ok(shoesCartDTO);
         }
         #endregion
     }

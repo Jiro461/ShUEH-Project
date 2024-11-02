@@ -223,13 +223,23 @@ namespace BackEnd_ASP.NET.Services
             return Redirect(redirectUrl);
         }
 
-        public async Task<IActionResult> DeleteUserAsync(HttpContext httpContext)
+        public async Task<IActionResult> DeleteUserByUserAsync(HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null) return BadRequest("User ID is required.");
             var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
             if (user == null) return BadRequest("User not found.");
             if (await userRepository.DeleteAsync(Guid.Parse(userId))) {
+                await notificationService.CreateNotificationForEntityDelete(user);
+                return Ok("Delete Succesfully");
+            }
+            return BadRequest("Delete Failed");
+        }
+        public async Task<IActionResult> DeleteUserByAdminAsync(Guid id)
+        {
+            var user = await userRepository.GetByIdAsync(id);
+            if (user == null) return NotFound("User not found");
+            if (await userRepository.DeleteAsync(id)) {
                 await notificationService.CreateNotificationForEntityDelete(user);
                 return Ok("Delete Succesfully");
             }

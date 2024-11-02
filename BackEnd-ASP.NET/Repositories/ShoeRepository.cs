@@ -22,14 +22,14 @@ public class ShoeRepository : IShoeRepository
     }
     public async Task<IEnumerable<Shoe>> GetAllShoesAsync(int page, int pageSize)
     {
-        return await _dbSet.Include(shoe => shoe.shoeDetails)
+        var query = await _dbSet.Include(shoe => shoe.shoeDetails)
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
                             .Include(shoe => shoe.Comments)
-                            .Skip(page * pageSize)
-                            .Take(pageSize)
                             .ToListAsync();
+        if(page == -1 && pageSize == -1) return query;
+        return query.Skip(page * pageSize).Take(pageSize);
     }
 
     public async Task<Shoe?> GetShoeByIdAsync(Guid id)

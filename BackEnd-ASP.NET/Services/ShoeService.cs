@@ -24,7 +24,7 @@ namespace BackEnd_ASP.NET.Services
             this.webHostEnvironment = webHostEnvironment;
         }
         // Lấy tất cả giày từ kho
-        public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = 0, int pageSize = 10)
+        public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = -1, int pageSize = -1)
         {
             var shoes = await shoeRepository.GetAllShoesAsync(page, pageSize);
             IEnumerable<ShoeGetAllDTO>? shoesDTO;
@@ -59,7 +59,7 @@ namespace BackEnd_ASP.NET.Services
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
             return Ok(shoeDTO);
         }
-        
+
         // Lấy giày theo ID từ admin
         public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
         {
@@ -76,7 +76,8 @@ namespace BackEnd_ASP.NET.Services
                 ViewCount = group.Count()
             }).FirstOrDefault();
             if (shoeViewByMonth == null) return NotFound($"Shoe with ID {id} not found.");
-            var response = new {
+            var response = new
+            {
                 shoeDTO,
                 shoeViewByMonth
             };
@@ -89,9 +90,9 @@ namespace BackEnd_ASP.NET.Services
             if (shoe == null)
                 return BadRequest("Shoe data is required."); // Kiểm tra dữ liệu đầu vào
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
-            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand ).FirstOrDefault();
-            if(existingShoe != null) 
-            return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
+            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand).FirstOrDefault();
+            if (existingShoe != null)
+                return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
             // Tạo một đối tượng giày mới
             var newshoeDetails = shoe.shoeDetails.Select(detail => new ShoeDetail
             {
@@ -235,7 +236,8 @@ namespace BackEnd_ASP.NET.Services
             }
             return newImagesList;
         }
-        public ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null){
+        public ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null)
+        {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
             var shoeDTO = new ShoeGetDTO
             {
@@ -257,9 +259,8 @@ namespace BackEnd_ASP.NET.Services
                 Sold = shoe.Sold,
                 ImageUrl = shoe.ImageUrl ?? string.Empty,
                 Description = shoe.Description ?? string.Empty,
-                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImage
+                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImageDTO
                 {
-                    Id = image.Id,
                     Url = image.Url
                 }).ToList(),
                 shoeDetails = shoe.shoeDetails == null ? null : shoe.shoeDetails.Select(detail => new ShoeDetailDTO
@@ -306,6 +307,18 @@ namespace BackEnd_ASP.NET.Services
                 {
                     Size = detail.Size,
                     Quantity = detail.Quantity
+                }).ToList(),
+                OtherImages = shoe.OtherImages == null ? null : shoe.OtherImages.Select(image => new ShoeImageDTO
+                {
+                    Url = image.Url
+                }).ToList(),
+                Seasons = shoe.Seasons == null ? null : shoe.Seasons.Select(season => new ShoeSeasonDTO
+                {
+                    Season = season.Season
+                }).ToList(),
+                Colors = shoe.Colors == null ? null : shoe.Colors.Select(color => new ShoeColorDTO
+                {
+                    Color = color.Color
                 }).ToList()
             }).ToList();
         }
