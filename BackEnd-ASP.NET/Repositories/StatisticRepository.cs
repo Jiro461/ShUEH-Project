@@ -33,6 +33,7 @@ public class StatisticRepository :IStatisticRepository
             .Select(g => g
                 .OrderByDescending(x => x.TotalSold)
                 .FirstOrDefault())
+            .OrderBy(x => x!.Month)
             .ToListAsync();
         return mostSoldShoes;
     }
@@ -53,6 +54,7 @@ public class StatisticRepository :IStatisticRepository
             .Select(g => g
                 .OrderByDescending(x => x.ViewCount)
                 .FirstOrDefault())
+            .OrderBy(x => x!.Month)
             .ToListAsync();
 
         return mostViewedShoes;
@@ -64,6 +66,7 @@ public class StatisticRepository :IStatisticRepository
             .Where(o => o.OrderDate.Year == DateTime.Now.Year)
             .GroupBy(o => o.OrderDate.Month)
             .Select(g => new { Month = g.Key, TotalOrders = g.Count() })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
         return ordersByMonth;
     }
@@ -93,6 +96,7 @@ public class StatisticRepository :IStatisticRepository
             .Where(o => o.Status == OrderStatus.Delivered && o.OrderDate.Year == DateTime.Now.Year)
             .GroupBy(o => o.OrderDate.Month)
             .Select(g => new { Month = g.Key, TotalRevenue = g.Sum(o => o.TotalPrice) })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
         return revenueFromOrdersByMonth;
     }
@@ -113,6 +117,7 @@ public class StatisticRepository :IStatisticRepository
             .Where(sv => sv.ViewedDate.Year == DateTime.Now.Year)
             .GroupBy(sv => new { Month = sv.ViewedDate.Month })
             .Select(g => new { Month = g.Key.Month, ViewCount = g.Count() })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
         return siteViewByMonth;
     }
@@ -136,6 +141,7 @@ public class StatisticRepository :IStatisticRepository
             .Where(u => u.CreateDate.Year == DateTime.Now.Year)
             .GroupBy(u => u.CreateDate.Month)
             .Select(g => new { Month = g.Key, TotalUsers = g.Count() })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
         return usersByMonth;
     }
