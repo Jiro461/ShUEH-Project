@@ -5,6 +5,6 @@ namespace BackEnd_ASP.NET.Services
     public interface IPaymentService
     {
         Task<IActionResult> HandleSuccessfulPaymentAsync(Guid orderId);
-        Task<IActionResult> HandleFailedPaymentAsync(Guid orderId);
+        Task<IActionResult> HandleFailedPaymentAsync(Guid orderId, bool isOutOfStock = false);
     }
 }
