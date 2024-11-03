@@ -89,13 +89,15 @@ namespace BackEnd_ASP.NET.Services
         #endregion
 
         #region Comment
-        public async Task<IActionResult> GetAllCommentsAsync(Guid shoeId)
+        public async Task<IActionResult> GetAllCommentsAsync(Guid shoeId, HttpContext httpContext)
         {
+            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var comments = await commentRepository.GetAllCommentsAsync(shoeId);
             if (comments == null) return NotFound();
             var commentDTOs = comments.Select(comment => new CommentDTO 
             {
                 Id = comment.Id,
+                GeneralReview = GetGeneralReview(comment.Rate),
                 Comment = comment.Description ?? string.Empty,
                 Rate = comment.Rate,
                 ShoeId = comment.ShoeId,
@@ -109,7 +111,8 @@ namespace BackEnd_ASP.NET.Services
                     Id = reply.Id,
                     Description = reply.Description ?? string.Empty,
                     CreateDate = reply.CreateDate
-                }).ToList()
+                }).ToList(),
+                IsUserPost = userId == null ? false : comment.UserId == Guid.Parse(userId)
             }).ToList();
             return Ok(commentDTOs);
         }
@@ -124,6 +127,7 @@ namespace BackEnd_ASP.NET.Services
             var comment = new Comment
             {
                 Description = commentDTO.Comment,
+                GeneralReview = GetGeneralReview(commentDTO.Rate),
                 Rate = commentDTO.Rate,
                 ShoeId = commentDTO.ShoeId,
                 UserId = Guid.Parse(userId),
@@ -150,5 +154,17 @@ namespace BackEnd_ASP.NET.Services
             return NotFound();
         }
         #endregion
+
+        private GeneralReview GetGeneralReview(decimal rate)
+        {
+            return rate switch
+            {
+                >= 5 => GeneralReview.VeryGood,
+                >= 4 => GeneralReview.Good,
+                >= 3 => GeneralReview.Average,
+                >= 2 => GeneralReview.Bad,
+                _ => GeneralReview.VeryBad
+            };
+        }
     }
 }

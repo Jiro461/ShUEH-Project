@@ -13,9 +13,10 @@ public class SeedData
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             List<Guid> shoeIds = context.Shoes.Select(s => s.Id).ToList();
             var seeder = new DatabaseSeeder(context, userManager);
-
+            ShUEHContext.IsSeeding = true;
             // Gọi phương thức SeedData trong seeder
             await seeder.SeedData(shoeIds);
+            ShUEHContext.IsSeeding = false;
             Console.WriteLine("Seed Data Success");
         }
     }

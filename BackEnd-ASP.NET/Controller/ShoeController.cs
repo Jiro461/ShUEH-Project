@@ -49,7 +49,7 @@ namespace BackEnd_ASP.NET.Controller
                 .OrderByDescending(s => s.CreateDate)
                 .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTOForAdmin(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
 
@@ -62,7 +62,7 @@ namespace BackEnd_ASP.NET.Controller
                     .Take(number)
                     .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTOForUser(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
         [HttpGet("total")]
@@ -107,7 +107,7 @@ namespace BackEnd_ASP.NET.Controller
                 .Take(number)
                 .ToListAsync();
 
-            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes, userId != null ? Guid.Parse(userId) : null);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTOForUser(shoes, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoesDTO);
         }
 
@@ -138,12 +138,13 @@ namespace BackEnd_ASP.NET.Controller
         [HttpGet("admin/all")]
         public async Task<IActionResult> GetAllShoesAdminAsync()
         {
-            var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails)
+            var shoes = await context.Shoes.Include(shoe => shoe.shoeDetails.OrderBy(detail => detail.Size))
                                             .Include(shoe => shoe.Seasons)
                                             .Include(shoe => shoe.Colors)
                                             .Include(shoe => shoe.OtherImages)
+                                            .Include(shoe => shoe.Comments)
                                             .ToListAsync();
-            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTO(shoes);
+            var shoesDTO = shoeService.ConvertListToListShoeGetAllDTOForAdmin(shoes);
             return Ok(shoesDTO);
         }
         //Get all shoes

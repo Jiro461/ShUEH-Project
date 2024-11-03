@@ -3,59 +3,85 @@ using BackEnd_ASP_NET;
 using BackEnd_ASP_NET.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class StatisticRepository :IStatisticRepository
+public class StatisticRepository : IStatisticRepository
 {
     private readonly DbSet<Order> _dbOrders;
     private readonly DbSet<SiteView> _dbSiteViews;
     private readonly DbSet<User> _dbUsers;
-    //private readonly DbSet<Shoe> _dbShoes;
+    private readonly DbSet<Shoe> _dbShoes;
     private readonly DbSet<ProductView> _dbProductViews;
     public StatisticRepository(ShUEHContext context)
     {
         _dbOrders = context.Orders;
         _dbSiteViews = context.SiteViews;
         _dbUsers = context.Users;
-        //_dbShoes = context.Shoes;
+        _dbShoes = context.Shoes;
         _dbProductViews = context.ProductViews;
     }
-    public async Task<object?> GetMostSoldShoesByMonthAsync()
+    public Object GetMostSoldShoesByMonth()
     {
-        var mostSoldShoes = await _dbOrders
-            .Where(o => o.OrderDate.Year == DateTime.Now.Year)
-            .SelectMany(o => o.OrderItems.Select(oi => new { o.OrderDate, oi.ShoeId, oi.Quantity }))
-            .GroupBy(x => new { x.OrderDate.Month, x.ShoeId })
-            .Select(g => new { 
-                g.Key.Month,
-                g.Key.ShoeId,
+        var orderData = _dbOrders
+       .Where(o => o.OrderDate.Year == DateTime.Now.Year)
+       .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.Shoe)
+            .SelectMany(o => o.OrderItems.Select(oi => new
+            {
+                Month = o.OrderDate.Month,
+                ShoeId = oi.ShoeId,
+                ShoeBrand = oi.Shoe!.Brand,
+                ShoeImageUrl = oi.Shoe!.ImageUrl,
+                ShoeName = oi.Shoe!.Name,
+                Quantity = oi.Quantity
+            }))
+       .AsEnumerable(); // Chuyển sang client-side
+
+        var totalSoldByShoe = orderData
+            .GroupBy(x => new { x.Month, x.ShoeId })
+            .Select(g => new
+            {
+                Month = g.Key.Month,
+                ShoeId = g.Key.ShoeId,
+                ShoeBrand = g.First().ShoeBrand,
+                ShoeImageUrl = g.First().ShoeImageUrl,
+                ShoeName = g.First().ShoeName,
                 TotalSold = g.Sum(x => x.Quantity)
             })
+            .ToList();
+
+        var mostSoldShoesByMonth = totalSoldByShoe
             .GroupBy(x => x.Month)
-            .Select(g => g
-                .OrderByDescending(x => x.TotalSold)
-                .FirstOrDefault())
-            .ToListAsync();
-        return mostSoldShoes;
+            .Select(g => g.OrderByDescending(x => x.TotalSold).FirstOrDefault())
+            .OrderBy(x => x!.Month)
+            .ToList();
+
+        return mostSoldShoesByMonth;
     }
 
 
-    public async Task<object?> GetMostViewedShoesByMonthAsync()
+    public Object? GetMostViewedShoesByMonth()
     {
-        var mostViewedShoes = await _dbProductViews
+        var viewData = _dbProductViews
             .Where(pv => pv.ViewedDate.Year == DateTime.Now.Year)
             .GroupBy(pv => new { Month = pv.ViewedDate.Month, pv.ProductId })
-            .Select(g => new 
-            { 
+            .Select(g => new
+            {
                 Month = g.Key.Month,
                 ProductId = g.Key.ProductId,
                 ViewCount = g.Count()
             })
-            .GroupBy(x => x.Month)
-            .Select(g => g
-                .OrderByDescending(x => x.ViewCount)
-                .FirstOrDefault())
-            .ToListAsync();
+            .ToList()
+            .AsEnumerable();
 
-        return mostViewedShoes;
+        var shoes = _dbShoes.Where(p => viewData.Select(v => v.ProductId).Contains(p.Id)).ToList();
+
+        var mostViewedShoesByMonth = viewData
+            .Join(shoes, v => v.ProductId, s => s.Id, (v, s) => new { v.Month, s.Brand, s.ImageUrl, s.Id, s.Name, v.ViewCount })
+            .GroupBy(x => x.Month)
+            .Select(g => g.OrderByDescending(x => x.ViewCount).FirstOrDefault())
+            .OrderBy(x => x!.Month)
+            .ToList();
+
+        return mostViewedShoesByMonth;
     }
 
     public async Task<object?> GetOrdersByMonthAsync()
@@ -64,8 +90,10 @@ public class StatisticRepository :IStatisticRepository
             .Where(o => o.OrderDate.Year == DateTime.Now.Year)
             .GroupBy(o => o.OrderDate.Month)
             .Select(g => new { Month = g.Key, TotalOrders = g.Count() })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
-        return ordersByMonth;
+        var totalOrders = await _dbOrders.CountAsync();
+        return new { ordersByMonth, totalOrders };
     }
 
     public async Task<object?> GetOrdersByStatusAsync()
@@ -81,6 +109,8 @@ public class StatisticRepository :IStatisticRepository
     {
         var recentDeliveredOrders = await _dbOrders
             .Where(o => o.Status == OrderStatus.Delivered)
+            .Include(o => o.User)
+            .Select(o => new { o.Id, o.User!.ProfileName, o.User!.AvatarUrl, o.TotalPrice, o.OrderDate })
             .OrderByDescending(o => o.OrderDate)
             .Take(10)
             .ToListAsync();
@@ -93,8 +123,11 @@ public class StatisticRepository :IStatisticRepository
             .Where(o => o.Status == OrderStatus.Delivered && o.OrderDate.Year == DateTime.Now.Year)
             .GroupBy(o => o.OrderDate.Month)
             .Select(g => new { Month = g.Key, TotalRevenue = g.Sum(o => o.TotalPrice) })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
-        return revenueFromOrdersByMonth;
+
+        var totalRevenue = await _dbOrders.Where(o => o.Status == OrderStatus.Delivered && o.OrderDate.Year == DateTime.Now.Year).SumAsync(o => o.TotalPrice);
+        return new { revenueFromOrdersByMonth, totalRevenue };
     }
 
     public async Task<object?> GetSiteViewByDeviceInMonthAsync()
@@ -113,6 +146,7 @@ public class StatisticRepository :IStatisticRepository
             .Where(sv => sv.ViewedDate.Year == DateTime.Now.Year)
             .GroupBy(sv => new { Month = sv.ViewedDate.Month })
             .Select(g => new { Month = g.Key.Month, ViewCount = g.Count() })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
         return siteViewByMonth;
     }
@@ -136,7 +170,23 @@ public class StatisticRepository :IStatisticRepository
             .Where(u => u.CreateDate.Year == DateTime.Now.Year)
             .GroupBy(u => u.CreateDate.Month)
             .Select(g => new { Month = g.Key, TotalUsers = g.Count() })
+            .OrderBy(x => x!.Month)
             .ToListAsync();
-        return usersByMonth;
+
+        var totalUsers = await _dbUsers.CountAsync();
+        return new { usersByMonth, totalUsers };
+    }
+
+    public async Task<object?> GetTopDealsByUserAsync()
+    {
+        var topDealsByUser = await _dbOrders
+            .Where(o => o.Status == OrderStatus.Delivered)
+            .Include(o => o.User)
+            .GroupBy(o => o.User!.Id)
+            .Select(g => new { UserId = g.Key, UserName = g.First().User!.ProfileName, Email = g.First().User!.Email, Avatar = g.First().User!.AvatarUrl, TotalRevenue = g.Sum(o => o.TotalPrice) })
+            .OrderByDescending(x => x!.TotalRevenue)
+            .Take(10)
+            .ToListAsync();
+        return topDealsByUser;
     }
 }

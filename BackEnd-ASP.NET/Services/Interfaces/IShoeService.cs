@@ -14,8 +14,8 @@ namespace BackEnd_ASP.NET.Services
         Task<IActionResult> DeleteShoeAsync(Guid id);
         #region Convert
         ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null);
-        List<ShoeGetDTO> ConvertListToListShoeGetDTO(List<Shoe> shoes, Guid? userId = null);
-        List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTO(List<Shoe> shoes, Guid? userId = null);
+        List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForAdmin(List<Shoe> shoes, Guid? userId = null);
+        List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForUser(List<Shoe> shoes, Guid? userId = null);
         #endregion
     }
 }

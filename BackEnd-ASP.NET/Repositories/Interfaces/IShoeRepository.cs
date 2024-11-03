@@ -4,7 +4,6 @@ using BackEnd_ASP_NET.Models;
 
 public interface IShoeRepository
 {
-    Task<List<Shoe>> GetShoesByIdsAsync(List<Guid> shoeIds);
     Task<IEnumerable<Shoe>> GetAllShoesAsync(int page, int pageSize);
     Task<Shoe?> GetShoeByIdAsync(Guid id);
     Task<Shoe> AddShoeAsync(Shoe shoe);

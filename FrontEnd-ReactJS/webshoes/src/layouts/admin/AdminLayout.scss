@@ -1,28 +1,31 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/responsive.scss';
+
 /*----------------------------------------*/
 /*  Layout chung cho trang Admin
 /*----------------------------------------*/
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  html{
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  }
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .main {
-    font-family: "Inter", sans-serif;
-    background-color: $main-bg;
-    color: $main-color;
-    width: 100%;
-    min-height: 100vh; // Đảm bảo chiều cao trang ít nhất là 100% chiều cao màn hình
+html {
+  overflow-x: hidden;
+
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.main {
+  font-family: "Inter", sans-serif;
+  background-color: $main-bg;
+  color: $main-color;
+  width: 100%;
+  min-height: 100vh; // Đảm bảo chiều cao trang ít nhất là 100% chiều cao màn hình
 
       .admin-container{
         display: flex;
@@ -53,15 +56,15 @@
   
 //Đây là scss cho thanh scroll bar
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: $main-color;
+  background: $main-color;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: $soft-bg;
+  background: $soft-bg;
 }
 
 //Kết thúc scss cho thanh scroll bar

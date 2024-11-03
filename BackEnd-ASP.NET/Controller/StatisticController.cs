@@ -57,16 +57,16 @@ namespace BackEnd_ASP_NET.Controllers
         }
 
         [HttpGet("shoes/most-sold-monthly")]
-        public async Task<IActionResult> GetMostSoldShoesByMonthAsync()
+        public IActionResult GetMostSoldShoesByMonthAsync()
         {
-            var shoes = await _statisticRepository.GetMostSoldShoesByMonthAsync();
+            var shoes = _statisticRepository.GetMostSoldShoesByMonth();
             return Ok(shoes);
         }
 
         [HttpGet("shoes/most-viewed-monthly")]
-        public async Task<IActionResult> GetMostViewedShoesByMonthAsync()
+        public IActionResult GetMostViewedShoesByMonthAsync()
         {
-            var shoes = await _statisticRepository.GetMostViewedShoesByMonthAsync();
+            var shoes = _statisticRepository.GetMostViewedShoesByMonth();
             return Ok(shoes);
         }
 
@@ -82,6 +82,13 @@ namespace BackEnd_ASP_NET.Controllers
         {
             var users = await _statisticRepository.GetUsersByMonthAsync();
             return Ok(users);
+        }
+
+        [HttpGet("users/top-deals")]
+        public async Task<IActionResult> GetTopDealsByUserAsync()
+        {
+            var topDeals = await _statisticRepository.GetTopDealsByUserAsync();
+            return Ok(topDeals);
         }
     }
 }

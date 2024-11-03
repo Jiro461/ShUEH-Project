@@ -23,6 +23,7 @@ public class DatabaseSeeder
         List<Guid> userIds = await CreateUsersAsync(roleIds[1], roleIds[0]);
         RandomCommentData(shoeIds, userIds);
         RandomSiteViewAndProductView(shoeIds);
+        SeedOrders(userIds, shoeIds);
         _context.SaveChanges();
     }
     #region Seed Data
@@ -37,14 +38,25 @@ public class DatabaseSeeder
             for (int j = 0; j < totalComments; j++)
             {
                 Guid commentId = Guid.NewGuid();
+                decimal rate = Math.Round((decimal)random.NextDouble() * 5, 1);
+                if (rate == 0) rate = 5;
+                GeneralReview generalReview = rate switch
+                {
+                    >= 5 => GeneralReview.VeryGood,
+                    >= 4 => GeneralReview.Good,
+                    >= 3 => GeneralReview.Average,
+                    >= 2 => GeneralReview.Bad,
+                    _ => GeneralReview.VeryBad
+                };
                 _context.Comments.Add(
                     new Comment
                     {
                         Id = commentId,
                         ShoeId = shoeId,
+                        GeneralReview = generalReview,
                         UserId = userIds[random.Next(0, userIds.Count)],
                         Description = GenerateRandomDescription(),
-                        Rate = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+                        Rate = rate,
                         CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
                         LastModifiedDate = DateTime.Now
                     }
@@ -163,7 +175,7 @@ public class DatabaseSeeder
             DateTime month = DateTime.UtcNow.AddMonths(-i).Date;
             SeedSiteViews(month);
         }
-        _context.SaveChanges();
+
 
         foreach (var shoeId in shoeIds)
         {
@@ -174,7 +186,6 @@ public class DatabaseSeeder
                 SeedProductViews(shoeId, month, viewsToGenerate);
             }
         }
-        _context.SaveChanges();
     }
     private void SeedSiteViews(DateTime month)
     {
@@ -190,11 +201,62 @@ public class DatabaseSeeder
                 Device = GenerateRandomDevice(),
                 ViewedDate = month
             });
+            if (i % 30 == 0)
+            {
+                _context.SiteViews.AddRange(siteViews);
+                _context.SaveChanges();
+                siteViews.Clear();
+            }
         }
 
-        _context.SiteViews.AddRange(siteViews);
+        if (siteViews.Any())
+        {
+            _context.SiteViews.AddRange(siteViews);
+            _context.SaveChanges();
+        }
     }
+    private void SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
+    {
+        const int orderCount = 300; // số lượng đơn hàng cần seed
+        var orders = new List<Order>();
 
+        for (int i = 0; i < orderCount; i++)
+        {
+            var orderId = Guid.NewGuid();
+            var userId = userIds[_random.Next(userIds.Count)];
+            DateTime orderDate = DateTime.UtcNow.AddMonths(-_random.Next(0, 6));
+            var orderItems = GenerateOrderItems(orderId, shoeIds);
+
+            var totalOrderPrice = orderItems.Sum(item => item.TotalPrice);
+
+            var order = new Order
+            {
+                Id = orderId,
+                UserId = userId,
+                OrderDate = orderDate,
+                TotalPrice = totalOrderPrice,
+                Status = (OrderStatus)_random.Next(0, Enum.GetValues(typeof(OrderStatus)).Length),
+                PaymentMethod = (PaymentMethod)_random.Next(0, Enum.GetValues(typeof(PaymentMethod)).Length),
+                OrderItems = orderItems,
+                CreateDate = orderDate,
+                LastModifiedDate = DateTime.UtcNow
+            };
+
+            orders.Add(order);
+            if (i % 10 == 0)
+            {
+                _context.Orders.AddRange(orders);
+                _context.SaveChanges();
+                orders.Clear();
+            }
+        }
+
+        if (orders.Any())
+        {
+            _context.Orders.AddRange(orders);
+            _context.SaveChanges();
+        }
+    }
     private void SeedProductViews(Guid productId, DateTime month, int viewsToGenerate)
     {
         var productViews = new List<ProductView>();
@@ -209,11 +271,50 @@ public class DatabaseSeeder
                 IPAddress = null,
                 ViewedDate = month.AddDays(_random.Next(1, 28)).AddHours(_random.Next(24)).AddMinutes(_random.Next(60))
             });
+            if (i % 20 == 0)
+            {
+                _context.ProductViews.AddRange(productViews);
+                _context.SaveChanges();
+                productViews.Clear();
+            }
         }
 
-        _context.ProductViews.AddRange(productViews);
+        if (productViews.Any())
+        {
+            _context.ProductViews.AddRange(productViews);
+            _context.SaveChanges();
+        }
     }
+    private List<OrderItem> GenerateOrderItems(Guid orderId, List<Guid> shoeIds)
+    {
+        const int maxItemsPerOrder = 4;
+        int itemCount = _random.Next(1, maxItemsPerOrder);
 
+        var orderItems = new List<OrderItem>();
+
+        for (int i = 0; i < itemCount; i++)
+        {
+            var shoeId = shoeIds[_random.Next(shoeIds.Count)];
+            int quantity = _random.Next(1, 5);
+            decimal shoePrice = _random.Next(1000000, 3000000); // Đơn giá của mỗi sản phẩm giày
+            decimal totalPrice = shoePrice * quantity;
+
+            var orderItem = new OrderItem
+            {
+                Id = Guid.NewGuid(),
+                OrderId = orderId,
+                ShoeId = shoeId,
+                Size = _random.Next(36, 46), // Giả sử các size từ 38-45
+                Quantity = quantity,
+                ShoePrice = shoePrice,
+                TotalPrice = totalPrice
+            };
+
+            orderItems.Add(orderItem);
+        }
+
+        return orderItems;
+    }
     #endregion
     #region Generate Extension
     // Tạo chuỗi ngày sinh ngẫu nhiên dạng "dd/MM/yyyy"
@@ -253,8 +354,7 @@ public class DatabaseSeeder
 
     private DateTime GenerateRandomCreationDate()
     {
-        int daysBack = _random.Next(0, 365);
-        return DateTime.UtcNow.AddDays(-daysBack).AddHours(_random.Next(0, 24)).AddMinutes(_random.Next(0, 60));
+        return DateTime.UtcNow.AddMonths(-_random.Next(0, 6));
     }
     private static string GenerateRandomPublicIpAddress()
     {
