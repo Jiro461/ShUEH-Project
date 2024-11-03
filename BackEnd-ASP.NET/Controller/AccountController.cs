@@ -45,14 +45,14 @@ namespace BackEnd_ASP.NET.Controller.Account
         public async Task<IActionResult> GetByIdFromQuery(Guid id)
         {
             if (id == Guid.Empty) return Unauthorized();
-            return await accountService.GetByIdAsync(id);
+            return await accountService.GetUserByIdAsync(id);
         }
         [HttpGet("cookieGetById")]
         public async Task<IActionResult> GetByIdFromCookie()
         {
-            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
             if (userId == Guid.Empty) return Unauthorized();
-            return await accountService.GetByIdAsync(userId);
+            return await accountService.GetUserByIdAsync(userId);
         }
 
         [HttpPost("sign-out")]
@@ -92,10 +92,12 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             return await accountService.GoogleAuthen(HttpContext);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromForm] UserPutDTO userDto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromForm] UserPutDTO userDto)
         {
-            return await accountService.UpdateUserAsync(id, userDto);
+            Guid userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            if (userId == Guid.Empty) return Unauthorized();
+            return await accountService.UpdateUserAsync(userId, userDto);
         }
 
         [HttpGet("get-users-info")]

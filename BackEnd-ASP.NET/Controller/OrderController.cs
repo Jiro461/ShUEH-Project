@@ -39,10 +39,14 @@ namespace BackEnd_ASP.NET.Controller.Order
         {
             return await orderService.DeleteOrderAsync(id);
         }
-        [HttpGet("all")]
-        public async Task<IActionResult> GetAllOrdersAsync()
+        [HttpGet("all/{page}/{pageSize}")]
+        public async Task<IActionResult> GetAllOrdersAsync(int page, int pageSize)
         {
-            return await orderService.GetAllOrdersAsync();
+            if (page < 0 || pageSize < 0)
+            {
+                return BadRequest("Invalid page or page size");
+            }
+            return await orderService.GetAllOrdersAsync(page, pageSize);
         }
         [HttpGet("status/{status}")]
         public async Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status)

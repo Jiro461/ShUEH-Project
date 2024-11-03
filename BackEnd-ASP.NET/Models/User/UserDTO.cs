@@ -12,14 +12,13 @@ namespace BackEnd_ASP.NET.Models.User
         [Required(ErrorMessage = "Last name is required.")]
         [MaxLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
         public string? LastName { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public string? DateOfBirth { get; set; }
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Profile name is required.")]
         [MaxLength(50, ErrorMessage = "Profile name cannot exceed 50 characters.")]
         public string? ProfileName { get; set; }
         public IFormFile? Avatar { get; set; } = null;
-        [Required(ErrorMessage = "Gender is required.")]
         public bool? Gender { get; set; }
     }
     public sealed class UserGetDTO

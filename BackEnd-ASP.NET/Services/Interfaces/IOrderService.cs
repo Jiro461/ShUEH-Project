@@ -6,7 +6,7 @@ namespace BackEnd_ASP.NET.Services
 {
     public interface IOrderService
     {
-        Task<IActionResult> GetAllOrdersAsync();
+        Task<IActionResult> GetAllOrdersAsync(int page, int pageSize);
         Task<IActionResult> GetOrdersByUserIdAsync(Guid userId);
         Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status);
         Task<IActionResult> GetOrderByIdAsync(Guid id);

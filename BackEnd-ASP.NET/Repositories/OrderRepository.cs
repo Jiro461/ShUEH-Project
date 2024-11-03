@@ -41,12 +41,14 @@ public class OrderRepository : IOrderRepository
         return true;
     }
 
-    public async Task<IEnumerable<Order>> GetAllOrdersAsync()
+    public async Task<IEnumerable<Order>> GetAllOrdersAsync(int page, int pageSize)
     {
         return await dbSet
         .Include(order => order.OrderItems!)
         .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
+        .Skip(page * pageSize)
+        .Take(pageSize)
         .ToListAsync();
     }
 
@@ -56,7 +58,6 @@ public class OrderRepository : IOrderRepository
         .Include(order => order.OrderItems!)
         .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
-        .Include(order => order.Status)
         .ToListAsync();
     }
     public Task<Order?> GetOrderByIdAsync(Guid? id)
@@ -65,7 +66,6 @@ public class OrderRepository : IOrderRepository
         .Include(order => order.OrderItems!)
         .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
-        .Include(order => order.Status)
         .FirstOrDefaultAsync();
     }
 
