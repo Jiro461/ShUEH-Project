@@ -6,29 +6,30 @@ import {
   import "./dataTable.scss";
   import { Box, useMediaQuery } from '@mui/material';
   import { Link } from "react-router-dom";
-  // import { useMutation, useQueryClient } from "@tanstack/react-query";
-  
+  import Update from "../update/Update";
+import * as adminProductsService from "../../../services/adminProductsService"
+import { useState } from "react";
 
   const DataTable = (props) => {
+    const [open, setOpen] = useState(false)
+    const [id, setId] = useState()
+    console.log(props.rows);
     const isSmallScreen = useMediaQuery('(max-width:600px)');
 
-    // TEST THE API
-  
-    // const queryClient = useQueryClient();
-    // // const mutation = useMutation({
-    // //   mutationFn: (id: number) => {
-    // //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
-    // //       method: "delete",
-    // //     });
-    // //   },
-    // //   onSuccess: ()=>{
-    // //     queryClient.invalidateQueries([`all${props.slug}`]);
-    // //   }
-    // // });
-  
-    const handleDelete = (id) => {
-      //delete the item
-      // mutation.mutate(id)
+    const handleUpdate = async (id) => {
+      setOpen(true)
+      setId(id)
+    }
+
+    const handleDelete = async (id) => {
+        props.setOpenBackDrop(true)
+        const res = await adminProductsService.deleteProduct(id)
+        props.fetchData()
+        props.setOpenToastMessage(true)
+        props.setTypeToastMessage(res.type)
+        props.setTitleToastMessage(res.message)
+        props.setOpenBackDrop(false)
+ 
     };
   
     const actionColumn = {
@@ -41,6 +42,9 @@ import {
             <Link to={`/admin/${props.slug}/${params.row.id}`}>
               <img src="/view.svg" alt="" />
             </Link>
+            <div className="update" onClick={() => handleUpdate(params.row.id)}>
+              <i className="fa-solid fa-wrench" style={{color: "#74C0FC", cursor: "pointer"}}></i>
+            </div>
             <div className="delete" onClick={() => handleDelete(params.row.id)}>
               <img src="/delete.svg" alt="" />
             </div>
@@ -82,6 +86,16 @@ import {
           disableDensitySelector
           disableColumnSelector
         />
+        {open && <Update 
+        slug={props.updateSlug} 
+        setOpen={setOpen} 
+        inputs={props.inputs} 
+        fetchData={props.fetchData}
+        setOpenBackDrop={props.setOpenBackDrop}
+        setOpenToastMessage={props.setOpenToastMessage}
+        setTypeToastMessage={props.setTypeToastMessage}
+        setTitleToastMessage={props.setTitleToastMessage} 
+        id={id} ></Update>}
       </div>    
     );
   }

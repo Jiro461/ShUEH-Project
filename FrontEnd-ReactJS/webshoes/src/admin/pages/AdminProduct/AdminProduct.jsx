@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 
 const Product = () => {
   const {id} = useParams()
-  console.log(id);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({})
   const [isLoading, setIsLoading] = useState(true)

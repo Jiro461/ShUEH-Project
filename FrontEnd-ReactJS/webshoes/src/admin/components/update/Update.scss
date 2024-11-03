@@ -1,7 +1,4 @@
 @import "../../../../styles/variables.scss";
-  .MuiTypography-root{
-    color: #fff !important;
-  }
   .MuiInputLabel-root {
     color: #fff !important; // Màu label
   }
@@ -83,56 +80,44 @@
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            &:nth-child(n+6){
-              margin-top: 15px;
-            }
           }
-          #quantities-per-size{
-            width: 45px;
-          }
+        }
+        #outlined-basic{
+          width: 40px;
         }
 
         label {
           font-size: 14px;
         }
-
-        .file-container{
+        .preview {
+          width: 200px;
+          height: 100px;
+          color: white;
           display: flex;
-          gap: 10px;
-          .preview {
-            width: 200px;
-            height: 100px;
-            color: white;
-            display: flex;
-            background-color: transparent;
-            border: 2px dashed white;
+          background-color: transparent;
+          border: 2px dashed white;
+          border-radius: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          cursor: pointer;
+          position: relative;
+        }
+        
+        .preview i{
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .preview img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
             border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            cursor: pointer;
-            position: relative;
-  
-            &.preview-additional-images{
-              width: 150px;
-            }
-  
-            i{
-              font-size: 30px;
-              margin-bottom: 20px;
-            }
-  
-            img{
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              position: absolute;
-              top: 0;
-              left: 0;
-              border-radius: 10px;
-            }
-          }
         }
 
         input {
