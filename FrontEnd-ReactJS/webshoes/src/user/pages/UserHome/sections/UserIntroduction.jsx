@@ -5,7 +5,7 @@ import AddBlock from '../../../components/AddBlock/AddBlock';
 import PromotionTag from "../../../components/PromotionTag/PromotionTag";
 import { motion, useInView } from "framer-motion";
 import axios from "axios";
-import * as homeIntroductionService from "../../../../apiServices/homeIntroductionService"
+import * as homeIntroductionService from "../../../../services/homeIntroductionService"
 
 const UserIntroduction =  () => {
     const [data, setData] = useState([])
@@ -40,7 +40,7 @@ const UserIntroduction =  () => {
                 </div>
 
                 <div className="product" ref={ref} style={productStyle}>
-                    <img className="product-img" src={`http://localhost:5118/${data[0]?.imageUrl}` ||  '/intro-product.svg'} alt='intro-product'></img>
+                    <img className="product-img" src={'/intro-product.svg'} alt='intro-product'></img>
 
                     <div className='product-promotion'>
                         <PromotionTag></PromotionTag>

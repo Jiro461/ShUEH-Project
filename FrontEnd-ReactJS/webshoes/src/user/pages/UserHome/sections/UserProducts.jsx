@@ -4,7 +4,7 @@ import Product from "../../../components/HomeProduct/Product.jsx";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle.jsx"
 import Slider from 'react-slick'
 import {Reveal} from "../../../components/Animation/Reveal.tsx";
-import * as homeProductService from "../../../../apiServices/homeProductService.jsx"
+import * as homeProductService from "../../../../services/homeProductService.jsx"
 
 const UserProducts = () => {
     const [data, setData] = useState()
