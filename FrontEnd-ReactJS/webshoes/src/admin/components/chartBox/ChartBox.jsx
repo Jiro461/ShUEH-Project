@@ -3,7 +3,26 @@ import './ChartBox.scss'
 import { ResponsiveContainer, LineChart, Line } from 'recharts'
 import { Link } from 'react-router-dom'
 import { Tooltip } from 'recharts'
+
 const ChartBox = (props) => {
+  const convertToVND = (amount) => {
+    return `${new Intl.NumberFormat('vi-VN').format(amount)} VNĐ`;
+  };
+  const CustomTooltip = ({ active, payload, label }) => {
+    
+    if (active && payload && payload.length){
+      var myvalue = payload[0].value;
+      if(props.label == "Revenue"){
+        myvalue = convertToVND(myvalue);
+      }
+      return (
+        <div className="custom-tooltip">
+          <p className="label" style={{color: props.color}}>{`${props.label} : ${myvalue}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
   return (
     <div className="chartBox">
       <div className="boxInfo">
@@ -18,12 +37,13 @@ const ChartBox = (props) => {
       </div>
       <div className="chartInfo">
         <div className="chart">
-          <ResponsiveContainer width="99%" height="100%">
+          <ResponsiveContainer width="100%" height="100%">
             <LineChart data={props.chartData}>
               <Tooltip
+                content={<CustomTooltip />}
                 contentStyle={{ background: "transparent", border: "none" }}
                 labelStyle={{ display: "none" }}
-                position={{ x: 10, y: 70 }}
+                position={{ x: 10, y: 100 }}
               />
               <Line
                 type="monotone"

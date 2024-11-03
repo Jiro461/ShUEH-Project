@@ -12,6 +12,7 @@ namespace BackEnd_ASP.NET.Services
         Task<IActionResult> AddShoeAsync(ShoePostDTO shoe);
         Task<IActionResult> UpdateShoeAsync(Guid shoeId, ShoePostDTO shoe);
         Task<IActionResult> DeleteShoeAsync(Guid id);
+        Task<IEnumerable<ShoeGetAllDTO>> GetSimilarShoes(Guid shoeId);
         #region Convert
         ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null);
         List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForAdmin(List<Shoe> shoes, Guid? userId = null);

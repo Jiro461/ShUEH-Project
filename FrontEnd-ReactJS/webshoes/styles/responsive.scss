@@ -1,8 +1,8 @@
-$sm: 425px;
-$md: 900px;
-$lg: 1220px;
-$xl: 1440px;
-$xxl: 1536px;
+$sm: 455px;
+$md: 1020px;
+$lg: 1410px;
+$xl: 1663px;
+$xxl: 1920px;
 
 @mixin sm {
   @media screen and (max-width: ($sm)) {

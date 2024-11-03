@@ -17,6 +17,7 @@ namespace BackEnd_ASP.NET.Services
         // Add more methods as needed
         Task<IActionResult> SignOutUser(HttpContext httpContext);
         Task<IActionResult> GetUsersInfo();
-        Task<IActionResult> ResetPassword(string? email, string? newPassword);
+        Task<IActionResult> ChangePassword(string? email, string? newPassword);
+        Task<IActionResult> ChangePassword(Guid userId, string currentPassword, string newPassword);
     }
 }

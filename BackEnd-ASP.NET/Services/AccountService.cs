@@ -254,7 +254,7 @@ namespace BackEnd_ASP.NET.Services
             return Ok("Sign Out Successfully");
         }
 
-        public async Task<IActionResult> ResetPassword(string? email, string? newPassword)
+        public async Task<IActionResult> ChangePassword(string? email, string? newPassword)
         {
             if (string.IsNullOrWhiteSpace(email) ||
                             string.IsNullOrWhiteSpace(newPassword))
@@ -278,7 +278,24 @@ namespace BackEnd_ASP.NET.Services
 
             // Nếu lỗi xảy ra, trả về thông báo lỗi chi tiết
             return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
-
+        }
+        public async Task<IActionResult> ChangePassword(Guid userId, string currentPassword, string newPassword)
+        {
+            var user = await userRepository.GetByIdAsync(userId);
+            if (user == null) return BadRequest("User not found.");
+            if (user.IsExternalLogin == true) return BadRequest("User is external login.");
+            var IsHasPassword = await userManager.HasPasswordAsync(user);
+            if (IsHasPassword)
+            {
+                var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                if (result.Succeeded)
+                {
+                    return Ok("Password changed successfully.");
+                }
+                return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
+            }
+            return BadRequest("User does not have a password.");
         }
         private async Task<IActionResult> CreateUserAsync(User user, string? password = null)
         {

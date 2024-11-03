@@ -109,7 +109,14 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
-            return await accountService.ResetPassword(request.Email, request.NewPassword);
+            return await accountService.ChangePassword(request.Email, request.NewPassword);
+        }
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            Guid userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            if (userId == Guid.Empty) return Unauthorized();
+            return await accountService.ChangePassword(userId, currentPassword, newPassword);
         }
     }
 

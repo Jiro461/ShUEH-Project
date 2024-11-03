@@ -30,7 +30,7 @@ a {
   .admin-container {
     display: flex;
     width: 100%;
-    flex-grow: 1;
+    overflow: auto;
 
     .menuContainer {
       width: 250px;
@@ -45,9 +45,10 @@ a {
     .contentContainer {
       padding: 5px 20px;
       width: 90%;
-      max-width: 100%;
+      overflow: hidden;
+      max-width: 90%;
       box-sizing: border-box; // Đảm bảo padding không gây tràn
-      min-height: 100vh;
+      min-height: 50vh;
     }
   }
 
