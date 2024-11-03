@@ -1,4 +1,4 @@
-export const menu_data = [
+    export const menu_data = [
     {
         id: 1,
         title: 'MAIN',
@@ -91,7 +91,7 @@ export const top_Deals = [
         img: "/profile.svg",
         username: "Mach Gia Huy",
         email: "huymachgia555@gmail.com",
-        amount: "3500000"
+        amount: "3500000" 
     },
     {
         id: 2,
