@@ -48,6 +48,11 @@ namespace BackEnd_ASP.NET.Controller.Order
             }
             return await orderService.GetAllOrdersAsync(page, pageSize);
         }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllOrdersAsync()
+        {
+            return await orderService.GetAllOrdersAsync(-1, -1);
+        }
         [HttpGet("status/{status}")]
         public async Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status)
         {
