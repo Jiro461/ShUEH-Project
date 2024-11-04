@@ -134,6 +134,11 @@ namespace BackEnd_ASP.NET.Controller
             if (shoes == null) return NotFound("Not Found Any Shoe");
             return Ok(shoes);
         }
+        [HttpGet("similar/{shoeId}")]
+        public async Task<IActionResult> GetSimilarShoes(Guid shoeId)
+        {
+            return Ok(await shoeService.GetSimilarShoes(shoeId));
+        }
         //Get all shoes for admin
         [HttpGet("admin/all")]
         public async Task<IActionResult> GetAllShoesAdminAsync()

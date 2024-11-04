@@ -115,12 +115,12 @@ const AdminHome = () => {
             <div className='box box1'>
                 <Topbox data={topDeals.slice(0, 9)} title="Top Deals" />
             </div>
-            <div className='box box2'><ChartBox percentage={countPercentage(users, "usersByMonth", "totalUsers")} icon={chartBoxUser.icon} chartData={users.usersByMonth} dataKey="totalUsers" color="#8884d8" title="Users by month" number={users.totalUsers} /></div>
-            <div className='box box3'><ChartBox percentage={countPercentage(orders, "ordersByMonth", "totalOrders")} icon={chartBoxProduct.icon} chartData={orders.ordersByMonth} dataKey="totalOrders" color="#8884d8" title="Orders by month" number={orders.totalOrders} /></div>
+            <div className='box box2'><ChartBox label="User" percentage={countPercentage(users, "usersByMonth", "totalUsers")} icon={chartBoxUser.icon} chartData={users.usersByMonth} dataKey="totalUsers" color="#8884d8" title="Users by month" number={users.totalUsers} /></div>
+            <div className='box box3'><ChartBox label="Order" percentage={countPercentage(orders, "ordersByMonth", "totalOrders")} icon={chartBoxProduct.icon} chartData={orders.ordersByMonth} dataKey="totalOrders" color="#8884d8" title="Orders by month" number={orders.totalOrders} /></div>
             <div className='box box4'><PieChartBox data={DevicesView} title="Devices view this month" /></div>
             {/*Show most shoes sold by month*/}
             <div className='box box5'><ScrollView data={transactions} title="Recent Transactions" /></div>
-            <div className='box box6'><ChartBox percentage={countPercentage(revenue, "revenueFromOrdersByMonth", "totalRevenue")} icon={chartBoxRevenue.icon} chartData={revenue.revenueFromOrdersByMonth} dataKey="totalRevenue" color="#8884d8" title="Revenue by month" number={convertToVND(revenue.totalRevenue)} isVND={true} /></div>
+            <div className='box box6'><ChartBox label="Revenue" percentage={countPercentage(revenue, "revenueFromOrdersByMonth", "totalRevenue")} icon={chartBoxRevenue.icon} chartData={revenue.revenueFromOrdersByMonth} dataKey="totalRevenue" color="#8884d8" title="Revenue by month" number={convertToVND(revenue.totalRevenue)} isVND={true} /></div>
             <div className='box box7'><PieChartBox data={brands} title="Brands sold this month" /></div>
             <div className='box box8'><ScrollView data={transactions} title="Most Sold Shoes by month" isMonth={true} /></div>
             <div className='box box9'><BarChartBox chartData={visits} dataKey="viewCount" color="#8884d8" title="Visits by month" /></div>

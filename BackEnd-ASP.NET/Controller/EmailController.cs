@@ -1,4 +1,5 @@
 using System.Text;
+using BackEnd_ASP.NET.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,18 +12,20 @@ namespace BackEnd_ASP.NET.Controller.Email
     public class EmailController : ControllerBase
     {
         private readonly IEmailSender _emailSender;
+        private readonly IAccountService _accountService;
         private readonly IMemoryCache _cache;
-        public EmailController(IEmailSender emailSender, IMemoryCache cache)
+        public EmailController(IEmailSender emailSender, IMemoryCache cache, IAccountService accountService)
         {
             _emailSender = emailSender;
             _cache = cache;
+            _accountService = accountService;
         }
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Email))
                 return BadRequest("Email is required.");
-            
+
             // Sinh mã OTP ngẫu nhiên 6 chữ số
             var otp = GenerateOtp();
 
@@ -53,14 +56,13 @@ namespace BackEnd_ASP.NET.Controller.Email
                         </div>";
             await _emailSender.SendEmailAsync(request.Email, subject, body);
 
-            // Lưu OTP vào cache (tạm thời) hoặc cơ sở dữ liệu (bạn có thể tự triển khai)
-            _cache.Set(request.Email, otp, TimeSpan.FromMinutes(5)); // Tạm thời dùng TempData cho ví dụ
+            _cache.Set(request.Email, otp, TimeSpan.FromMinutes(5));
 
             return Ok("OTP sent to your email.");
         }
 
         [HttpPost("verify-otp")]
-        public IActionResult VerifyOtp([FromBody] OtpVerificationRequest request)
+        public async Task<IActionResult> VerifyOtp([FromBody] OtpVerificationRequest request)
         {
             // Kiểm tra xem email có tồn tại trong cache không
             if (!_cache.TryGetValue(request.Email, out string? storedOtp))
@@ -74,10 +76,10 @@ namespace BackEnd_ASP.NET.Controller.Email
                 return BadRequest("Invalid OTP.");
             }
 
-            // Xóa OTP khỏi cache sau khi xác nhận thành công
-            _cache.Remove(request.Email);
 
-            return Ok("OTP verified successfully.");
+            await _accountService.ChangePassword(request.Email, request.NewPassword);
+            _cache.Remove(request.Email);
+            return Ok("Password reset successfully.");
         }
 
         private string GenerateOtp()
@@ -93,8 +95,9 @@ namespace BackEnd_ASP.NET.Controller.Email
     }
 
     public class OtpVerificationRequest
-{
-    public string Email { get; set; } = string.Empty;
-    public string Otp { get; set; } = string.Empty;
-}
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Otp { get; set; } = string.Empty;
+        public string NewPassword { get; set; } = string.Empty;
+    }
 }
