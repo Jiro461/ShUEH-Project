@@ -43,13 +43,16 @@ public class OrderRepository : IOrderRepository
 
     public async Task<IEnumerable<Order>> GetAllOrdersAsync(int page, int pageSize)
     {
-        return await dbSet
+        var orders = await dbSet
         .Include(order => order.OrderItems!)
         .ThenInclude(item => item.Shoe!)
         .Include(order => order.User!)
-        .Skip(page * pageSize)
-        .Take(pageSize)
         .ToListAsync();
+        if(page != -1 && pageSize != -1)
+        {
+            return orders.Skip(page * pageSize).Take(pageSize).ToList();
+        }
+        return orders;
     }
 
     public async Task<IEnumerable<Order>> GetOrdersByStatusAsync(OrderStatus status)
