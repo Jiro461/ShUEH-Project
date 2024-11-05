@@ -101,7 +101,7 @@ namespace BackEnd_ASP.NET.Controller.Account
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUserById(Guid id, UserPutDTO userDto)
+        public async Task<IActionResult> UpdateUserById(Guid id,[FromForm] UserPutDTO userDto)
         {
             return await accountService.UpdateUserAsync(id, userDto);
         }
