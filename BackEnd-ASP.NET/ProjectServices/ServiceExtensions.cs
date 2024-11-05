@@ -81,6 +81,7 @@ public static class ServiceExtensions
         services.AddScoped<IWishListRepository, WishListRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IStatisticRepository, StatisticRepository>();
+        services.AddScoped<IDiscountRepository, DiscountRepository>();
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICommentService, CommentService>();
