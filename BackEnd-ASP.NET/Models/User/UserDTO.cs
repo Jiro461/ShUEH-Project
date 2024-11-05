@@ -18,6 +18,7 @@ namespace BackEnd_ASP.NET.Models.User
         [Required(ErrorMessage = "Profile name is required.")]
         [MaxLength(50, ErrorMessage = "Profile name cannot exceed 50 characters.")]
         public string? ProfileName { get; set; }
+        public string? Role { get; set; }
         public IFormFile? Avatar { get; set; } = null;
         public bool? Gender { get; set; }
     }
