@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import config from "../../../config/config.json";
 import RatingStars from '../RatingStars/RatingStars';
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetail = ({ product, error, loading }) => {
     const { SERVER_API } = config;
+    const navigate = useNavigate();
+    const [selectedSize, setSelectedSize] = useState(null); // State lưu trữ size đã chọn
 
     if (loading) {
         return <div>Loading...</div>;
@@ -13,19 +16,66 @@ const ProductDetail = ({ product, error, loading }) => {
         return <div>Error: {error}</div>;
     }
 
-    // Image Selection
-    const img_shoe = product.otherImages.map((img_url, index) => {
-        return (
-            <div key={`image-${index}`} className="ava-shoe"><img src={`${SERVER_API}/${img_url.url}`} alt="Thumbnail 1" /></div>
-        );
-    });
+    // Lấy userID từ cookie
+    const getUserID = () => {
+        const match = document.cookie.match(new RegExp('(^| )userID=([^;]+)'));
+        return match ? match[2] : null;
+    };
 
-    // Size Selection
-    const shoe_size = product.shoeDetails.map((shoe, index) => {
-        return (
-            <div key={`size-${index}`} className="col-2 size">{shoe.size}</div>
-        );
-    });
+    // Xử lý chọn size giày
+    const handleSizeSelect = (size) => {
+        setSelectedSize(size);
+    };
+
+    // Xử lý khi thêm sản phẩm vào giỏ hàng
+    const handleAddToCart = async () => {
+        const userID = getUserID();
+
+        if (!userID) {
+            // Nếu chưa có userID trong cookie, điều hướng đến màn hình đăng nhập
+            navigate("/login");
+        } else if (!selectedSize) {
+            // Kiểm tra nếu chưa chọn size
+            alert("Vui lòng chọn size trước khi thêm vào giỏ hàng.");
+        } else {
+            // Gửi yêu cầu đến API để thêm vào giỏ hàng với size đã chọn
+            try {
+                const response = await fetch(
+                    `${SERVER_API}/api/Cart/add?shoeId=${product.id}&size=${selectedSize}`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        credentials: 'include', // Gửi cookie cùng với request
+                    }
+                );
+
+                if (response.ok) {
+                    alert("Đã thêm vào giỏ hàng!");
+                } else {
+                    throw new Error('Không thể thêm vào giỏ hàng');
+                }
+            } catch (error) {
+                console.error("Lỗi:", error);
+            }
+        }
+    };
+
+    // Các phần tử hình ảnh và kích thước
+    const img_shoe = product.otherImages.map((img_url, index) => (
+        <div key={`image-${index}`} className="ava-shoe"><img src={`${SERVER_API}/${img_url.url}`} alt="Thumbnail 1" /></div>
+    ));
+
+    const shoe_size = product.shoeDetails.map((shoe, index) => (
+        <div
+            key={`size-${index}`}
+            className={`col-2 size ${selectedSize === shoe.size ? 'selected' : ''}`}
+            onClick={() => handleSizeSelect(shoe.size)}
+        >
+            {shoe.size}
+        </div>
+    ));
 
     return (
         <>
@@ -65,7 +115,7 @@ const ProductDetail = ({ product, error, loading }) => {
 
                 {/* Add to Cart */}
                 <div className="add-to-cart">
-                    <button className="add-cart">Add to cart</button>
+                    <button className="add-cart" onClick={handleAddToCart}>Add to cart</button>
                     <div className="heart">
                         <i className="fa-regular fa-heart"></i>
                     </div>

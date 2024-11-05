@@ -13,6 +13,7 @@ import ProfileUser from './user/components/ProfileUser/ProfileUser.jsx';
 import ProfileOrdered from './user/components/ProfileOrdered/ProfileOrdered.jsx';
 import ProductDetailPage from './user/pages/ProductDetailPage/ProductDetailPage.jsx';
 import Review from './user/components/Review/Review.jsx';
+import PaymentPage from './user/pages/PaymentPage/PaymentPage.jsx';
 
 // Định nghĩa component SignInComponent
 const SignInComponent = () => {
@@ -366,6 +367,10 @@ const router = createBrowserRouter([
       {
         path: "product/:id",
         element: <ProductDetailPage />,
+      },
+      {
+        path: "payment",
+        element: <PaymentPage />,
       },
       {
         path: "profile",
