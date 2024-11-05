@@ -45,14 +45,14 @@ namespace BackEnd_ASP.NET.Controller.Account
         public async Task<IActionResult> GetByIdFromQuery(Guid id)
         {
             if (id == Guid.Empty) return Unauthorized();
-            return await accountService.GetByIdAsync(id);
+            return await accountService.GetUserByIdAsync(id);
         }
         [HttpGet("cookieGetById")]
         public async Task<IActionResult> GetByIdFromCookie()
         {
-            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
             if (userId == Guid.Empty) return Unauthorized();
-            return await accountService.GetByIdAsync(userId);
+            return await accountService.GetUserByIdAsync(userId);
         }
 
         [HttpPost("sign-out")]
@@ -92,12 +92,19 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             return await accountService.GoogleAuthen(HttpContext);
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromForm] UserPutDTO userDto)
+        {
+            Guid userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            if (userId == Guid.Empty) return Unauthorized();
+            return await accountService.UpdateUserAsync(userId, userDto);
+        }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromForm] UserPutDTO userDto)
+        public async Task<IActionResult> UpdateUserById(Guid id,[FromForm] UserPutDTO userDto)
         {
             return await accountService.UpdateUserAsync(id, userDto);
         }
-
         [HttpGet("get-users-info")]
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsersInfo()
@@ -107,7 +114,14 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
-            return await accountService.ResetPassword(request.Email, request.NewPassword);
+            return await accountService.ChangePassword(request.Email, request.NewPassword);
+        }
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            Guid userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            if (userId == Guid.Empty) return Unauthorized();
+            return await accountService.ChangePassword(userId, currentPassword, newPassword);
         }
     }
 

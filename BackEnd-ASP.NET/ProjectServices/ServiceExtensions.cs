@@ -81,6 +81,7 @@ public static class ServiceExtensions
         services.AddScoped<IWishListRepository, WishListRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IStatisticRepository, StatisticRepository>();
+        services.AddScoped<IDiscountRepository, DiscountRepository>();
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICommentService, CommentService>();
@@ -89,6 +90,7 @@ public static class ServiceExtensions
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IShoeService, ShoeService>();
         services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<IDiscountService, DiscountService>();
         /*Identity*/
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();

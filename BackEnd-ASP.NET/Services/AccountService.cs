@@ -35,12 +35,13 @@ namespace BackEnd_ASP.NET.Services
         }
         private async Task SignInWithCookies(User user, HttpContext httpContext, bool rememberMe)
         {
+            var roleName = context.Roles.FirstOrDefault(r => r.Id == user.RoleId)?.Name;
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName ?? "Unknown"),
                 new Claim(ClaimTypes.Email, user.Email ?? "NoEmail"),
-                new Claim(ClaimTypes.Role, user.RoleId?.ToString() ?? "None"),
+                new Claim(ClaimTypes.Role, roleName ?? "None"),
                 new Claim(ClaimTypes.Gender, user.Gender.ToString() ?? "Both"),
                 new Claim("Provider", user.ProviderName ?? "Local"),  // Thêm Provider vào Claim
                 new Claim("IsExternal", user.IsExternalLogin.ToString() ?? "False"),
@@ -90,7 +91,7 @@ namespace BackEnd_ASP.NET.Services
             return Ok(userInfoDTOs);
         }
 
-        public async Task<IActionResult> GetByIdAsync(Guid id)
+        public async Task<IActionResult> GetUserByIdAsync(Guid id)
         {
             User? user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
@@ -99,6 +100,8 @@ namespace BackEnd_ASP.NET.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
+                Role = user.Role?.Name,
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 ProfileName = user.ProfileName,
@@ -149,13 +152,18 @@ namespace BackEnd_ASP.NET.Services
             var user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name!.ToLower() == userDto.Role!.ToLower());
+            if (role == null) return BadRequest($"Role {userDto.Role} not found.");
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
             user.ProfileName = userDto.ProfileName;
-            user.DateOfBirth = userDto.DateOfBirth;
+            user.Role = role;
+            user.DateOfBirth = userDto.DateOfBirth?.ToDateTime();
             user.Gender = userDto.Gender;
+            user.Email = userDto.Email;
             user.ProfileName = userDto.ProfileName;
-            user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
+            if (userDto.Avatar != null)
+                user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
             await userRepository.UpdateAsync(user);
             await notificationService.CreateUpdateNotificationForEntityChange(user, user.Id);
             return Ok("Update Successfully");
@@ -229,7 +237,8 @@ namespace BackEnd_ASP.NET.Services
             if (userId == null) return BadRequest("User ID is required.");
             var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
             if (user == null) return BadRequest("User not found.");
-            if (await userRepository.DeleteAsync(Guid.Parse(userId))) {
+            if (await userRepository.DeleteAsync(Guid.Parse(userId)))
+            {
                 await notificationService.CreateNotificationForEntityDelete(user);
                 return Ok("Delete Succesfully");
             }
@@ -239,7 +248,8 @@ namespace BackEnd_ASP.NET.Services
         {
             var user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
-            if (await userRepository.DeleteAsync(id)) {
+            if (await userRepository.DeleteAsync(id))
+            {
                 await notificationService.CreateNotificationForEntityDelete(user);
                 return Ok("Delete Succesfully");
             }
@@ -251,7 +261,7 @@ namespace BackEnd_ASP.NET.Services
             return Ok("Sign Out Successfully");
         }
 
-        public async Task<IActionResult> ResetPassword(string? email, string? newPassword)
+        public async Task<IActionResult> ChangePassword(string? email, string? newPassword)
         {
             if (string.IsNullOrWhiteSpace(email) ||
                             string.IsNullOrWhiteSpace(newPassword))
@@ -275,7 +285,24 @@ namespace BackEnd_ASP.NET.Services
 
             // Nếu lỗi xảy ra, trả về thông báo lỗi chi tiết
             return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
-
+        }
+        public async Task<IActionResult> ChangePassword(Guid userId, string currentPassword, string newPassword)
+        {
+            var user = await userRepository.GetByIdAsync(userId);
+            if (user == null) return BadRequest("User not found.");
+            if (user.IsExternalLogin == true) return BadRequest("User is external login.");
+            var IsHasPassword = await userManager.HasPasswordAsync(user);
+            if (IsHasPassword)
+            {
+                var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                if (result.Succeeded)
+                {
+                    return Ok("Password changed successfully.");
+                }
+                return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
+            }
+            return BadRequest("User does not have a password.");
         }
         private async Task<IActionResult> CreateUserAsync(User user, string? password = null)
         {

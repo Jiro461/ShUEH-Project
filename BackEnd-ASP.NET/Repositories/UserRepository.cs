@@ -27,6 +27,10 @@ public class UserRepository : IUserRepository
         var user = await _dbSet.FindAsync(id);
         if (user == null) return false;
         _context.WishlistItems.RemoveRange(_context.WishlistItems.Where(s => s.UserId == id));
+        _context.OrderItems.RemoveRange(_context.OrderItems.Where(s => s.Order!.UserId == id));
+        _context.Orders.RemoveRange(_context.Orders.Where(s => s.UserId == id));
+        _context.Comments.RemoveRange(_context.Comments.Where(s => s.UserId == id));
+        _context.Notifications.RemoveRange(_context.Notifications.Where(s => s.UserId == id));
         _dbSet.Remove(user);
         await _context.SaveChangesAsync();
         return true;
@@ -64,6 +68,7 @@ public class UserRepository : IUserRepository
         .Where(user => user.Id == id)
         .Include(user => user.Orders!).ThenInclude(order => order.OrderItems!)
         .Include(user => user.WishlistItems!)
+        .Include(user => user.Role)
         .FirstOrDefaultAsync();
     }
 

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Cors;
 using BackEnd_ASP.NET.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using BackEnd_ASP.NET.Models;
 
 namespace BackEnd_ASP.NET.Controller.Cart
 {
@@ -27,6 +28,51 @@ namespace BackEnd_ASP.NET.Controller.Cart
             this.context = context;
         }
         //Id is ShoeId, Size is ShoeSize
+        [HttpGet("recommend")]
+        public async Task<IActionResult> RecommendProducts()
+        {
+            ShoppingCartId = GetCartId();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var wishlist = userId != null ? await context.WishlistItems.Where(w => w.UserId == Guid.Parse(userId)).ToListAsync() : null;
+            // Lấy các sản phẩm hiện có trong giỏ hàng
+            var cartItems = await context.CartItems
+                .Where(c => c.SessionId == ShoppingCartId)
+                .Select(c => c.ShoeId)
+                .ToListAsync();
+
+            if (!cartItems.Any())
+            {
+                return Ok("No items in cart to recommend products.");
+            }
+
+            // Lấy các sản phẩm thường mua cùng với các sản phẩm trong giỏ hàng
+            var recommendedProducts = await context.OrderItems
+                .Where(oi => cartItems.Contains(oi.ShoeId))
+                .GroupBy(oi => oi.ShoeId)
+                .Select(g => new
+                {
+                    ShoeId = g.Key,
+                    RecommendCount = g.Count() // Đếm số lần sản phẩm này được mua
+                })
+                .OrderByDescending(g => g.RecommendCount) // Sắp xếp giảm dần
+                .Take(10) // Giới hạn số sản phẩm gợi ý
+                .ToListAsync();
+
+            // Chuyển đổi kết quả thành dữ liệu gợi ý
+            var recommendations = await context.Shoes
+                .Where(s => recommendedProducts.Select(rp => rp.ShoeId).Contains(s.Id))
+                .Select(s => new ShoeGetAllDTO
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    ImageUrl = s.ImageUrl ?? "images/shoes/noimage.webp",
+                    Price = s.Price,
+                    IsLiked = wishlist != null ? wishlist.Any(w => w.ShoeId == s.Id) : false
+                })
+                .ToListAsync();
+
+            return Ok(recommendations);
+        }
         [HttpPost("add")]
         public async Task<IActionResult> AddToCart(Guid shoeId, int size)
         {
@@ -68,12 +114,11 @@ namespace BackEnd_ASP.NET.Controller.Cart
             {
                 ItemId = c.Id,
                 ShoeId = c.ShoeId,
-                Colors = c.Shoe!.Colors.Select(s => new { s.Color }).ToList(),
+                Colors = c.Shoe!.Colors.Select(s => new ShoeColorDTO { Color = s.Color }).ToList(),
                 ShoeName = c.Shoe!.Name,
                 ShoeImage = c.Shoe!.ImageUrl,
                 Quantity = c.Quantity,
                 Size = c.Size,
-                Shoe = c.Shoe
             }).ToList();
             return Ok(cartItemsDto);
         }
@@ -107,7 +152,9 @@ namespace BackEnd_ASP.NET.Controller.Cart
                 }
             }
 
-            return Guid.Parse(session.GetString(CartSessionKey) ?? string.Empty);
+            return Guid.TryParse(session.GetString(CartSessionKey), out var cartId)
+                ? cartId
+                : Guid.NewGuid(); // Trả về giá trị mới nếu parse thất bại
         }
 
     }

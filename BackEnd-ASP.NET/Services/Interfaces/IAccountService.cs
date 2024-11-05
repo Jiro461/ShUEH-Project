@@ -7,7 +7,7 @@ namespace BackEnd_ASP.NET.Services
     {
         Task<IActionResult> Register(UserRegisterDto model);
         Task<IActionResult> AddUserAsync(UserAddDTO userAddDTO);
-        Task<IActionResult> GetByIdAsync(Guid id);
+        Task<IActionResult> GetUserByIdAsync(Guid id);
         Task<IActionResult> Login(UserLoginDto userLoginDto, HttpContext httpContext);
         Task<IActionResult> GoogleAuthen(HttpContext httpContext);
 
@@ -17,6 +17,7 @@ namespace BackEnd_ASP.NET.Services
         // Add more methods as needed
         Task<IActionResult> SignOutUser(HttpContext httpContext);
         Task<IActionResult> GetUsersInfo();
-        Task<IActionResult> ResetPassword(string? email, string? newPassword);
+        Task<IActionResult> ChangePassword(string? email, string? newPassword);
+        Task<IActionResult> ChangePassword(Guid userId, string currentPassword, string newPassword);
     }
 }

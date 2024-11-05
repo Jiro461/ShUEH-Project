@@ -179,6 +179,22 @@ namespace BackEnd_ASP.NET.Services
             await notificationService.CreateUpdateNotificationForEntityChange(existingShoe);
             return Ok("Shoe updated successfully"); // Trả về thông báo thành công
         }
+        public async Task<IEnumerable<ShoeGetAllDTO>> GetSimilarShoes(Guid shoeId)
+        {
+            // Lấy giày hiện tại
+            var currentShoe = await context.Shoes.FindAsync(shoeId);
+            if (currentShoe == null) return Enumerable.Empty<ShoeGetAllDTO>();
+
+            // Truy vấn các giày tương tự
+            var similarShoes = await context.Shoes
+                .Where(s => s.Id != shoeId
+                    && (s.Brand == currentShoe.Brand || s.Category == currentShoe.Category || s.Gender == currentShoe.Gender))
+                .OrderByDescending(s => s.Sold) // ưu tiên giày phổ biến hơn
+                .Take(5) // giới hạn số lượng
+                .ToListAsync();
+
+            return ConvertListToListShoeGetAllDTOForUser(similarShoes);
+        }
         // Xóa một đôi giày
         public async Task<IActionResult> DeleteShoeAsync(Guid id)
         {
