@@ -39,6 +39,7 @@ namespace BackEnd_ASP.NET.Models.User
         public string? ProfileName { get; set; }
         public string? AvatarUrl { get; set; }
         public bool? Gender { get; set; }
+        public string? Role { get; set; }
         public decimal? TotalMoney { get; set; }
         public DateTime? CreatedAt { get; set; }
         public bool? EmailConfirmed { get; set; }

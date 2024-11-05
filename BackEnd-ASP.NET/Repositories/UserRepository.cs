@@ -68,6 +68,7 @@ public class UserRepository : IUserRepository
         .Where(user => user.Id == id)
         .Include(user => user.Orders!).ThenInclude(order => order.OrderItems!)
         .Include(user => user.WishlistItems!)
+        .Include(user => user.Role)
         .FirstOrDefaultAsync();
     }
 

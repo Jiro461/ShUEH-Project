@@ -100,6 +100,7 @@ namespace BackEnd_ASP.NET.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Role = user.Role?.Name,
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 ProfileName = user.ProfileName,
