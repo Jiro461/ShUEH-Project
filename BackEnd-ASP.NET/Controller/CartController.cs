@@ -114,12 +114,11 @@ namespace BackEnd_ASP.NET.Controller.Cart
             {
                 ItemId = c.Id,
                 ShoeId = c.ShoeId,
-                Colors = c.Shoe!.Colors.Select(s => new { s.Color }).ToList(),
+                Colors = c.Shoe!.Colors.Select(s => new ShoeColorDTO { Color = s.Color }).ToList(),
                 ShoeName = c.Shoe!.Name,
                 ShoeImage = c.Shoe!.ImageUrl,
                 Quantity = c.Quantity,
                 Size = c.Size,
-                Shoe = c.Shoe
             }).ToList();
             return Ok(cartItemsDto);
         }
