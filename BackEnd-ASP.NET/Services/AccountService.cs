@@ -100,6 +100,7 @@ namespace BackEnd_ASP.NET.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
                 Role = user.Role?.Name,
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
@@ -159,6 +160,7 @@ namespace BackEnd_ASP.NET.Services
             user.Role = role;
             user.DateOfBirth = userDto.DateOfBirth?.ToDateTime();
             user.Gender = userDto.Gender;
+            user.Email = userDto.Email;
             user.ProfileName = userDto.ProfileName;
             if (userDto.Avatar != null)
                 user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
