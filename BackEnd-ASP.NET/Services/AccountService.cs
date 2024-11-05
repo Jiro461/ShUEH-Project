@@ -156,7 +156,8 @@ namespace BackEnd_ASP.NET.Services
             user.DateOfBirth = userDto.DateOfBirth?.ToDateTime();
             user.Gender = userDto.Gender;
             user.ProfileName = userDto.ProfileName;
-            user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
+            if (userDto.Avatar != null)
+                user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
             await userRepository.UpdateAsync(user);
             await notificationService.CreateUpdateNotificationForEntityChange(user, user.Id);
             return Ok("Update Successfully");

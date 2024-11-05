@@ -100,6 +100,11 @@ namespace BackEnd_ASP.NET.Controller.Account
             return await accountService.UpdateUserAsync(userId, userDto);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUserById(Guid id, UserPutDTO userDto)
+        {
+            return await accountService.UpdateUserAsync(id, userDto);
+        }
         [HttpGet("get-users-info")]
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsersInfo()
