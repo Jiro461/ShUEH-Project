@@ -100,6 +100,8 @@ namespace BackEnd_ASP.NET.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
+                Role = user.Role?.Name,
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 ProfileName = user.ProfileName,
@@ -150,11 +152,15 @@ namespace BackEnd_ASP.NET.Services
             var user = await userRepository.GetByIdAsync(id);
             if (user == null) return NotFound("User not found");
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name!.ToLower() == userDto.Role!.ToLower());
+            if (role == null) return BadRequest($"Role {userDto.Role} not found.");
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
             user.ProfileName = userDto.ProfileName;
+            user.Role = role;
             user.DateOfBirth = userDto.DateOfBirth?.ToDateTime();
             user.Gender = userDto.Gender;
+            user.Email = userDto.Email;
             user.ProfileName = userDto.ProfileName;
             if (userDto.Avatar != null)
                 user.AvatarUrl = await FileHelper.UpdateAvatarAsync(_webHostEnvironment, user, userDto);
