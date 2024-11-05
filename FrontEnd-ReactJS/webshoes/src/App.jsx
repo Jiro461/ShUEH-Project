@@ -12,6 +12,7 @@ import './App.scss';
 import ProfileUser from './user/components/ProfileUser/ProfileUser.jsx';
 import ProfileOrdered from './user/components/ProfileOrdered/ProfileOrdered.jsx';
 import ProductDetailPage from './user/pages/ProductDetailPage/ProductDetailPage.jsx';
+import Review from './user/components/Review/Review.jsx';
 
 // Định nghĩa component SignInComponent
 const SignInComponent = () => {
@@ -350,6 +351,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <UserLayout />,
     children: [
+      {
+        path: "review",
+        element: <Review />
+      },
       {
         path: "/",
         element: <UserHome />,

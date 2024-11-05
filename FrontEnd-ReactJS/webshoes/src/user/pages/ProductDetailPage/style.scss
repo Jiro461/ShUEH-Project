@@ -15,7 +15,7 @@
     position: relative;
     justify-content: center;
     align-items: center;
-  
+
     // Vector img
     .vector-img {
       position: absolute;
@@ -28,7 +28,7 @@
       filter: drop-shadow(0px 0px 15px rgba(51, 51, 51, 0.5));
       z-index: 0;
     }
-  
+
     // Img background
     .img-background {
       width: 35vw;
@@ -47,8 +47,8 @@
         border-radius: 50%;
         background-color: transparent;
         position: relative;
-      overflow: hidden;
-    }
+        overflow: hidden;
+      }
 
       .vector-4,
       .vector-5 {
@@ -68,7 +68,7 @@
         right: 0;
         left: 0;
       }
-  
+
       .shoe-img {
         width: 130%;
         min-width: 440px;
@@ -79,15 +79,15 @@
         z-index: 2;
       }
     }
-  
+
     // Ava-shoe-selection
     .ava-shoe-selection {
       display: flex;
       flex-direction: column;
       position: relative;
-      margin: 0 24px;
+      // margin: 0 24px;
       z-index: 1;
-  
+
       .ava-shoe {
         width: 70px;
         height: 70px;
@@ -96,13 +96,13 @@
         margin: 12px 10px 0;
         overflow: hidden;
         transition: transform 0.3s ease-in-out;
-  
+
         img {
           width: 100%;
           height: 100%;
         }
       }
-  
+
       .ava-shoe:hover {
         cursor: pointer;
         transform: scale(1.2);
@@ -112,17 +112,18 @@
     // Detail style
     .detail-style {
       position: relative;
+      padding: 0;
       z-index: 1;
-    
+
       h2 {
         font-size: 40px;
         text-transform: uppercase;
       }
-    
+
       h4 {
         font-size: 30px;
       }
-    
+
       .select-size {
         font-size: 15px;
         color: #fff;
@@ -130,14 +131,14 @@
         gap: 10px;
         margin: 10px 0;
         text-align: center;
-    
+
         .select-button {
           width: 350px;
           margin-bottom: 15px;
           display: flex;
           align-content: center;
           justify-content: flex-start;
-    
+
           div {
             background-color: transparent;
             font-weight: 600;
@@ -151,10 +152,10 @@
             text-transform: uppercase;
           }
         }
-    
+
         .size-box {
           width: 350px;
-    
+
           .size {
             display: inline-block;
             height: 40px;
@@ -167,7 +168,7 @@
             user-select: none;
             transition: transform 0.3s ease-in-out;
           }
-    
+
           .size:hover {
             cursor: pointer;
             background-color: #828282;
@@ -175,14 +176,14 @@
           }
         }
       }
-    
+
       .add-to-cart {
         display: flex;
         align-items: center;
         gap: 10px;
         margin-top: 20px;
         justify-content: center;
-    
+
         .add-cart {
           padding: 15px 35px;
           background-color: #333;
@@ -192,12 +193,12 @@
           text-transform: uppercase;
           border: 0;
           transition: transform 0.3s ease-in-out;
-    
+
           &:hover {
             transform: scale(1.2);
           }
         }
-    
+
         .heart {
           font-size: 20px;
           width: 40px;
@@ -211,11 +212,11 @@
           background-color: #fff;
           margin-left: 60px;
         }
-    
+
         .heart i {
           transition: transform 0.3s ease-in-out;
         }
-    
+
         .heart:hover i {
           transform: scale(1.2);
         }
@@ -232,7 +233,7 @@
   .detail-product .img-background {
     margin-top: 20px;
   }
-  
+
   .detail-product .detail-style {
     padding-top: 5%;
     text-align: center;
@@ -278,7 +279,6 @@
 
     #nav {
       padding: 0;
-      min-width: 561px;
       text-align: center;
     }
 
@@ -290,17 +290,51 @@
 
     .content {
       margin-bottom: 50px;
-      
+
       h2 {
         margin-top: 50px;
         font-size: 1.3rem;
         text-transform: uppercase;
       }
 
-      p {
-        margin-top: 38px;
-        font-size: 15px;
-        line-height: 30px;
+      #contentText {
+        display: flex;
+        justify-content: center;
+
+        .review-container {
+          position: relative;
+          width: 100%;
+          /* Đảm bảo kích thước chiều cao cố định */
+
+          .slide-enter,
+          .slide-exit-active {
+            position: absolute;
+            width: 100%;
+          }
+
+          .slide-enter {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+
+          .slide-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+          }
+
+          .slide-exit {
+            opacity: 1;
+            transform: translateX(0);
+          }
+
+          .slide-exit-active {
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+          }
+
+        }
       }
     }
   }
@@ -327,10 +361,9 @@
     font-size: 54px;
     text-align: center;
   }
-  
+
   .description .nav-tabs #nav {
     font-size: 0.9rem;
-    min-width: 390px;
   }
 }
 
