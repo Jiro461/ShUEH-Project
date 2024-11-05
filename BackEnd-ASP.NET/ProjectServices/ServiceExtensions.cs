@@ -89,6 +89,7 @@ public static class ServiceExtensions
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IShoeService, ShoeService>();
         services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<IDiscountService, DiscountService>();
         /*Identity*/
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();
