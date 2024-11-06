@@ -15,8 +15,6 @@ namespace BackEnd_ASP_NET.Models
         public string? Code { get; set; }
         //Mã giảm giá có phải là mã giảm giá phổ biến không
         public bool IsPublic { get; set; } = false;
-
-        [Required(ErrorMessage = "Percentage is required.")]
         //Phần trăm giảm giá
         public decimal? Percentage { get; set; }
         //Số tiền giảm giá
