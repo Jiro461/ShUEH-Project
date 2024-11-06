@@ -81,6 +81,7 @@ public class DatabaseSeeder
                         UserId = userIds[random.Next(0, userIds.Count)],
                         Description = GenerateRandomDescription(),
                         Rate = rate,
+                        Size = _random.Next(36, 46),
                         CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
                         LastModifiedDate = DateTime.Now
                     }

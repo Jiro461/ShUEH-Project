@@ -92,9 +92,10 @@ namespace BackEnd_ASP.NET.Services
         public async Task<IActionResult> GetAllCommentsAsync(Guid shoeId, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
             var comments = await commentRepository.GetAllCommentsAsync(shoeId);
             if (comments == null) return NotFound();
-            var commentDTOs = comments.Select(comment => new CommentDTO 
+            var commentDTOs = comments.Select(comment => new CommentGetDTO 
             {
                 Id = comment.Id,
                 GeneralReview = GetGeneralReview(comment.Rate),
@@ -104,6 +105,7 @@ namespace BackEnd_ASP.NET.Services
                 UserId = comment.UserId,
                 UserName = comment.User?.UserName ?? string.Empty,
                 UserAvatar = comment.User?.AvatarUrl ?? "noavatar.png",
+                Size = comment.Size,
                 CreateDate = comment.CreateDate,
                 TotalLike = comment.CommentLikes?.Count ?? 0,
                 Replies = comment.Replies?.Select(reply => new ReplyDTO
@@ -112,12 +114,12 @@ namespace BackEnd_ASP.NET.Services
                     Description = reply.Description ?? string.Empty,
                     CreateDate = reply.CreateDate
                 }).ToList(),
-                IsUserPost = userId == null ? false : comment.UserId == Guid.Parse(userId)
+                IsUserPost = (userId == null) ? false : (userRole == "Admin" ? true : comment.UserId == Guid.Parse(userId))
             }).ToList();
             return Ok(commentDTOs);
         }
 
-        public async Task<IActionResult> AddCommentAsync(CommentDTO commentDTO, HttpContext httpContext)
+        public async Task<IActionResult> AddCommentAsync(CommentPostDTO commentDTO, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null) return Unauthorized();
@@ -133,10 +135,12 @@ namespace BackEnd_ASP.NET.Services
                 UserId = Guid.Parse(userId),
                 TotalLike = 0,
                 CreateDate = MyDateTime.VietNam.DateTime,
+                Size = commentDTO.Size
             };
             await shoeRepository.UpdateShoeAsync(shoe);
-            var addedComment = await commentRepository.AddCommentAsync(comment);
-            return Ok(addedComment);
+            if (await commentRepository.AddCommentAsync(comment))
+                return Ok(comment);
+            return BadRequest("Add comment failed");
         }
         
         public async Task<IActionResult> DeleteCommentAsync(Guid id, HttpContext httpContext)
@@ -150,8 +154,8 @@ namespace BackEnd_ASP.NET.Services
             shoe.AverageRating = ((shoe.AverageRating * shoe.TotalRatings) - comment.Rate) / (shoe.TotalRatings - 1);
             await shoeRepository.UpdateShoeAsync(shoe);
             if (await commentRepository.DeleteCommentAsync(id))
-                return Ok();
-            return NotFound();
+                return Ok("Delete comment successfully");
+            return BadRequest("Delete comment failed");
         }
         #endregion
 
