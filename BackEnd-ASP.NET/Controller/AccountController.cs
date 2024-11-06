@@ -111,11 +111,11 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             return await accountService.GetUsersInfo();
         }
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
-        {
-            return await accountService.ChangePassword(request.Email, request.NewPassword);
-        }
+        //[HttpPost("reset-password")]
+        //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        //{
+        //    return await accountService.ChangePassword(request.Email, request.NewPassword);
+        //}
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {
