@@ -77,9 +77,12 @@ namespace BackEnd_ASP.NET.Controller.Email
             }
 
 
-            await _accountService.ChangePassword(request.Email, request.NewPassword);
-            _cache.Remove(request.Email);
-            return Ok("Password reset successfully.");
+            if(await _accountService.ChangePassword(request.Email, request.NewPassword) == Ok("Password reset successfully."))
+            {
+                _cache.Remove(request.Email);
+                return Ok("Password reset successfully.");
+            }
+            return BadRequest("Password reset failed.");
         }
 
         private string GenerateOtp()
