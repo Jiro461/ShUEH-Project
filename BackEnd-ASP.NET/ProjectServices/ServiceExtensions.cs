@@ -30,7 +30,7 @@ public static class ServiceExtensions
         ConfigureEntityFramework(services, configuration);
         ConfigureSwagger(services);
         ConfigureSessionService(services);
-
+        services.AddSignalR();
     }
     private static void ConfigureHttpService(IServiceCollection services)
     {
@@ -44,7 +44,7 @@ public static class ServiceExtensions
     {
         services.AddSession(options =>
         {
-            options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+            options.IdleTimeout = TimeSpan.FromDays(1); // Set session timeout
             options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
             options.Cookie.IsEssential = true; // Make the session cookie essential
         });
@@ -82,6 +82,7 @@ public static class ServiceExtensions
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IStatisticRepository, StatisticRepository>();
         services.AddScoped<IDiscountRepository, DiscountRepository>();
+        services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICommentService, CommentService>();

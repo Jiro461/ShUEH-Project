@@ -24,9 +24,33 @@ public class DatabaseSeeder
         RandomCommentData(shoeIds, userIds);
         RandomSiteViewAndProductView(shoeIds);
         SeedOrders(userIds, shoeIds);
+        RandomDiscountData();
         _context.SaveChanges();
     }
     #region Seed Data
+    private void RandomDiscountData(){
+        var discount = new List<Discount>();
+        
+        for(int i = 0; i < 10; i++){
+            decimal? percentage = _random.Next(0, 2) == 0 ? null : (decimal?)_random.Next(10, 50);
+            discount.Add(new Discount{
+                Id = Guid.NewGuid(),
+                Code = GenerateRandomCode(),
+                IsPublic = _random.Next(0, 2) == 0,
+                Percentage = percentage,
+                Amount = percentage == null ? (decimal)_random.Next(100000, 500000) : null,
+                Type = (DiscountType)_random.Next(0, Enum.GetValues(typeof(DiscountType)).Length),
+                Quantity = _random.Next(100, 200),
+                MaximumDiscount = percentage != null ? (decimal?)_random.Next(100000, 500000) : null,
+                MinimumOrder = _random.Next(1000000, 5000000),
+                ExpiryDate = DateTime.UtcNow.AddMonths(_random.Next(1, 12)),
+                CreateDate = DateTime.UtcNow,
+                LastModifiedDate = DateTime.UtcNow
+            });
+        }
+        _context.Discounts.AddRange(discount);
+        _context.SaveChanges();
+    }
     private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds)
     {
 
@@ -34,7 +58,7 @@ public class DatabaseSeeder
         for (int i = 0; i < shoeIds.Count; i++)
         {
             Guid shoeId = shoeIds[i];
-            int totalComments = random.Next(1, 10);
+            int totalComments = random.Next(1, 7);
             for (int j = 0; j < totalComments; j++)
             {
                 Guid commentId = Guid.NewGuid();
@@ -62,7 +86,7 @@ public class DatabaseSeeder
                     }
                 );
                 _context.SaveChanges();
-                int totalLike = random.Next(0, 50);
+                int totalLike = random.Next(0, 25);
                 for (int k = 0; k < totalLike; k++)
                 {
                     _context.CommentLikes.Add(
@@ -86,7 +110,7 @@ public class DatabaseSeeder
     }
     private async Task<List<Guid>> CreateUsersAsync(Guid userRoleId, Guid adminRoleId)
     {
-        const int userCount = 300;
+        const int userCount = 178;
         var users = new List<User>();
         List<Guid> userIds = new List<Guid>();
         for (int i = 0; i < userCount; i++)
@@ -166,8 +190,8 @@ public class DatabaseSeeder
     }
     private void RandomSiteViewAndProductView(List<Guid> shoeIds)
     {
-        const int minViewsPerProduct = 100;
-        const int maxViewsPerProduct = 150;
+        const int minViewsPerProduct = 75;
+        const int maxViewsPerProduct = 100;
         const int monthsBack = 6;
 
         for (int i = 0; i < monthsBack; i++)
@@ -189,7 +213,7 @@ public class DatabaseSeeder
     }
     private void SeedSiteViews(DateTime month)
     {
-        int numberOfRecords = _random.Next(200, 300);
+        int numberOfRecords = _random.Next(150, 200);
         var siteViews = new List<SiteView>();
 
         for (int i = 0; i < numberOfRecords; i++)
@@ -217,7 +241,7 @@ public class DatabaseSeeder
     }
     private void SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
     {
-        const int orderCount = 300; // số lượng đơn hàng cần seed
+        const int orderCount = 178; // số lượng đơn hàng cần seed
         var orders = new List<Order>();
 
         for (int i = 0; i < orderCount; i++)
@@ -317,6 +341,11 @@ public class DatabaseSeeder
     }
     #endregion
     #region Generate Extension
+    
+    private string GenerateRandomCode()
+    {
+        return Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
+    }
     // Tạo chuỗi ngày sinh ngẫu nhiên dạng "dd/MM/yyyy"
     private string GenerateRandomDateOfBirthString()
     {

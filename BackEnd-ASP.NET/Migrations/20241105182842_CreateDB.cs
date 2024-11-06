@@ -1,0 +1,1067 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace BackEnd_ASP.NET.Migrations
+{
+    /// <inheritdoc />
+    public partial class CreateDB : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Discounts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    Percentage = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    MaximumDiscount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    MinimumOrder = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductViews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IPAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ViewedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductViews", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shoes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Material = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Sold = table.Column<int>(type: "int", nullable: false),
+                    AverageRating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalRatings = table.Column<int>(type: "int", nullable: false),
+                    IsSale = table.Column<bool>(type: "bit", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ViewCount = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SiteViews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Ipaddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Device = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ViewedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SiteViews", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<bool>(type: "bit", nullable: true),
+                    IsExternalLogin = table.Column<bool>(type: "bit", nullable: true),
+                    ProviderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalMoney = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Size = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoeImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoeImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoeImages_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoesColor",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoesColor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoesColor_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoesDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Size = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoesDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoesDetail_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoeSeasons",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Season = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoeSeasons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoeSeasons_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    GeneralReview = table.Column<int>(type: "int", nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalLike = table.Column<int>(type: "int", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsUsingDiscount = table.Column<bool>(type: "bit", nullable: false),
+                    DiscountId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    PaymentMethod = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Discounts_DiscountId",
+                        column: x => x.DiscountId,
+                        principalTable: "Discounts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishlistItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishlistItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WishlistItems_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_WishlistItems_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommentLikes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentLikes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommentLikes_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommentLikes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Replies",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Replies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Replies_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Replies_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdminMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShoeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Size = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ShoePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Shoes_ShoeId",
+                        column: x => x.ShoeId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Shoes",
+                columns: new[] { "Id", "AverageRating", "Brand", "Category", "CreateDate", "Description", "Discount", "Gender", "ImageUrl", "IsSale", "LastModifiedDate", "Material", "Name", "Price", "Sold", "TotalRatings", "ViewCount" },
+                values: new object[,]
+                {
+                    { new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), 4.8m, "Adidas", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1197), "Get ready for what's next. This iteration of the signature shoes from Trae Young and adidas Basketball is all about the future of the game. Celebrating Trae's unique look, crowd-pleasing bravado and expressive, futuristic style of play, these shoes are built for optimised motion and stability, two elements of Trae's game that have elevated him to superstar status. The midsole ensures your most explosive moves can be done at top speed while a rubber outsole adds support on hard plants and cuts.", 0.0m, 1, "images/shoes/[IDGiay_6]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1198), "Leather, fabric, foam, and rubber.", "TRAE YOUNG 3 BASKETBALL SHOES", 4200000m, 456, 381, 0 },
+                    { new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), 4.5m, "Puma", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1282), "Hit the bike, locked in and ready to dominate your workout with the PWRSPIN indoor cycling shoes. They contain a lightweight upper with our performance ULTRAWEAVE fabric, which will help your feet breathe. Then, the DISC closure and PWRPLATE carbon fibre plate with a delta closure will ensure your feet are secure for a hard training session.\r\n4D PWRPRINT over ULTRAWEAVE upper\r\nKnitted collar construction\r\nDISC technology closure\r\nHook-and-loop closure\r\nPWRPLATE with delta clip on heel\r\nFuturistic heel fin design\r\n", 0.0m, 1, "images/shoes/[IDGiay_13]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1283), "Leather, fabric, foam, and rubber.", "PWRSPIN Indoor Cycling Shoes", 2900000m, 54, 23, 0 },
+                    { new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), 4.7m, "Reebok", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1311), "Designed for versatile workouts\r\n\r\nProduct Code GZ1400\r\n\r\nThe shoe body is made of soft leather for a comfortable feel\r\n\r\nThe EVA midsole provides lightweight cushioning and shock absorption. The ICE outsole offers abrasion resistance and durability.", 0.0m, 2, "images/shoes/[IDGiay_20]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1312), "Leather, fabric, foam, and rubber.", "QUESTION LOW", 3590000m, 22, 10, 0 },
+                    { new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), 4.9m, "Nike", "Yoga", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1193), "You bring the speed. We'll bring the stability. The Luka 2 is built to support your skills, with an emphasis on stepbacks, side-steps and quick-stop action. A stacked midsole features firm, flexible cushioning for added responsiveness as you shift back and forth on the court. Up top, the full-foot wrapped cage design helps you stay contained whether you're faking out a defender or driving down the lane. With all that tech in a lightweight package, we've got efficiency covered. The rest is up to you.", 30.0m, 2, "images/shoes/[IDGiay_5]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1194), "Leather, fabric, foam, and rubber.", "Luka 2", 1784299m, 89, 66, 0 },
+                    { new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), 4.9m, "Converse", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1328), "90S REMIX\r\n\r\nWant some '90s flair? Throw on this Weapon that pays homage to our basketball and skate shoes from that era. A durable, leather upper in retro colors gives it the look of a pre-Y2K favorite.\r\n\r\nFeatures And Benefits\r\n Leather and nubuck upper, with that classic Weapon look\r\n CX cushioning helps provide next-level comfort\r\n Flat cotton laces offer durability\r\n Iconic, woven All Star tongue label reps the legacy", 10.0m, 2, "images/shoes/[IDGiay_24]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1329), "Leather, fabric, foam, and rubber.", "Weapon", 2500000m, 156, 100, 0 },
+                    { new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), 4.8m, "Nike", "Football", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1185), "Serious about your game? Wanna run fast so you can score goals? The Jr. Vapor 16 Pro has an improved heel Air Zoom unit to help you flash your speed. It gives you and those devoted to the game the propulsive feel needed to break through the back line. Take your skills to the next level with some of Nike's greatest innovations like Flyknit on the upper, which makes the boot even lighter so you can play fast.", 0.0m, 1, "images/shoes/[IDGiay_3]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1186), "Leather, fabric and rubber.", "Jr. Mercurial Vapor 16 Pro", 4109000m, 13, 10, 0 },
+                    { new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), 4.0m, "Puma", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1219), "Run like an intergalactic MVP in the MB.03 Halloween. NITRO™ foam rockets energy return with each explosive step, while the space-age woven upper lets breathability blast off. Scratch cutouts and slime soles complete the Melo world trip. Get ready for lift-off.", 0.0m, 1, "images/shoes/[IDGiay_11]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1220), "Leather, fabric, foam, and rubber.", "PUMA x LAMELO BALL MB.03 Halloween Men's Basketball Shoes", 3300000m, 32, 21, 0 },
+                    { new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), 4.7m, "Adidas", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1215), "From the moment he first stepped onto the hardwood, Donovan Mitchell has been a game changer, and that's continued even as his game has grown and evolved. These D.O.N. Issue 6 Signature shoes from adidas Basketball continue to build on Spida's on-court persona as well as his off-court social activism. Riding an ultra-lightweight Lightstrike midsole and a unique rubber outsole with an elevated traction pattern, these basketball trainers help you dominate the game just like one of the sport's very best.", 0.0m, 1, "images/shoes/[IDGiay_10]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1215), "Leather, fabric, foam, and rubber.", "D.O.N. Issue 6 Shoes", 3200000m, 23, 3, 0 },
+                    { new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), 4.4m, "Adidas", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1207), "Whether the workout calls for power or endurance, these adidas shoes offer the support you need for strength training. A dual-density midsole keeps feet stable through heavy lifts, while remaining flexible enough for cardio. HEAT.RDY and a breathable upper work overtime to beat the heat, so you can focus on the reps. A wide fit accommodates swelling feet, and an Adiwear outsole grips the floor to drive performance.\r\n\r\nThis product features at least 20% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.", 0.0m, 2, "images/shoes/[IDGiay_8]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1208), "Leather, fabric, foam, and rubber.", "Dropset 3 Shoes", 3500000m, 120, 84, 0 },
+                    { new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), 4.5m, "Nike", "Gym & Training", new DateTime(2024, 10, 7, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1390), "Whether you're starting your running journey or an expert eager to switch up your pace, the Downshifter 13 is down for the ride. With a revamped upper, cushioning and durability, it helps you find that extra gear or take that first stride towards chasing down your goals.", 40m, 1, "images/shoes/[IDGiay_Home_3]_AnhChinh_1.png", true, new DateTime(2024, 10, 7, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1390), "Plastics, yarns and textiles.", "Nike Downshifter 13", 2069000m, 78, 20, 0 },
+                    { new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), 4.4m, "Adidas", "Football", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1203), "The game's all about goals, and these football boots are crafted to find the net. Every. Time. Target perfection in all-new adidas Predator. With a textured finish on the outside and a foot-hugging fit on the inside, the synthetic upper looks and feels the part. Sitting underneath, a lug rubber outsole ensures you're always in the perfect position to take aim.\r\n\r\nThis product features at least 20% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.", 15.0m, 1, "images/shoes/[IDGiay_7]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1204), "Leather, fabric, and rubber.", "Predator Club Sock Turf Football Boots", 1600000m, 44, 37, 0 },
+                    { new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), 4.3m, "Converse", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1315), "Meet the Run Star Trainer—a celebration of sports, style, and heritage. Sleek details and luxe cushioning pair well with all your favorite 'fits, day and night. The next step in the Star Chevron legacy is here.\r\n\r\nFeatures And Benefits\r\nA durable nylon upper with suede overlays and leather accents for a luxe look and feel\r\nCX foam cushioning helps provide next-level comfort\r\nTraction rubber outsole helps provide grip\r\nPunched eyelets and waxed laces add a premium touch\r\nIconic Star Chevron, All Star, and Converse logos", 0.0m, 1, "images/shoes/[IDGiay_21]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1316), "Leather, fabric, foam, and rubber.", "Run Star Trainer", 1900000m, 20, 10, 0 },
+                    { new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), 4.5m, "Nike", "Gym & Training", new DateTime(2024, 10, 7, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1384), "Nike's first lifestyle Air Max brings you style, comfort and big attitude in the Nike Air Max 270. The design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colors.", 40m, 1, "images/shoes/[IDGiay_Home_2]_AnhChinh_1.png", true, new DateTime(2024, 10, 7, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1385), "Plastics, yarns and textiles.", "Nike Air Max 270", 4059000m, 8, 3, 0 },
+                    { new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), 4.9m, "Converse", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1319), "Take on unpredictable city terrain in low-tops that boast reliable comfort and style. Traction tread means durability and better grip for your power walk, while the suede heel brings a fashion-forward edge. Plus, CX foam cushioning helps keep your steps comfortable for your midtown-to-downtown strut.\r\n\r\nFeatures And Benefits\r\nLow-top shoe with a canvas upper\r\nCX foam helps provide next-level comfort\r\nSuede heel overlay and heel pulls for easy on and off\r\nTraction outsole and rubber toe bumper for added durability\r\nPrinted utility-inspired graphic on the heel", 0.0m, 1, "images/shoes/[IDGiay_22]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1319), "Leather, fabric, foam, and rubber.", "Chuck 70 AT-CX", 2500000m, 67, 45, 0 },
+                    { new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), 4.4m, "Converse", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1323), "Express your personal style with a pair of shoes from Converse. Our range of shoes and trainers are built for ultimate comfort and timeless street style. With a stylish and iconic silhouette, Converse offers a wide variety of shoes to suit your personality.\r\n\r\nThere may be a 1-2cm difference in measurements depending on the development and manufacturing process.", 20.0m, 1, "images/shoes/[IDGiay_23]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1323), "Leather, fabric, foam, and rubber.", "Converse x OLD MONEY Weapon\r\n", 2170000m, 56, 34, 0 },
+                    { new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), 4.5m, "Reebok", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1294), "Whether you're new to the gym or already know how to lift weights, these Reebok men's training shoes are designed to help you reach your fitness goals. The breathable and lightweight mesh upper keeps your feet comfortable while built-in support provides stability during box jumps and all-day activity. The rubber outsole features lateral wraps for durability and traction whether indoors or outdoors, with forefoot grooves to provide flexibility when needed.", 0.0m, 1, "images/shoes/[IDGiay_16]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1294), "Leather, fabric, foam, and rubber.", "Reebok NFX Trainer", 2490000m, 30, 25, 0 },
+                    { new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), 4.8m, "Reebok", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1307), "Inspired by the 1996 Mobius collection, these Reebok shoes evoke a modern approach to a blast from the past. Their flashy, asymmetrical look is created by the contrast between yin and yang lighting, so your left shoe looks different from the right shoe. Wear them and show everyone that OG spirit.\r\n", 0.0m, 1, "images/shoes/[IDGiay_19]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1308), "Leather, fabric, foam, and rubber.", "Unisex Reebok The Blast", 3990000m, 134, 111, 0 },
+                    { new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), 4.5m, "Nike", "Gym & Training", new DateTime(2024, 10, 7, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1375), "Nike Youth React Presto Extreme combines lightweight React technology and a flexible upper to provide comfort and support for everyday activities and gym training.", 40m, 2, "images/shoes/[IDGiay_Home_1]_AnhChinh_1.png", true, new DateTime(2024, 10, 7, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1381), "Rubber, yarns and textiles.", "Nike Youth React Presto Extreme", 2069000m, 78, 60, 0 },
+                    { new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), 4.7m, "Converse", "Yoga", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1332), "Nothing combines '90s-inspired edge and everyday comfort like the ultra-lightweight Chuck Taylor All Star Cruise. Add fresh colors to the mix, and you get a style that's ready to take on any adventure.\r\n\r\nFeatures And Benefits\r\nA lightweight, canvas-and-suede upper gives you that classic Chucks look\r\nOrthoLite cushioning helps provide optimal comfort\r\nFresh colors give your rotation a boost\r\nIconic Chuck Taylor All Star patch reps the legacy", 22.0m, 2, "images/shoes/[IDGiay_25]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1333), "Leather, fabric, foam, and rubber.", "Converse Cruise", 1520000m, 60, 30, 0 },
+                    { new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), 4.2m, "Puma", "Football", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1278), "A simple, no-nonsense cleat built to meet your demands on the pitch, the ATTACANTO is built with a soft upper for enhanced touch and ball", 30.0m, 1, "images/shoes/[IDGiay_12]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1278), "Leather, fabric, foam, and rubber.", "ATTACANTO Turf Training Men's Soccer Cleats", 1800000m, 76, 17, 0 },
+                    { new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), 4.3m, "Reebok", "Tennis", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1303), "Club C 85 S29074 is a retro style leather walking sneaker.\r\nLow-cut shoes help you score points with delicate beauty. Enjoy comfort with a lightly padded midsole that cushions your feet as you move. A delicate embroidered logo enhances the look for a casual yet sophisticated style. Lightweight molded rubber sole with high abrasion resistance and grip.", 0.0m, 2, "images/shoes/[IDGiay_18]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1304), "Leather, fabric, foam, and rubber.", "Club C 85", 1990000m, 35, 12, 0 },
+                    { new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), 4.6m, "Adidas", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1211), "The feel of the barbell in your hands, the clang of the plates, the ring of the PR bell. Nothing beats a great lifting day, and these adidas training shoes provide outstanding performance during your Strength Training sessions. The 6 mm midsole drop gives you a flat and stable platform and helps you find proper alignment in all your lifts. The dual-density midsole provides comfort and controlled stability, and a grippy Traxion outsole keeps your footing secure.\r\n\r\nMade with a series of recycled materials, this upper features at least 50% recycled content. This product represents just one of our solutions to help end plastic waste.", 30.0m, 1, "images/shoes/[IDGiay_9]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1212), "Leather, fabric, foam, and rubber.", "Dropset 2 Trainer", 2450000m, 390, 268, 0 },
+                    { new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), 4.7m, "Puma", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1290), "Get going in comfort and style. SOFTRIDE Divine running shoes deliver an ultra-cushioned ride and bold styling. SOFTRIDE and SOFTFOAM+ technologies provide step-in comfort and shock absorption so you can run further in bliss. Zoned rubber traction lets you pick up the pace on any road.\r\n\r\nFEATURES & BENEFITS\r\n", 40.0m, 2, "images/shoes/[IDGiay_15]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1290), "Leather, fabric, foam, and rubber.", "SOFTRIDE Divine Running Shoes Women", 1750000m, 123, 87, 0 },
+                    { new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), 4.6m, "Reebok", "Tennis", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1298), "This shoe is inspired by a combination of Y2K skateboarding style and Reebok DNA, with bold color choices and a striking contrasting solid rubber sole. Everything on these shoes is subtly \"exaggerated\", from the wider designed upper to the thicker and larger shoe laces. The label on the tongue is designed in the form of a special small pocket.\r\n", 0.0m, 1, "images/shoes/[IDGiay_17]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1298), "Leather, fabric, foam, and rubber.", "Unisex Reebok Club C Bulc", 2690000m, 41, 20, 0 },
+                    { new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), 4.2m, "Nike", "Tennis", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1189), "The NikeCourt Legacy serves up style rooted in tennis culture. They are durable and comfy with heritage stitching and a retro Swoosh. When you pull these on—it's game, set, match.", 30.0m, 1, "images/shoes/[IDGiay_4]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1190), "Leather, fabric, and rubber.", "NikeCourt Legacy", 1279000m, 7, 5, 0 },
+                    { new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), 4.7m, "Nike", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1180), "Ready to zigzag across the court with ease? Start by lacing up the Nike G.T. Cut 3. Made for a new generation of players, its advanced traction helps give you the grip you need to shake, stop and cross up defenders as you fly to the hoop. The light and springy foam helps cushion every step so you can cut and create space in comfort. Plus, getting game-ready is easy with the wide collar opening—just grab the loops to pull these on and lace 'em up. This is the future of hoops.", 15.0m, 1, "images/shoes/[IDGiay_2]_AnhChinh.png", true, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1181), "Leather, fabric, foam, and rubber.", "Nike G.T. Cut 3", 2419000m, 50, 45, 0 },
+                    { new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), 4.1m, "Puma", "Yoga", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1286), "The PUMA Easy Rider was born in the late ‘70s, when running made its move from the track to the streets. Today it's back with its classic", 0.0m, 2, "images/shoes/[IDGiay_14]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1287), "Leather, fabric, foam, and rubber.", "Easy Rider Supertifo Women's Sneakers", 2300000m, 65, 22, 0 },
+                    { new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), 4.5m, "Nike", "Gym & Training", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1161), "On any given night, Giannis can impact a game from any position. Lace up his latest signature shoe and leave your own mark, whatever the playing surface. Grippy traction and 2 layers of foam underfoot help you lock into a game and feel your best while you play. Lightweight and breathable material on top helps make the Immortality 4 a comfortable go-to whether you're shooting hoops with friends or securing a win with your team.\r\n\r\n", 0.0m, 1, "images/shoes/[IDGiay_1]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1175), "Leather, fabric, foam, and rubber.", "Giannis Immortality 4", 1909000m, 28, 20, 0 },
+                    { new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), 7m, "Nike", "Basketball", new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1336), "The seventy returned with joy, saying, “Lord, even the demons are subject to us in your name!”\r\n\r\n18 And he said to them,“I saw Satan fall like lightning from heaven.\r\n\r\n24 Behold, I have given you authority to tread on serpents and scorpions, and over all the power of the enemy, and nothing shall hurt you.\r\n\r\n20 Nevertheless do not rejoice in this, that the spirits are subject to you; but rejoice that your names are written in heaven.”", 0.0m, 1, "images/shoes/[IDGiay_26]_AnhChinh.png", false, new DateTime(2024, 11, 6, 1, 28, 35, 665, DateTimeKind.Local).AddTicks(1336), "Leather, fabric, foam, and rubber.", "Satan ", 10460000m, 7, 5, 0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShoeImages",
+                columns: new[] { "Id", "ShoeId", "Url" },
+                values: new object[,]
+                {
+                    { new Guid("0186bbc9-e63b-40dd-9591-3f8b745e8ea8"), new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), "images/shoes/[IDGiay_18]_AnhPhu_4.png" },
+                    { new Guid("02b18ca2-7788-4191-975c-dace1d2eb02b"), new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), "images/shoes/[IDGiay_17]_AnhPhu_2.png" },
+                    { new Guid("040a11f1-2a00-4f1d-b5a2-970ac42fe281"), new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), "images/shoes/[IDGiay_16]_AnhPhu_1.png" },
+                    { new Guid("0524bddc-5582-492f-a13d-c9d965209f44"), new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), "images/shoes/[IDGiay_9]_AnhPhu_1.jpg" },
+                    { new Guid("0738faf1-5d91-4ad9-bcb8-3679227ca5e6"), new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), "images/shoes/[IDGiay_6]_AnhPhu_3.jpg" },
+                    { new Guid("09887586-3296-4c99-98fc-9fee1aeb9edc"), new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), "images/shoes/[IDGiay_21]_AnhPhu_3.jpg" },
+                    { new Guid("09918176-be1a-4fa5-beea-1732e5b210c7"), new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), "images/shoes/[IDGiay_23]_AnhPhu_2.jpg" },
+                    { new Guid("0b794992-75fa-4c4e-8b9c-d50a27f03b6b"), new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), "images/shoes/[IDGiay_25]_AnhPhu_3.jpg" },
+                    { new Guid("0ccba087-351e-4ee1-8acd-d6ae3e025823"), new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), "images/shoes/[IDGiay_14]_AnhPhu_3.jpeg" },
+                    { new Guid("0f4b2e64-945b-4360-8f5a-ab0144c73f42"), new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), "images/shoes/[IDGiay_Home_1]_AnhPhu_3.jpg" },
+                    { new Guid("104caff5-23e4-4af2-a0e6-0da7e9eab073"), new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), "images/shoes/[IDGiay_3]_AnhPhu_3.jpeg" },
+                    { new Guid("123131b0-7251-4277-b887-32c3b5fc2d99"), new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), "images/shoes/[IDGiay_9]_AnhPhu_2.jpg" },
+                    { new Guid("126e0c28-355a-4e25-ad72-c82f881227fc"), new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), "images/shoes/[IDGiay_13]_AnhPhu_3.jpeg" },
+                    { new Guid("13fb8d22-2370-4c15-8a51-d6c40c5776af"), new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), "images/shoes/[IDGiay_4]_AnhPhu_2.jpeg" },
+                    { new Guid("169cd044-5f5a-4133-bfb2-3c9445957cb8"), new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), "images/shoes/[IDGiay_25]_AnhPhu_4.jpg" },
+                    { new Guid("1cfc721f-aaba-4b74-8dfd-6243d05ece32"), new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), "images/shoes/[IDGiay_Home_1]_AnhPhu_1.jpg" },
+                    { new Guid("1cfde7f3-b9b1-485e-bce2-f4f19be2a27f"), new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), "images/shoes/[IDGiay_24]_AnhPhu_1.jpg" },
+                    { new Guid("1e2ccba3-f91e-4033-b905-7bab0cac2058"), new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), "images/shoes/[IDGiay_19]_AnhPhu_4.png" },
+                    { new Guid("22f3ca58-58b7-468b-9b5a-f354cf19337c"), new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), "images/shoes/[IDGiay_10]_AnhPhu_4.jpg" },
+                    { new Guid("2449c9c8-076c-4eb0-b6d1-8f5ba4aee02f"), new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), "images/shoes/[IDGiay_1]_AnhPhu_2.png" },
+                    { new Guid("253f288c-b6b1-4dde-a645-8b97075c52fa"), new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), "images/shoes/[IDGiay_20]_AnhPhu_4.png" },
+                    { new Guid("2622e6a4-c2f6-4719-9c37-66188a851e70"), new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), "images/shoes/[IDGiay_19]_AnhPhu_1.png" },
+                    { new Guid("26b96550-b095-4433-8fab-325152731c10"), new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), "images/shoes/[IDGiay_24]_AnhPhu_4.jpg" },
+                    { new Guid("27f503fb-8c0a-4833-9643-232a0ea0033e"), new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), "images/shoes/[IDGiay_17]_AnhPhu_3.png" },
+                    { new Guid("291d4e08-f0dc-413f-97e9-07636ddc9986"), new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), "images/shoes/[IDGiay_11]_AnhPhu_3.png" },
+                    { new Guid("2b98373e-3082-428a-8ec3-2bc2e2eef180"), new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), "images/shoes/[IDGiay_5]_AnhPhu_2.jpeg" },
+                    { new Guid("32170c6b-7a33-4016-b061-6f7d0466a8b2"), new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), "images/shoes/[IDGiay_7]_AnhPhu_1.jpg" },
+                    { new Guid("32f9fafd-7a45-4729-b976-b2940938fa23"), new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), "images/shoes/[IDGiay_Home_2]_AnhPhu_2.png" },
+                    { new Guid("337c0429-e14b-477e-b7bf-457bfe0e01c9"), new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), "images/shoes/[IDGiay_2]_AnhPhu_4.jpeg" },
+                    { new Guid("36e2ddd2-b522-45cc-86e9-6c8865274672"), new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), "images/shoes/[IDGiay_8]_AnhPhu_4.jpg" },
+                    { new Guid("3b9cb98f-c043-4100-b41a-7a73c5498d52"), new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), "images/shoes/[IDGiay_22]_AnhPhu_3.jpg" },
+                    { new Guid("413f2c15-05bb-44e2-bc4e-c48197b7c7cc"), new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), "images/shoes/[IDGiay_15]_AnhPhu_1.jpeg" },
+                    { new Guid("42fd4379-6205-4191-b333-5232821c329e"), new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), "images/shoes/[IDGiay_4]_AnhPhu_3.jpeg" },
+                    { new Guid("432b5a0e-24db-46e8-a242-3447324737a8"), new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), "images/shoes/[IDGiay_3]_AnhPhu_4.jpeg" },
+                    { new Guid("4333df3c-d58d-4257-aed4-e01ab40eb943"), new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), "images/shoes/[IDGiay_18]_AnhPhu_3.png" },
+                    { new Guid("47da9c21-eb0a-4b76-b4d3-36ff1e6588fb"), new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), "images/shoes/[IDGiay_15]_AnhPhu_4.jpeg" },
+                    { new Guid("4a631e58-43ec-42fc-bf75-204432b75c78"), new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), "images/shoes/[IDGiay_23]_AnhPhu_4.jpg" },
+                    { new Guid("4bf47cf7-d9dd-4ee3-97c3-8049464d1c0b"), new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), "images/shoes/[IDGiay_11]_AnhPhu_2.png" },
+                    { new Guid("4e9256a5-3f59-4b9c-a6cf-2fc8a281071f"), new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), "images/shoes/[IDGiay_8]_AnhPhu_1.jpg" },
+                    { new Guid("4eed03e4-dd01-4795-9b8a-432261909cdc"), new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), "images/shoes/[IDGiay_Home_3]_AnhPhu_2.png" },
+                    { new Guid("4f29e5af-55c0-49b8-8dee-277186455055"), new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), "images/shoes/[IDGiay_6]_AnhPhu_2.jpg" },
+                    { new Guid("50007a32-7813-46d2-9535-29b9cb648d47"), new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), "images/shoes/[IDGiay_20]_AnhPhu_2.png" },
+                    { new Guid("5142d7b8-2f72-44df-b2c8-ee88911b0c92"), new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), "images/shoes/[IDGiay_9]_AnhPhu_4.jpg" },
+                    { new Guid("53d1522c-c442-4f86-b471-48352e883041"), new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), "images/shoes/[IDGiay_6]_AnhPhu_1.jpg" },
+                    { new Guid("5409c479-4cf6-47e9-b416-2b7f40b68b7c"), new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), "images/shoes/[IDGiay_10]_AnhPhu_2.jpg" },
+                    { new Guid("555a2e7c-4178-4f72-9c9d-9b8e95d3c816"), new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), "images/shoes/[IDGiay_Home_2]_AnhPhu_3.png" },
+                    { new Guid("55c7fc7d-ea58-4edf-9712-f05413711792"), new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), "images/shoes/[IDGiay_Home_3]_AnhPhu_4.png" },
+                    { new Guid("5a8d0301-6034-49c6-9d2f-94548cef2d02"), new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), "images/shoes/[IDGiay_3]_AnhPhu_2.jpeg" },
+                    { new Guid("5b91811f-8d03-4c16-9b4e-ea950d9e20d1"), new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), "images/shoes/[IDGiay_2]_AnhPhu_2.png" },
+                    { new Guid("5cc4f8c2-8147-42c3-b5da-e421f169d36d"), new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), "images/shoes/[IDGiay_14]_AnhPhu_2.jpeg" },
+                    { new Guid("5f8cf914-2706-40b9-8012-2552e991661e"), new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), "images/shoes/[IDGiay_23]_AnhPhu_3.jpg" },
+                    { new Guid("61cbeb62-1de8-4695-aea3-e3a86045783c"), new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), "images/shoes/[IDGiay_21]_AnhPhu_2.jpg" },
+                    { new Guid("61d5f6e7-f1ce-4e31-974f-45f986e09987"), new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), "images/shoes/[IDGiay_20]_AnhPhu_3.png" },
+                    { new Guid("65902474-32cc-4a35-8ad2-0369c94a0252"), new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), "images/shoes/[IDGiay_15]_AnhPhu_2.jpeg" },
+                    { new Guid("66671fcf-a0fa-4eb1-9add-e6ff94a16d5d"), new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), "images/shoes/[IDGiay_12]_AnhPhu_4.jpeg" },
+                    { new Guid("6ab5e165-8379-4185-9f3b-fee10e4078dd"), new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), "images/shoes/[IDGiay_1]_AnhPhu_4.png" },
+                    { new Guid("6bb7a932-8794-41fe-a591-2daebcc9be13"), new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), "images/shoes/[IDGiay_25]_AnhPhu_1.jpg" },
+                    { new Guid("6c20e204-67e9-4a66-b198-cc4aad31581a"), new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), "images/shoes/[IDGiay_Home_2]_AnhPhu_4.png" },
+                    { new Guid("6d0293a5-371e-49ed-bc3c-214b3bb8d1ba"), new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), "images/shoes/[IDGiay_12]_AnhPhu_1.jpeg" },
+                    { new Guid("6e52824d-dd57-4c65-a04a-a8a82e31e591"), new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), "images/shoes/[IDGiay_18]_AnhPhu_2.png" },
+                    { new Guid("7196c6db-bbf9-448f-9e82-c562756c4a18"), new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), "images/shoes/[IDGiay_1]_AnhPhu_3.jpeg" },
+                    { new Guid("73bbd29c-6602-4d60-899e-060903b89262"), new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), "images/shoes/[IDGiay_24]_AnhPhu_3.jpg" },
+                    { new Guid("76f7a9f8-a77e-442d-8bc2-a8b873d04a2d"), new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), "images/shoes/[IDGiay_20]_AnhPhu_1.png" },
+                    { new Guid("7a4a70a8-7125-4594-aec3-96dd18a4dff1"), new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), "images/shoes/[IDGiay_22]_AnhPhu_4.jpg" },
+                    { new Guid("7cf81d27-2481-45d3-adbe-a7b7d835210d"), new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), "images/shoes/[IDGiay_26]_AnhPhu_1.png" },
+                    { new Guid("7de15a28-8682-4721-9253-d44373565d18"), new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), "images/shoes/[IDGiay_21]_AnhPhu_4.jpg" },
+                    { new Guid("800bb7d5-789c-4cb4-8966-6935d834a05e"), new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), "images/shoes/[IDGiay_3]_AnhPhu_1.png" },
+                    { new Guid("82e936cd-7326-4077-b08a-ffe369edab22"), new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), "images/shoes/[IDGiay_8]_AnhPhu_3.jpg" },
+                    { new Guid("85c2e546-5d04-4fb6-9c58-b7bac6de65fc"), new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), "images/shoes/[IDGiay_9]_AnhPhu_3.jpg" },
+                    { new Guid("8c13a831-82e4-41e8-a5bd-f222a30eedcb"), new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), "images/shoes/[IDGiay_16]_AnhPhu_3.png" },
+                    { new Guid("8d226e12-41f5-4749-ad31-7111c4ad41ba"), new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), "images/shoes/[IDGiay_7]_AnhPhu_4.jpg" },
+                    { new Guid("90e54a44-7313-4d04-97e3-9719852d869d"), new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), "images/shoes/[IDGiay_Home_1]_AnhPhu_2.jpg" },
+                    { new Guid("912c024d-3ece-43d4-bc65-122b07821d5f"), new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), "images/shoes/[IDGiay_2]_AnhPhu_3.png" },
+                    { new Guid("92a9dece-af01-427a-8904-e434c257edae"), new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), "images/shoes/[IDGiay_7]_AnhPhu_3.jpg" },
+                    { new Guid("944f18b2-eaa2-4f37-b5de-6a02459431dc"), new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), "images/shoes/[IDGiay_1]_AnhPhu_1.png" },
+                    { new Guid("952afd15-2b7b-4b2c-9c3a-283b4dfee0cd"), new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), "images/shoes/[IDGiay_15]_AnhPhu_3.jpeg" },
+                    { new Guid("95a17bd9-16d4-4fff-9bbd-63174a80d710"), new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), "images/shoes/[IDGiay_26]_AnhPhu_3.jpg" },
+                    { new Guid("9a9a43d0-f47a-4afd-8756-cac7f2a9da4d"), new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), "images/shoes/[IDGiay_14]_AnhPhu_1.jpeg" },
+                    { new Guid("9c103e9f-8d82-469e-bd6c-a30e1c0221de"), new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), "images/shoes/[IDGiay_5]_AnhPhu_4.jpeg" },
+                    { new Guid("9cd67d93-3189-43bb-a52d-9e6c858ca72c"), new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), "images/shoes/[IDGiay_8]_AnhPhu_2.jpg" },
+                    { new Guid("a389bd51-5c54-4b84-9745-cbc240f0feea"), new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), "images/shoes/[IDGiay_21]_AnhPhu_1.jpg" },
+                    { new Guid("a4dde9eb-a208-4c3c-bb00-f9cf05547fdb"), new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), "images/shoes/[IDGiay_23]_AnhPhu_1.jpg" },
+                    { new Guid("a9adaca4-0212-4a95-8bf0-c0a0f3a77d6b"), new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), "images/shoes/[IDGiay_13]_AnhPhu_4.jpeg" },
+                    { new Guid("ac3bd47b-41fc-47a6-982b-af4d5fd207fa"), new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), "images/shoes/[IDGiay_Home_2]_AnhPhu_1.png" },
+                    { new Guid("af6e20d2-9c9e-4bb1-853c-1440c1b17879"), new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), "images/shoes/[IDGiay_Home_1]_AnhPhu_4.jpg" },
+                    { new Guid("b15707c5-4739-40c1-9883-e1be52e76a09"), new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), "images/shoes/[IDGiay_11]_AnhPhu_4.png" },
+                    { new Guid("b71c293d-7869-4a69-8e0d-8f16788f9411"), new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), "images/shoes/[IDGiay_13]_AnhPhu_1.jpeg" },
+                    { new Guid("b896863f-4048-438d-93c7-d77635bbd487"), new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), "images/shoes/[IDGiay_10]_AnhPhu_3.jpg" },
+                    { new Guid("b96b20f0-ba5e-456a-952d-775b27fb6498"), new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), "images/shoes/[IDGiay_5]_AnhPhu_1.jpeg" },
+                    { new Guid("b98e0ab7-9740-4492-89e4-ff9ea2886fcb"), new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), "images/shoes/[IDGiay_12]_AnhPhu_2.jpeg" },
+                    { new Guid("c3a700a0-37f1-4859-8308-33a89f0e9047"), new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), "images/shoes/[IDGiay_Home_3]_AnhPhu_3.png" },
+                    { new Guid("c45d4d31-27d6-484c-ba8c-da359768177b"), new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), "images/shoes/[IDGiay_12]_AnhPhu_3.jpeg" },
+                    { new Guid("c7bd6994-135f-4211-9b48-d7dd51192ece"), new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), "images/shoes/[IDGiay_13]_AnhPhu_2.jpeg" },
+                    { new Guid("c969885e-8952-4019-8999-406d797ccdfe"), new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), "images/shoes/[IDGiay_10]_AnhPhu_1.jpg" },
+                    { new Guid("cbe2c5ea-0039-4c3c-9861-ab8f3f7c3ae1"), new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), "images/shoes/[IDGiay_5]_AnhPhu_3.jpeg" },
+                    { new Guid("d2350d8b-f8b7-4659-9687-cbc092863143"), new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), "images/shoes/[IDGiay_19]_AnhPhu_3.png" },
+                    { new Guid("d5a32e27-ab65-4179-98ec-27a9df214d26"), new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), "images/shoes/[IDGiay_19]_AnhPhu_2.png" },
+                    { new Guid("d971971c-8124-4bb0-9d7a-cbf795030556"), new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), "images/shoes/[IDGiay_4]_AnhPhu_4.jpeg" },
+                    { new Guid("da7630aa-18ce-49ff-b9e3-3ba85de5a2a0"), new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), "images/shoes/[IDGiay_16]_AnhPhu_2.png" },
+                    { new Guid("dc0d2f99-a8ed-4c00-a641-fded8dcc6577"), new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), "images/shoes/[IDGiay_24]_AnhPhu_2.jpg" },
+                    { new Guid("decb39d9-446f-4573-96c3-d9b5a7c3e5b9"), new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), "images/shoes/[IDGiay_17]_AnhPhu_4.png" },
+                    { new Guid("e2b6a693-9a6d-468c-931a-74ab00a4d9dd"), new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), "images/shoes/[IDGiay_25]_AnhPhu_2.jpg" },
+                    { new Guid("e34c057a-86b2-4386-abf3-54f15b016b28"), new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), "images/shoes/[IDGiay_17]_AnhPhu_1.png" },
+                    { new Guid("e455f6ec-b677-4496-a370-ee1ae3d5c18c"), new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), "images/shoes/[IDGiay_18]_AnhPhu_1.png" },
+                    { new Guid("e8177eec-ef18-4011-8cb8-493ce4167fc9"), new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), "images/shoes/[IDGiay_Home_3]_AnhPhu_1.png" },
+                    { new Guid("e990bdd1-439b-4cef-affc-7cc068de0be4"), new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), "images/shoes/[IDGiay_22]_AnhPhu_2.jpg" },
+                    { new Guid("ea6008be-16aa-4fed-8c8a-d9aedc7ad6d2"), new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), "images/shoes/[IDGiay_26]_AnhPhu_2.png" },
+                    { new Guid("eae77cdc-efcd-4fc7-80d7-daa60c417825"), new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), "images/shoes/[IDGiay_16]_AnhPhu_4.png" },
+                    { new Guid("ee20452e-2292-4ad1-bd28-a175681961f4"), new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), "images/shoes/[IDGiay_7]_AnhPhu_2.jpg" },
+                    { new Guid("ef4a42e0-c6ee-469c-ab0b-b152ddbd2406"), new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), "images/shoes/[IDGiay_4]_AnhPhu_1.jpeg" },
+                    { new Guid("f3035851-0c62-490b-8a00-1d11fc68d1de"), new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), "images/shoes/[IDGiay_14]_AnhPhu_4.jpeg" },
+                    { new Guid("f4b06153-eae7-437c-8396-391fc55f0bac"), new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), "images/shoes/[IDGiay_22]_AnhPhu_1.jpg" },
+                    { new Guid("f79c41c1-71e6-442a-bee1-bae195197478"), new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), "images/shoes/[IDGiay_2]_AnhPhu_1.png" },
+                    { new Guid("f8f07a18-ec92-4280-9ff8-46203ce9eaa3"), new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), "images/shoes/[IDGiay_6]_AnhPhu_4.jpg" },
+                    { new Guid("fe145147-31bb-44f7-9d9d-aeacd32c7a6a"), new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), "images/shoes/[IDGiay_26]_AnhPhu_4.jpg" },
+                    { new Guid("ffb6907e-8ff3-4f3b-a4da-bb328ca302bf"), new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), "images/shoes/[IDGiay_11]_AnhPhu_1.png" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShoeSeasons",
+                columns: new[] { "Id", "Season", "ShoeId" },
+                values: new object[,]
+                {
+                    { new Guid("039afff7-c7e5-4bbf-afdd-b5bcc4839d91"), "Spring", new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a") },
+                    { new Guid("04788e22-1a02-4a7a-bdc5-0bea554750a2"), "Summer", new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754") },
+                    { new Guid("0530972e-d07a-40be-bc6a-e30b753d0ebe"), "Fall", new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a") },
+                    { new Guid("0fef943e-9c94-408b-a188-59b445f01788"), "Spring", new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e") },
+                    { new Guid("131c85ed-6bdd-4586-8a26-c05e3b058d92"), "Winter", new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea") },
+                    { new Guid("13706a6e-3e88-4e75-9873-ad973731adb8"), "Spring", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("177aa9ca-4d9f-4a86-af33-33cde047db8a"), "Winter", new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9") },
+                    { new Guid("202e790a-eb23-4734-958a-a965a88a8b84"), "Winter", new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a") },
+                    { new Guid("21a0c10d-c7d9-49c0-9aed-217d3be3859c"), "Spring", new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754") },
+                    { new Guid("2225a3d4-392a-49a0-91cd-a9b5e810a35f"), "Spring", new Guid("f04ca772-cf90-42bb-8056-e52b77faba60") },
+                    { new Guid("24645ab0-4e4d-4e2b-9985-7fb2949e781e"), "Summer", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("2b913734-1711-4d6b-8e48-738a7b711c08"), "Spring", new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1") },
+                    { new Guid("2f375d1c-e0f9-4c8e-bc3f-582fb5601044"), "Fall", new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7") },
+                    { new Guid("379a4818-813a-4205-98d6-6ac62644a274"), "Spring", new Guid("4fbe185d-fded-4abd-b49f-18108f135236") },
+                    { new Guid("47254f1c-e93e-4ce1-9184-e3b05c004434"), "Spring", new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1") },
+                    { new Guid("557e0537-ea5c-48c0-8f38-fa0d2d07d28e"), "Spring", new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e") },
+                    { new Guid("584c5e4d-9be8-40f7-97bb-4347a5abbaf7"), "Spring", new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3") },
+                    { new Guid("58dae8fb-b20b-4548-9025-f8f68c5a58d5"), "Spring", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("5c9c9dd9-22c5-4039-af38-bdf49635433e"), "Summer", new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16") },
+                    { new Guid("5d56f6a7-2b4c-42ae-90b5-cdad1e805dad"), "Fall", new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e") },
+                    { new Guid("6780cc99-2572-43a8-9d86-3844b9e13d11"), "Summer", new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80") },
+                    { new Guid("6b624f57-dc09-497a-8bbc-b021adf115df"), "Winter", new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674") },
+                    { new Guid("700d33c5-204f-49b9-989e-8dd5256cfdaf"), "Winter", new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7") },
+                    { new Guid("776622b3-7843-4a8b-a66d-7339dee6ae10"), "Spring", new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf") },
+                    { new Guid("84eacb17-8584-4db0-affd-5eebf0a470f9"), "Fall", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("8675dd23-375e-437a-82a6-5ac815a5e51b"), "Fall", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("8d5af9bd-163b-4336-a7d0-873fa26dd1fd"), "Spring", new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49") },
+                    { new Guid("8ea4404a-3beb-412a-8515-ed58630f3e5f"), "Spring", new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98") },
+                    { new Guid("948a2086-3e58-485d-a83a-c5724dccb4d7"), "Summer", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") },
+                    { new Guid("985a6c5b-b181-41ce-828a-f0a44fbfc2d3"), "Spring", new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea") },
+                    { new Guid("9997ef4a-605e-4fe1-ab6c-fae9549dabdf"), "Summer", new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674") },
+                    { new Guid("99e6ee8d-93d8-4c9e-90b8-d5eaef798377"), "Summer", new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e") },
+                    { new Guid("9beea444-58d1-4535-a699-96289d0292fb"), "Winter", new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf") },
+                    { new Guid("a1dfc2df-3538-4102-b9e7-a3b98dd3e710"), "Summer", new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0") },
+                    { new Guid("a330cfe5-b263-4e50-9944-2efc90490d95"), "Fall", new Guid("4fbe185d-fded-4abd-b49f-18108f135236") },
+                    { new Guid("a7e4d6f8-8ce0-4de6-a085-65843617e77e"), "Summer", new Guid("f04ca772-cf90-42bb-8056-e52b77faba60") },
+                    { new Guid("aae342e7-76af-4111-9212-d78f81831d1e"), "Spring", new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9") },
+                    { new Guid("ae3589c8-2321-4e82-874e-71c18f778891"), "Winter", new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595") },
+                    { new Guid("aec60663-a863-4347-81c1-451cc38a70fe"), "Fall", new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea") },
+                    { new Guid("b3610d7f-c682-4819-b849-03ada58c18dc"), "Summer", new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3") },
+                    { new Guid("b3a953c7-078a-4b54-adff-6f3206438404"), "Summer", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("b5df72a1-cd47-4e0a-a2f3-0b5fd461c776"), "Winter", new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16") },
+                    { new Guid("b9d7f062-12d5-478c-8ce8-1c42a60c5f28"), "Winter", new Guid("4fbe185d-fded-4abd-b49f-18108f135236") },
+                    { new Guid("bc5220d1-1e69-49bd-bd4d-22df5dde9c0f"), "Winter", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("c0bb694e-57cf-4319-a615-e81b3f0ef397"), "Fall", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("c5e9d70e-9016-4956-bfcf-d9f4fbc3caee"), "Spring", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("c66e560d-16ec-4135-a7c4-e9e5a52948f2"), "Summer", new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9") },
+                    { new Guid("c8a8e176-9cf1-4640-b2fe-65be86b1dee2"), "Fall", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("c9eca807-f189-4166-bbb7-90bd9c46cdd5"), "Fall", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") },
+                    { new Guid("d57a1ee9-50c9-4ff0-9e5d-97c2fc116428"), "Summer", new Guid("4fbe185d-fded-4abd-b49f-18108f135236") },
+                    { new Guid("d6376355-0e0b-472c-8ba9-67c78fd3bf7a"), "Summer", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("d96485de-c316-4654-9190-ac5f31cf73f7"), "Spring", new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0") },
+                    { new Guid("e0b4e349-3d14-4532-9d06-fccd5bc5ec61"), "Summer", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("e14d0c1b-cec6-4796-8ebd-303594cd4503"), "Winter", new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf") },
+                    { new Guid("e3b7411a-b918-4b15-a01f-8d045441c61d"), "Winter", new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955") },
+                    { new Guid("e75c58d8-5be6-4674-bb10-47cea3e17f36"), "Summer", new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf") },
+                    { new Guid("f01f37e2-05dd-4e2f-8742-fd77207b284f"), "Winter", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("f0c81df6-ab31-43b7-8834-397d240e6c57"), "Fall", new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf") },
+                    { new Guid("f4e45363-be13-4ecb-8d29-175daf01cd9c"), "Winter", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") },
+                    { new Guid("f564183d-2c15-433e-bd01-0f17164449f0"), "Summer", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("f8106e22-6380-4941-862d-a9ded8cee697"), "Fall", new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe") },
+                    { new Guid("f8f33305-bf63-4cbe-82e6-9b69f4e06e2f"), "Winter", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShoesColor",
+                columns: new[] { "Id", "Color", "ShoeId" },
+                values: new object[,]
+                {
+                    { new Guid("021058c7-0eaf-4e97-8f1d-0094d1c91932"), "Red", new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea") },
+                    { new Guid("033583ab-1204-4594-8705-f3bccb2e6180"), "Black", new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98") },
+                    { new Guid("03fcf814-fb76-42ac-b23d-68fc65268aee"), "Orange", new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe") },
+                    { new Guid("05a09c1d-7bc7-47c8-ac71-42f6abd40138"), "White", new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3") },
+                    { new Guid("099aa5d2-f5d4-4def-a2bd-6fb2fd070239"), "Blue", new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955") },
+                    { new Guid("1166c47c-0cf0-4975-8ef7-53d50c5b0e43"), "Blue", new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595") },
+                    { new Guid("1299c6cb-3d1c-4d0d-9f11-6068bbc6027c"), "Orange", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("15d0cd33-0814-42fe-b648-a25a85fceb49"), "Brown", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("1724d085-dad7-4708-a738-cc3416a9fc48"), "Red", new Guid("4fbe185d-fded-4abd-b49f-18108f135236") },
+                    { new Guid("1d8e8071-9a82-4331-85e5-4b2490802c2a"), "Green", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("1eeffb33-d291-43b9-be29-4ab122c76ffe"), "Yellow", new Guid("4fbe185d-fded-4abd-b49f-18108f135236") },
+                    { new Guid("207c1bee-cadd-4ce8-b759-3e2acbbdb9bc"), "Blue", new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0") },
+                    { new Guid("221f1831-5ae3-42d4-8eb1-f3b9a1660233"), "Blue", new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9") },
+                    { new Guid("243466de-10ef-4b4f-9f26-98af933f3e0e"), "Blue", new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49") },
+                    { new Guid("2fc25567-e1c7-415c-b019-d0443776ef6c"), "Orange", new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7") },
+                    { new Guid("35f2ad62-f818-4871-b779-1b6d82a267f8"), "Brown", new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e") },
+                    { new Guid("36477324-5cd7-4412-84e5-f8dea324302a"), "White", new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98") },
+                    { new Guid("37233693-c0ab-4305-bc4b-550c38655fdd"), "Blue", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("3f6a0816-d5e4-4972-acb2-fab326366b0c"), "Black", new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80") },
+                    { new Guid("432fb4c6-2502-4286-aea7-3063593bdc41"), "Blue", new Guid("f04ca772-cf90-42bb-8056-e52b77faba60") },
+                    { new Guid("45084559-4319-4e4b-864c-0cd115b096a1"), "Black", new Guid("f04ca772-cf90-42bb-8056-e52b77faba60") },
+                    { new Guid("49c08368-f487-4a83-b994-674d418661a5"), "White", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("4c78ae46-7512-4fb4-91c8-74cfac66a1c0"), "Blue", new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98") },
+                    { new Guid("5238e090-ff04-4751-bd79-141dbb3d145b"), "White", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("529009b7-1ba3-4065-8cac-53e9eb8670a4"), "White", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("52b5780a-1c6d-4836-866d-50215ec47175"), "Black", new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7") },
+                    { new Guid("5b41ac3c-9945-4047-907a-cdd078a4f937"), "Green", new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1") },
+                    { new Guid("62339b0d-4093-42f6-9759-fcd15a3e1e9f"), "Pink", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("6244228b-e919-4669-8871-12f054b42fca"), "White", new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e") },
+                    { new Guid("634c950c-a085-4b88-8f07-df6e91b7a4d9"), "Red", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("637074ee-a65a-4499-aa83-25aec9548a2c"), "Black", new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674") },
+                    { new Guid("63c29667-326a-498e-8c4a-0ce2e1a965c4"), "Black", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") },
+                    { new Guid("673f1074-73cd-4389-b2ae-fbc886f3aa5c"), "Pink", new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98") },
+                    { new Guid("6d549721-7e1f-4a35-88bf-bd3161c1128f"), "White", new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1") },
+                    { new Guid("73f7ae72-41be-4a1e-bf7b-47bcc0ea97f5"), "Blue", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("7955e25b-0b04-4faa-b733-0dd3053fb1a6"), "Black", new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3") },
+                    { new Guid("7abd4cb4-1955-40ea-9729-f023b1c4cc03"), "Purple", new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe") },
+                    { new Guid("7ed78ec2-e046-4e1e-a017-df67b7b9a120"), "White", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("8ca5281a-f09a-4c76-9e77-7dc178a5c5fd"), "Yellow", new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49") },
+                    { new Guid("8fb37914-0785-4f21-9af0-bc196d6cfece"), "Purple", new Guid("f04ca772-cf90-42bb-8056-e52b77faba60") },
+                    { new Guid("8fcdb6e6-d7f4-4dd0-9a18-97a6dfd6ebb2"), "Black", new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea") },
+                    { new Guid("90895ffc-ccec-452b-83b6-add5dcc23015"), "Pink", new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3") },
+                    { new Guid("93116bf7-1c01-49d7-951e-a315c3f3df0c"), "Blue", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("949beef1-8163-41e1-a409-bb100bb2c80c"), "White", new Guid("f04ca772-cf90-42bb-8056-e52b77faba60") },
+                    { new Guid("949de55d-03f1-4286-a42e-63bbb5c84047"), "Black", new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf") },
+                    { new Guid("98072eac-e412-4295-85b9-72c90b06e4ce"), "Black", new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754") },
+                    { new Guid("9fb85eea-eab2-4392-bb58-25cab43598c0"), "Red", new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98") },
+                    { new Guid("a90482e2-c5f1-48fd-838d-9b85598676ba"), "White", new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49") },
+                    { new Guid("af701bf9-a83a-457f-9e0d-38c216801aa1"), "Grey", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("b241989f-ad96-4263-b7e1-6eb8d77d4d3f"), "Black", new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56") },
+                    { new Guid("b24dbcec-f210-4df5-9edb-571732e8f787"), "Black", new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1") },
+                    { new Guid("b4d6cee5-fc63-4152-be17-5c2834e81bca"), "White", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("b6d1fd35-e630-46a5-9d84-fe1eae52f49c"), "White", new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7") },
+                    { new Guid("bbdbc85f-b2f2-4bfe-a833-fbc076456d90"), "Black", new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a") },
+                    { new Guid("bd082d24-f6e3-4661-b3a0-97c5961154af"), "Black", new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49") },
+                    { new Guid("c21cd241-0784-4abe-935c-0b9d6d5fe703"), "Blue", new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a") },
+                    { new Guid("c3975928-d889-4531-93f5-b21b85ae6345"), "Pink", new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e") },
+                    { new Guid("cb541cee-08f1-43c4-a778-4038a8ca7681"), "Black", new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011") },
+                    { new Guid("cc3b664c-f495-4c24-84d4-7d8d965bbb91"), "Red", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("d519f0b2-7932-480c-80ab-e93e65b15849"), "Green", new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a") },
+                    { new Guid("db04d226-123b-4974-8df6-c2ec3d52b1c9"), "Black", new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f") },
+                    { new Guid("dba3afb5-9b1c-4d3f-b1b9-fdda8b21603e"), "Red", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") },
+                    { new Guid("df32d594-1842-46c7-9d62-90b4dfd76a6e"), "Blue", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("e0f9f8b4-8b4f-46f8-b4c7-27464cb5098b"), "Orange", new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80") },
+                    { new Guid("e573f18c-ca8d-4bcc-823b-c246ea96d3a5"), "Black", new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16") },
+                    { new Guid("e825a1c6-30e8-4429-9d7b-29008162b3f8"), "White", new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754") },
+                    { new Guid("e83fa163-06ed-4b2e-bbb0-92ffa4fe6b74"), "Purple", new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3") },
+                    { new Guid("ec26459c-7b5e-414f-8c52-83f5f12bb24a"), "Black", new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05") },
+                    { new Guid("ed4d82d7-2fe3-4863-bfe4-30d9c33e3cd0"), "White", new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf") },
+                    { new Guid("f1228f2c-9636-466e-a67a-406c9e8bab08"), "White", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") },
+                    { new Guid("f9cccf48-d421-457c-ae93-07c3062418e5"), "Pink", new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955") },
+                    { new Guid("fa35c424-52e1-4983-8076-460001cbadbe"), "Brown", new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1") },
+                    { new Guid("fa83deb2-ad90-4060-921c-8918ab6d8cd2"), "Black", new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03") },
+                    { new Guid("fadb5cf3-7d14-4703-ac0b-8c6ef59689c3"), "Pink", new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49") },
+                    { new Guid("ff0ebb74-06b6-4153-b400-737de8518e2a"), "Blue", new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShoesDetail",
+                columns: new[] { "Id", "Quantity", "ShoeId", "Size" },
+                values: new object[,]
+                {
+                    { new Guid("016b167f-6a2b-4fed-b656-9369fb4c37f2"), 112, new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), 41 },
+                    { new Guid("05f9cdf9-66ec-4a37-92fd-1b7a0ffcc366"), 28, new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), 42 },
+                    { new Guid("09318d77-ae0d-4fd1-8aac-e7f6817fcdd6"), 111, new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), 37 },
+                    { new Guid("0be9abd5-37cd-4519-9d5e-e55de4c94eba"), 72, new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), 39 },
+                    { new Guid("0dc34ec5-1f86-42a9-9211-e6c19b860d6f"), 36, new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), 38 },
+                    { new Guid("0e7c90d2-ef9d-43c5-a3aa-70d32e2ef697"), 71, new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), 45 },
+                    { new Guid("10d4afe6-1bf1-4f6c-b6d5-24ab82317f64"), 30, new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), 40 },
+                    { new Guid("13d5bab2-0ad7-4e36-9d35-8654bbdca8fc"), 147, new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), 43 },
+                    { new Guid("14730b2c-611b-4ffb-9192-5bb6fecd22c8"), 114, new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), 44 },
+                    { new Guid("19d6f52e-6f49-420a-9394-43b7e0bd828b"), 105, new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), 41 },
+                    { new Guid("1fb61ccd-37c4-4c20-87cc-64be5f84185b"), 18, new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), 47 },
+                    { new Guid("23b12793-1c91-429a-a2b5-62fa02d44a09"), 23, new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), 42 },
+                    { new Guid("2c4497e2-e991-4d1c-ac1d-ddab12691d2d"), 29, new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), 43 },
+                    { new Guid("2fb7fd9e-95ca-49a7-9e2c-697e73a72dbd"), 80, new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), 38 },
+                    { new Guid("31034fd3-a01c-4b10-ad01-739b1e8bcf43"), 52, new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), 39 },
+                    { new Guid("31211daa-7231-4a37-ae99-0ce62c039ed7"), 101, new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), 45 },
+                    { new Guid("336d6832-ed84-4470-8107-a50f804e6473"), 35, new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), 43 },
+                    { new Guid("33a3df1f-e7bf-437c-ab6a-a457dcdfaeaa"), 41, new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), 45 },
+                    { new Guid("359e15bc-34d4-4f9b-a085-d4dc02c6d930"), 139, new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), 48 },
+                    { new Guid("373cebab-c81e-4fc4-810b-c84723e43257"), 114, new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), 43 },
+                    { new Guid("3836e320-ee60-486b-aa34-2a00f73bd23c"), 93, new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), 42 },
+                    { new Guid("38767bf3-348b-4504-9eb1-1e5951b88c82"), 137, new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), 39 },
+                    { new Guid("3ac193c1-55e0-4dbf-a554-17cd1a621871"), 107, new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), 44 },
+                    { new Guid("3be6a68d-62e5-4f29-b1a7-3653f153e1bc"), 130, new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), 40 },
+                    { new Guid("3f233289-4a27-4816-8314-e45d22054134"), 11, new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), 47 },
+                    { new Guid("43030f6d-f388-48f6-92ee-8b03fcc43319"), 79, new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), 39 },
+                    { new Guid("43bad31c-9c54-476e-9c2d-d7b11c50b565"), 132, new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), 40 },
+                    { new Guid("44698cba-e8ec-42d5-8011-879a3a7d754f"), 132, new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), 46 },
+                    { new Guid("46779677-169a-4c8b-90e5-49710dc11450"), 10, new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), 41 },
+                    { new Guid("484dcc9f-5e31-4945-890b-2c04675185f0"), 117, new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), 42 },
+                    { new Guid("485f138e-79c7-4736-b50b-275aab6e8ea0"), 39, new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), 40 },
+                    { new Guid("49b9df1f-289e-4b23-a260-707633f0f5c3"), 86, new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), 42 },
+                    { new Guid("4a88f639-d431-41b9-8bb1-ac6f0e7c39f0"), 127, new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), 40 },
+                    { new Guid("4cf43612-48e6-4f32-8b25-5b94c80284f4"), 72, new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), 43 },
+                    { new Guid("4daf27a4-1c90-4111-a0c3-919f873cca31"), 120, new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), 43 },
+                    { new Guid("507141c3-f8e4-401f-8b32-bf032520a1a9"), 28, new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), 40 },
+                    { new Guid("5466b641-f9c7-4a3a-865e-314edae7a74c"), 65, new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), 42 },
+                    { new Guid("55a85dc3-3cd1-418d-bea3-364bc58f134c"), 123, new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), 44 },
+                    { new Guid("55c141cb-a50d-4ba1-a78c-531098dc67ab"), 140, new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), 46 },
+                    { new Guid("570dc351-b243-4cb0-850a-ea627d9654b8"), 80, new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), 41 },
+                    { new Guid("574c5749-4202-4dfc-9ecd-050304459882"), 146, new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), 39 },
+                    { new Guid("5959fcd2-673b-48aa-abf8-39d41b41a231"), 4, new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), 39 },
+                    { new Guid("59d2153d-c492-4b8f-a97f-82ea26de300a"), 74, new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), 37 },
+                    { new Guid("59e75e10-8835-49fc-b58d-509c8ee869c7"), 50, new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), 45 },
+                    { new Guid("5a1dc843-9d65-42dd-b3fe-c8fefa29a585"), 123, new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), 43 },
+                    { new Guid("5a2ba632-5975-4945-ab2f-0d7b1894a18e"), 83, new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), 46 },
+                    { new Guid("5eeb131d-afbf-4bd3-bacd-1d66cc25f537"), 92, new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), 45 },
+                    { new Guid("5efa4cc9-2d67-4cea-89c7-9c2a2e55b523"), 41, new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), 43 },
+                    { new Guid("60de8e18-984b-439f-818e-6563fcbae58f"), 94, new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), 38 },
+                    { new Guid("61b6930e-ed26-4ab9-9dfb-942cd7d79370"), 113, new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), 45 },
+                    { new Guid("63e7b419-edb3-4a0c-ba5d-66cb19f2aa14"), 75, new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), 36 },
+                    { new Guid("6894d22c-2d1a-44e5-b851-39b7755986a1"), 64, new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), 41 },
+                    { new Guid("69002803-59fe-4219-a059-22a054a5237e"), 101, new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), 44 },
+                    { new Guid("6a30d250-a3fe-4ad6-832e-fc817b19ed48"), 32, new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), 47 },
+                    { new Guid("6e4c8491-a34e-4957-ad11-f1019926a61a"), 148, new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), 44 },
+                    { new Guid("6e9b7778-ac53-41b3-8b13-e80a54815286"), 80, new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), 43 },
+                    { new Guid("714bd5d7-96fe-459c-bd30-7d9fb17bedef"), 55, new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), 45 },
+                    { new Guid("7160ef5b-f7dd-47d3-8a8b-a9a8d53c2400"), 13, new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), 41 },
+                    { new Guid("72aa41e9-8c15-41d5-a7f0-af4b6cfbe6cf"), 5, new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), 36 },
+                    { new Guid("7311d243-7973-4015-a40d-ad0a5136f567"), 35, new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), 42 },
+                    { new Guid("74789993-45c7-4932-9426-8c0362d21609"), 140, new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), 45 },
+                    { new Guid("75f31609-91f0-4b14-b01f-ef5a1695b845"), 87, new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), 46 },
+                    { new Guid("7711c198-6994-471e-9217-1dfce67ee843"), 114, new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), 38 },
+                    { new Guid("77db8708-9c73-403c-895f-f42ad9c6e650"), 87, new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), 46 },
+                    { new Guid("789c349f-5e8f-4ce8-8f77-4545f4b65fec"), 103, new Guid("97e6ac8f-b622-4220-a4a0-374b0f13dddf"), 46 },
+                    { new Guid("792b85bf-4ccd-46f6-aaf2-49cb1e671e0c"), 1, new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), 43 },
+                    { new Guid("80a3f602-9e4d-4af7-b97b-1879a99e1d36"), 139, new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), 39 },
+                    { new Guid("80adf526-93e1-4848-8db8-11242d2634a2"), 111, new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), 44 },
+                    { new Guid("826c8a83-34b0-47bc-836f-a47f25810e86"), 101, new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), 42 },
+                    { new Guid("85ca1a18-4d2a-4e5e-bd8b-4e70352d7d22"), 38, new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), 42 },
+                    { new Guid("87c02a5c-4937-4cd8-a8c3-810639abbe8d"), 16, new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), 41 },
+                    { new Guid("87ce3c0c-fa71-4f3f-91fb-aa1261cf8938"), 75, new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), 43 },
+                    { new Guid("87f25ad2-65a5-4072-9c00-bdeaa74ac547"), 73, new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), 45 },
+                    { new Guid("882d5bd9-5e3c-4085-bb85-41b4db2fd490"), 31, new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), 37 },
+                    { new Guid("8c84f02c-710c-42be-a7a7-71ea1f874110"), 105, new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), 42 },
+                    { new Guid("8e0fe072-0be2-430b-9ac0-a3d6dab0121e"), 57, new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), 40 },
+                    { new Guid("8e196312-299b-453f-86c9-53b24f6653df"), 10, new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), 44 },
+                    { new Guid("8ea589d0-8938-42a4-8602-b46cd5179392"), 76, new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), 39 },
+                    { new Guid("8ef1ccd6-d8cf-4220-b3c5-0edf258ef6f5"), 52, new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), 37 },
+                    { new Guid("8ff7be09-bc93-4559-ae3e-8846f7dc5545"), 64, new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), 44 },
+                    { new Guid("90a880af-0f5f-4547-b9b5-4a42e0a44b29"), 30, new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), 38 },
+                    { new Guid("91c70ee5-5390-4579-8f2d-68e4a98778a9"), 127, new Guid("e586458d-6324-4d05-81f3-7be46f1bb55f"), 44 },
+                    { new Guid("92099b38-1f33-4b34-a128-1878fb00af7d"), 137, new Guid("6fe3a6e2-d7ca-4324-9a27-249039111c56"), 45 },
+                    { new Guid("92c8fe50-9b47-4c0d-96e9-5fc219298255"), 66, new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), 43 },
+                    { new Guid("930cf87f-33b5-425c-8390-58ff12bc1f73"), 16, new Guid("2c4d6aaf-d19f-45c1-b928-13a2a02c9e49"), 38 },
+                    { new Guid("93a08263-9ffa-4302-999a-f05210488481"), 118, new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), 41 },
+                    { new Guid("96109ebc-f3e0-44d9-a146-e9e0146dd242"), 120, new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), 42 },
+                    { new Guid("97ebe79b-6e02-406a-a25a-5d293f15a67d"), 41, new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), 41 },
+                    { new Guid("9a8f7d68-6144-4ec3-aa0c-4ead19163e7f"), 20, new Guid("ffe47785-83bf-449d-b578-0c38f17ae2ea"), 44 },
+                    { new Guid("9d7f32a7-2659-4d0c-8c5b-be65f10d57c2"), 123, new Guid("4406d1e0-064f-4a2d-85a0-98484d392e05"), 45 },
+                    { new Guid("a08d7d19-775f-4313-b7ca-28ff9eb1585f"), 136, new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), 41 },
+                    { new Guid("a0936df6-1d32-4ffd-bc73-4fa2228fe2bd"), 98, new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), 44 },
+                    { new Guid("a312667f-14b1-45cd-acf7-c50696506d1c"), 123, new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), 41 },
+                    { new Guid("a6e782e9-3144-423c-a7a2-8e8703e25c1d"), 33, new Guid("876a8dbe-bde3-4b4d-8faa-ccd92ecadd8f"), 45 },
+                    { new Guid("a751357c-964e-4159-aca9-8242ee450594"), 113, new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), 40 },
+                    { new Guid("a9088998-256c-42d3-b104-45a412af180a"), 112, new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), 47 },
+                    { new Guid("a9203465-10e0-4844-a542-4679ae325929"), 41, new Guid("29d62075-5cfc-4f4f-92cc-b3afd0885df7"), 44 },
+                    { new Guid("ab2153ac-dad1-4e99-b3a2-397f44ee2726"), 88, new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), 36 },
+                    { new Guid("ad3c32d7-8619-4740-a71f-c2f10bae45e6"), 79, new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), 41 },
+                    { new Guid("adf2e1bf-c870-4735-9cc1-0471c784c567"), 29, new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), 42 },
+                    { new Guid("b93de882-d20d-47d6-a84f-161d2738a931"), 89, new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), 42 },
+                    { new Guid("c24b1166-5828-41a0-bcd6-536116cefba1"), 117, new Guid("ced6cb82-cda6-424f-8eda-793c00674bf1"), 47 },
+                    { new Guid("c2eee1e5-8c31-469a-b96c-787b2e6ea89e"), 56, new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), 46 },
+                    { new Guid("c32a4105-396c-4a1f-8727-409e06338461"), 21, new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), 40 },
+                    { new Guid("c44577cc-672d-476f-8efd-2189dc75c242"), 23, new Guid("35036b39-cc53-4207-a21a-a2f8a2769ce3"), 42 },
+                    { new Guid("cb02ab38-bd77-49d9-96b1-c2f8de2ee970"), 28, new Guid("531aa5f5-ed2f-43f7-acd5-7dc4cd577aaf"), 43 },
+                    { new Guid("cbb6587c-bfe9-4186-a61b-b23df0667e1d"), 78, new Guid("072b3b2f-4217-4dba-8702-dba0eaf1aa03"), 44 },
+                    { new Guid("ce609a44-67e9-4dc4-8b0a-f437e3651d72"), 140, new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), 38 },
+                    { new Guid("d4d55120-d175-47e5-9b6b-cc6660910531"), 16, new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), 39 },
+                    { new Guid("d6f91617-89b2-4498-92f8-dabd545d6c42"), 4, new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), 40 },
+                    { new Guid("dd32a27d-a30d-48bf-a849-4c82c7a4513a"), 100, new Guid("9cd7cbf4-623e-4502-acdd-ee36bc47f5c1"), 41 },
+                    { new Guid("ddc6edf9-6aa2-4e1c-9e91-947db6155320"), 69, new Guid("807940e6-a71f-4658-845f-c9fdcd3cb595"), 45 },
+                    { new Guid("de61ebbc-2d81-4b99-ad70-687855ee233c"), 108, new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), 38 },
+                    { new Guid("e02ff117-c0b4-452b-9221-288122269560"), 22, new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), 38 },
+                    { new Guid("e0d44bb9-c33d-46f1-b8d7-78eb92998197"), 3, new Guid("7bea29c7-79f6-4a19-9c33-f701e1348f16"), 38 },
+                    { new Guid("e19a07cc-dca5-4a91-9727-b79f85662229"), 96, new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), 37 },
+                    { new Guid("e1a16712-7efd-4a68-ad70-02937c5ed924"), 102, new Guid("2a2cfa57-4b92-4727-b7cf-b683a6c4382e"), 43 },
+                    { new Guid("e46a7b36-8459-4caf-a446-9c203b13c544"), 18, new Guid("4fbe185d-fded-4abd-b49f-18108f135236"), 41 },
+                    { new Guid("e4a6d9e0-c41e-4857-9faf-b7d177563164"), 106, new Guid("ee8cced2-153a-4fa4-88b3-7970ce66c77e"), 37 },
+                    { new Guid("e91d5535-89e4-4081-979e-0259186d381d"), 148, new Guid("bed3d56d-9814-4822-8863-9e5ff614a62a"), 39 },
+                    { new Guid("ea6325bf-1d19-4832-98d3-9023c32f556b"), 3, new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), 46 },
+                    { new Guid("ea7dc47a-1fdb-463f-8678-4b527e4014ce"), 86, new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), 40 },
+                    { new Guid("ef0a866e-a433-458c-92c1-fafb052b27f5"), 112, new Guid("9c9ed7aa-a4c2-43dd-b92d-2fda55df0754"), 41 },
+                    { new Guid("f0edc007-3cac-40bd-9ee7-6871b4f91f8b"), 92, new Guid("f04ca772-cf90-42bb-8056-e52b77faba60"), 44 },
+                    { new Guid("f2c7da92-8a83-442f-8710-3a5acbc12dbb"), 17, new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), 40 },
+                    { new Guid("f33fa3e1-3030-40a3-870c-1924a9509bd8"), 119, new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), 40 },
+                    { new Guid("f7f0f3ca-827a-4784-9c1f-9906249bc8ad"), 99, new Guid("0c91c8bf-6f8e-4e0b-87b0-d7adff6a9f80"), 48 },
+                    { new Guid("f7f16d3b-2563-4201-8653-5a640cb64bf4"), 18, new Guid("321f5f8f-1ea0-45a3-b227-6e8425c634fe"), 36 },
+                    { new Guid("f808fccc-06e5-4b68-810a-ab8acc9e37d5"), 128, new Guid("3875b0f8-4ee2-40a8-85f8-ea49c4014a98"), 43 },
+                    { new Guid("f9ff3489-b5e5-4dc0-b115-0f1906578612"), 100, new Guid("c61c00fe-c269-4f74-a69a-5b0e4f4c7674"), 37 },
+                    { new Guid("fa998de4-d739-4569-b540-1bd9ea747300"), 31, new Guid("c251cdb3-904f-4604-98a1-fb5e95b72fc0"), 41 },
+                    { new Guid("fb38f4f1-4d72-4f5f-8577-8e9553bf9493"), 10, new Guid("232c0c7b-75d4-4f61-a36c-ede34b78b8e9"), 45 },
+                    { new Guid("fd932148-e5b8-43f7-830c-5bd534964ce5"), 53, new Guid("d7eda1a1-960d-4efe-8fea-6a6b7ecd7011"), 46 },
+                    { new Guid("fda14e91-c057-435b-8f9c-e16f1aeed414"), 26, new Guid("d123cc9e-696c-4750-97ee-9ba3d9def955"), 39 }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_ShoeId",
+                table: "Carts",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentLikes_CommentId",
+                table: "CommentLikes",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentLikes_UserId",
+                table: "CommentLikes",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_ShoeId",
+                table: "Comments",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_CommentId",
+                table: "Notifications",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_OrderId",
+                table: "Notifications",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_ShoeId",
+                table: "Notifications",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserId",
+                table: "Notifications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_ShoeId",
+                table: "OrderItems",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_DiscountId",
+                table: "Orders",
+                column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Replies_CommentId",
+                table: "Replies",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Replies_UserId",
+                table: "Replies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoeImages_ShoeId",
+                table: "ShoeImages",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoesColor_ShoeId",
+                table: "ShoesColor",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoesDetail_ShoeId",
+                table: "ShoesDetail",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoeSeasons_ShoeId",
+                table: "ShoeSeasons",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishlistItems_ShoeId",
+                table: "WishlistItems",
+                column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishlistItems_UserId",
+                table: "WishlistItems",
+                column: "UserId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "CommentLikes");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "ProductViews");
+
+            migrationBuilder.DropTable(
+                name: "Replies");
+
+            migrationBuilder.DropTable(
+                name: "ShoeImages");
+
+            migrationBuilder.DropTable(
+                name: "ShoesColor");
+
+            migrationBuilder.DropTable(
+                name: "ShoesDetail");
+
+            migrationBuilder.DropTable(
+                name: "ShoeSeasons");
+
+            migrationBuilder.DropTable(
+                name: "SiteViews");
+
+            migrationBuilder.DropTable(
+                name: "WishlistItems");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Discounts");
+
+            migrationBuilder.DropTable(
+                name: "Shoes");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+        }
+    }
+}
