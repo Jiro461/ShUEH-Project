@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import config from "../../../config/config.json";
 import RatingStars from '../RatingStars/RatingStars';
 import { useNavigate } from 'react-router-dom';
+import useFetchUserID from '../../hooks/useFetchUserID';
 
 const ProductDetail = ({ product, error, loading }) => {
     const { SERVER_API } = config;
     const navigate = useNavigate();
-    const [selectedSize, setSelectedSize] = useState(null); // State lưu trữ size đã chọn
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);  // State để điều khiển modal
+    const [selectedImage, setSelectedImage] = useState(""); // Lưu ảnh đã chọn
+
+    // Sử dụng custom hook để lấy userID
+    const userID = useFetchUserID();
 
     if (loading) {
         return <div>Loading...</div>;
@@ -16,12 +22,6 @@ const ProductDetail = ({ product, error, loading }) => {
         return <div>Error: {error}</div>;
     }
 
-    // Lấy userID từ cookie
-    const getUserID = () => {
-        const match = document.cookie.match(new RegExp('(^| )userID=([^;]+)'));
-        return match ? match[2] : null;
-    };
-
     // Xử lý chọn size giày
     const handleSizeSelect = (size) => {
         setSelectedSize(size);
@@ -29,16 +29,11 @@ const ProductDetail = ({ product, error, loading }) => {
 
     // Xử lý khi thêm sản phẩm vào giỏ hàng
     const handleAddToCart = async () => {
-        const userID = getUserID();
-
         if (!userID) {
-            // Nếu chưa có userID trong cookie, điều hướng đến màn hình đăng nhập
             navigate("/login");
         } else if (!selectedSize) {
-            // Kiểm tra nếu chưa chọn size
             alert("Vui lòng chọn size trước khi thêm vào giỏ hàng.");
         } else {
-            // Gửi yêu cầu đến API để thêm vào giỏ hàng với size đã chọn
             try {
                 const response = await fetch(
                     `${SERVER_API}/api/Cart/add?shoeId=${product.id}&size=${selectedSize}`,
@@ -47,7 +42,7 @@ const ProductDetail = ({ product, error, loading }) => {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        credentials: 'include', // Gửi cookie cùng với request
+                        credentials: 'include',
                     }
                 );
 
@@ -64,9 +59,24 @@ const ProductDetail = ({ product, error, loading }) => {
 
     // Các phần tử hình ảnh và kích thước
     const img_shoe = product.otherImages.map((img_url, index) => (
-        <div key={`image-${index}`} className="ava-shoe"><img src={`${SERVER_API}/${img_url.url}`} alt="Thumbnail 1" /></div>
+        <div key={`image-${index}`} className="ava-shoe" onClick={() => openModal(`${SERVER_API}/${img_url.url}`)}>
+            <img src={`${SERVER_API}/${img_url.url}`} alt={`Thumbnail ${index + 1}`} />
+        </div>
     ));
 
+    // Xử lý mở modal
+    const openModal = (imageUrl) => {
+        setSelectedImage(imageUrl);
+        setIsModalOpen(true);
+    };
+
+    // Xử lý đóng modal
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedImage("");
+    };
+
+    // Các phần tử kích thước giày
     const shoe_size = product.shoeDetails.map((shoe, index) => (
         <div
             key={`size-${index}`}
@@ -87,7 +97,7 @@ const ProductDetail = ({ product, error, loading }) => {
                     <img src={process.env.PUBLIC_URL + '/img/Vector4.png'} alt="Vector 4" className="vector-4" />
                     <img src={process.env.PUBLIC_URL + '/img/Vector5.png'} alt="Vector 5" className="vector-5" />
                 </div>
-                <img src={`${SERVER_API}/${product.imageUrl}`} alt="Nike PG 2.5" className="shoe-img" />
+                <img src={`${SERVER_API}/${product.imageUrl}`} alt={product.name} className="shoe-img" />
             </div>
 
             {/* Thumbnail Image Selection */}
@@ -98,10 +108,24 @@ const ProductDetail = ({ product, error, loading }) => {
             {/* Product Info Section */}
             <div className="col-md-12 col-lg-12 col-xl-3 detail-style">
                 <h2>{product.name}</h2>
-                <h4>${product.price}</h4>
 
-                {/* Rating Stars */}
                 <RatingStars rating={product.averageRating} />
+                
+                <h4>
+                    {product.isSale ? (
+                        <>
+                            <span style={{
+                                textDecoration: "line-through",
+                                fontSize: "23px",
+                                color: "#000",
+                                marginRight: "10px"
+                            }}>
+                                ${product.price}
+                            </span>
+                            ${product.salePrice}
+                        </>
+                    ) : `${product.price}`}
+                </h4>
 
                 {/* Size Selection */}
                 <div className="select-size">
@@ -121,6 +145,15 @@ const ProductDetail = ({ product, error, loading }) => {
                     </div>
                 </div>
             </div>
+
+            {/* Modal for Image */}
+            {isModalOpen && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content">
+                        <img src={selectedImage} alt="Selected Shoe" />
+                    </div>
+                </div>
+            )}
         </>
     );
 };

@@ -32,7 +32,7 @@ const ProductDescription = ({ product, error, loading }) => {
   const renderContent = () => {
     switch (content) {
       case 'about':
-        return "We deliver immersive virtual reality experiences that encourage learning, creativity, and play...";
+        return <>{product.description}</>;
       case 'size':
         return "Here is the size table for our products.";
       case 'reviews':

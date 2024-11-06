@@ -27,6 +27,18 @@ namespace BackEnd_ASP.NET.Controller.Cart
         {
             this.context = context;
         }
+        [HttpPost("decrease")]
+        public async Task<IActionResult> DecreaseQuantity(Guid id){
+            ShoppingCartId = GetCartId();
+            var cartItem = await context.CartItems.FindAsync(ShoppingCartId);
+            if(cartItem == null) return NotFound("Cart item not found");
+            cartItem.Quantity--;
+            context.CartItems.Update(cartItem);
+            context.SaveChangesAsync();
+            return Ok("Decrease completed");
+        }
+
+        
         //Id is ShoeId, Size is ShoeSize
         [HttpGet("recommend")]
         public async Task<IActionResult> RecommendProducts()
@@ -78,7 +90,7 @@ namespace BackEnd_ASP.NET.Controller.Cart
         {
             ShoppingCartId = GetCartId();
 
-            var cartItem = context.CartItems.SingleOrDefault(
+            var cartItem = context.CartItems.FirstOrDefault(
                 c => c.SessionId == ShoppingCartId
                 && c.ShoeId == shoeId && c.Size == size);
             if (cartItem == null)
@@ -98,10 +110,13 @@ namespace BackEnd_ASP.NET.Controller.Cart
             else
             {
                 cartItem.Quantity++;
+                context.CartItems.Update(cartItem);
+
             }
             await context.SaveChangesAsync();
             return Ok();
         }
+
         [HttpGet("get")]
         public async Task<IActionResult> GetCartItems()
         {
@@ -117,6 +132,7 @@ namespace BackEnd_ASP.NET.Controller.Cart
                 Colors = c.Shoe!.Colors.Select(s => new ShoeColorDTO { Color = s.Color }).ToList(),
                 ShoeName = c.Shoe!.Name,
                 ShoeImage = c.Shoe!.ImageUrl,
+                Price = c.Shoe!.Price,
                 Quantity = c.Quantity,
                 Size = c.Size,
             }).ToList();
