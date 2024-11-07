@@ -14,13 +14,15 @@ namespace BackEnd_ASP.NET.Services
     {
         private readonly ICommentRepository commentRepository;  
         private readonly IShoeRepository shoeRepository;
+        private readonly ShUEHContext context;
         private readonly INotificationService notificationService;
 
-        public CommentService(ICommentRepository commentRepository, IShoeRepository shoeRepository, INotificationService notificationService)
+        public CommentService(ICommentRepository commentRepository, IShoeRepository shoeRepository, INotificationService notificationService, ShUEHContext context)
         {
             this.commentRepository = commentRepository;
             this.shoeRepository = shoeRepository;
             this.notificationService = notificationService;
+            this.context = context;
         }
         #region Reply
         public async Task<IActionResult> AddReplyAsync(ReplyDTO replyDTO, HttpContext httpContext)
@@ -94,6 +96,7 @@ namespace BackEnd_ASP.NET.Services
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
             var comments = await commentRepository.GetAllCommentsAsync(shoeId);
+
             if (comments == null) return NotFound();
             var commentDTOs = comments.Select(comment => new CommentGetDTO 
             {
@@ -105,7 +108,8 @@ namespace BackEnd_ASP.NET.Services
                 UserId = comment.UserId,
                 UserName = comment.User?.UserName ?? string.Empty,
                 UserAvatar = comment.User?.AvatarUrl ?? "noavatar.png",
-                Size = comment.Size,
+                OrderItemId = comment.OrderItemId ?? Guid.Empty,
+                Size = comment.OrderItem?.Size ?? 0,
                 CreateDate = comment.CreateDate,
                 TotalLike = comment.CommentLikes?.Count ?? 0,
                 Replies = comment.Replies?.Select(reply => new ReplyDTO
@@ -125,21 +129,32 @@ namespace BackEnd_ASP.NET.Services
             if (userId == null) return Unauthorized();
             var shoe = await shoeRepository.GetShoeByIdAsync(commentDTO.ShoeId ?? Guid.Empty);
             if (shoe == null) return NotFound();
+            var orderItem = await context.OrderItems.FindAsync(commentDTO.OrderItemId);
+            if (orderItem == null) return NotFound("Order item not found");
+            if (orderItem.IsReviewed) return BadRequest("You have already reviewed this product");
             shoe.AverageRating = ((shoe.AverageRating * shoe.TotalRatings) + commentDTO.Rate) / (shoe.TotalRatings + 1);
             var comment = new Comment
             {
                 Description = commentDTO.Comment,
                 GeneralReview = GetGeneralReview(commentDTO.Rate),
                 Rate = commentDTO.Rate,
-                ShoeId = commentDTO.ShoeId,
+                OrderItemId = orderItem.Id,
+                ShoeId = orderItem.ShoeId,
                 UserId = Guid.Parse(userId),
                 TotalLike = 0,
                 CreateDate = MyDateTime.VietNam.DateTime,
-                Size = commentDTO.Size
+                Size = orderItem.Size
             };
-            await shoeRepository.UpdateShoeAsync(shoe);
-            if (await commentRepository.AddCommentAsync(comment))
+            if (await commentRepository.AddCommentAsync(comment)){
+                if (orderItem != null)
+                {
+                    orderItem.IsReviewed = true;
+                    context.OrderItems.Update(orderItem);
+                    await context.SaveChangesAsync();
+                }
+                await shoeRepository.UpdateShoeAsync(shoe);
                 return Ok(comment);
+            }
             return BadRequest("Add comment failed");
         }
         

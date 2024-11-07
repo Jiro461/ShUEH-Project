@@ -25,7 +25,7 @@ public class Order : IDateTracking
     [ForeignKey("Discount")]
     public Guid? DiscountId { get; set; }
     public Discount? Discount { get; set; }
-
+    public string DetailOrder { get; set; } = string.Empty;
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
     public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
 

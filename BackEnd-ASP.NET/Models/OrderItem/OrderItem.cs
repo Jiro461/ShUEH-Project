@@ -23,5 +23,6 @@ namespace BackEnd_ASP_NET.Models
         public int Quantity { get; set; }
         public decimal ShoePrice { get; set; }
         public decimal TotalPrice { get; set; }
+        public bool IsReviewed { get; set; }
     }
 }
