@@ -46,6 +46,7 @@ namespace BackEnd_ASP.NET.Services
                 TotalPrice = totalPrice,
                 Status = OrderStatus.Pending,
                 PaymentMethod = order.PaymentMethod,
+                DetailOrder = order.DetailOrder,
                 OrderItems = order.OrderItems.Select(item => new OrderItem
                 {
                     ShoeId = item.ShoeId,
@@ -135,6 +136,7 @@ namespace BackEnd_ASP.NET.Services
                 UserName = order.User?.UserName ?? string.Empty,
                 UserEmail = order.User?.Email ?? string.Empty,
                 ImageUrl = order.User?.AvatarUrl ?? "/noavatar.png",
+                DetailOrder = order.DetailOrder,
                 OrderItems = order.OrderItems.Select(item => new OrderItemDTO
                 {
                     ShoeId = item.ShoeId,
@@ -144,6 +146,7 @@ namespace BackEnd_ASP.NET.Services
                     TotalPrice = item.TotalPrice,
                     ShoeName = item.Shoe?.Name ?? string.Empty,
                     ShoeImage = item.Shoe?.ImageUrl ?? "/noimage.webp",
+                    IsReviewed = item.IsReviewed
                 }).ToList(),
                 TotalItems = order.OrderItems.Sum(item => item.Quantity),
                 

@@ -11,6 +11,7 @@ public class OrderGetDTO
     public string UserEmail { get; set; } = string.Empty;
     public string ImageUrl { get; set; } = "/noavatar.png";
     public int TotalItems { get; set; }
+    public string DetailOrder { get; set; } = string.Empty;
     public OrderStatus Status { get; set; }
     public ICollection<OrderItemDTO> OrderItems { get; set; } = new HashSet<OrderItemDTO>();
     public decimal TotalPrice { get; set; } //Co kem theo ship fee (neu co)
@@ -19,13 +20,13 @@ public class OrderGetDTO
 
 public class OrderPostDTO
 {
-    public DateTime OrderDate { get; set; }
-    public OrderStatus Status { get; set; }
     public bool IsUsingDiscount { get; set; } = false;
     public Guid? DiscountId { get; set; }
+    public string DetailOrder { get; set; } = string.Empty;
     public ICollection<OrderItemDTO> OrderItems { get; set; } = new HashSet<OrderItemDTO>();
     public decimal TotalPrice { get; set; } //Co kem theo ship fee (neu co)
     public PaymentMethod PaymentMethod { get; set; }
+    public DateTime OrderDate { get; set; }
 }
 
 

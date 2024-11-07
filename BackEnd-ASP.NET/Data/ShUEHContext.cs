@@ -2564,5 +2564,6 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ProductView> ProductViews { get; set; }
         public DbSet<SiteView> SiteViews { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
     }
 }

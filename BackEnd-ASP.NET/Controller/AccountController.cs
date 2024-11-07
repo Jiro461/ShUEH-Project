@@ -50,7 +50,7 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpGet("cookieGetById")]
         public async Task<IActionResult> GetByIdFromCookie()
         {
-            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+            Guid userId = Guid.Parse(Request.Cookies["userId"] ?? HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
             if (userId == Guid.Empty) return Unauthorized();
             return await accountService.GetUserByIdAsync(userId);
         }
@@ -101,7 +101,7 @@ namespace BackEnd_ASP.NET.Controller.Account
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUserById(Guid id,[FromForm] UserPutDTO userDto)
+        public async Task<IActionResult> UpdateUserById(Guid id, [FromForm] UserPutDTO userDto)
         {
             return await accountService.UpdateUserAsync(id, userDto);
         }
@@ -111,11 +111,11 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             return await accountService.GetUsersInfo();
         }
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
-        {
-            return await accountService.ChangePassword(request.Email, request.NewPassword);
-        }
+        //[HttpPost("reset-password")]
+        //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        //{
+        //    return await accountService.ChangePassword(request.Email, request.NewPassword);
+        //}
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {

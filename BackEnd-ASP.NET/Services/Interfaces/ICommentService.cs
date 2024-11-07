@@ -13,7 +13,7 @@ namespace BackEnd_ASP.NET.Services
 
         #region Comment
         Task<IActionResult> GetAllCommentsAsync(Guid shoeId, HttpContext httpContext);
-        Task<IActionResult> AddCommentAsync(CommentDTO commentDTO, HttpContext httpContext);
+        Task<IActionResult> AddCommentAsync(CommentPostDTO commentDTO, HttpContext httpContext);
         Task<IActionResult> DeleteCommentAsync(Guid id, HttpContext httpContext);
         #endregion
 

@@ -38,7 +38,7 @@ namespace BackEnd_ASP.NET.Services
         {
             var discounts = await _discountRepository.GetAllDiscountsAsync();
             if (discounts == null) return NotFound();
-            discounts = discounts.Where(discount => discount.IsPublic).ToList();
+            discounts = discounts.Where(discount => discount.IsPublic && discount.Quantity > 0).ToList();
             //Trả về danh sách mã giảm giá
             var discountDTOs = discounts.Select(MapDiscountToDTO);
             return Ok(discountDTOs);

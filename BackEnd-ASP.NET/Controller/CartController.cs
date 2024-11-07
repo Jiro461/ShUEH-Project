@@ -34,7 +34,7 @@ namespace BackEnd_ASP.NET.Controller.Cart
             if(cartItem == null) return NotFound("Cart item not found");
             cartItem.Quantity--;
             context.CartItems.Update(cartItem);
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return Ok("Decrease completed");
         }
 
