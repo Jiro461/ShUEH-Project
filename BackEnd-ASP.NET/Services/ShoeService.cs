@@ -63,26 +63,63 @@ namespace BackEnd_ASP.NET.Services
         // Lấy giày theo ID từ admin
         public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
         {
+            // Lấy thông tin giày từ repository
             var shoe = await shoeRepository.GetShoeByIdAsync(id);
             if (shoe == null) return NotFound($"Shoe with ID {id} not found.");
+
+            // Chuyển đổi giày thành DTO
             var shoeDTO = ConvertShoeToShoeGetDTO(shoe, null);
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
-            var shoeViewByMonth = context.ProductViews
-            .Where(view => view.ProductId == id)
-            .GroupBy(view => view.ViewedDate.Month)
-            .Select(group => new
+
+            // Truy vấn lượt xem theo tháng
+            var shoeViewByMonth = await context.ProductViews
+                .Where(view => view.ProductId == id && view.ViewedDate.Month <= DateTime.Now.Month)
+                .GroupBy(view => view.ViewedDate.Month)
+                .Select(group => new
+                {
+                    Month = group.Key,
+                    ViewCount = group.Count()
+                })
+                .ToListAsync();
+
+            // Truy vấn số lượng đơn hàng theo tháng
+            var shoeOrderByMonth =  await context.OrderItems
+                .Join(context.Orders, oi => oi.OrderId, o => o.Id, (oi, o) => new { oi, o })
+                .Where(x => x.oi.ShoeId == id)
+                .GroupBy(x => x.o.OrderDate.Month) // Nhóm theo tháng trong OrderDate
+                .Select(g => new
+                {
+                    Month = g.Key,
+                    TotalQuantity = g.Sum(x => x.oi.Quantity) // Tính tổng số lượng trong mỗi tháng
+                })
+                .ToListAsync();
+            var result = shoeViewByMonth
+                    .GroupJoin(shoeOrderByMonth, 
+                        view => view.Month, 
+                        order => order.Month, 
+                        (view, orders) => new
+                        {
+                            Month = view.Month,
+                            Visits = view.ViewCount,
+                            Orders = orders.FirstOrDefault()?.TotalQuantity ?? 0 // Nếu không có đơn hàng, mặc định là 0
+                        })
+                    .ToList();
+
+            // Nếu không có dữ liệu cho lượt xem hoặc đơn hàng theo tháng
+            if (!result.Any())
             {
-                Month = group.Key,
-                ViewCount = group.Count()
-            }).FirstOrDefault();
-            if (shoeViewByMonth == null) return NotFound($"Shoe with ID {id} not found.");
+                return NotFound($"Shoe with ID {id} does not have data for views or orders.");
+            }
+
+            // Tạo response kết hợp thông tin giày, lượt xem và đơn hàng theo tháng
             var response = new
             {
                 shoeDTO,
-                shoeViewByMonth
+                chart = result
             };
+
             return Ok(response);
-        }
+}
 
         // Thêm một đôi giày mới
         public async Task<IActionResult> AddShoeAsync(ShoePostDTO shoe)
