@@ -17,12 +17,18 @@ const AdminHome = () => {
     const [topDeals, setTopDeals] = useState([]);
     const [brands, setBrands] = useState([]);
     const [devicesView, setDevicesView] = useState([]);
+    const [recentOrder, setRecentOrder] = useState([]);
+    const [mostSoldShoes, setMostSoldShoes] = useState([]);
+    const [visits, setVisits] = useState([]);
     const [loadingUsers, setLoadingUsers] = useState(true);
     const [loadingOrders, setLoadingOrders] = useState(true);
     const [loadingRevenue, setLoadingRevenue] = useState(true);
     const [loadingTopDeals, setLoadingTopDeals] = useState(true);
     const [loadingBrands, setLoadingBrands] = useState(true);
     const [loadingDevicesView, setLoadingDevicesView] = useState(true);
+    const [loadingRecentOrder, setLoadingRecentOrder] = useState(true);
+    const [loadingMostSoldShoes, setLoadingMostSoldShoes] = useState(true);
+    const [loadingVisits, setLoadingVisits] = useState(true);
     const color = [
         "#0088FE",
         "#00C49F",
@@ -55,22 +61,28 @@ const AdminHome = () => {
     });
     axios.get(`${host}/api/Statistic/site-views/device-monthly`).then(res => {
         setDevicesView(res.data);
-        console.log(res.data);
         setLoadingDevicesView(false);
         res.data ? res.data.forEach((device, index) => {
             device.color = color[index];
         }) : setDevicesView([]);
     });
+    axios.get(`${host}/api/Statistic/orders/recent-delivered`).then(res => {
+        setRecentOrder(res.data);
+        setLoadingRecentOrder(false);
+    });
+    axios.get(`${host}/api/Statistic/shoes/most-sold-monthly`).then(res => {
+        res.data = res.data.sort((a, b) => b.month - a.month);
+        setMostSoldShoes(res.data);
+        console.log(res.data)
+        setLoadingMostSoldShoes(false);
+    });
+    axios.get(`${host}/api/Statistic/site-views/monthly`).then(res => {
+        setVisits(res.data);
+        setLoadingVisits(false);
+    });
     }, []);
-    const transactions = [
-        { user: 'johndoe', date: '2021-09-01', amount: '11', img: 'https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' },
-        { user: 'jackdower', date: '2022-04-01', amount: '10', img: 'https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' },
-        { user: 'aberdohnny', date: '2021-09-01', amount: '9', img: 'https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' },
-        { user: 'aberdohnny', date: '2021-09-01', amount: '8', img: 'https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' },
-        { user: 'aberdohnny', date: '2021-09-01', amount: '7', img: 'https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' }
-    ];
 
-    const visits = [
+    const avisits = [
         { month: '6', viewCount: '400' },
         { month: '7', viewCount: '100' },
         { month: '8', viewCount: '200' },
@@ -78,39 +90,6 @@ const AdminHome = () => {
         { month: '10', viewCount: '400' },
         { month: '11', viewCount: '500' }
         ];
-    const users_test = {
-        usersByMonth: [
-            { month: '6', totalUsers: '400' },
-            { month: '7', totalUsers: '300' },
-            { month: '8', totalUsers: '200' },
-            { month: '9', totalUsers: '300' },
-            { month: '10', totalUsers: '400' },
-            { month: '11', totalUsers: '500' }
-        ],
-        totalUsers: 1000
-    };
-    const orders_test = {
-        ordersByMonth: [
-            { month: '6', totalOrders: '400' },
-            { month: '7', totalOrders: '300' },
-            { month: '8', totalOrders: '200' },
-            { month: '9', totalOrders: '300' },
-            { month: '10', totalOrders: '400' },
-            { month: '11', totalOrders: '500' }
-        ],
-        totalOrders: 1000
-    }
-    const revenue_test = {
-        revenueFromOrdersByMonth: [
-            { month: '6', totalRevenue: '400000' },
-            { month: '7', totalRevenue: '200000' },
-            { month: '8', totalRevenue: '800000' },
-            { month: '9', totalRevenue: '200000' },
-            { month: '10', totalRevenue: '300000' },
-            { month: '11', totalRevenue: '500000' }
-        ],
-        totalRevenue: 2100000
-    }
     const countPercentage = (object, key1, key2) => {
         return ((object?.[key1]?.[object[key1].length - 1]?.[key2] - object?.[key1]?.[object[key1].length - 2]?.[key2]) / object?.[key1]?.[object[key1].length - 2]?.[key2] * 100).toFixed(2);
     }
@@ -119,7 +98,8 @@ const AdminHome = () => {
     };
     return (
         <>
-        {loadingTopDeals || loadingUsers || loadingOrders || loadingRevenue || loadingBrands || loadingDevicesView || loadingBrands ? 
+        {loadingTopDeals || loadingUsers || loadingOrders || loadingRevenue || loadingBrands 
+        || loadingDevicesView || loadingRecentOrder || loadingMostSoldShoes || loadingVisits ? 
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', paddingBottom: '200px'}}>
         <CircularProgress style={{height: '300px', width: '300px'}} /> 
         </div> 
@@ -133,11 +113,11 @@ const AdminHome = () => {
         <div className='box box3'><ChartBox label="Order" percentage={countPercentage(orders, "ordersByMonth", "totalOrders")} icon={chartBoxProduct.icon} chartData={orders.ordersByMonth} dataKey="totalOrders" color="#8884d8" title="Orders by month" number={orders.totalOrders} /></div>
         <div className='box box4'><PieChartBox data={devicesView} myValueKey="device" myDataKey="viewCount" title="Devices view this month" /></div>
         {/*Show most shoes sold by month*/}
-        <div className='box box5'><ScrollView data={transactions} title="Recent Transactions" /></div>
+        <div className='box box5'><ScrollView data={recentOrder} imgKey="avatarUrl" nameKey="profileName" dateKey="orderDate" amountKey="totalPrice" idKey="id" title="Recent Transactions" /></div>
         <div className='box box6'><ChartBox label="Revenue" percentage={countPercentage(revenue, "revenueFromOrdersByMonth", "totalRevenue")} icon={chartBoxRevenue.icon} chartData={revenue.revenueFromOrdersByMonth} dataKey="totalRevenue" color="#8884d8" title="Revenue by month" number={convertToVND(revenue.totalRevenue)} isVND={true} /></div>
         <div className='box box7'><PieChartBox data={brands} myValueKey="brand" myDataKey="totalSold" title="Brands sold this month" /></div>
-        <div className='box box8'><ScrollView data={transactions} title="Most Sold Shoes by month" isMonth={true} /></div>
-                <div className='box box9'><BarChartBox chartData={visits} key="month" dataKey="viewCount" color="#8884d8" title="Visits by month" /></div>
+        <div className='box box8'><ScrollView data={mostSoldShoes} imgKey="shoeImageUrl" nameKey="shoeName" dateKey="totalSold" amountKey="month" idKey="shoeId" title="Most Sold Shoes by month" isMonth={true} /></div>
+        <div className='box box9'><BarChartBox chartData={visits} mykey="month" dataKey="viewCount" color="#8884d8" title="Visits by month" /></div>
             </div>
         </>
         }
