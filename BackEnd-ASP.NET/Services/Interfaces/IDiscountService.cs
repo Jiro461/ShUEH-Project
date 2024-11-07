@@ -7,6 +7,7 @@ namespace BackEnd_ASP.NET.Services
     {
         Task<IActionResult> AddDiscountAsync(DiscountDTO discountDTO);
         Task<IActionResult> DeleteDiscountAsync(Guid id);
+        Task<IActionResult> GetAllDiscountsFromClientAsync();
         Task<IActionResult> GetAllDiscountsAsync();
         Task<IActionResult> GetDiscountByIdAsync(Guid id);
         Task<IActionResult> UpdateDiscountAsync(Guid discountId, DiscountDTO discountDTO);

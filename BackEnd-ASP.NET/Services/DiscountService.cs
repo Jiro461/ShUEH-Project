@@ -33,8 +33,15 @@ namespace BackEnd_ASP.NET.Services
             if (await _discountRepository.DeleteDiscountAsync(id)) return Ok();
             return NotFound();
         }
-
+        
         public async Task<IActionResult> GetAllDiscountsAsync()
+        {
+            var discounts = await _discountRepository.GetAllDiscountsAsync();
+            if (discounts == null) return NotFound();
+            var discountDTOs = discounts.Select(MapDiscountToDTO); 
+            return Ok(discountDTOs);
+        }
+        public async Task<IActionResult> GetAllDiscountsFromClientAsync()
         {
             var discounts = await _discountRepository.GetAllDiscountsAsync();
             if (discounts == null) return NotFound();
