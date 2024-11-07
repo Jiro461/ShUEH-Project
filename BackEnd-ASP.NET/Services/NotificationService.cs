@@ -142,7 +142,20 @@ namespace BackEnd_ASP.NET.Services
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
-
+        public async Task CreateNotificationForUserViewProduct(Guid productId, Guid userId){
+            var user = await _context.Users.FindAsync(userId);
+            var shoe = await _context.Shoes.FindAsync(productId);
+            var notification = new Notification
+            {
+                UserMessage = $"Bạn đã xem sản phẩm {shoe?.Name}.",
+                AdminMessage = $"{user?.UserName} đã xem sản phẩm {shoe?.Name}.",
+                User = user,
+                Product = shoe,
+                CreateDate = MyDateTime.VietNam.DateTime
+            };
+            await _context.Notifications.AddAsync(notification);
+            await _context.SaveChangesAsync();
+        }
         public async Task CreateNotificationForShoe(Shoe shoe){
             var notification = new Notification
             {
@@ -189,6 +202,21 @@ namespace BackEnd_ASP.NET.Services
             }).ToListAsync();
             return Ok(notifications);
         }
+
+        public async Task<IActionResult> AdminGetUserNotifications(HttpContext httpContext, Guid userId){
+            var adminId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+            if(adminId == null || userRole != "Admin") return Unauthorized();
+            var notifications = await _context.Notifications
+            .Where(notification => notification.UserId == userId)
+            .Select(notification => new {
+                notification.Id,
+                notification.AdminMessage,
+                notification.UserMessage,
+                notification.CreateDate
+            }).ToListAsync();
+            return Ok(notifications);
+        }   
         #endregion
     }
 }

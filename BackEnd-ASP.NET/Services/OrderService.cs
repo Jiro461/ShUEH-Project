@@ -1,10 +1,7 @@
 using BackEnd_ASP_NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd_ASP.NET.Data;
-using Microsoft.EntityFrameworkCore;
-using BackEnd_ASP.NET.Models;
-using BackEnd_ASP_NET.Utilities.FileHelpers;
-using BackEnd_ASP.NET.Models.ShoeDetail;
+
 
 namespace BackEnd_ASP.NET.Services
 {
