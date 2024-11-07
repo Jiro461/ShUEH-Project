@@ -13,7 +13,7 @@ function ProfilePage() {
                 </div>
 
                 {/* Content */}
-                <div className="col-lg-7 col-12 content">
+                <div className="col-lg-7 col-12 content-profile-page">
                     <Outlet/>
                 </div>
             </div>

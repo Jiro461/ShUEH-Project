@@ -72,7 +72,7 @@ const PaymentCart = () => {
                                     </div>
 
                                     <div className="col-xl-3 col-12 cart-item-price">
-                                        <h4>Pricing ${item.price ? item.price.toFixed(2) : "0.00"}</h4>
+                                        <h4>Pricing ${(item.price * item.quantity) ? (item.price * item.quantity).toFixed(2) : "0.00"}</h4>
                                     </div>
                                 </div>
                             </div>
