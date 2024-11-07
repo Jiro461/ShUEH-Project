@@ -11,6 +11,16 @@ const PaymentStep = () => {
     const [searchedVoucher, setSearchedVoucher] = useState(null);
     const [cartItems, setCartItems] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
+    const [orderDetails, setOrderDetails] = useState({
+        isUsingDiscount: false,
+        discountId: "",
+        detailOrder: "",
+        orderItems: [],
+        totalPrice: 0,
+        paymentMethod: 0,
+        orderDate: new Date().toISOString()
+    });
+    const [paymentMethod, setPaymentMethod] = useState(0); // 0 for default, 1 for vnpay, 2 for COD
     const deliveryFee = 1000; // Giá trị vận chuyển cố định
 
     // Lấy danh sách voucher từ API khi component được mount
@@ -58,12 +68,91 @@ const PaymentStep = () => {
         fetchCartItems();
     }, []);
 
-    console.log(cartItems);
+    // Cập nhật orderDetails khi các dữ liệu khác thay đổi
+    useEffect(() => {
+        // Chuyển cartItems thành orderItems với các thuộc tính cần thiết
+        const formattedOrderItems = cartItems.map(item => ({
+            shoeId: item.shoeId,
+            shoeName: item.shoeName,
+            shoeImage: item.shoeImage,
+            size: item.size,
+            quantity: item.quantity,
+            shoePrice: item.price,
+            totalPrice: item.price * item.quantity,
+            isReviewed: false, // mặc định là chưa review
+        }));
+        console.log(formattedOrderItems);
 
+        setOrderDetails({
+            isUsingDiscount: !!selectedVoucher,
+            discountId: selectedVoucher ? selectedVoucher.id : "",
+            detailOrder: orderDetails.detailOrder,  // Không thay đổi nếu không liên quan
+            orderItems: formattedOrderItems, // sử dụng cấu trúc mới
+            totalPrice: calculateTotal(),
+            paymentMethod: paymentMethod,
+            orderDate: new Date().toISOString(),
+        });
+    }, [selectedVoucher, paymentMethod, cartItems, subTotal]);
 
-    const handleNextStep = () => {
-        setActiveStep(prevStep => prevStep + 1);
+    const handleNextStep = async () => {
+        if (activeStep === 1) {
+            const name = document.getElementById('name').value;
+            const city = document.getElementById('address-city').value;
+            const street = document.getElementById('address-street').value;
+            const houseNo = document.getElementById('address-houseno').value;
+
+            if (!name || !city || !street) {
+                alert('Vui lòng điền tất cả các trường bắt buộc');
+                return;
+            }
+
+            const detailOrder = `${name}, ${city}, ${street}, ${houseNo}`;
+            const updatedOrderDetails = {
+                ...orderDetails,
+                detailOrder: detailOrder,
+            };
+            setOrderDetails(updatedOrderDetails);
+            console.log(updatedOrderDetails);
+        }
+
+        if (activeStep === 2) {
+            if (!paymentMethod) {
+                alert('Vui lòng chọn phương thức thanh toán');
+                return;
+            }
+
+            const finalOrderDetails = {
+                ...orderDetails,
+                paymentMethod: paymentMethod,
+                orderItems: cartItems,
+                totalPrice: calculateTotal(),
+            };
+
+            try {
+                const response = await fetch(`${SERVER_API}/api/Payment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(finalOrderDetails),
+                });
+
+                if (response.ok) {
+                    console.log("Order placed successfully");
+                    setActiveStep(3); // Chuyển sang bước thành công
+                } else {
+                    console.error("Failed to place order");
+                }
+            } catch (error) {
+                console.error("Error placing order:", error);
+            }
+            return;
+        }
+
+        setActiveStep((prevStep) => prevStep + 1);
     };
+
+
 
     const handleBackStep = () => {
         setActiveStep(prevStep => prevStep - 1);
@@ -71,7 +160,7 @@ const PaymentStep = () => {
 
     const handleVoucherSelection = (voucher) => {
         setSelectedVoucher(voucher);
-        setVoucherModalOpen(false); // Đóng modal sau khi chọn
+        setVoucherModalOpen(false);
     };
 
     const handleSearchVoucher = async (code) => {
@@ -90,14 +179,20 @@ const PaymentStep = () => {
                 console.error('Lỗi khi tìm voucher:', error);
             }
         } else {
-            setSearchedVoucher(null); // Đặt lại nếu không tìm thấy voucher
+            setSearchedVoucher(null);
             console.log('Không tìm thấy voucher với mã này');
         }
     };
 
     const calculateTotal = () => {
-        const discount = selectedVoucher ? (100 - selectedVoucher.percentage) / 100 : 1;
-        return subTotal * discount + deliveryFee;
+        const total = selectedVoucher ? (
+            selectedVoucher.type ? (
+                selectedVoucher.amount ? (
+                    subTotal - selectedVoucher.amount + deliveryFee) : (
+                    subTotal * (100 - selectedVoucher.percentage) / 100 + deliveryFee)
+            ) : (subTotal + deliveryFee - selectedVoucher.amount)
+        ) : (subTotal + deliveryFee);
+        return total;
     };
 
     // Thêm hàm loại bỏ voucher
@@ -126,7 +221,8 @@ const PaymentStep = () => {
                                     >
                                         {selectedVoucher ? (
                                             <>
-                                                {selectedVoucher.percentage}%
+                                                {(selectedVoucher.percentage === 0 && selectedVoucher.maximumDiscount === 0) ? `${selectedVoucher.amount}$` : `${selectedVoucher.percentage}%`}
+
                                                 {/* Thêm nút "Remove" để bỏ chọn voucher */}
                                                 <button
                                                     onClick={(e) => {
@@ -187,10 +283,17 @@ const PaymentStep = () => {
                             <div className="method">
                                 <h3>How would you like to pay?</h3>
                                 <div className="method-payment">
-                                    <div className="momo"><img src="./img/momo_icon_circle_pinkbg_RGB.png" alt="Momo" /></div>
-                                    <div><i className="fa-solid fa-building-columns"></i></div>
-                                    <div><i className="fa-solid fa-money-bill"></i></div>
+                                    <div className="method-payment">
+                                        <div className={`vnpay ${paymentMethod === 1 ? 'selected' : ''}`} onClick={() => setPaymentMethod(1)}>
+                                            <img src="./img/vnpay.jpg" alt="VNPAY" />
+                                        </div>
+                                        <div className={`COD ${paymentMethod === 2 ? 'selected' : ''}`} onClick={() => setPaymentMethod(2)}>
+                                            <i className="fa-solid fa-money-bill"></i>
+                                        </div>
+                                    </div>
+
                                 </div>
+
                                 <p>
                                     You transfer money to shUEH according to the following information:<br />
                                     Account name: Tran Di Quan<br />
@@ -261,22 +364,53 @@ const PaymentStep = () => {
                                 className="voucher-item"
                                 onClick={() => handleVoucherSelection(searchedVoucher)}
                             >
-                                <span>{searchedVoucher.code}</span>
                                 <span>{searchedVoucher.percentage}%</span>
                                 <span>Expires: {new Date(searchedVoucher.expiryDate).toLocaleDateString()}</span>
                             </div>
                         ) : (
                             <ul className="voucher-list">
-                                {vouchers.map((voucher) => (
-                                    <li
-                                        key={voucher.id}
-                                        onClick={() => handleVoucherSelection(voucher)}
-                                        className="voucher-item"
-                                    >
-                                        <span>{voucher.code}</span>
-                                        <span>{voucher.percentage}%</span>
-                                        <span>Expires: {new Date(voucher.expiryDate).toLocaleDateString()}</span>
-                                    </li>
+                                {vouchers.filter(voucher => voucher.isPublic === true).map((voucher) => (
+                                    (voucher.type === 0) ? (
+                                        <li
+                                            key={voucher.id}
+                                            onClick={() => handleVoucherSelection(voucher)}
+                                            className="row voucher-item"
+                                            style={{ border: "2px solid green" }}
+                                        >
+                                            <div className="col-2"><i className="fa-solid fa-truck-fast"></i></div>
+                                            <div className="col-6">
+                                                <p>Shipping Fee</p>
+                                                <p>up to ${voucher.amount}</p>
+                                                <p>Min. spend ${voucher.minimumOrder}</p>
+                                            </div>
+                                        </li>
+                                    ) : (
+                                        <li
+                                            key={voucher.id}
+                                            onClick={() => handleVoucherSelection(voucher)}
+                                            className="row voucher-item"
+                                            style={{ border: "2px solid orange" }}
+                                        >
+                                            <div className="col-2">
+                                                <i className="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div className="col-6">
+                                                {voucher.maximumDiscount === 0 && voucher.percentage === 0 ? (
+                                                    <>
+                                                        <p>${voucher.amount} OFF</p>
+                                                        <p>Min. spend ${voucher.minimumOrder}</p>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <p>{voucher.percentage}% OFF</p>
+                                                        <p>Capped at ${voucher.maximumDiscount}</p>
+                                                        <p>Min. spend ${voucher.minimumOrder}</p>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </li>
+
+                                    )
                                 ))}
                             </ul>
                         )}
