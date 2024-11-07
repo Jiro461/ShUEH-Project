@@ -78,6 +78,7 @@ namespace BackEnd_ASP.NET.Services
                 Code = discount.Code,
                 Percentage = discount.Percentage,
                 Type = discount.Type,
+                IsPublic = discount.IsPublic,
                 Quantity = discount.Quantity,
                 Amount = discount.Amount,
                 MaximumDiscount = discount.MaximumDiscount,
