@@ -26,12 +26,22 @@ namespace BackEnd_ASP.NET.Middleware
             {
                 if (Guid.TryParse(remaining!.Value?.Trim('/'), out Guid productId))
                 {
+                    Guid userId = Guid.Empty;
                     var authenticated = await context.AuthenticateAsync("Cookies");
-                    var userIdFromClaims = authenticated.Principal!.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString();
-                    Guid userId = Guid.Parse(userIdFromClaims);
-                    if (userId == Guid.Empty)
+                    if (authenticated.Succeeded)
                     {
-                        userId = Guid.NewGuid();
+                        string? userIdFromClaims = authenticated!.Principal!.Claims!.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                        userId = Guid.Parse(string.IsNullOrEmpty(userIdFromClaims) ? Guid.Empty.ToString() : userIdFromClaims);
+                        if (userId == Guid.Empty)
+                        {
+                            userId = Guid.NewGuid();
+                            context.Session.SetString("UserId", userId.ToString());
+                        }
+                    }
+                    else
+                    {
+                        string? userIdFromSession = context.Session.GetString("UserId");
+                        userId = Guid.Parse(string.IsNullOrEmpty(userIdFromSession) ? Guid.NewGuid().ToString() : userIdFromSession);
                         context.Session.SetString("UserId", userId.ToString());
                     }
                     using (var scope = _serviceProvider.CreateScope())
