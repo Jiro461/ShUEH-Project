@@ -17,10 +17,10 @@ const PaymentStep = () => {
         detailOrder: "",
         orderItems: [],
         totalPrice: 0,
-        paymentMethod: 0,
+        paymentMethod: 2,
         orderDate: new Date().toISOString()
     });
-    const [paymentMethod, setPaymentMethod] = useState(0); // 0 for default, 1 for vnpay, 2 for COD
+    const [paymentMethod, setPaymentMethod] = useState(2);
     const deliveryFee = 1000; // Giá trị vận chuyển cố định
 
     // Lấy danh sách voucher từ API khi component được mount
@@ -81,11 +81,10 @@ const PaymentStep = () => {
             totalPrice: item.price * item.quantity,
             isReviewed: false, // mặc định là chưa review
         }));
-        console.log(formattedOrderItems);
 
         setOrderDetails({
             isUsingDiscount: !!selectedVoucher,
-            discountId: selectedVoucher ? selectedVoucher.id : "",
+            discountId: selectedVoucher ? selectedVoucher.id : null,
             detailOrder: orderDetails.detailOrder,  // Không thay đổi nếu không liên quan
             orderItems: formattedOrderItems, // sử dụng cấu trúc mới
             totalPrice: calculateTotal(),
@@ -93,6 +92,13 @@ const PaymentStep = () => {
             orderDate: new Date().toISOString(),
         });
     }, [selectedVoucher, paymentMethod, cartItems, subTotal]);
+
+    // Lấy token từ cookie (hoặc localStorage nếu dùng JWT token)
+    const getAuthToken = () => {
+        // Nếu sử dụng cookie:
+        const token = document.cookie.replace(/(?:(?:^|.*;\s*)Authorization\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        return token; // Lấy token từ cookie Authorization
+    };
 
     const handleNextStep = async () => {
         if (activeStep === 1) {
@@ -112,36 +118,53 @@ const PaymentStep = () => {
                 detailOrder: detailOrder,
             };
             setOrderDetails(updatedOrderDetails);
-            console.log(updatedOrderDetails);
         }
 
         if (activeStep === 2) {
-            if (!paymentMethod) {
+            if (paymentMethod !== 0 && paymentMethod !== 1) {
                 alert('Vui lòng chọn phương thức thanh toán');
                 return;
             }
 
             const finalOrderDetails = {
-                ...orderDetails,
-                paymentMethod: paymentMethod,
-                orderItems: cartItems,
-                totalPrice: calculateTotal(),
+                isUsingDiscount: !!selectedVoucher, // Kiểm tra xem có voucher không
+                discountId: selectedVoucher ? selectedVoucher.id : null, // Nếu có voucher, lấy id
+                detailOrder: orderDetails.detailOrder,  // Địa chỉ nhận hàng
+                orderItems: cartItems.map(item => ({
+                    shoeId: item.shoeId,
+                    shoeName: item.shoeName,
+                    shoeImage: item.shoeImage,
+                    size: item.size,
+                    quantity: item.quantity,
+                    shoePrice: item.price,
+                    totalPrice: item.price * item.quantity,
+                    isReviewed: false, // Điều chỉnh nếu cần thiết
+                })),
+                totalPrice: calculateTotal(),  // Tổng giá trị đơn hàng
+                paymentMethod: paymentMethod,  // Phương thức thanh toán
+                orderDate: new Date().toISOString(),  // Thời gian đặt hàng
             };
 
             try {
+                const token = getAuthToken(); // Lấy token
+
                 const response = await fetch(`${SERVER_API}/api/Payment`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization": token ? `Bearer ${token}` : "",
                     },
                     body: JSON.stringify(finalOrderDetails),
+                    credentials: "include",
                 });
 
                 if (response.ok) {
                     console.log("Order placed successfully");
                     setActiveStep(3); // Chuyển sang bước thành công
                 } else {
-                    console.error("Failed to place order");
+                    console.error("Failed to place order", await response.text());
+                    console.log(finalOrderDetails);
+                    console.log("paymentMethod: ", finalOrderDetails.paymentMethod);
                 }
             } catch (error) {
                 console.error("Error placing order:", error);
@@ -151,8 +174,6 @@ const PaymentStep = () => {
 
         setActiveStep((prevStep) => prevStep + 1);
     };
-
-
 
     const handleBackStep = () => {
         setActiveStep(prevStep => prevStep - 1);
@@ -284,10 +305,10 @@ const PaymentStep = () => {
                                 <h3>How would you like to pay?</h3>
                                 <div className="method-payment">
                                     <div className="method-payment">
-                                        <div className={`vnpay ${paymentMethod === 1 ? 'selected' : ''}`} onClick={() => setPaymentMethod(1)}>
+                                        <div className={`vnpay ${paymentMethod === 0 ? 'selected' : ''}`} onClick={() => setPaymentMethod(0)}>
                                             <img src="./img/vnpay.jpg" alt="VNPAY" />
                                         </div>
-                                        <div className={`COD ${paymentMethod === 2 ? 'selected' : ''}`} onClick={() => setPaymentMethod(2)}>
+                                        <div className={`COD ${paymentMethod === 1 ? 'selected' : ''}`} onClick={() => setPaymentMethod(1)}>
                                             <i className="fa-solid fa-money-bill"></i>
                                         </div>
                                     </div>
