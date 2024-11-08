@@ -7,6 +7,7 @@
     width: 100%;
     padding: 20px;
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
 
@@ -24,10 +25,17 @@
         span {
             font-size: 35px;
         }
+        @include sm{
+            visibility: hidden;
+        }
+        @media (max-width: 320px){
+            display: none;
+        }
     }
 
     .icons {
         display: flex;
+        position: relative;
         align-items: center;
         gap: 20px;
 
@@ -50,23 +58,33 @@
                 }
             }
 
-            &.icon-settings{
+            &.icon-app{
+                display: none;
                 @include md{
-                    display: none;
+                    display: block;
                 }
             }
         }
-        &.icon-app{
-            display: none;
-            @include md{
-              display: block;
-            }
+        .menuContainer{
+            position: absolute;
+            top: 40px;
+            left: -130px;
+            z-index: 100;
+            background-color: rgba(56, 66, 86, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+            backdrop-filter: blur(10px);
         }
-        
+        .icon-wrap{
+            position: absolute;
+            top: 4px;
+            left: -120px;
+            cursor: pointer;
+        }
         .notification {
             position: relative;
 
-            span {
+            span.notification-number {
                 display: flex;
                 position: absolute;
                 color: white;
@@ -85,9 +103,135 @@
                 -webkit-user-select: none;
                 
             }
+            .notification-list{
+                z-index: 100;
+                position: absolute;
+                top: 50px;
+                left: -50px;
+                width: 300px;
+                height: 100vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                .notification-list-header{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                    span{
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+                }
+                .notification-item{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    img{
+                        width: 40px;
+                        aspect-ratio: 1/1;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    .notification-content{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                        .notification-content-message{
+                            font-size: 16px;
+                            font-weight: 500;
+                            align-self: start;
+                            color: #000;
+                        }
+                        .notification-content-date{
+                            font-size: 12px;
+                            font-weight: 400;
+                            color: #808080;
+                            align-self: end;
+                        }
+                    }
+                }
+                @include md{
+                    width: 250px;
+                    left: -20px;
+                }
+            }
 
-            @include md{
-                display: none;
+        }
+
+        .chatmessage{
+            position: relative;
+            span.chat-number {
+                display: flex;
+                position: absolute;
+                color: white;
+                top: -10px;
+                right: -10px;
+                background-color: red;
+                border-radius: 50%;
+                padding-right: 2px;
+                padding-top: 1px;
+                width: 25px;
+                height: 25px;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                font-size: 16px;
+                -webkit-user-select: none;
+                
+            }
+            .chat-message-list{
+                z-index: 100;
+                position: absolute;
+                top: 50px;
+                left: 80px;
+                width: 300px;
+                height: 100vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                @include md{
+                    width: 250px;
+                    left: 35px;
+                }
+            }
+        }
+
+        .setting{
+            position: relative;
+            img{
+                width: 45px;
+                height: 45px;
+            }
+            .setting-list{
+                z-index: 100;
+                position: absolute;
+                top: 50px;
+                right: 0;
+                width: 70px;
+                height: 35px;
+                background-color: red;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                border-radius: 10px;
+                .setting-item{
+                    .setting-item-button{
+                        font-size: 18px;
+                        background-color: transparent;
+                        border: none;
+                        z-index: 101;
+                        font-weight: 500;
+                        cursor: pointer;
+                        color: #fff;
+                    }
+                }
             }
         }
 

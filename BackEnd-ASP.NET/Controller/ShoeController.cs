@@ -19,7 +19,7 @@ namespace BackEnd_ASP.NET.Controller
     [Route("api/[controller]")]
     public class ShoeController : ControllerBase
     {
-        private readonly string[] brands = { "NIKE", "ADIDAS", "PUMA", "REEBOK", "UNDER ARMOUR" };
+        private readonly string[] brands = { "NIKE", "ADIDAS", "PUMA", "REEBOK", "CONVERSE" };
         private readonly string[] homeShoe = { "Nike Youth React Presto Extreme", "Nike Air Max 270", "Nike Downshifter 13" };
         private readonly IShoeService shoeService;
         private readonly ShUEHContext context;

@@ -25,7 +25,6 @@ a {
   background-color: $main-bg;
   color: $main-color;
   width: 100%;
-  min-height: 100vh; // Đảm bảo chiều cao trang ít nhất là 100% chiều cao màn hình
 
   .admin-container {
     display: flex;
@@ -34,11 +33,16 @@ a {
 
     .menuContainer {
       width: 250px;
+      z-index: 100;
       padding: 5px 20px;
       border-right: 2px solid $soft-bg;
 
       @include lg {
         width: max-content;
+      }
+
+      @include sm {
+        display: none;
       }
     }
 
@@ -48,8 +52,15 @@ a {
       overflow: hidden;
       max-width: 90%;
       box-sizing: border-box; // Đảm bảo padding không gây tràn
-      min-height: 50vh;
+      @include sm {
+        width: 100%;
+        max-width: 100%;
+        padding: 5px;
+      }
     }
+  }
+  @include sm {
+    width: 30px;
   }
 
 

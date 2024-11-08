@@ -1,15 +1,15 @@
 /*----------------------------------------*/
 /*  Top Box
 /*----------------------------------------*/
+@import "../../../../styles/responsive.scss";
 .topBox {
-
+    width: 100%;
 
     h1 {
         margin-bottom: 20px;
     }
 
     .list {
-
 
         .listItem {
             display: flex;
@@ -29,7 +29,11 @@
                     height: 40px;
                     border-radius: 50%;
                     object-fit: cover;
-
+                    
+                    @include sm {
+                        width: 30px;
+                        height: 30px;
+                    }
 
                 }
 
@@ -40,27 +44,39 @@
 
                     .username {
                         font-size: 14px;
-                        width: 160px;
+                        width: auto;
                         font-weight: 700;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
+                        @include sm {
+                            font-size: 7px;
+                        }
                     }
 
                     .email {
                         font-size: 12px;
-                        width: 160px;
+                        width: auto;
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
+                        @include sm {
+                            font-size: 7px;
+                        }
                     }
                 }
             }
-
+            @include sm {
+                gap: 15px;
+            }
             .amount {
                 font-size: 16px;
                 font-weight: 800;
             }
         }
+        
+    }
+    @include sm {
+        width: 100%;
     }
 }
