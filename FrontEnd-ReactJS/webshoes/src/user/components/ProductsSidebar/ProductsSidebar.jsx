@@ -127,7 +127,7 @@ function ProductsSidebar({ filters, updateFilters, isMenuSidebarVisible }) {
             className={`col-1 size ${filters.selectedSizes.some(s => s.id === size.id) ? 'selected' : ''}`}
             onClick={() => handleSizeChange(size.id, size.value_VN)}
         >
-            {size.value_VN}
+            {filters.isSizeUK ? size.value_UK : size.value_VN}
         </div>
     ));
 
