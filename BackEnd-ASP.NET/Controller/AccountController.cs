@@ -90,6 +90,12 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpGet("GoogleAuthen")]  // Sau khi nhận thông tin đăng nhập từ Google
         public async Task<IActionResult> GoogleAuthen()
         {
+            var authenticateResult = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+            if (!authenticateResult.Succeeded)
+            {
+                // Nếu không thành công, bạn có thể trả về trang lỗi hoặc thông báo lỗi
+                return Redirect("http://localhost:3000");
+            }
             return await accountService.GoogleAuthen(HttpContext);
         }
         [HttpPut]

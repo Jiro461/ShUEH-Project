@@ -31,6 +31,10 @@ namespace BackEnd_ASP.NET.Controller
         public async Task<IActionResult> GetAdminNotifications(){
             return await _notificationService.GetAdminNotifications(HttpContext);
         }
+        [HttpGet("admin/user/{userId}")]
+        public async Task<IActionResult> AdminGetUserNotifications(Guid userId){
+            return await _notificationService.AdminGetUserNotifications(HttpContext, userId);
+        }
   
     }
 }

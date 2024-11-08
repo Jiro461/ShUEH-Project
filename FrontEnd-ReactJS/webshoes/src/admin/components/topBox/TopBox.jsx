@@ -2,6 +2,7 @@ import React from 'react';
 import './TopBox.scss';
 
 const Topbox = (props) => {
+    const host = "http://shueh.somee.com";
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -13,7 +14,7 @@ const Topbox = (props) => {
                 {props.data.map(user => (
                     <div className='listItem' key={user.userId}>
                         <div className='user'>
-                            <img src={user.avatar} alt='' />
+                            <img src={`${host}/${user.avatar}`} alt='' />
                             <div className='userTexts'>
                                 <span className='username'>{user.userName}</span>
                                 <span className='email'>{user.email}</span>

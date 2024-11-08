@@ -2,6 +2,7 @@ using System.Text;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Middleware;
 using BackEnd_ASP.NET.Services;
+using BackEnd_ASP_NET.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,8 +26,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 app.UseSession();
-app.UseMiddleware<ProductViewMiddleware>();
+
 app.UseRouting();
 
 app.UseCors(x => x.AllowAnyMethod()
@@ -41,6 +44,8 @@ app.MapHub<ChatHubServices>("/chatHub");
 app.UseAuthentication(); // Phải có để sử dụng xác thực
 app.UseAuthorization();
 // Ensure you have this if using controllers
+app.UseMiddleware<ProductViewMiddleware>();
+app.UseMiddleware<SiteViewMiddleware>();
 app.MapControllers();
 
 app.Run();

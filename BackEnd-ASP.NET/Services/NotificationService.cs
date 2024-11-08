@@ -117,7 +117,8 @@ namespace BackEnd_ASP.NET.Services
         public async Task CreateUpdateNotificationForEntityChange<T>(T entity, Guid? userId = null) where T : class
         {
             var notification = new Notification();
-            if(userId == null){
+            if (userId == null)
+            {
                 var message = $"Bạn đã cập nhật {typeof(T).Name} với ID {entity.GetType().GetProperty("Id")?.GetValue(entity)}.";
 
                 notification = new Notification
@@ -127,8 +128,9 @@ namespace BackEnd_ASP.NET.Services
                 };
 
             }
-            else{
-             var user = await _context.Users.FindAsync(userId);
+            else
+            {
+                var user = await _context.Users.FindAsync(userId);
                 var usermessage = $"Bạn đã cập nhật thông tin {typeof(T).Name}.";
                 var adminmessage = $"{user?.UserName} đã thay đổi thông tin {typeof(T).Name} với ID {entity.GetType().GetProperty("Id")?.GetValue(entity)}.";
                 notification = new Notification
@@ -142,8 +144,23 @@ namespace BackEnd_ASP.NET.Services
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
-
-        public async Task CreateNotificationForShoe(Shoe shoe){
+        public async Task CreateNotificationForUserViewProduct(Guid productId, Guid userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            var shoe = await _context.Shoes.FindAsync(productId);
+            var notification = new Notification
+            {
+                UserMessage = $"Bạn đã xem sản phẩm {shoe?.Name}.",
+                AdminMessage = $"{user?.UserName} đã xem sản phẩm {shoe?.Name}.",
+                User = user,
+                Product = shoe,
+                CreateDate = MyDateTime.VietNam.DateTime
+            };
+            await _context.Notifications.AddAsync(notification);
+            await _context.SaveChangesAsync();
+        }
+        public async Task CreateNotificationForShoe(Shoe shoe)
+        {
             var notification = new Notification
             {
                 AdminMessage = $"Bạn đã tạo mới sản phẩm {shoe.Name}.",
@@ -168,25 +185,52 @@ namespace BackEnd_ASP.NET.Services
         }
         #endregion
         #region Get Notification API
-        public async Task<IActionResult> GetUserNotifications(HttpContext httpContext){
+        public async Task<IActionResult> GetUserNotifications(HttpContext httpContext)
+        {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if(userId == null) return Unauthorized();
-            var notifications = await _context.Notifications.Where(notification => notification.UserId == Guid.Parse(userId)).Select(notification => new {
+            if (userId == null) return Unauthorized();
+            var notifications = await _context.Notifications.Where(notification => notification.UserId == Guid.Parse(userId)).Select(notification => new
+            {
                 notification.Id,
                 notification.UserMessage,
                 notification.CreateDate
-            }).ToListAsync();
+            })
+            .OrderByDescending(notification => notification.CreateDate)
+            .ToListAsync();
             return Ok(notifications);
         }
-        public async Task<IActionResult> GetAdminNotifications(HttpContext httpContext){
+        public async Task<IActionResult> GetAdminNotifications(HttpContext httpContext)
+        {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
-            if(userId == null || userRole != "Admin") return Unauthorized();
-            var notifications = await _context.Notifications.Select(notification => new {
+            if (userId == null || userRole != "Admin") return Unauthorized();
+            var notifications = await _context.Notifications.Select(notification => new
+            {
                 notification.Id,
                 notification.AdminMessage,
                 notification.CreateDate
-            }).ToListAsync();
+            })
+            .OrderByDescending(notification => notification.CreateDate)
+            .ToListAsync();
+            return Ok(notifications);
+        }
+
+        public async Task<IActionResult> AdminGetUserNotifications(HttpContext httpContext, Guid userId)
+        {
+            var adminId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+            if (adminId == null || userRole != "Admin") return Unauthorized();
+            var notifications = await _context.Notifications
+            .Where(notification => notification.UserId == userId)
+            .Select(notification => new
+            {
+                notification.Id,
+                notification.AdminMessage,
+                notification.UserMessage,
+                notification.CreateDate
+            })
+            .OrderByDescending(notification => notification.CreateDate)
+            .ToListAsync();
             return Ok(notifications);
         }
         #endregion

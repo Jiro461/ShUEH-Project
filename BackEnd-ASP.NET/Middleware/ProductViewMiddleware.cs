@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP_NET.Models;
+using BackEnd_ASP_NET.Utilities.Extensions;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd_ASP.NET.Middleware
@@ -24,12 +26,22 @@ namespace BackEnd_ASP.NET.Middleware
             {
                 if (Guid.TryParse(remaining!.Value?.Trim('/'), out Guid productId))
                 {
-                    Guid userId = context!.User!.Identity!.IsAuthenticated
-                        ? Guid.Parse(context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value)
-                        : Guid.Parse(context.Session.GetString("UserId") ?? Guid.Empty.ToString());
-                    if (userId == Guid.Empty)
+                    Guid userId = Guid.Empty;
+                    var authenticated = await context.AuthenticateAsync("Cookies");
+                    if (authenticated.Succeeded)
                     {
-                        userId = Guid.NewGuid();
+                        string? userIdFromClaims = authenticated!.Principal!.Claims!.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                        userId = Guid.Parse(string.IsNullOrEmpty(userIdFromClaims) ? Guid.Empty.ToString() : userIdFromClaims);
+                        if (userId == Guid.Empty)
+                        {
+                            userId = Guid.NewGuid();
+                            context.Session.SetString("UserId", userId.ToString());
+                        }
+                    }
+                    else
+                    {
+                        string? userIdFromSession = context.Session.GetString("UserId");
+                        userId = Guid.Parse(string.IsNullOrEmpty(userIdFromSession) ? Guid.NewGuid().ToString() : userIdFromSession);
                         context.Session.SetString("UserId", userId.ToString());
                     }
                     using (var scope = _serviceProvider.CreateScope())
@@ -43,10 +55,10 @@ namespace BackEnd_ASP.NET.Middleware
             await _next(context);
         }
 
-        private async Task IncrementViewCountIfNotViewedToday(ShUEHContext dbContext, Guid productId, Guid? userId)
+        private async Task IncrementViewCountIfNotViewedToday(ShUEHContext dbContext, Guid productId, Guid userId)
         {
             var today = DateTime.UtcNow.Date;
-
+            var user = await dbContext.Users.FindAsync(userId);
             // Tìm bản ghi ProductView nếu đã xem hôm nay
             var productView = await dbContext.ProductViews
                 .FirstOrDefaultAsync(v => v.ProductId == productId &&
@@ -61,6 +73,18 @@ namespace BackEnd_ASP.NET.Middleware
                     ViewedDate = today
                 };
                 dbContext.ProductViews.Add(productView);
+                if (user != null)
+                {
+                    var shoe = await dbContext.Shoes.FindAsync(productId);
+                    dbContext.Notifications.Add(new Notification
+                    {
+                        UserMessage = $"Bạn đã xem sản phẩm {shoe?.Name}.",
+                        AdminMessage = $"{user?.UserName} đã xem sản phẩm {shoe?.Name}.",
+                        User = user,
+                        Product = shoe,
+                        CreateDate = MyDateTime.VietNam.DateTime
+                    });
+                }
             }
             // Tăng view count của sản phẩm
             var product = await dbContext.Shoes.FindAsync(productId);
