@@ -3,28 +3,28 @@ import './Product.scss'
 import PromotionTagNew from '../PromotionTagNew/PromotionTagNew'
 import PromotionSale from '../PromotionSale/PromotionSale'
 
-const Product = ({width, imgClassName, imgSrc, sale, originalPrice, salePrice}) => {
+const Product = ({width, productBrand, productName, imgClassName, imgSrc, isSale, discount, isNew, price}) => {
     return (
         <div className="home-product" style={{width: width || ""}}>
             <div className="info">
                 <div className="title">
-                    <p className="title-line-1">Nike air force brutus cecia </p>
-                    <p className="title-line-2">nike air force 1 automating</p>
+                    <p className="title-line-1">{productName}</p>
+                    <p className="title-line-2">{productBrand}</p>
                 </div>
                 <img src="/heart-icon.svg" alt=""></img>
             </div>
             <div className="img-container">
-                <img className={`img-product ${imgClassName || ""}`} style={{width:"100%" || ""}} src={imgSrc} alt=""></img>
-                <div className="product-promotion-sale">
-                    <PromotionSale sale={sale}></PromotionSale>
-                </div>
-                <div className="product-promotion-tag-new">
+                <img className={`img-product ${imgClassName}` || ""} style={{width:"100%" || ""}} src={imgSrc} alt=""></img>
+                {isSale && <div className="product-promotion-sale">
+                    <PromotionSale discount={discount}></PromotionSale>
+                </div>}
+                {isNew && <div className="product-promotion-tag-new">
                     <PromotionTagNew fz="1vw"></PromotionTagNew>
-                </div>
+                </div>}
             </div>
             <div className="product-price">
-                <span className="original-price">$320</span>
-                <span className="sale-price">$250</span>
+                {isSale && <span className="original-price">{price / (1 - discount / 100)}đ</span>}
+                <span className="sale-price">{price}đ</span>
             </div>
         </div>
     );

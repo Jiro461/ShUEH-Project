@@ -47,7 +47,18 @@
     width: 100vw;
     background: linear-gradient(89.88deg, #FF646B 28.56%, #FCAD72 99.91%);
     position: relative;
-    
+    .prev-btn, .next-btn{
+        font-size: 50px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-200%);
+        z-index: 10;
+    }
+    .next-btn{
+        left: unset;
+        right: 0;
+    }
     .flex-center{
         display: flex;
         justify-content: center;
@@ -68,26 +79,39 @@
         z-index: 1;
     }
 
-    .product{
+    .product-introduction{
         position: absolute;
-        top: 0%;
-        right: 20%;
+        top: 15%;
+        right: 27%;
+        z-index: 5;
+        transition: all 5s;
+        
+          &.fade{
+            animation: fade 5s forwards;
+          }
         .product-img{
-            width: 50vw;
-            height: 70vh;
-            object-fit: cover;
+            width: 40vw;
+            object-fit: contain;
             transform: rotate(35deg);
             z-index: 5;
             position: relative;
-            filter: drop-shadow(0px 0px 10px white)
+            
+            filter: drop-shadow(0px 0px 10px white);
+            &.slide-right {
+                animation: slideInRight 1s ease-out forwards;
+              }
+              
+              &.slide-left {
+                animation: slideInLeft 1s forwards;
+              }
         }
 
         .product-promotion{
             width: 10vw;
             height: 10vw;
             position: absolute;
-            top: 10%;
-            left: -5%;
+            top: -20%;
+            left: -18%;
             z-index: 3;
         }
         
@@ -96,15 +120,15 @@
             width: 27vw;
             height: 27vw;
             position: absolute;
-            top: 10%;
-            left: 5%;
+            top: -20%;
+            left: -5%;
             z-index: 2;
         }
    
         .product-add-block{
             position: absolute;
             top: 40%;
-            right: 37%;
+            right: 32%;
             z-index: 5;
         }
     }
@@ -197,10 +221,35 @@
     }
     
 }
+@keyframes slideInRight {
+    from {
+       
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+       
+      opacity: 1;
+    }
+}
+  
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+        transform: rotate(35deg);
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+        transform: rotate(35deg);
+    }
+}
 
 @media (max-width: 992px){
     .user-introduction{
-        .product{
+        .product-introduction{
             right: 15%;
             .product-img{
                 width: 60vw;
@@ -229,7 +278,7 @@
 @media (max-width: 768px){
     .user-introduction{
         height: 65vh;
-        .product{
+        .product-introduction{
             
             .product-img{  
                 
@@ -254,7 +303,7 @@
 @media (max-width: 576px){
     .user-introduction{
         height: 60vh;
-        .product{
+        .product-introduction{
            
             right: 0%;
             .product-img{
@@ -286,9 +335,3 @@
         }
     }
 }
-
-
-
-
-
-
