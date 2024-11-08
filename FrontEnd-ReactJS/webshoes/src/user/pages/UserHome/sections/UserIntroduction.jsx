@@ -36,7 +36,7 @@ const UserIntroduction =  () => {
         zIndex: 5,
         scale: isInView ? 1 : 0.1,
         opacity: isInView ? 1 : 0,
-        transition: "all 2s"
+        transition: "scale 2s, opacity 2s"
     }
     const titleStyle = {
         zIndex: 6,
@@ -69,17 +69,20 @@ const UserIntroduction =  () => {
                 <img className='line' src='/intro-line-decor.svg' alt='line-decor'></img>
             </div>
 
-            <div className= "product-introduction" ref={ref} >
-                <img className={`product-img ${slideDirection === 'right' ? 'slide-right' : slideDirection === 'left' ? 'slide-left'  : ""}`} src={data[imageIndex]?.imageUrl || '/intro-product.svg'} alt='intro-product'></img>
+            <div className= {`product-introduction image-${imageIndex}`} ref={ref} >
+                <img className={`product-img image-${imageIndex} ${slideDirection === 'right' ? 'slide-right' : slideDirection === 'left' ? 'slide-left'  : ""}`} src={data[imageIndex]?.imageUrl || '/intro-product.svg'} alt='intro-product'></img>
 
-                <div className='product-promotion'>
-                    <PromotionTag></PromotionTag>
+                <div className={`product-promotion image-${imageIndex}`}>
+                    <PromotionTag
+                        brand={data[imageIndex]?.brand}
+                        discount={data[imageIndex]?.discount}
+                    ></PromotionTag>
                 </div>
 
-                <div className='black-circle-block border-circle'></div>
+                <div className={`black-circle-block border-circle image-${imageIndex}`}></div>
 
-                <div className="product-add-block d-none d-sm-block">
-                    <AddBlock></AddBlock>
+                <div className={`product-add-block d-none d-sm-block image-${imageIndex}`}>
+                    <AddBlock id={data[imageIndex]?.id}></AddBlock>
                 </div>
             </div>
 
@@ -89,15 +92,15 @@ const UserIntroduction =  () => {
                 <div className='product-sub-title'>We deliver immersive virtual reality experiences that encourages learning, creativity and play at transport hubs, select retail and culturally significant venues</div>
             </div>
 
-            <div className='sub-product flex-center border-circle d-none d-lg-block'>
+            <div className='sub-product flex-center border-circle d-none d-lg-block' style={productStyle}>
                 <div className='first-border border-circle'></div>
                 <div className='second-border border-circle'></div>
-                <img className='img-product' src='/intro-sub-product.svg' alt='sub-product'></img>
+                <img className={`img-product ${slideDirection === 'right' ? 'slide-right' : slideDirection === 'left' ? 'slide-left'  : ""}`} src={data[imageIndex]?.imageUrl || '/intro-sub-product.svg'} alt='sub-product'></img>
                 <div className="sub-product-add-block">
-                    <AddBlock></AddBlock>
+                    <AddBlock id={data[imageIndex]?.id}></AddBlock>
                 </div>
-                <span className='sub-product--name'>AIR JORDAN</span>
-                <div className='sub-product--price flex-center'>$100.00</div>
+                <span className='sub-product--name'>{data[imageIndex]?.name}</span>
+                <div className='sub-product--price flex-center'>{data[imageIndex]?.price}đ</div>
             </div>
         </div>
     );

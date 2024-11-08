@@ -47,6 +47,7 @@
     width: 100vw;
     background: linear-gradient(89.88deg, #FF646B 28.56%, #FCAD72 99.91%);
     position: relative;
+    user-select: none;
     .prev-btn, .next-btn{
         font-size: 50px;
         position: absolute;
@@ -54,6 +55,7 @@
         left: 0;
         transform: translateY(-200%);
         z-index: 10;
+        
     }
     .next-btn{
         left: unset;
@@ -84,26 +86,39 @@
         top: 15%;
         right: 27%;
         z-index: 5;
-        transition: all 5s;
-        
-          &.fade{
-            animation: fade 5s forwards;
-          }
+        user-select: none;
+        &.image-1{
+            top: -5%;
+            right: 20%;
+        }
+        &.image-2{
+            top: 0%;
+            right: 20%;
+        }
+
         .product-img{
             width: 40vw;
             object-fit: contain;
             transform: rotate(35deg);
             z-index: 5;
-            position: relative;
-            
+            position: relative;            
             filter: drop-shadow(0px 0px 10px white);
+            &.image-1{
+                width: 50vw;
+                height: 35vw;
+            }
+            &.image-2{
+                object-fit: cover;
+                width: 45vw;
+                height: 30vw;
+            }
             &.slide-right {
-                animation: slideInRight 1s ease-out forwards;
-              }
-              
-              &.slide-left {
-                animation: slideInLeft 1s forwards;
-              }
+                animation: slideInRight 1s ease forwards;
+            }
+            
+            &.slide-left {
+                animation: slideInLeft 1s ease forwards;
+            }
         }
 
         .product-promotion{
@@ -113,6 +128,14 @@
             top: -20%;
             left: -18%;
             z-index: 3;
+            &.image-1{
+                top: 10%;
+                left: -5%;
+            }
+            &.image-2{
+                top: 10%;
+                left: -12%;
+            }
         }
         
         .black-circle-block{
@@ -123,6 +146,14 @@
             top: -20%;
             left: -5%;
             z-index: 2;
+            &.image-1{
+                top: 10%;
+                left: 6%;
+            }
+            &.image-2{
+                top: 10%;
+                left: -3%;
+            }
         }
    
         .product-add-block{
@@ -130,6 +161,12 @@
             top: 40%;
             right: 32%;
             z-index: 5;
+            &.image-1{
+                right: 35%;
+            }
+            &.image-2{
+                right: 42%;
+            }
         }
     }
 
@@ -182,11 +219,19 @@
         .img-product{
             width: 13vw;
             height: 13vw;
+            object-fit: contain;
             z-index: 2;
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) rotate(35deg);
+            &.slide-right {
+                animation: slideInRightSub 1s ease forwards;
+            }
+            
+            &.slide-left {
+            animation: slideInLeftSub 1s ease forwards;
+            }
         }
     
         &-add-block{
@@ -197,10 +242,10 @@
         }
     
         &--name{
-            width: 90px;
+            width: 150px;
             position: absolute;
             top: 50%;
-            right: -30%;
+            right: -50%;
             transform: translateY(-50%);
             color: #FFF;
             text-shadow: 0px 1px 13.2px #FF646B;
@@ -209,7 +254,7 @@
         }
     
         &--price{
-            width: 5vw;
+            width: 6vw;
             height: 2vw;
             position: absolute;
             top: 70%;
@@ -223,27 +268,44 @@
 }
 @keyframes slideInRight {
     from {
-       
-      transform: translateX(100px);
-      opacity: 0;
+        transform: translateX(-50px) rotate(35deg);
+        opacity: 0;
     }
     to {
-        transform: translateX(0);
-       
-      opacity: 1;
+        transform: translateX(0) rotate(35deg);
+        opacity: 1;
     }
 }
   
 @keyframes slideInLeft {
     from {
-        transform: translateX(-100%);
+        transform: translateX(50px) rotate(35deg);
         opacity: 0;
-        transform: rotate(35deg);
     }
     to {
-        transform: translateX(0);
+        transform: translateX(0) rotate(35deg);
         opacity: 1;
-        transform: rotate(35deg);
+    }
+}
+@keyframes slideInRightSub {
+    from {
+        transform: translate(-50%, -50%) translateX(-20px) rotate(35deg);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) translateX(0) rotate(35deg);
+        opacity: 1;
+    }
+}
+  
+@keyframes slideInLeftSub {
+    from {
+        transform: translate(-50%, -50%) translateX(20px) rotate(35deg);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) translateX(0) rotate(35deg);
+        opacity: 1;
     }
 }
 
