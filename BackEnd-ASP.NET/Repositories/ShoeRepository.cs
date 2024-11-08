@@ -21,7 +21,6 @@ public class ShoeRepository : IShoeRepository
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
-                            .Include(shoe => shoe.Comments)
                             .ToListAsync();
         if(page == -1 && pageSize == -1) return query;
         return query.Skip(page * pageSize).Take(pageSize);
@@ -34,7 +33,7 @@ public class ShoeRepository : IShoeRepository
                             .Include(shoe => shoe.Seasons)
                             .Include(shoe => shoe.Colors)
                             .Include(shoe => shoe.OtherImages)
-                            .Include(shoe => shoe.Comments)
+                            .Include(shoe => shoe.Comments.OrderByDescending(comment => comment.CreateDate))
                             .FirstOrDefaultAsync();
     }
 

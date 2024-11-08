@@ -36,6 +36,7 @@ namespace BackEnd_ASP.NET.Services
             }
             return base.OnDisconnectedAsync(exception);
         }
+        //Admin send message to user
         public async Task<IActionResult> SendMessageToUser(string userId, string message)
         {
             var user = await _userRepository.GetByIdAsync(Guid.Parse(userId));
@@ -70,6 +71,7 @@ namespace BackEnd_ASP.NET.Services
             }
             return new OkResult();
         }
+        //User send message to admin
        public async Task<IActionResult> SendMessageToAdmin(string message)
         {
             var userId = GetChatId();
