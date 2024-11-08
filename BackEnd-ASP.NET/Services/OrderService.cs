@@ -26,11 +26,11 @@ namespace BackEnd_ASP.NET.Services
             this.paymentService = paymentService;
         }
         //User xác nhận đặt hàng
-        public async Task<IActionResult> AddOrderAsync(OrderPostDTO order, Guid userId)
+        public async Task<Tuple<Guid, string>> AddOrderAsync(OrderPostDTO order, Guid userId)
         {
             var user = await context.Users.FindAsync(userId);
-            if (user == null) return NotFound("User not found");
-            if (order.OrderItems.Count == 0) return BadRequest("Order items are empty");
+            if (user == null) return Tuple.Create(Guid.Empty, "User not found");
+            if (order.OrderItems.Count == 0) return Tuple.Create(Guid.Empty, "Order items are empty");
 
             decimal totalPrice = order.OrderItems.Sum(item => item.TotalPrice);
             var orderId = Guid.NewGuid();
@@ -57,7 +57,7 @@ namespace BackEnd_ASP.NET.Services
             if (order.PaymentMethod == PaymentMethod.Cash)
                 await paymentService.HandleSuccessfulPaymentAsync(newOrder.Id);
 
-            return Ok(new { orderId = orderId, Message = "Create order successfully" });
+            return Tuple.Create(orderId, "Create order successfully");
         }
 
         public async Task<IActionResult> GetOrdersByUserIdAsync(Guid userId)
