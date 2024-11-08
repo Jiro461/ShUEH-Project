@@ -33,12 +33,19 @@ namespace BackEnd_ASP.NET.Services
             if (await _discountRepository.DeleteDiscountAsync(id)) return Ok();
             return NotFound();
         }
-
+        
         public async Task<IActionResult> GetAllDiscountsAsync()
         {
             var discounts = await _discountRepository.GetAllDiscountsAsync();
             if (discounts == null) return NotFound();
-            discounts = discounts.Where(discount => discount.IsPublic).ToList();
+            var discountDTOs = discounts.Select(MapDiscountToDTO); 
+            return Ok(discountDTOs);
+        }
+        public async Task<IActionResult> GetAllDiscountsFromClientAsync()
+        {
+            var discounts = await _discountRepository.GetAllDiscountsAsync();
+            if (discounts == null) return NotFound();
+            discounts = discounts.Where(discount => discount.IsPublic && discount.Quantity > 0).ToList();
             //Trả về danh sách mã giảm giá
             var discountDTOs = discounts.Select(MapDiscountToDTO);
             return Ok(discountDTOs);
@@ -78,6 +85,7 @@ namespace BackEnd_ASP.NET.Services
                 Code = discount.Code,
                 Percentage = discount.Percentage,
                 Type = discount.Type,
+                IsPublic = discount.IsPublic,
                 Quantity = discount.Quantity,
                 Amount = discount.Amount,
                 MaximumDiscount = discount.MaximumDiscount,

@@ -26,6 +26,11 @@ namespace PaymentAPI.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllDiscounts()
         {
+            return await _discountService.GetAllDiscountsFromClientAsync();
+        }
+        [HttpGet("all-admin")]
+        public async Task<IActionResult> GetAllDiscountsFromAdmin()
+        {
             return await _discountService.GetAllDiscountsAsync();
         }
         [HttpPost("add")]

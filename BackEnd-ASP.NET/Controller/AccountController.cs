@@ -90,6 +90,12 @@ namespace BackEnd_ASP.NET.Controller.Account
         [HttpGet("GoogleAuthen")]  // Sau khi nhận thông tin đăng nhập từ Google
         public async Task<IActionResult> GoogleAuthen()
         {
+            var authenticateResult = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+            if (!authenticateResult.Succeeded)
+            {
+                // Nếu không thành công, bạn có thể trả về trang lỗi hoặc thông báo lỗi
+                return Redirect("http://localhost:3000");
+            }
             return await accountService.GoogleAuthen(HttpContext);
         }
         [HttpPut]
@@ -111,11 +117,11 @@ namespace BackEnd_ASP.NET.Controller.Account
         {
             return await accountService.GetUsersInfo();
         }
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
-        {
-            return await accountService.ChangePassword(request.Email, request.NewPassword);
-        }
+        //[HttpPost("reset-password")]
+        //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        //{
+        //    return await accountService.ChangePassword(request.Email, request.NewPassword);
+        //}
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {

@@ -67,6 +67,7 @@ public class CommentRepository : ICommentRepository
         .Include(c => c.CommentLikes)
         .Include(c => c.Replies)
         .Include(c => c.User)
+        .Include(c => c.OrderItem)
         .FirstOrDefaultAsync(c => c.Id == id);
     }
 
@@ -96,6 +97,7 @@ public class CommentRepository : ICommentRepository
         .Include(c => c.Replies)
         .Include(c => c.User)
         .Include(c => c.CommentLikes)
+        .Include(c => c.OrderItem)
         .Where(c => c.ShoeId == shoeId).ToListAsync();
         return comments;
     }

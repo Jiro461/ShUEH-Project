@@ -10,7 +10,7 @@ namespace BackEnd_ASP.NET.Services
         Task<IActionResult> GetOrdersByUserIdAsync(Guid userId);
         Task<IActionResult> GetOrdersByStatusAsync(OrderStatus status);
         Task<IActionResult> GetOrderByIdAsync(Guid id);
-        Task<IActionResult> AddOrderAsync(OrderPostDTO order, Guid userId);
+        Task<Tuple<Guid, string>> AddOrderAsync(OrderPostDTO order, Guid userId);
         Task<IActionResult> UpdateOrderAsync(Guid orderId, OrderStatus status);
         Task<IActionResult> DeleteOrderAsync(Guid id);
     }

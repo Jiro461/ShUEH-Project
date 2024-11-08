@@ -28,9 +28,8 @@ namespace BackEnd_ASP.NET.Services
                 var discount = await context.Discounts.FindAsync(order.DiscountId);
                 if(discount == null) return NotFound("Discount not found");
                 discount.Quantity -= 1;
-                if (discount.Quantity == 0)
+                if (discount.Quantity < 0)
                 {
-
                     return await HandleFailedPaymentAsync(orderId, true);
                 }
                 context.Discounts.Update(discount);

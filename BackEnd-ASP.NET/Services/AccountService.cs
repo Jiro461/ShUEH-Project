@@ -170,8 +170,15 @@ namespace BackEnd_ASP.NET.Services
         }
         public async Task<IActionResult> AddUserAsync(UserAddDTO userDto)
         {
-            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name == userDto.Role);
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name!.ToLower() == userDto.Role!.ToLower());
             if (role == null) return BadRequest($"Role {userDto.Role} not found.");
+            if (string.IsNullOrEmpty(userDto.UserName) || string.IsNullOrEmpty(userDto.Email))
+                return BadRequest("Username and Email are required.");
+            if (!userDto.Email.IsValidEmail()) return BadRequest("Email is not valid");
+            var existingUser = await userManager.FindByNameAsync(userDto.UserName);
+            if (existingUser != null) return BadRequest("User with this Name already exists");
+            var existingEmail = await userManager.FindByEmailAsync(userDto.Email);
+            if (existingEmail != null) return BadRequest("User with this Email already exists");
             var user = CreateNewUser(
                 userName: userDto.UserName,
                 email: userDto.Email,
@@ -290,17 +297,21 @@ namespace BackEnd_ASP.NET.Services
         {
             var user = await userRepository.GetByIdAsync(userId);
             if (user == null) return BadRequest("User not found.");
+            if (currentPassword == newPassword) return BadRequest("New password cannot be the same as the current password.");
+            if (string.IsNullOrWhiteSpace(currentPassword) || string.IsNullOrWhiteSpace(newPassword)) return BadRequest("Current password and new password are required.");
+            var result = await userManager.CheckPasswordAsync(user, currentPassword);
+            if (!result) return BadRequest("Current password is incorrect.");
             if (user.IsExternalLogin == true) return BadRequest("User is external login.");
             var IsHasPassword = await userManager.HasPasswordAsync(user);
             if (IsHasPassword)
             {
                 var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
-                var result = await userManager.ResetPasswordAsync(user, resetToken, newPassword);
-                if (result.Succeeded)
+                var result_check = await userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                if (result_check.Succeeded)
                 {
                     return Ok("Password changed successfully.");
                 }
-                return BadRequest(string.Join(", ", result.Errors.Select(e => e.Description)));
+                return BadRequest(string.Join(", ", result_check.Errors.Select(e => e.Description)));
             }
             return BadRequest("User does not have a password.");
         }

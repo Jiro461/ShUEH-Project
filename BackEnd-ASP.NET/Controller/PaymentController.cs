@@ -36,17 +36,14 @@ namespace PaymentAPI.Controllers
             var addingOrder = await _orderService.AddOrderAsync(order, Guid.Parse(userId));
             if (order.PaymentMethod == PaymentMethod.Cash)
             {
-                if (addingOrder is not OkObjectResult) return BadRequest("Can't add order with Cash");
+                if (addingOrder.Item1 == Guid.Empty) return BadRequest(addingOrder.Item2);
                 return Ok(new { status = "Success", Message = "Create order successfully" });
             }
-            if (addingOrder is not OkObjectResult)
-                return BadRequest("Can't add order with VNPAY");
+            if (addingOrder.Item1 == Guid.Empty) return BadRequest(addingOrder.Item2);
             //Tạo request thanh toán VNPAY
-            if (addingOrder is OkObjectResult okObjectResult)
+            if (addingOrder.Item1 != Guid.Empty)
             {
-                dynamic data = okObjectResult?.Value!;
-                if (data == null) return BadRequest("Can't get order");
-                Guid orderId = Guid.Parse(data.orderId);
+                Guid orderId = addingOrder.Item1;
                 var vnPaymentRequestModel = new VnPaymentRequestModel
                 {
                     FullName = userId.ToString(),

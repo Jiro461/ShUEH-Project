@@ -21,10 +21,10 @@ public class DatabaseSeeder
     {
         List<Guid> roleIds = CreateRole();
         List<Guid> userIds = await CreateUsersAsync(roleIds[1], roleIds[0]);
-        RandomCommentData(shoeIds, userIds);
         RandomSiteViewAndProductView(shoeIds);
-        SeedOrders(userIds, shoeIds);
+        List<OrderItem> orderItems = SeedOrders(userIds, shoeIds);
         RandomDiscountData();
+        RandomCommentData(shoeIds, userIds, orderItems);
         _context.SaveChanges();
     }
     #region Seed Data
@@ -51,7 +51,7 @@ public class DatabaseSeeder
         _context.Discounts.AddRange(discount);
         _context.SaveChanges();
     }
-    private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds)
+    private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds, List<OrderItem> orderItems)
     {
 
         Random random = new Random();
@@ -72,6 +72,9 @@ public class DatabaseSeeder
                     >= 2 => GeneralReview.Bad,
                     _ => GeneralReview.VeryBad
                 };
+                
+                OrderItem? orderItem = orderItems.Where(item => item.ShoeId == shoeId).FirstOrDefault();
+                if (orderItem == null) continue;
                 _context.Comments.Add(
                     new Comment
                     {
@@ -80,7 +83,9 @@ public class DatabaseSeeder
                         GeneralReview = generalReview,
                         UserId = userIds[random.Next(0, userIds.Count)],
                         Description = GenerateRandomDescription(),
+                        OrderItemId = orderItem.Id,
                         Rate = rate,
+                        Size = orderItem.Size,
                         CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
                         LastModifiedDate = DateTime.Now
                     }
@@ -239,11 +244,11 @@ public class DatabaseSeeder
             _context.SaveChanges();
         }
     }
-    private void SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
+    private List<OrderItem> SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
     {
         const int orderCount = 178; // số lượng đơn hàng cần seed
         var orders = new List<Order>();
-
+        var _orderItems = new List<OrderItem>();
         for (int i = 0; i < orderCount; i++)
         {
             var orderId = Guid.NewGuid();
@@ -267,6 +272,7 @@ public class DatabaseSeeder
             };
 
             orders.Add(order);
+            _orderItems.AddRange(orderItems);
             if (i % 10 == 0)
             {
                 _context.Orders.AddRange(orders);
@@ -280,6 +286,7 @@ public class DatabaseSeeder
             _context.Orders.AddRange(orders);
             _context.SaveChanges();
         }
+        return _orderItems;
     }
     private void SeedProductViews(Guid productId, DateTime month, int viewsToGenerate)
     {
@@ -331,7 +338,8 @@ public class DatabaseSeeder
                 Size = _random.Next(36, 46), // Giả sử các size từ 38-45
                 Quantity = quantity,
                 ShoePrice = shoePrice,
-                TotalPrice = totalPrice
+                TotalPrice = totalPrice,
+                IsReviewed = _random.Next(0, 2) == 0
             };
 
             orderItems.Add(orderItem);

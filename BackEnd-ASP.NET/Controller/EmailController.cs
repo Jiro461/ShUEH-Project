@@ -1,6 +1,4 @@
-using System.Text;
 using BackEnd_ASP.NET.Services;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -75,14 +73,8 @@ namespace BackEnd_ASP.NET.Controller.Email
             {
                 return BadRequest("Invalid OTP.");
             }
-
-
-            if(await _accountService.ChangePassword(request.Email, request.NewPassword) == Ok("Password reset successfully."))
-            {
-                _cache.Remove(request.Email);
-                return Ok("Password reset successfully.");
-            }
-            return BadRequest("Password reset failed.");
+          
+            return (await _accountService.ChangePassword(request.Email, request.NewPassword));
         }
 
         private string GenerateOtp()
