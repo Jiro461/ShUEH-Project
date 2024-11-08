@@ -2,10 +2,14 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import Menu from '../menu/Menu';
 import'./Navbar.scss'
+axios.defaults.withCredentials = true;
 const Navbar = () => {
     var myvalue = process.env.REACT_APP_API_URL;
+    const pageSize = 10;
     const [chatNumber, setChatNumber] = useState(0);
+    const [isLogin, setIsLogin] = useState(false);
     const [chatMessage, setChatMessage] = useState([]);
+    const [pageNumber, setPageNumber] = useState(1);
     const [notificationNumber, setNotificationNumber] = useState(0);
     const [notificationMessage, setNotificationMessage] = useState([]);
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -16,16 +20,35 @@ const Navbar = () => {
     useEffect(() => {
         setIsMaxWidth(window.innerWidth <= 455);
     }, [window.innerWidth]);
+
     useEffect(() => {
-        axios.get(`${myvalue}/api/chat/get-chat-number`)
+        if (pageNumber > 1) {
+            axios.get(`${myvalue}/api/notification/admin/${pageNumber}/${pageSize}`)
+            .then(res => {
+                setNotificationMessage(prev => [...prev, ...res.data]);
+                setNotificationNumber(prev => prev + res.data.length);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+    }, [pageNumber]);
+
+    useEffect(() => {
+        // Initial load - get first 10 notifications
+        axios.post(`${myvalue}/api/account/login`, {
+            username: "machgiahuy", 
+            password: "Test123456",
+            rememberMe: false
+        }, {withCredentials: true})
         .then(res => {
-            setChatNumber(res.data);
+            console.log(res);
+            setIsLogin(true);
+            // Get initial notifications after login
+            return axios.get(`${myvalue}/api/notification/admin/1/${pageSize}`);
         })
-        .catch(err => {
-            console.log(err);
-        })
-        axios.get(`${myvalue}/api/notification/admin`)
         .then(res => {
+            setNotificationMessage(res.data);
             setNotificationNumber(res.data.length);
         })
         .catch(err => {
@@ -41,7 +64,12 @@ const Navbar = () => {
             }
         }
     }
-
+    const convertDate = (date) => {
+        return new Date(date).toLocaleDateString('vi-VN', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'});
+    }
+    const over99Notification = (number) => {
+        return number > 99 ? '99+' : number;
+    }
     return (
         <div className='adminnavbar'>
             <div className='logo'>
@@ -92,9 +120,11 @@ const Navbar = () => {
                     setIsSettingOpen(false)
                 }}>
                     <img src="/notifications.svg" alt="" className='icon icon-notification' />
-                    <span className='icon-counter notification-number'>{notificationNumber}</span>
+                    <span className='icon-counter notification-number'>{over99Notification(notificationNumber)}</span>
                     {isNotificationOpen && 
-                    <div className='notification-list'>
+                    <div className='notification-list' onClick={(e) => {
+                        e.stopPropagation()
+                    }}>
                         <div className='notification-list-header'>
                             <span>Notification</span>
                         </div>
@@ -103,10 +133,17 @@ const Navbar = () => {
                                 <img src={`/logo192.png`} alt="" />
                                 <div className='notification-content'>
                                     <div className='notification-content-message'>{item.adminMessage}</div>
-                                    <div className='notification-content-date'>{item.createDate}</div>
+                                    <div className='notification-content-date'>{convertDate(item.createDate)}</div>
                                 </div>
                             </div>
-                        ))}
+                        ))} 
+                        <div className='notification-list-footer'>
+                            <button onClick={(e) => {
+                                e.stopPropagation();
+                                setPageNumber(pageNumber + 1);
+                                setNotificationNumber(notificationMessage.length);
+                            }}>View more</button>
+                        </div>
                     </div>}
                 </div>
                 <div className="user">
