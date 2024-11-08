@@ -170,8 +170,15 @@ namespace BackEnd_ASP.NET.Services
         }
         public async Task<IActionResult> AddUserAsync(UserAddDTO userDto)
         {
-            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name == userDto.Role);
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Name!.ToLower() == userDto.Role!.ToLower());
             if (role == null) return BadRequest($"Role {userDto.Role} not found.");
+            if (string.IsNullOrEmpty(userDto.UserName) || string.IsNullOrEmpty(userDto.Email))
+                return BadRequest("Username and Email are required.");
+            if (!userDto.Email.IsValidEmail()) return BadRequest("Email is not valid");
+            var existingUser = await userManager.FindByNameAsync(userDto.UserName);
+            if (existingUser != null) return BadRequest("User with this Name already exists");
+            var existingEmail = await userManager.FindByEmailAsync(userDto.Email);
+            if (existingEmail != null) return BadRequest("User with this Email already exists");
             var user = CreateNewUser(
                 userName: userDto.UserName,
                 email: userDto.Email,
