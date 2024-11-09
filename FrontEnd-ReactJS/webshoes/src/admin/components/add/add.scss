@@ -5,6 +5,9 @@
   .MuiInputLabel-root {
     color: #fff !important; // Màu label
   }
+  .MuiInputBase-root{
+    width: 100%;
+  }
   .MuiOutlinedInput-root {
     color: #fff !important;
     & fieldset {
@@ -34,19 +37,26 @@
 .add {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.724);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 101;
   .add-modal {
+    max-height: 90vh;
+    overflow-y: scroll;
     padding: 50px;
     border-radius: 10px;
     background-color: $main-bg;
     position: relative;
+    &::-webkit-scrollbar{
+      width: 0;
+    }
 
     h1 {
       margin-bottom: 40px;
@@ -66,6 +76,9 @@
       flex-wrap: wrap;
       max-width: 1200px;
       justify-content: space-evenly;
+      &.form-order{
+        justify-content: space-between;
+      }
 
       .item {
         width: 30%;
@@ -148,6 +161,33 @@
         width: 100%;
         padding: 10px;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .add{
+    .add-modal{
+      form{
+        .item{
+          width: 40%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .add{
+    .add-modal{
+      form{
+        .item{
+          width: 90%;
+          .file-container{
+            flex-wrap: wrap;
+          }
+        }
       }
     }
   }

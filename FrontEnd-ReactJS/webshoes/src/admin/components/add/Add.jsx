@@ -4,15 +4,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import TextField from '@mui/material/TextField';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 import * as adminProductsService from "../../../services/adminProductsService"
-import { Alert, InputAdornment, Slide, Snackbar } from "@mui/material";
+import * as adminUsersService from "../../../services/adminUsersService"
+import * as adminDiscountsService from "../../../services/adminDiscountsService"
+import { InputAdornment } from "@mui/material";
 
 const Add = (props) => {
-  const [genderUi, setGenderUi] = useState()
+  const [genderUi, setGenderUi] = useState("")
   const [shoeData, setShoeData] = useState({
     name: '',
     brand: '',
@@ -71,8 +71,28 @@ const Add = (props) => {
     mainImage: null, // State for the main image
     additionalImages: [],
   });
-  const [users, setUsers] = useState()
-console.log(shoeData);
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    gender: "",
+    role: ""
+  })
+  const [discount, setDiscount] = useState({
+    code: "",
+    percentage: "",
+    isPublic: "",
+    amount: "",
+    type: "",
+    quantity: "",
+    maximumDiscount: "",
+    minimumOrder: "",
+    expiryDate: "",
+  })
+  console.log(discount);
   const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -83,40 +103,51 @@ const MenuProps = {
     },
   },
 };
-const handleMainImageChange = (e) => {
-  const selectedFile = e.target.files[0];
-  if (selectedFile && (selectedFile.name.endsWith('png') || 
-                       selectedFile.name.endsWith('jpg') || 
-                       selectedFile.name.endsWith('jpeg'))) {
-    setShoeData((prevData) => ({
-      ...prevData,
-      imageUrl: URL.createObjectURL(selectedFile),
-      mainImage: selectedFile,
-    }));
+
+function formatDateString(dateString) {
+  // Tách chuỗi theo dấu "-"
+  const parts = dateString?.split("-");
+  // Đảm bảo rằng chúng ta có đúng 3 phần
+  if (parts.length === 3) {
+      // Đổi thứ tự và nối lại bằng "/"
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
   }
-};
-const handleAdditionalImagesChange = (e) => {
-  const files = Array.from(e.target.files);
-  const validImages = files.filter(file => 
-    file.name.endsWith('png') || 
-    file.name.endsWith('jpg') || 
-    file.name.endsWith('jpeg')
-  );
-  
-  const imageUrls = validImages.map(file => URL.createObjectURL(file));
-  
-  setShoeData((prevData) => ({
-    ...prevData,
-    additionalImages: files ? Array.from(files) : [],
-  }));
-};
+  // Nếu chuỗi không đúng định dạng, trả về null hoặc thông báo lỗi
+  return null;
+}
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
-  setShoeData((prevValues) => ({
-    ...prevValues,
-    [name]: value,
-  }));
+  if (props.slug === "product"){
+    setShoeData((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  }
+  if (props.slug === "user"){
+    setUser((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  }
+  if (props.slug === "discount"){
+    if (name === "amount" && (discount.percentage || discount.maximumDiscount)) {
+      props.setOpenToastMessage(true)
+      props.setTypeToastMessage("warning")
+      props.setTitleToastMessage("Only discount by percentage or amount can be entered.")
+      return;
+    }
+    if ((name === "percentage" || name === "maximumDiscount") && discount.amount) {
+      props.setOpenToastMessage(true)
+      props.setTypeToastMessage("warning")
+      props.setTitleToastMessage("Only discount by percentage or amount can be entered.")
+      return;
+    }
+    setDiscount((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  }
 };
 
 const handlePriceDiscountChange = (event) => {
@@ -145,31 +176,44 @@ const handlePriceDiscountChange = (event) => {
   }
 };
 
-
 const handleSelectOnlyChange = (event, fieldName) => {
   const { value } = event.target;
-  if (fieldName === "gender"){
-    setGenderUi(value)
-    if (value === "Female"){
-      setShoeData((prevValues) => ({
-        ...prevValues,
-        [fieldName]: 0,
-      }));
-    } else if (value === "Male"){
-      setShoeData((prevValues) => ({
-        ...prevValues,
-        [fieldName]: 1,
-      }));
+  if (props.slug === "product"){
+    if (fieldName === "gender"){
+      setGenderUi(value)
+      if (value === "Female"){
+        setShoeData((prevValues) => ({
+          ...prevValues,
+          [fieldName]: 0,
+        }));
+      } else if (value === "Male"){
+        setShoeData((prevValues) => ({
+          ...prevValues,
+          [fieldName]: 1,
+        }));
+      } else {
+        setShoeData((prevValues) => ({
+          ...prevValues,
+          [fieldName]: 2,
+        }));
+      }
     } else {
       setShoeData((prevValues) => ({
         ...prevValues,
-        [fieldName]: 2,
+        [fieldName]: value,
       }));
     }
-  } else {
-    setShoeData((prevValues) => ({
+  }
+  if (props.slug === "user"){
+    setUser((prevValues) => ({
       ...prevValues,
-      [fieldName]: value,
+      [fieldName]: value
+    }));
+  }
+  if (props.slug === "discount"){
+    setDiscount((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value
     }));
   }
 };
@@ -204,11 +248,78 @@ const handleSizeChange = (index, field) => (event) => {
   }
 };
 
+const handleMainImageChange = (e) => {
+  const selectedFile = e.target.files[0];
+  if (selectedFile && (selectedFile.name.endsWith('png') || 
+                       selectedFile.name.endsWith('jpg') || 
+                       selectedFile.name.endsWith('jpeg'))) {
+    setShoeData((prevData) => ({
+      ...prevData,
+      imageUrl: URL.createObjectURL(selectedFile),
+      mainImage: selectedFile,
+    }));
+  }
+};
+const handleAdditionalImagesChange = (e) => {
+  const files = Array.from(e.target.files);
+  const validImages = files.filter(file => 
+    file.name.endsWith('png') || 
+    file.name.endsWith('jpg') || 
+    file.name.endsWith('jpeg')
+  );
+  
+  const imageUrls = validImages.map(file => URL.createObjectURL(file));
+  
+  setShoeData((prevData) => ({
+    ...prevData,
+    additionalImages: files ? Array.from(files) : [],
+  }));
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     props.setOpenBackDrop(true)
-
-    const res = await adminProductsService.addNewProduct(shoeData)  
+    var res = {}
+    if (props.slug === "product"){
+      res = await adminProductsService.addNewProduct(shoeData)  
+    }
+    if (props.slug === "user"){
+      if (user.password.length < 8){
+        props.setOpenToastMessage(true) 
+        props.setTypeToastMessage("warning")
+        props.setTitleToastMessage("Password must have at leat 8 characters and 1 uppercase character")
+        props.setOpenBackDrop(false)
+        return
+      }
+      const updatedUser = {
+        ...user,
+        gender: user.gender === "Male", // Gán giá trị true/false dựa trên giới tính thực tế
+        dateOfBirth: formatDateString(user?.dateOfBirth), // Đảm bảo định dạng đúng
+        role: user.role.toLowerCase() // Chuyển đổi role về chữ thường
+    };
+      res = await adminUsersService.addNewUser(updatedUser)
+    }
+    if (props.slug === "discount"){
+      if (discount.amount && discount.percentage){
+        props.setOpenToastMessage(true) 
+        props.setTypeToastMessage("warning")
+        props.setTitleToastMessage("Only discount by percentage or amount")
+        props.setOpenBackDrop(false)
+      }
+      const formatDiscount = {
+        ...discount,
+        amount: discount?.amount,
+        percentage: discount.percentage === "" ? 0 : parseInt(discount.percentage),
+        quantity: parseInt(discount.quantity),
+        maximumDiscount: discount.maximumDiscount === "" ? 0 : parseInt(discount.maximumDiscount),
+        minimumOrder: parseInt(discount.minimumOrder),
+        isPublic: discount.isPublic === "Public",
+        type: discount.type === "Ship" ? 1 : 0,
+        expiryDate: discount.expiryDate
+    };
+      console.log("formatDiscount", formatDiscount);
+      res = await adminDiscountsService.addNewDiscount(formatDiscount)
+    }
     //goi api khac
     
     await props.fetchData()
@@ -233,7 +344,7 @@ const handleSizeChange = (index, field) => (event) => {
             .map((input, index) => (
               <div key={index} className="item">
 
-              {input.type === "text" && input.field !== "price-discount" && (
+              {(input.type === "text" || input.type === "password") && input.field !== "price-discount" && (
                 <>
                   <label>
                     {input.headerName}
@@ -241,10 +352,10 @@ const handleSizeChange = (index, field) => (event) => {
                   </label>                  
                   <TextField
                           label={input.field}
-                          type="text"
+                          type={input.type}
                           variant="outlined"
                           name={input.field}
-                          value={shoeData[input.field] || ''}
+                          value={props.slug === "product" ? shoeData[input.field] : props.slug === "user" ? user[input.field] : discount[input.field]}
                           onChange={handleInputChange} // Cập nhật quantity
                         />
                 </>
@@ -305,7 +416,7 @@ const handleSizeChange = (index, field) => (event) => {
                   labelId={`label-${input.field}`}
                   id={`select-${input.field}`}
                   name={input.field}
-                  value={shoeData[input.field] || ""}
+                  value={props.slug === "product" ? shoeData[input.field] : props.slug === "user" ? user[input.field] : discount[input.field]}
                   onChange={(e) => handleSelectOnlyChange(e, input.field)}
                   input={<OutlinedInput label={input.label} />}
                   MenuProps={MenuProps}
@@ -335,7 +446,7 @@ const handleSizeChange = (index, field) => (event) => {
                   labelId={`label-${input.field}`}
                   id={`select-${input.field}`}
                   name={input.field}
-                  value={genderUi || ""}
+                  value={props.slug === "product" ? genderUi : user?.gender}
                   onChange={(e) => handleSelectOnlyChange(e, input.field)}
                   input={<OutlinedInput label={input.label} />}
                   MenuProps={MenuProps}
@@ -436,6 +547,22 @@ const handleSizeChange = (index, field) => (event) => {
                       </div>
                   </>
                 )}
+
+                {input.type === "date" && (
+                <>
+                  <label>
+                    {input.headerName}
+                    {input.require && <span style={{color: "red"}}> *</span>}
+                  </label>                  
+                  <TextField
+                          type="date"
+                          variant="outlined"
+                          name={input.field}
+                          value={props.slug === "product" ? shoeData[input.field] : user[input?.field]}
+                          onChange={handleInputChange} // Cập nhật quantity
+                        />
+                </>
+              )}
               </div>
             ))}
 

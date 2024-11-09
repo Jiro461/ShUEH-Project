@@ -8,6 +8,9 @@ import {
   import { Link } from "react-router-dom";
   import Update from "../update/Update";
 import * as adminProductsService from "../../../services/adminProductsService"
+import * as adminUsersService from "../../../services/adminUsersService"
+import * as adminOrdersService from "../../../services/adminOrdersService"
+import * as adminDiscountsService from "../../../services/adminDiscountsService"
 import { useState } from "react";
 
   const DataTable = (props) => {
@@ -23,8 +26,20 @@ import { useState } from "react";
 
     const handleDelete = async (id) => {
         props.setOpenBackDrop(true)
-        const res = await adminProductsService.deleteProduct(id)
-        props.fetchData()
+        let res = {}
+        if (props.slug === "products"){
+          res = await adminProductsService.deleteProduct(id)
+        }
+        if (props.slug === "users"){
+          res = await adminUsersService.deleteUser(id)
+        }
+        if (props.slug === "orders"){
+          res = await adminOrdersService.deleteOrder(id)
+        }
+        if (props.slug === "discounts"){
+          res = await adminDiscountsService.deleteDiscount(id)
+        }
+        await props.fetchData()
         props.setOpenToastMessage(true)
         props.setTypeToastMessage(res.type)
         props.setTitleToastMessage(res.message)
