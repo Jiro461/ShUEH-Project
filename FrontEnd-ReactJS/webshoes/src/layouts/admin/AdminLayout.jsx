@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import "./AdminLayout.scss"
 const AdminLayout = () => {
     return (
-        <div className='main'>
+        <div className='admin-main'>
             <Navbar />
-            <div className='container'>
+            <div className='admin-container'>
                 <div className='menuContainer'>
                     <Menu />
                 </div>

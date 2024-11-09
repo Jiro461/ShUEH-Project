@@ -1,0 +1,42 @@
+[
+    {
+        "UserId": "U001",
+        "Description": "Great shoes, very comfortable for daily wear.",
+        "GeneralReview": "Highly recommended for running and walking.",
+        "Rate": 4.5,
+        "TotalLike": 120,
+        "ShoeId": "S001"
+    },
+    {
+        "UserId": "U002",
+        "Description": "Stylish but not as comfortable as expected.",
+        "GeneralReview": "Good for casual outings, but lacks support.",
+        "Rate": 3.0,
+        "TotalLike": 85,
+        "ShoeId": "S002"
+    },
+    {
+        "UserId": "U003",
+        "Description": "Excellent quality, holds up well during sports.",
+        "GeneralReview": "Perfect for outdoor activities and sports.",
+        "Rate": 4.8,
+        "TotalLike": 200,
+        "ShoeId": "S003"
+    },
+    {
+        "UserId": "U004",
+        "Description": "Affordable and decent quality.",
+        "GeneralReview": "Good value for the price.",
+        "Rate": 4.0,
+        "TotalLike": 150,
+        "ShoeId": "S004"
+    },
+    {
+        "UserId": "U005",
+        "Description": "Not satisfied, felt uncomfortable after a few hours.",
+        "GeneralReview": "Wouldn't recommend for prolonged use.",
+        "Rate": 2.5,
+        "TotalLike": 30,
+        "ShoeId": "S005"
+    }
+]

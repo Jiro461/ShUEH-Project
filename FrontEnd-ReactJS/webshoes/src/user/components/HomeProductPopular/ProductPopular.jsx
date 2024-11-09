@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProductPopular.scss'
-import TagNew from "../PromotionTagNew/TagNew";
+import PromotionTagNew from "../PromotionTagNew/PromotionTagNew";
 import PromotionTag from "../PromotionTag/PromotionTag";
 
 const ProductPopular = () => {
@@ -8,7 +8,7 @@ const ProductPopular = () => {
         <div>
             <div className="home-popular-product">
                 <div className="info">
-                    <TagNew></TagNew>
+                    <PromotionTagNew></PromotionTagNew>
                     <span className="info-title">PRODUCT</span>
                     <span className="info-title">NO.###</span>
                     <span className="info-title">300000$</span>
@@ -18,11 +18,13 @@ const ProductPopular = () => {
                 <div className="title">
                     BRAND
                 </div>
-                <div className="product">
+                <div className="product-popular-wrapper">
                     <img className="product-img" src="/popular-product.svg" alt=""></img>
                     <img className="line-decor-1" src="/popular-line-decor-2.svg" alt=""></img>
                     <div className="promotion-block">
-                        <PromotionTag></PromotionTag>
+                        <PromotionTag 
+                        brand="Nike"
+                        discount="40"></PromotionTag>
                     </div>
                     <div className="product-info">
                         <span className="product-brand">SHUEH</span>

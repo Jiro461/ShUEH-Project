@@ -1,3 +1,4 @@
+using System.Net;
 using BackEnd_ASP.NET.Models;
 using BackEnd_ASP.NET.Models.ShoeDetail;
 using BackEnd_ASP_NET.Models;
@@ -8,8 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace BackEnd_ASP.NET.Data
 {
+    //Đây là class dành cho việc Seed Data, các thông tin giày nằm trong đây
     public class ShUEHContext : DbContext
     {
+        public static bool IsSeeding { get; set; } = false; // Thuộc tính tĩnh để theo dõi quá trình seed
+
         public ShUEHContext(DbContextOptions<ShUEHContext> options) : base(options)
         {
 
@@ -26,9 +30,10 @@ namespace BackEnd_ASP.NET.Data
             return base.SaveChangesAsync(cancellationToken);
         }
 
-
+        //Phương thức này dùng để cập nhật thời gian tạo và sửa đổi cho các đối tượng có thể theo dõi thời gian
         private void UpdateDateTracking()
         {
+            if (IsSeeding) return;
             var entries = ChangeTracker.Entries()
                 .Where(e => e.Entity is IDateTracking &&
                             (e.State == EntityState.Added || e.State == EntityState.Modified));
@@ -36,7 +41,6 @@ namespace BackEnd_ASP.NET.Data
             foreach (var entry in entries)
             {
                 var dateTrackingEntity = (IDateTracking)entry.Entity;
-
                 // Sử dụng DateTimeOffset cho thời gian với múi giờ Việt Nam
                 var vietnamTime = MyDateTime.VietNam; // UTC+7
 
@@ -51,57 +55,12 @@ namespace BackEnd_ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Seed data for Roles
-            var adminRoleId = Guid.NewGuid();
-            var userRoleId = Guid.NewGuid();
-
-            modelBuilder.Entity<Role>().HasData(
-                new Role { Id = adminRoleId, Name = "Admin", Description = "Role Admin với đầy đủ các quyền hạn" },
-                new Role { Id = userRoleId, Name = "User", Description = "Role User với các quyền hạn có giới hạn và mua hàng" }
-            );
-
-            // Seed data for Users
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Mach",
-                    LastName = "Gia Huy",
-                    DateOfBirth = "14/11/2204".ToDateTime(), // Adjust your date creation here
-                    Gender = true,
-                    TotalMoney = 1000m,
-                    RoleId = adminRoleId, // Use RoleId here
-                    Email = "machgiahuy@gmail.com",
-                    NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
-                    UserName = "Mach Gia Huy",
-                    NormalizedUserName = "JOHN.DOE",
-                    EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
-                },
-                new User
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    DateOfBirth = "10/05/2004".ToDateTime(), // Adjust your date creation here
-                    Gender = false,
-                    TotalMoney = 1500m,
-                    RoleId = userRoleId, // Use RoleId here
-                    Email = "jane.smith@example.com",
-                    NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
-                    UserName = "jane.smith",
-                    NormalizedUserName = "JANE.SMITH",
-                    EmailConfirmed = false,
-                    PasswordHash = "12345678".ToSHA256() // Adjust your hashing method here
-                }
-            );
-
+            //Phương thức này dùng để seed data
             ShoeSeeding(modelBuilder);
-
-
             base.OnModelCreating(modelBuilder);
         }
 
+        //Phương thức này dùng để seed data
         private void ShoeSeeding(ModelBuilder modelBuilder)
         {
             Guid IDGiay_1 = Guid.NewGuid();
@@ -130,9 +89,9 @@ namespace BackEnd_ASP.NET.Data
             Guid IDGiay_24 = Guid.NewGuid();
             Guid IDGiay_25 = Guid.NewGuid();
             Guid IDGiay_26 = Guid.NewGuid();
-            Guid IDGiay_27 = Guid.NewGuid();
-            Guid IDGiay_28 = Guid.NewGuid();
-            Guid IDGiay_29 = Guid.NewGuid();
+            Guid IDGiay_Home_1 = Guid.NewGuid();
+            Guid IDGiay_Home_2 = Guid.NewGuid();
+            Guid IDGiay_Home_3 = Guid.NewGuid();
             // Seed data shoe
             modelBuilder.Entity<Shoe>().HasData(
 
@@ -381,7 +340,7 @@ namespace BackEnd_ASP.NET.Data
                     Name = "PUMA x LAMELO BALL MB.03 Halloween Men's Basketball Shoes",
                     Brand = "Puma",
                     Gender = 1,
-                    Material = "Midsole: 100% Synthetic\r\nSockliner: 100% Textile\r\nOutsole: 98.30% Rubber, 1.70% Synthetic\r\nUpper: 69.50% Textile, 30.50% Synthetic\r\nLining: 100% Textile",
+                    Material = "Leather, fabric, foam, and rubber.",
                     Category = "Basketball",
                     ImageUrl = "images/shoes/[IDGiay_11]_AnhChinh.png",
                     Description = "Run like an intergalactic MVP in the MB.03 Halloween. NITRO™ foam rockets energy return with each explosive step, while the space-age woven upper lets breathability blast off. Scratch cutouts and slime soles complete the Melo world trip. Get ready for lift-off.",
@@ -403,7 +362,7 @@ namespace BackEnd_ASP.NET.Data
                     Name = "ATTACANTO Turf Training Men's Soccer Cleats",
                     Brand = "Puma",
                     Gender = 1,
-                    Material = "Sockliner: 100% Textile\r\nOutsole: 100% Rubber\r\nUpper: 99.44% Synthetic, 0.56% Textile\r\nLining: 100% Textile",
+                    Material = "Leather, fabric, foam, and rubber.",
                     Category = "Football",
                     ImageUrl = "images/shoes/[IDGiay_12]_AnhChinh.png",
                     Description = "A simple, no-nonsense cleat built to meet your demands on the pitch, the ATTACANTO is built with a soft upper for enhanced touch and ball",
@@ -425,7 +384,7 @@ namespace BackEnd_ASP.NET.Data
                     Name = "PWRSPIN Indoor Cycling Shoes",
                     Brand = "Puma",
                     Gender = 1,
-                    Material = "Midsole: 100% Synthetic\r\nSockliner: 100% Textile\r\nOutsole: 98.30% Rubber, 1.70% Synthetic\r\nUpper: 69.50% Textile, 30.50% Synthetic\r\nLining: 100% Textile",
+                    Material = "Leather, fabric, foam, and rubber.",
                     Category = "Gym & Training",
                     ImageUrl = "images/shoes/[IDGiay_13]_AnhChinh.png",
                     Description = "Hit the bike, locked in and ready to dominate your workout with the PWRSPIN indoor cycling shoes. They contain a lightweight upper with our performance ULTRAWEAVE fabric, which will help your feet breathe. Then, the DISC closure and PWRPLATE carbon fibre plate with a delta closure will ensure your feet are secure for a hard training session.\r\n4D PWRPRINT over ULTRAWEAVE upper\r\nKnitted collar construction\r\nDISC technology closure\r\nHook-and-loop closure\r\nPWRPLATE with delta clip on heel\r\nFuturistic heel fin design\r\n",
@@ -447,7 +406,7 @@ namespace BackEnd_ASP.NET.Data
                     Name = "Easy Rider Supertifo Women's Sneakers",
                     Brand = "Puma",
                     Gender = 2,
-                    Material = "Midsole: 100% Rubber\r\nSockliner: 100% Textile\r\nOutsole: 100% Rubber\r\nUpper: 68.19% Leather - cow, 31.81% Textile\r\nLining: 100% Textile.",
+                    Material = "Leather, fabric, foam, and rubber.",
                     Category = "Yoga",
                     ImageUrl = "images/shoes/[IDGiay_14]_AnhChinh.png",
                     Description = "The PUMA Easy Rider was born in the late ‘70s, when running made its move from the track to the streets. Today it's back with its classic",
@@ -469,7 +428,7 @@ namespace BackEnd_ASP.NET.Data
                     Name = "SOFTRIDE Divine Running Shoes Women",
                     Brand = "Puma",
                     Gender = 2,
-                    Material = "Midsole: 100% Synthetic\r\nSockliner: 100% Textile\r\nOutsole: 81.10% Rubber, 18.90% Synthetic\r\nUpper: 52.47% Textile, 40.66% Synthetic, 6.87% Leather - cow\r\nLining: 100% Textile",
+                    Material = "Leather, fabric, foam, and rubber.",
                     Category = "Gym & Training",
                     ImageUrl = "images/shoes/[IDGiay_15]_AnhChinh.png",
                     Description = "Get going in comfort and style. SOFTRIDE Divine running shoes deliver an ultra-cushioned ride and bold styling. SOFTRIDE and SOFTFOAM+ technologies provide step-in comfort and shock absorption so you can run further in bliss. Zoned rubber traction lets you pick up the pace on any road.\r\n\r\nFEATURES & BENEFITS\r\n",
@@ -725,73 +684,70 @@ namespace BackEnd_ASP.NET.Data
                      CreateDate = DateTime.Now,
                      LastModifiedDate = DateTime.Now
                  },
-
-                 // Transparent Nike
+                 // HOME 1
                  new Shoe
                  {
-                     Id = IDGiay_27,
-                     Name = "Jordan 1 Low Bred Toe 2.0",
+                     Id = IDGiay_Home_1,
+                     Name = "Nike Youth React Presto Extreme",
                      Brand = "Nike",
-                     Gender = 1,
-                     Material = "Leather, fabric, foam, and rubber.",
-                     Category = "Basketball",
-                     ImageUrl = "images/shoes/noimage.webp",
-                     Description = "One of the best shoes for basketball and the symbol of Nike's World. You won't be able to take your eyes off of this brand new Jordan, where every details have been scopefully arted.",
-                     Price = 1813000m,
-
-                     Sold = 45,
-                     AverageRating = 4.6M,
-                     TotalRatings = 23,
-                     IsSale = true,
-                     Discount = 20.0M,
-                     CreateDate = DateTime.Now,
-                     LastModifiedDate = DateTime.Now
-                 },
-
-                 // Transparent Adidas
-                 new Shoe
-                 {
-                     Id = IDGiay_28,
-                     Name = "Adidas Original StanSmith",
-                     Brand = "Adidas",
-                     Gender = 1,
-                     Material = "Leather, fabric, foam, and rubber.",
-                     Category = "Basketball",
-                     ImageUrl = "images/shoes/noimage.webp",
-                     Description = "One of the best shoes for basketball and the symbol of Adidas's World. You won't be able to take your eyes off of this brand new SuperStan, where every details have been scopefully arted.",
-                     Price = 1713000m,
-
-                     Sold = 65,
-                     AverageRating = 4.2M,
-                     TotalRatings = 33,
-                     IsSale = true,
-                     Discount = 20.0M,
-                     CreateDate = DateTime.Now,
-                     LastModifiedDate = DateTime.Now
-                 },
-
-                 // Transparent Puma
-                 new Shoe
-                 {
-                     Id = IDGiay_29,
-                     Name = "Puma FUTURE 7 Ultimate FG/AG The Forever Faster",
-                     Brand = "Puma",
-                     Gender = 1,
-                     Material = "Leather, fabric, foam, and rubber.",
-                     Category = "Football",
-                     ImageUrl = "images/shoes/noimage.webp",
-                     Description = "One of the best shoes for football and the symbol of Puma's World. You won't be able to take your eyes off of this brand new FUTURE, where every details have been scopefully arted.",
-                     Price = 2713000m,
-
+                     Gender = 2,
+                     Material = "Rubber, yarns and textiles.",
+                     Category = "Gym & Training",
+                     ImageUrl = "images/shoes/[IDGiay_Home_1]_AnhChinh_1.png",
+                     Description = "Nike Youth React Presto Extreme combines lightweight React technology and a flexible upper to provide comfort and support for everyday activities and gym training.",
+                     Price = 2069000M,
                      Sold = 78,
-                     AverageRating = 4.7M,
-                     TotalRatings = 55,
+                     AverageRating = 4.5M,
+                     TotalRatings = 60,
                      IsSale = true,
-                     Discount = 20.0M,
-                     CreateDate = DateTime.Now,
-                     LastModifiedDate = DateTime.Now
-                 }
+                     Discount = 40,
+                     CreateDate = DateTime.Now.AddDays(-30),
+                     LastModifiedDate = DateTime.Now.AddDays(-30)
+                 },
+
+                // HOME 2
+                new Shoe
+                {
+                    Id = IDGiay_Home_2,
+                    Name = "Nike Air Max 270",
+                    Brand = "Nike",
+                    Gender = 1,
+                    Material = "Plastics, yarns and textiles.",
+                    Category = "Gym & Training",
+                    ImageUrl = "images/shoes/[IDGiay_Home_2]_AnhChinh_1.png",
+                    Description = "Nike's first lifestyle Air Max brings you style, comfort and big attitude in the Nike Air Max 270. The design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colors.",
+                    Price = 4059000M,
+                    Sold = 8,
+                    AverageRating = 4.5M,
+                    TotalRatings = 3,
+                    IsSale = true,
+                    Discount = 40,
+                    CreateDate = DateTime.Now.AddDays(-30),
+                    LastModifiedDate = DateTime.Now.AddDays(-30)
+                },
+
+                // HOME 3
+                new Shoe
+                {
+                    Id = IDGiay_Home_3,
+                    Name = "Nike Downshifter 13",
+                    Brand = "Nike",
+                    Gender = 1,
+                    Material = "Plastics, yarns and textiles.",
+                    Category = "Gym & Training",
+                    ImageUrl = "images/shoes/[IDGiay_Home_3]_AnhChinh_1.png",
+                    Description = "Whether you're starting your running journey or an expert eager to switch up your pace, the Downshifter 13 is down for the ride. With a revamped upper, cushioning and durability, it helps you find that extra gear or take that first stride towards chasing down your goals.",
+                    Price = 2069000M,
+                    Sold = 78,
+                    AverageRating = 4.5M,
+                    TotalRatings = 20,
+                    IsSale = true,
+                    Discount = 40,
+                    CreateDate = DateTime.Now.AddDays(-30),
+                    LastModifiedDate = DateTime.Now.AddDays(-30)
+                }
             );
+
             //ShoeSeason Seeding
             modelBuilder.Entity<ShoeSeason>().HasData(
                 new ShoeSeason
@@ -1185,7 +1141,61 @@ namespace BackEnd_ASP.NET.Data
                     ShoeId = IDGiay_26,
                     Id = Guid.NewGuid(),
                     Season = "Winter"
+                },
+                //1
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Summer",
+                    ShoeId = IDGiay_Home_1
+                },
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Spring",
+                    ShoeId = IDGiay_Home_1
+                },
+
+                //2
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Summer",
+                    ShoeId = IDGiay_Home_2
+                },
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Spring",
+                    ShoeId = IDGiay_Home_2
+                },
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Fall",
+                    ShoeId = IDGiay_Home_2
+                },
+
+                //3
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Summer",
+                    ShoeId = IDGiay_Home_3
                 }
+                ,
+                new ShoeSeason
+                {
+                    Id = Guid.NewGuid(),
+                    Season = "Winter",
+                    ShoeId = IDGiay_Home_3
+                },
+            new ShoeSeason
+            {
+                Id = Guid.NewGuid(),
+                Season = "Fall",
+                ShoeId = IDGiay_Home_3
+            }
 
             );
 
@@ -1570,16 +1580,74 @@ namespace BackEnd_ASP.NET.Data
                               ShoeId = IDGiay_26,
                               Id = Guid.NewGuid(),
                               Color = "Red"
-                          }
-                      );
+                          },
+                          new ShoeColor
+                          {
+                              Id = Guid.NewGuid(),
+                              ShoeId = IDGiay_Home_1,
+                              Color = "Black"
+                          },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_1,
+                            Color = "White"
+                        },
+
+                        // SECOND
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "Blue"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "Pink"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "Black"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_2,
+                            Color = "White"
+                        },
+
+                        // NIKE 3 Colors
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "Red"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "Blue"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "Black"
+                        },
+                        new ShoeColor
+                        {
+                            Id = Guid.NewGuid(),
+                            ShoeId = IDGiay_Home_3,
+                            Color = "White"
+                        }
+                );
             modelBuilder.Entity<ShoeImage>().HasData(
-                // NIKE 1
-                new ShoeImage
-                {
-                    Id = Guid.NewGuid(),
-                    ShoeId = IDGiay_1,
-                    Url = "images/shoes/[IDGiay_1]_AnhChinh.png"
-                },
+                            // NIKE 1
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1610,12 +1678,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_2,
-                                Url = "images/shoes/[IDGiay_2]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_2,
                                 Url = "images/shoes/[IDGiay_2]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -1638,12 +1700,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //NIKE 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_3,
-                                Url = "images/shoes/[IDGiay_3]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1675,12 +1731,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_4,
-                                Url = "images/shoes/[IDGiay_4]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_4,
                                 Url = "images/shoes/[IDGiay_4]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1707,12 +1757,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_5,
-                                Url = "images/shoes/[IDGiay_5]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_5,
                                 Url = "images/shoes/[IDGiay_5]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1734,12 +1778,6 @@ namespace BackEnd_ASP.NET.Data
                                 Url = "images/shoes/[IDGiay_5]_AnhPhu_4.jpeg"
                             },
                             //ADIDAS 1
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_6,
-                                Url = "images/shoes/[IDGiay_6]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1770,12 +1808,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_7,
-                                Url = "images/shoes/[IDGiay_7]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_7,
                                 Url = "images/shoes/[IDGiay_7]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -1798,12 +1830,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //ADIDAS 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_8,
-                                Url = "images/shoes/[IDGiay_8]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1834,12 +1860,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_9,
-                                Url = "images/shoes/[IDGiay_9]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_9,
                                 Url = "images/shoes/[IDGiay_9]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -1862,12 +1882,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //ADIDAS 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_10,
-                                Url = "images/shoes/[IDGiay_10]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1898,12 +1912,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_11,
-                                Url = "images/shoes/[IDGiay_11]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_11,
                                 Url = "images/shoes/[IDGiay_11]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -1926,12 +1934,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //PUMA 2
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_12,
-                                Url = "images/shoes/[IDGiay_12]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -1962,12 +1964,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_13,
-                                Url = "images/shoes/[IDGiay_13]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_13,
                                 Url = "images/shoes/[IDGiay_13]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -1990,12 +1986,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             //PUMA 4
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_14,
-                                Url = "images/shoes/[IDGiay_14]_AnhChinh.jpeg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2026,12 +2016,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_15,
-                                Url = "images/shoes/[IDGiay_15]_AnhChinh.jpeg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_15,
                                 Url = "images/shoes/[IDGiay_15]_AnhPhu_1.jpeg"
                             },
                             new ShoeImage
@@ -2053,12 +2037,6 @@ namespace BackEnd_ASP.NET.Data
                                 Url = "images/shoes/[IDGiay_15]_AnhPhu_4.jpeg"
                             },
                             // REBOK 1 
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_16,
-                                Url = "images/shoes/[IDGiay_16]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2089,12 +2067,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_17,
-                                Url = "images/shoes/[IDGiay_17]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_17,
                                 Url = "images/shoes/[IDGiay_17]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2117,12 +2089,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // REBOK 3
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_18,
-                                Url = "images/shoes/[IDGiay_18]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2153,12 +2119,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_19,
-                                Url = "images/shoes/[IDGiay_19]_AnhChinh.png"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_19,
                                 Url = "images/shoes/[IDGiay_19]_AnhPhu_1.png"
                             },
                             new ShoeImage
@@ -2181,12 +2141,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // REBOK 5
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_20,
-                                Url = "images/shoes/[IDGiay_20]_AnhChinh.png"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2217,12 +2171,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_21,
-                                Url = "images/shoes/[IDGiay_21]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_21,
                                 Url = "images/shoes/[IDGiay_21]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2245,12 +2193,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // CONVERSE 2
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_22,
-                                Url = "images/shoes/[IDGiay_22]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2281,12 +2223,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_23,
-                                Url = "images/shoes/[IDGiay_23]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_23,
                                 Url = "images/shoes/[IDGiay_23]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2309,12 +2245,6 @@ namespace BackEnd_ASP.NET.Data
                             },
 
                             // CONVERSE 4
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_24,
-                                Url = "images/shoes/[IDGiay_24]_AnhChinh.jpg"
-                            },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
@@ -2345,12 +2275,6 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_25,
-                                Url = "images/shoes/[IDGiay_25]_AnhChinh.jpg"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_25,
                                 Url = "images/shoes/[IDGiay_25]_AnhPhu_1.jpg"
                             },
                             new ShoeImage
@@ -2376,112 +2300,104 @@ namespace BackEnd_ASP.NET.Data
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://gossipdergi.com/wp-content/uploads/2021/04/nikeayakkabi.gif"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_1.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://i.pinimg.com/originals/c0/cf/d1/c0cfd1545f10c56793e888e991b60487.png"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_2.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://c.files.bbci.co.uk/1081F/production/_117751676_satan-shoes2.jpg"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_3.jpg"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
                                 ShoeId = IDGiay_26,
-                                Url = "https://media.cnn.com/api/v1/images/stellar/prod/210328223753-03-lil-nas-x-satan-shoes.jpg?q=w_3000,h_3000,x_0,y_0,c_fill"
-                            },
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_26,
-                                Url = "https://photo.znews.vn/w660/Uploaded/rohunwa/2021_03_26/SHOES3.jpeg"
+                                Url = "images/shoes/[IDGiay_26]_AnhPhu_4.jpg"
                             },
                             // Transparent Nike
+
+                            //FIRST
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://dmpkickz.com/cdn/shop/files/6_78fd24e0-cd30-400a-8fa1-e5e6cd3c5b0b.png?v=1696679846&width=480"
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_1.jpg"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_2.jpg"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_3.jpg"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_1,
+                                Url = "images/shoes/[IDGiay_Home_1]_AnhPhu_4.jpg"
                             },
 
+                            //SECOND
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBQXFHswxHuyjT_e8rb5XOaWUzEe3pphPPw&s"
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_1.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_2.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_3.png"
+                            },
+                            new ShoeImage
+                            {
+                                Id = Guid.NewGuid(),
+                                ShoeId = IDGiay_Home_2,
+                                Url = "images/shoes/[IDGiay_Home_2]_AnhPhu_4.png"
                             },
 
+                            //THRID
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQPenW_eiwOe1RkKeaF_kg5TraxKiem6NJ_Q&s"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_27,
-                                Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3rZPCUSKRHdQA5_g3YBJRdcmIf_6PpZcNZg&s"
-                            },
-                            // Transparent Nike
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://likelihood.us/cdn/shop/files/stansmith_angle_1200x.png?v=1691430477"
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_1.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://assets.adidas.com/images/w_1880,f_auto,q_auto/e53b9a57b0a745be924bac1e00f54427_9366/FX5502_42_detail.jpg"
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_2.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://sneakerholicvietnam.vn/wp-content/uploads/2021/06/adidas-stan-smith-green-m20324-1.jpg"
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_3.png"
                             },
                             new ShoeImage
                             {
                                 Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_28,
-                                Url = "https://sneakerholicvietnam.vn/wp-content/uploads/2021/06/adidas-stan-smith-green-m20324-3.jpg"
-                            },
-                            // Transparent PUMA
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://thumblr.uniid.it/product/336262/8307c19dcf3d.jpg?width=3840&format=webp&q=75"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://thumblr.uniid.it/product/336262/a92a6cadc8a6.jpg?width=3840&format=webp&q=75"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://thumblr.uniid.it/product/336262/57daee260d2a.jpg?width=3840&format=webp&q=75"
-                            },
-
-                            new ShoeImage
-                            {
-                                Id = Guid.NewGuid(),
-                                ShoeId = IDGiay_29,
-                                Url = "https://www.prosoccer.com/cdn/shop/files/PumaFuture7UltimateFGAG-ForeverFasterPack_SP24_Model1_1500x.png?v=1713488175"
+                                ShoeId = IDGiay_Home_3,
+                                Url = "images/shoes/[IDGiay_Home_3]_AnhPhu_4.png"
                             }
                         );
             Random rand = new Random();
@@ -2491,15 +2407,17 @@ namespace BackEnd_ASP.NET.Data
                 IDGiay_11, IDGiay_12, IDGiay_13, IDGiay_14, IDGiay_15,
                 IDGiay_16, IDGiay_17, IDGiay_18, IDGiay_19, IDGiay_20,
                 IDGiay_21, IDGiay_22, IDGiay_23, IDGiay_24, IDGiay_25,
-                IDGiay_26
+                IDGiay_26,
+                IDGiay_Home_1, IDGiay_Home_2, IDGiay_Home_3,
             };
             List<ShoeDetail> shoeDetails = new List<ShoeDetail>();
             for (int i = 0; i < shoeIds.Length; i++)
             {
-                int initialSize = rand.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
+                int initialSize = rand.Next(36, 46); // Sinh size đầu tiên từ 36 đến 45
                 int maxAdditionalSizes = rand.Next(3, 5);
                 for (int j = 0; j <= maxAdditionalSizes; j++)
                 {
+                    if (initialSize + j > 45) break;
                     int currentSize = initialSize + j;
                     // Nếu là size đầu tiên, sử dụng initialSize, 
                     // các size tiếp theo sẽ lớn hơn size trước đó và nhỏ hơn 45
@@ -2509,15 +2427,128 @@ namespace BackEnd_ASP.NET.Data
                         Id = Guid.NewGuid(),
                         ShoeId = shoeIds[i], // Sử dụng Guid đã được tạo trước
                         Size = currentSize, // Size đảm bảo theo logic
-                        Quantity = rand.Next(0, 55) // Quantity ngẫu nhiên từ 0 tới 20
+                        Quantity = rand.Next(0, 150) // Quantity ngẫu nhiên từ 0 tới 20
                     });
+
 
                 }
             }
 
             modelBuilder.Entity<ShoeDetail>().HasData(shoeDetails);
+            //RandomSiteViewAndProductView(modelBuilder, shoeIds.ToList());
+            //RandomData(modelBuilder);
         }
-        //NIKE1
+
+        //Random Shoe Data
+        // private void RandomShoeData(ModelBuilder modelBuilder)
+        // {
+        //     Random random = new Random();
+        //     string[] brands = { "Nike", "Adidas", "Puma", "Reebok", "Under Armour" };
+        //     string[] materials = { "Leather", "Synthetic", "Mesh", "Canvas", "Rubber" };
+        //     string[] categories = { "Running", "Football", "Basketball", "Tennis", "Gym & Training" };
+        //     string[] seasons = { "Summer", "Spring", "Winter", "Autumn" };
+        //     string[] colors = { "Blue", "Black", "White", "Purple", "Red", "Green", "Yellow", "Orange", "Pink", "Grey", "Brown" };
+        //     string[] descriptions = {
+        //             "Perfect for all sports activities.",
+        //             "Provides excellent comfort and support.",
+        //             "Stylish design for both casual and athletic wear.",
+        //             "Lightweight and durable for high-performance.",
+        //             "Designed for optimum traction on various surfaces.",
+        //             "Breathable material keeps your feet cool and dry.",
+        //             "A versatile shoe for any occasion.",
+        //             "Enhances performance and boosts confidence."
+        //     };
+        //     for (int i = 1; i <= 29; i++)
+        //     {
+        //         Guid idGiay = Guid.NewGuid();
+        //         string brand = brands[random.Next(brands.Length)];
+        //         bool isSale = random.Next(0, 2) == 1;
+
+        //         // Tạo tên ngẫu nhiên cho giày
+        //         string name = $"{brand} Model {GenerateRandomString(5)}";
+
+        //         modelBuilder.Entity<Shoe>().HasData(
+        //             new Shoe
+        //             {
+        //                 Id = idGiay,
+        //                 Name = name,
+        //                 Brand = brand,
+        //                 Gender = random.Next(0, 3), // 0: nữ, 1: nam, 2: cả hai
+        //                 Material = materials[random.Next(materials.Length)],
+        //                 Category = categories[random.Next(categories.Length)],
+        //                 ImageUrl = "images/shoes/noimage.webp",
+        //                 Description = GenerateRandomDescription(descriptions),
+        //                 Price = random.Next(1000000, 4000000), // Random price between 1.5M and 3M
+        //                 Sold = random.Next(1, 350), // Random sold quantity
+        //                 AverageRating = Math.Round((decimal)random.NextDouble() * 5, 1), // Random average rating between 0-5
+        //                 TotalRatings = random.Next(1, 200), // Random total ratings
+        //                 IsSale = isSale,
+        //                 Discount = isSale ? random.Next(5, 45) : 0, // Discount only if IsSale is true
+        //                 CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)), // Random date within the last 30 days
+        //                 LastModifiedDate = DateTime.Now
+        //             }
+        //         );
+
+        //         // Shoe Seasons: Chọn ngẫu nhiên số mùa (từ 2 đến 5)
+        //         int seasonCount = random.Next(2, 6);
+        //         var selectedSeasons = seasons.OrderBy(x => random.Next()).Take(seasonCount).ToList();
+
+        //         foreach (var season in selectedSeasons)
+        //         {
+        //             modelBuilder.Entity<ShoeSeason>().HasData(
+        //                 new ShoeSeason
+        //                 {
+        //                     ShoeId = idGiay,
+        //                     Id = Guid.NewGuid(),
+        //                     Season = season
+        //                 }
+        //             );
+        //         }
+
+        //         // Shoe Colors: Randomly add between 1 to 4 colors
+        //         for (int j = 0; j < random.Next(1, 5); j++)
+        //         {
+        //             modelBuilder.Entity<ShoeColor>().HasData(
+        //                 new ShoeColor
+        //                 {
+        //                     ShoeId = idGiay,
+        //                     Id = Guid.NewGuid(),
+        //                     Color = colors[random.Next(colors.Length)]
+        //                 }
+        //             );
+        //         }
+
+        //         // Shoe Images: All images are set to the same URL
+        //         modelBuilder.Entity<ShoeImage>().HasData(
+        //             new ShoeImage
+        //             {
+        //                 Id = Guid.NewGuid(),
+        //                 ShoeId = idGiay,
+        //                 Url = "images/shoes/noimage.webp"
+        //             }
+        //         );
+        //         int initialSize = random.Next(37, 43); // Sinh size đầu tiên từ 37 đến 42
+        //         int maxAdditionalSizes = random.Next(3, 5);
+        //         for (int j = 0; j <= maxAdditionalSizes; j++)
+        //         {
+        //             int currentSize = initialSize + j;
+        //             // Nếu là size đầu tiên, sử dụng initialSize, 
+        //             // các size tiếp theo sẽ lớn hơn size trước đó và nhỏ hơn 45
+
+        //             modelBuilder.Entity<ShoeDetail>().HasData(
+        //                 new ShoeDetail
+        //                 {
+        //                     Id = Guid.NewGuid(),
+        //                     ShoeId = idGiay, // Sử dụng Guid đã được tạo trước
+        //                     Size = currentSize, // Size đảm bảo theo logic
+        //                     Quantity = random.Next(0, 55) // Quantity ngẫu nhiên từ 0 tới 20
+        //                 }
+        //             );
+        //         }
+        //     }
+
+        // }
+
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -2527,12 +2558,16 @@ namespace BackEnd_ASP.NET.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Discount> Discounts { get; set; }
-        public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
         public DbSet<ShoeSeason> ShoeSeasons { get; set; }
         public DbSet<ShoeImage> ShoeImages { get; set; }
         public DbSet<ShoeDetail> ShoeDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<ShoeColor> ShoeColors { get; set; }
+        public DbSet<CommentLike> CommentLikes { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<ProductView> ProductViews { get; set; }
+        public DbSet<SiteView> SiteViews { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
     }
 }

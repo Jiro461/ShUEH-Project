@@ -9,6 +9,25 @@ namespace BackEnd_ASP_NET.Utilities.FileHelpers
 
         private static readonly List<string> AllowedExtensions = new List<string> { ".jpg", ".jpeg", ".png", ".webp", ".svg" };
         private static readonly List<string> AllowedMimeTypes = new List<string> { "image/jpeg", "image/png", "image/webp", "image/svg+xml" };
+        public static async Task<string?> AddCommentImageAsync(
+           IWebHostEnvironment webHostEnvironment,
+           Guid commentId,
+           IFormFile? image)
+        {
+            if(image == null || image.Length == 0) return null;
+            var mimeType = image.ContentType;
+            var extension = Path.GetExtension(image.FileName).ToLower();
+            if(!AllowedMimeTypes.Contains(mimeType) || !AllowedExtensions.Contains(extension)) return null;
+            var uploadPath = Path.Combine(webHostEnvironment.WebRootPath, "images", "comments");
+            if(!Directory.Exists(uploadPath)) Directory.CreateDirectory(uploadPath);
+            var fileName = $"{commentId}_AnhBinhLuan{Path.GetExtension(image.FileName)}";
+            var filePath = Path.Combine(uploadPath, fileName);
+            using(var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+            return Path.Combine("images", "comments", fileName).Replace("\\", "/");
+        }
         public static async Task<string> UpdateAvatarAsync(
            IWebHostEnvironment webHostEnvironment,
            User user,

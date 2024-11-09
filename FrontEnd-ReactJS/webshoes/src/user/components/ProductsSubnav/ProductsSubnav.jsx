@@ -1,7 +1,7 @@
 import React from 'react';
 import { brands } from './dataSubnav';
 
-function ProductsSubnav({ filters, updateFilters, deleteFilters }) {
+function ProductsSubnav({ filters, updateFilters, deleteFilters, toggleMenuSidebar }) {
     const handleBrandClick = (brand) => {
         const updatedBrands = filters.selectedBrands.includes(brand)
             ? filters.selectedBrands.filter(b => b !== brand)
@@ -40,7 +40,9 @@ function ProductsSubnav({ filters, updateFilters, deleteFilters }) {
 
     return (
         <div className="row subNav">
-            <div className='col-1 menu'><i className="fa-solid fa-bars"></i></div>
+            <div className="col-1 btn-filter">
+                <i className="fa-solid fa-filter btn-filter"></i>
+            </div>
             <div className="col-xl-7 brand">
                 {brandList}
             </div>
@@ -70,9 +72,9 @@ function ProductsSubnav({ filters, updateFilters, deleteFilters }) {
                     </a>
                 </div>
             </div>
-            <div className="col-1 btn-filter">
-                <i className="fa-solid fa-filter btn-filter"></i>
-            </div>
+            <div className='col-1 menu'><i className="fa-solid fa-bars" onClick={(e) => {
+                toggleMenuSidebar();
+            }}></i></div>
             <div className="col-1 col-lg-1 col-xl-1 btn-exit">
                 <div><i className="fa-solid fa-xmark" onClick={handleDeleteFilter}/></div>
             </div>

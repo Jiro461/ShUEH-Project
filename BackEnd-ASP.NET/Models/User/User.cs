@@ -30,10 +30,11 @@ namespace BackEnd_ASP_NET.Models
         [ForeignKey("RoleId")]
         public Role? Role { get; set; }
 
-        public Wishlist? Wishlist { get; set; }
+        public ICollection<WishlistItem>? WishlistItems { get; set; } = new HashSet<WishlistItem>();
         public ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
         public ICollection<Comment>? Comments { get; set; } = new HashSet<Comment>();
         public ICollection<Reply>? Replies { get; set; } = new HashSet<Reply>();
+        public ICollection<CommentLike>? CommentLikes { get; set; } = new HashSet<CommentLike>();
         public DateTime CreateDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }

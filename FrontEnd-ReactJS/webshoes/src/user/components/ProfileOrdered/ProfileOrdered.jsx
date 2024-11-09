@@ -20,7 +20,10 @@ function ProfileOrdered() {
                                 <p>Orange</p>
                                 <h3>x2</h3>
                             </div>
-                            <p className="item-price">$210</p>
+                            <div>
+                                <p className="item-price" style={{paddingBottom: "30px"}}>$210</p>
+                                <button style={{border: 0, background: "linear-gradient(to left, #ff626d, #fcad72)", padding: "6px 20px", borderRadius: "20px", color: "white"}}>Reviews</button>
+                            </div>
                         </div>
                     </div>
 
@@ -44,7 +47,10 @@ function ProfileOrdered() {
                                 <p>Orange</p>
                                 <h3>x2</h3>
                             </div>
-                            <p className="item-price">$210</p>
+                            <div>
+                                <p className="item-price" style={{paddingBottom: "30px"}}>$210</p>
+                                <button style={{border: 0, background: "linear-gradient(to left, #ff626d, #fcad72)", padding: "6px 20px", borderRadius: "20px", color: "white"}}>Reviews</button>
+                            </div>
                         </div>
                     </div>
 
@@ -58,7 +64,10 @@ function ProfileOrdered() {
                                 <p>Orange</p>
                                 <h3>x2</h3>
                             </div>
-                            <p className="item-price">$210</p>
+                            <div>
+                                <p className="item-price" style={{paddingBottom: "30px"}}>$210</p>
+                                <button style={{border: 0, background: "linear-gradient(to left, #ff626d, #fcad72)", padding: "6px 20px", borderRadius: "20px", color: "white"}}>Reviews</button>
+                            </div>
                         </div>
                     </div>
 

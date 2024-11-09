@@ -3,8 +3,10 @@ using BackEnd_ASP_NET.Models;
 
 public interface IOrderRepository
 {
-    Task<IEnumerable<OrderDTO>> GetAllOrdersAsync();
-    Task<OrderDTO?> GetOrderByIdAsync(Guid? id);
+    Task<IEnumerable<Order>> GetAllOrdersAsync(int page, int pageSize);
+    Task<IEnumerable<Order>> GetOrdersByUserIdAsync(Guid userId);
+    Task<IEnumerable<Order>> GetOrdersByStatusAsync(OrderStatus status);
+    Task<Order?> GetOrderByIdAsync(Guid? id);
     Task<Order> AddOrderAsync(Order order);
     Task<Order> UpdateOrderAsync(Order order);
     Task<bool> DeleteOrderAsync(Guid id);
