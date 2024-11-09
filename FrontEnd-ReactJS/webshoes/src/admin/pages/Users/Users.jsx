@@ -14,7 +14,7 @@ const columns = [
     headerName: "Avatar",
     width: 80,
     renderCell: (params) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
+      return <img src={params.row.avatarUrl || "/noavatar.png"} alt="" />;
     },
   },
   {
@@ -62,32 +62,59 @@ const columns = [
 ];
 
 const roles = ["Admin", "User"]
+const genders = ["Male", "Female"]
 const inputs =[
   {
-    field: "firstname",
+    field: "username",
     type: "text",
-    headerName: "First name",
+    headerName: "Username",
+    require: true,
+    isUpdateDisable: true,
   },
   {
-    field: "lastname",
-    type: "text",
-    headerName: "Last name",
+    field: "password",
+    type: "password",
+    headerName: "Password",
+    require: true,
+    isUpdateDisable: true,
   },
   {
     field: "email",
     type: "text",
     headerName: "Email",
+    require: true
   },
   {
-    field: "phone",
+    field: "firstName",
     type: "text",
-    headerName: "Phone",
+    headerName: "First name",
+    require: true
+  },
+  {
+    field: "lastName",
+    type: "text",
+    headerName: "Last name",
+    require: true
+  },
+  {
+    field: "gender",
+    label: "gender",
+    type: "selectOnly",
+    selectData: genders,
+    require: true
   },
   {
     field: "role",
     label: "role",
     type: "selectOnly",
     selectData: roles,
+    require: true
+  },
+  {
+    field: "dateOfBirth",
+    headerName: "Date of birth",
+    type: "date",
+    require: true
   },
 
   ]
@@ -138,7 +165,7 @@ const Users =  () => {
       <CircularProgress color="inherit" />
     ) : (
       <DataTable 
-      slug="user" 
+      slug="users" 
       updateSlug="user"
       columns={columns} 
       rows={data}
