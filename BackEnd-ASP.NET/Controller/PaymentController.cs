@@ -3,6 +3,7 @@ using BackEnd_ASP.NET.Services.VnPay;
 using BackEnd_ASP.NET.Services;
 using System.Security.Claims;
 using BackEnd_ASP_NET.Models;
+using BackEnd_ASP_NET.Utilities.Extensions;
 
 namespace PaymentAPI.Controllers
 {
@@ -94,7 +95,7 @@ namespace PaymentAPI.Controllers
             if (paymentResult is not OkObjectResult) return BadRequest("Xử lý đơn hàng không thành công.");
 
             // Chuyển hướng người dùng về trang chủ sau khi thanh toán thành công
-            return Redirect("http://localhost:3000/");
+            return Redirect($"{MyURL.Host}");
         }
     }
 }
