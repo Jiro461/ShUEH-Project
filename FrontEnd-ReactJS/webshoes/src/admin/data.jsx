@@ -40,6 +40,12 @@
                 url: "/admin/orders/",
                 icon: "order.svg"
             },
+            {
+                id: 4,
+                title: "Discounts",
+                url: "/admin/discounts/",
+                icon: "discount.svg"
+            },
         ]
     },
     {
