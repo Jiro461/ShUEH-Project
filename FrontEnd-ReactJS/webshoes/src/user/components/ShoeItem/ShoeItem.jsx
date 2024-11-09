@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config/config.json";
+import "./style.css"
 
-function ShoeItem({ shoe, toggleFavorite, isFavorite }) {
+function ShoeItem({ shoe, shoeID }) {
     const navigate = useNavigate();
     const { SERVER_API } = config;
     const [favoriteList, setFavoriteList] = useState([]); // Danh sách các sản phẩm yêu thích
+    const [favorites, setFavorites] = useState([]);
+
+    const toggleFavorite = (shoe) => {
+        setFavorites((prevFavorites) =>
+            prevFavorites.includes(shoe)
+                ? prevFavorites.filter(fav => fav !== shoe)
+                : [...prevFavorites, shoe]
+        );
+    };
 
     // Lấy danh sách yêu thích từ API khi component được mount
     useEffect(() => {
@@ -28,6 +38,7 @@ function ShoeItem({ shoe, toggleFavorite, isFavorite }) {
     const isShoeFavorite = favoriteList.some(item => item.id === shoe.id);
 
     const handleToggleFavorite = async () => {
+        console.log("isShoe: ", isShoeFavorite);
         try {
             // Gọi API để lấy UserID
             const response = await fetch(`${SERVER_API}/api/Account/cookieGetById`, { credentials: "include" });
@@ -82,7 +93,7 @@ function ShoeItem({ shoe, toggleFavorite, isFavorite }) {
                     BUY NOW
                 </button>
             </div>
-            <a onClick={() => navigate(`/product/${shoe.id}`)}>
+            <a onClick={() => navigate(`/product/${shoe.id || shoeID}`)}>
                 <div className={`new ${shoe.isNew ? "active" : ""}`}>New</div>
                 <div className="item-detail">
                     <h4>{shoe.name} / {shoe.brand}</h4>

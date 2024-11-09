@@ -300,7 +300,7 @@
   background-color: #1E1E1E;
   margin: 0;
   width: 100%;
-  padding-bottom: 150px;
+  padding-bottom: 30px;
   justify-content: space-around;
 
   h1 {
@@ -388,6 +388,23 @@
     span {
       color: #736f6f;
     }
+  }
+}
+
+// other-shoes-list
+.other-shoes-list {
+  background-color: #484848;
+
+  h3 {
+    margin: 30px 0 50px 30px;
+  }
+
+  ul {
+    background-color: #484848;
+  }
+  
+  li {
+    list-style-type: none;
   }
 }
 

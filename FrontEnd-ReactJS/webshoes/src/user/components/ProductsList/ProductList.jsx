@@ -7,7 +7,6 @@ function ProductsList({ filters }) {
     const itemsPerPage = 12;
     const products = useFetchProducts();
     const [currentPage, setCurrentPage] = useState(1);
-    const [favorites, setFavorites] = useState([]);
 
     // Filtered Products
     const filteredProducts = products.filter(product => {
@@ -29,14 +28,6 @@ function ProductsList({ filters }) {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
-    const toggleFavorite = (shoe) => {
-        setFavorites((prevFavorites) =>
-            prevFavorites.includes(shoe)
-                ? prevFavorites.filter(fav => fav !== shoe)
-                : [...prevFavorites, shoe]
-        );
-    };
-
     return (
         <div>
             <ul className="row row-cols-4 product-list">
@@ -44,8 +35,6 @@ function ProductsList({ filters }) {
                     <ShoeItem
                         key={shoe.id}
                         shoe={shoe}
-                        toggleFavorite={toggleFavorite}
-                        isFavorite={favorites.includes(shoe)}
                     />
                 ))}
             </ul>
