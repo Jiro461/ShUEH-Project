@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
     // Fetch chi tiết sản phẩm
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:5118/api/Shoe/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Shoe/${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -43,7 +43,7 @@ const ProductDetailPage = () => {
         console.error("Brand is missing or undefined");
         return;
       }
-    
+
       try {
         const response = await fetch(`http://localhost:5118/api/Shoe/brand?brand=${brand}`);
         if (!response.ok) {
@@ -55,7 +55,7 @@ const ProductDetailPage = () => {
         console.error("Error fetching other shoes:", error);
       }
     };
-    
+
 
     fetchProduct();
   }, [id]);
@@ -77,11 +77,11 @@ const ProductDetailPage = () => {
   return (
     <div className="product-detail-container">
       <div className="row detail-product">
-        <ProductDetail product={product} error={error} loading={loading}/>
+        <ProductDetail product={product} error={error} loading={loading} />
       </div>
 
       <div className="row description">
-        <ProductDescription product={product} error={error} loading={loading}/>
+        <ProductDescription product={product} error={error} loading={loading} />
       </div>
 
       {/* Render các sản phẩm khác cùng thương hiệu */}

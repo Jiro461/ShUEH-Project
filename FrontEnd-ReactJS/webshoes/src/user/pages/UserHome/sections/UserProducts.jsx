@@ -6,6 +6,7 @@ import Slider from 'react-slick'
 import {Reveal} from "../../../components/Animation/Reveal.tsx";
 import * as homeService from "../../../../services/homeService.jsx"
 import { useInView } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 const UserProducts = () => {
     const [data, setData] = useState()
@@ -14,6 +15,7 @@ const UserProducts = () => {
     const [activeBrand, setActiveBrand] = useState("Nike")
     const ref = useRef(null)
     const isInView = useInView(ref)
+    const navigate = useNavigate();
     const productStyle = {
         zIndex: 5,
         scale: isInView ? 1 : 0.1,
@@ -92,7 +94,7 @@ const UserProducts = () => {
 
             <div className="product-home-wrapper d-none d-md-flex">
                 {data?.map((item, index) => {
-                    return <div key={index} className="product-home-wrapper-item">
+                    return <div key={index} className="product-home-wrapper-item" onClick={() => navigate(`/product/${item.id}`)}>
                         <Product 
                             productName={item.name}
                             productBrand={item.brand}

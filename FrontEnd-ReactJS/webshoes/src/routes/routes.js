@@ -10,31 +10,34 @@ import ProductPage from "../user/pages/ProductPage/ProductPage.jsx"
 import ProductDetailPage from "../user/pages/ProductDetailPage/ProductDetailPage.jsx"
 import PaymentPage from "../user/pages/PaymentPage/PaymentPage.jsx"
 import ProfilePage from "../user/pages/ProfilePage/ProfilePage.jsx"
+import ProfileUser from "../user/components/ProfileUser/ProfileUser.jsx"
+import ProfileFavorite from "../user/components/ProfileFavorite/ProfileFavorite.jsx"
+import ProfileOrdered from "../user/components/ProfileOrdered/ProfileOrdered.jsx"
 
 export const publicRoutes = [
     { path: "/", element: UserHome },
     { path: "product", element: ProductPage },
-    { path: "product/:id", element: ProductDetailPage }
+    { path: "product/:id", element: ProductDetailPage },
 ]
 
 export const privateRoutes = [
     {
         path: "profile",
         element: ProfilePage,
-        // children: [
-        //   {
-        //     path: "",
-        //     element: <ProfileUser/>
-        //   },
-        //   {
-        //     path: "favour",
-        //     element: <ProfileFavorite/>
-        //   },
-        //   {
-        //     path: "ordered",
-        //     element: <ProfileOrdered/>
-        //   },
-        // ]
+        children: [
+          {
+            path: "",
+            element: ProfileUser
+          },
+          {
+            path: "favour",
+            element: ProfileFavorite
+          },
+          {
+            path: "ordered",
+            element: ProfileOrdered
+          },
+        ]
     },
     { path: "payment", element: PaymentPage, },
     
