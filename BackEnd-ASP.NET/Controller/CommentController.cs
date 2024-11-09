@@ -62,7 +62,7 @@ namespace PaymentAPI.Controllers
             return await _commentService.GetAllCommentsAsync(shoeId, HttpContext);
         }
         [HttpPost]
-        public async Task<IActionResult> AddCommentAsync(CommentPostDTO commentDTO)
+        public async Task<IActionResult> AddCommentAsync([FromForm] CommentPostDTO commentDTO)
         {
             return await _commentService.AddCommentAsync(commentDTO, HttpContext);
         }

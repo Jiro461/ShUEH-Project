@@ -20,7 +20,7 @@ a {
   color: inherit;
 }
 
-.main {
+.admin-main {
   font-family: "Inter", sans-serif;
   background-color: $main-bg;
   color: $main-color;
@@ -29,6 +29,7 @@ a {
   .admin-container {
     display: flex;
     width: 100%;
+    flex-grow: 1;
     overflow: auto;
 
     .menuContainer {
@@ -48,9 +49,9 @@ a {
 
     .contentContainer {
       padding: 5px 20px;
-      width: 90%;
+      width: 80%;
       overflow: hidden;
-      max-width: 90%;
+      max-width: 100%;
       box-sizing: border-box; // Đảm bảo padding không gây tràn
       @include sm {
         width: 100%;

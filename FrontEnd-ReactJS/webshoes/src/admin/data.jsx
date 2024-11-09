@@ -6,13 +6,13 @@
             {
                 id: 1,
                 title: "Home",
-                url: "/",
+                url: "/admin/",
                 icon: "home.svg"
             },
             {
                 id: 2,
                 title: "My Info",
-                url: "/",
+                url: "/admin/",
                 icon: "user.svg"
             }
         ],
@@ -24,21 +24,27 @@
             {
                 id: 1,
                 title: "Users",
-                url: "/",
+                url: "/admin/users/",
                 icon: "user.svg"
             }
             ,
             {
                 id: 2,
                 title: "Products",
-                url: "/",
+                url: "/admin/products/",
                 icon: "product.svg"
             },
             {
                 id: 3,
                 title: "Orders",
-                url: "/",
+                url: "/admin/orders/",
                 icon: "order.svg"
+            },
+            {
+                id: 4,
+                title: "Discounts",
+                url: "/admin/discounts/",
+                icon: "discount.svg"
             },
         ]
     },
@@ -56,7 +62,7 @@
             {
                 id: 2,
                 title: "Calendar",
-                url: "/",
+                url: "/admin/calendar",
                 icon: "calendar.svg"
             },
         ]

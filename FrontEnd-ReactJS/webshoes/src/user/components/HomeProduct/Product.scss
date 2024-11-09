@@ -1,4 +1,4 @@
-.home-product{
+.product-home{
     .info{
         display: flex;
         justify-content: space-between;
@@ -7,8 +7,91 @@
             p{
                 margin-bottom: 0;
             }
+            .title-line-1{
+                font-size: 21px;
+                font-weight: bold;
+                color: orange;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;    
+            }
+            .title-line-2{
+                font-size: 18px;
+            }
+        }
+    }
+    .img-box{
+        position: relative;
+        .img-product{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .product-promotion-sale{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .product-promotion-tag-new{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+    .product-price{
+        margin-top: 30px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.5rem;
+        &.single-price{
+            justify-content: center;
+        }
+        .original-price{
+            position: relative;
+            color: #FFFFFF80;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%; /* Điều chỉnh giá trị này để thay đổi vị trí của đường gạch ngang */
+                left: 0;
+                width: 100%; /* Độ dài của đường ngang theo chiều rộng của chữ */
+                height: 1px; /* Độ dày của đường */
+                background-color: #fff; /* Màu đường gạch sẽ giống với màu chữ */
+                transform: translateY(-50%); /* Đưa đường gạch vào giữa theo chiều dọc */
+            }
+        }
+        .sale-price{
+            background: linear-gradient(118deg, #FF6262 21.5%, #FCAD72 78.5%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     }
 }
 
+@media (max-width: 768px) {
+    .product-home{
+        .img-box{
+            .img-product{
+                
+                height: 370px;
+            }
+        }
+        .product-price{
+            margin-top: 0;
+            font-size: 2rem;
+        }
+    }
+}
 
+@media (max-width: 576px) {
+    .product-home{
+        .product-price{
+            justify-content: center;
+        }
+    }
+}
