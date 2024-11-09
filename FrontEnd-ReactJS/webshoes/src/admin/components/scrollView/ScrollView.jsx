@@ -2,7 +2,7 @@ import React from 'react';
 import './scrollView.scss';
 
 const ScrollView = (props) => {
-  const host = "http://shueh.somee.com";
+  const host = process.env.REACT_APP_API_URL;
   var id = props.idKey;
   var img = props.imgKey;
   var user = props.nameKey;

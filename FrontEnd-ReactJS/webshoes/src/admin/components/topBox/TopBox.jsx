@@ -2,7 +2,7 @@ import React from 'react';
 import './TopBox.scss';
 
 const Topbox = (props) => {
-    const host = "http://shueh.somee.com";
+    const host = process.env.REACT_APP_API_URL;
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',

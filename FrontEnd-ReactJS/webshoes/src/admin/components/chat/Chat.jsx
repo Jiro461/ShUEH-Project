@@ -22,7 +22,7 @@ const Chat = () => {
         const loadChatHistory = async () => {
             try {
                 // Gọi API lấy tin nhắn
-                axios.get(`http://localhost:5118/api/chat/user/${page}/${pageSize}`).then(res => {
+                axios.get(`${myvalue}/api/chat/user/${page}/${pageSize}`).then(res => {
                     console.log(res.data);
                     setMessages(res.data.messages || []);  // Đảm bảo messages luôn là mảng
                 });
@@ -35,7 +35,7 @@ const Chat = () => {
 
         // Khởi tạo kết nối SignalR với Hub
         const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5118/chatHub') // Địa chỉ của SignalR Hub
+            .withUrl(`${myvalue}/chatHub`) // Địa chỉ của SignalR Hub
             .withAutomaticReconnect() // Tự động kết nối lại nếu mất kết nối
             .build();
 
