@@ -117,7 +117,7 @@ namespace BackEnd_ASP.NET.Models
         [MaxLength(1000, ErrorMessage = "Description cannot be longer than 500 characters")]
         public string Description { get; set; } = string.Empty;
         [Required(ErrorMessage = "Price is required.")]
-        [Range(0, double.MaxValue, ErrorMessage = "Price must be between 0 and 10000")]
+        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
         public bool IsSale { get; set; }
         [Range(0, 100, ErrorMessage = "Discount must be between 0 and 100")]

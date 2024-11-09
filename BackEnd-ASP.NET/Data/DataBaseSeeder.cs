@@ -5,7 +5,6 @@ using BackEnd_ASP.NET.Services;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.Extensions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 public class DatabaseSeeder
 {

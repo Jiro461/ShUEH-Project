@@ -1,4 +1,3 @@
-
 using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP_NET.Models;
@@ -9,17 +8,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd_ASP.NET.Services
 {
+    // Lớp dịch vụ thông báo, kế thừa từ ControllerBase và triển khai INotificationService
     public class NotificationService : ControllerBase, INotificationService
     {
+        // Biến thành viên để lưu trữ ngữ cảnh cơ sở dữ liệu
         private readonly ShUEHContext _context;
 
+        // Hàm khởi tạo, nhận vào một đối tượng ShUEHContext
         public NotificationService(ShUEHContext context)
         {
             _context = context;
         }
+
         #region Create Notification
+        // Phương thức tạo thông báo cho người dùng mới
         public async Task CreateNotificationForNewUser(User newUser)
         {
+            // Tạo đối tượng Notification với thông tin người dùng mới
             var notification = new Notification
             {
                 UserMessage = $"Chào mừng {newUser.FirstName} {newUser.LastName} đến với hệ thống!",
@@ -28,9 +33,12 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
+
+        // Phương thức tạo thông báo khi người dùng thích bình luận
         public async Task CreateNotificationForCommentLike(CommentLike commentLike, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -42,7 +50,12 @@ namespace BackEnd_ASP.NET.Services
                 CommentId = commentLike.CommentId,
                 CreateDate = MyDateTime.VietNam.DateTime
             };
+            // Thêm thông báo vào cơ sở dữ liệu
+            await _context.Notifications.AddAsync(notification);
+            await _context.SaveChangesAsync();
         }
+
+        // Phương thức tạo thông báo khi người dùng bình luận
         public async Task CreateNotificationForComment(Comment comment, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -56,10 +69,12 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
 
+        // Phương thức tạo thông báo khi người dùng đặt hàng
         public async Task CreateNotificationForOrder(Order order, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -72,10 +87,12 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
 
+        // Phương thức tạo thông báo khi người dùng thêm sản phẩm vào Wishlist
         public async Task CreateNotificationForWishlist(WishlistItem wishlistItem, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -88,10 +105,12 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
 
+        // Phương thức tạo thông báo khi admin trả lời bình luận
         public async Task CreateNotificationForReply(Reply reply, Guid? userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -110,10 +129,12 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
 
+        // Phương thức tạo thông báo khi cập nhật thông tin thực thể
         public async Task CreateUpdateNotificationForEntityChange<T>(T entity, Guid? userId = null) where T : class
         {
             var notification = new Notification();
@@ -141,9 +162,12 @@ namespace BackEnd_ASP.NET.Services
                     CreateDate = MyDateTime.VietNam.DateTime
                 };
             }
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
+
+        // Phương thức tạo thông báo khi người dùng xem sản phẩm
         public async Task CreateNotificationForUserViewProduct(Guid productId, Guid userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -156,9 +180,12 @@ namespace BackEnd_ASP.NET.Services
                 Product = shoe,
                 CreateDate = MyDateTime.VietNam.DateTime
             };
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
+
+        // Phương thức tạo thông báo khi tạo mới sản phẩm
         public async Task CreateNotificationForShoe(Shoe shoe)
         {
             var notification = new Notification
@@ -168,10 +195,12 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
 
+        // Phương thức tạo thông báo khi xóa thực thể
         public async Task CreateNotificationForEntityDelete<T>(T entity) where T : class
         {
             var notification = new Notification
@@ -180,15 +209,20 @@ namespace BackEnd_ASP.NET.Services
                 CreateDate = MyDateTime.VietNam.DateTime
             };
 
+            // Thêm thông báo vào cơ sở dữ liệu
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
         #endregion
+
         #region Get Notification API
+        // Phương thức lấy thông báo của người dùng
         public async Task<IActionResult> GetUserNotifications(HttpContext httpContext, int pageNumber, int pageSize)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null) return Unauthorized();
+
+            // Lấy danh sách thông báo của người dùng từ cơ sở dữ liệu
             var notifications = await _context.Notifications.Where(notification => notification.UserId == Guid.Parse(userId)).Select(notification => new
             {
                 notification.Id,
@@ -201,11 +235,15 @@ namespace BackEnd_ASP.NET.Services
             .ToListAsync();
             return Ok(notifications);
         }
+
+        // Phương thức lấy thông báo của admin
         public async Task<IActionResult> GetAdminNotifications(HttpContext httpContext, int pageNumber, int pageSize)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
             if (userId == null || userRole!.ToLower() != "admin") return Unauthorized();
+
+            // Lấy danh sách thông báo của admin từ cơ sở dữ liệu
             var notifications = await _context.Notifications.Select(notification => new
             {
                 notification.Id,
@@ -219,11 +257,14 @@ namespace BackEnd_ASP.NET.Services
             return Ok(notifications);
         }
 
+        // Phương thức admin lấy thông báo của người dùng
         public async Task<IActionResult> AdminGetUserNotifications(HttpContext httpContext, Guid userId)
         {
             var adminId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
             if (adminId == null || userRole!.ToLower() != "admin") return Unauthorized();
+
+            // Lấy danh sách thông báo của người dùng từ cơ sở dữ liệu
             var notifications = await _context.Notifications
             .Where(notification => notification.UserId == userId)
             .Select(notification => new

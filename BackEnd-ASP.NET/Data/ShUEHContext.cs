@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace BackEnd_ASP.NET.Data
 {
+    //Đây là class dành cho việc Seed Data, các thông tin giày nằm trong đây
     public class ShUEHContext : DbContext
     {
         public static bool IsSeeding { get; set; } = false; // Thuộc tính tĩnh để theo dõi quá trình seed
@@ -29,7 +30,7 @@ namespace BackEnd_ASP.NET.Data
             return base.SaveChangesAsync(cancellationToken);
         }
 
-
+        //Phương thức này dùng để cập nhật thời gian tạo và sửa đổi cho các đối tượng có thể theo dõi thời gian
         private void UpdateDateTracking()
         {
             if (IsSeeding) return;
@@ -54,11 +55,12 @@ namespace BackEnd_ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            //Phương thức này dùng để seed data
             ShoeSeeding(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
+        //Phương thức này dùng để seed data
         private void ShoeSeeding(ModelBuilder modelBuilder)
         {
             Guid IDGiay_1 = Guid.NewGuid();

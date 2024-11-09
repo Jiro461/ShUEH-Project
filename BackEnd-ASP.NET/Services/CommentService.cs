@@ -12,6 +12,7 @@ namespace BackEnd_ASP.NET.Services
 {
     public class CommentService : ControllerBase, ICommentService
     {
+        // Các phụ thuộc được tiêm qua constructor
         private readonly ICommentRepository commentRepository;
         private readonly IShoeRepository shoeRepository;
         private readonly ShUEHContext context;
@@ -27,24 +28,30 @@ namespace BackEnd_ASP.NET.Services
             this.context = context;
             this.webHostEnvironment = webHostEnvironment;
         }
+
         #region Reply
+        // Thêm một phản hồi vào bình luận
         public async Task<IActionResult> AddReplyAsync(ReplyDTO replyDTO, HttpContext httpContext)
         {
+            // Lấy ID người dùng và vai trò từ ngữ cảnh HTTP
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
             if (userId == null || userRole != "Admin") return Unauthorized();
 
+            // Tạo đối tượng Reply mới
             var reply = new Reply
             {
                 Description = replyDTO.Description,
                 CommentId = replyDTO.CommentId,
                 UserId = Guid.Parse(userId)
             };
+            // Thêm phản hồi vào kho lưu trữ
             if (await commentRepository.AddReplyAsync(reply))
                 return Ok();
             return BadRequest();
         }
 
+        // Xóa một phản hồi
         public async Task<IActionResult> DeleteReplyAsync(Guid id, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -55,6 +62,7 @@ namespace BackEnd_ASP.NET.Services
             return NotFound();
         }
 
+        // Cập nhật một phản hồi
         public async Task<IActionResult> UpdateReplyAsync(ReplyDTO replyDTO, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -70,6 +78,7 @@ namespace BackEnd_ASP.NET.Services
         #endregion
 
         #region Like Comment
+        // Chuyển đổi trạng thái thích của bình luận
         public async Task<IActionResult> ToggleLikeCommentAsync(CommentLikeDTO commentLikeDTO, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -94,6 +103,7 @@ namespace BackEnd_ASP.NET.Services
         #endregion
 
         #region Comment
+        // Lấy tất cả các bình luận cho một sản phẩm
         public async Task<IActionResult> GetAllCommentsAsync(Guid shoeId, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -127,6 +137,7 @@ namespace BackEnd_ASP.NET.Services
             return Ok(commentDTOs);
         }
 
+        // Thêm một bình luận mới
         public async Task<IActionResult> AddCommentAsync(CommentPostDTO commentDTO, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -167,6 +178,7 @@ namespace BackEnd_ASP.NET.Services
             return BadRequest("Add comment failed");
         }
 
+        // Xóa một bình luận
         public async Task<IActionResult> DeleteCommentAsync(Guid id, HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -183,6 +195,7 @@ namespace BackEnd_ASP.NET.Services
         }
         #endregion
 
+        // Lấy đánh giá tổng quát dựa trên điểm số
         private GeneralReview GetGeneralReview(decimal rate)
         {
             return rate switch

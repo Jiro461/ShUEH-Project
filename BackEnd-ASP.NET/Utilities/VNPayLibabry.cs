@@ -6,9 +6,11 @@ using System.Text;
 
 public class VnPayLibrary
 {
+    // Danh sách sắp xếp để lưu trữ dữ liệu yêu cầu và phản hồi
     private readonly SortedList<string, string> _requestData = new SortedList<string, string>(new VnPayCompare());
     private readonly SortedList<string, string> _responseData = new SortedList<string, string>(new VnPayCompare());
 
+    // Phương thức thêm dữ liệu yêu cầu
     public void AddRequestData(string key, string value)
     {
         if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(key))
@@ -17,6 +19,7 @@ public class VnPayLibrary
         }
     }
 
+    // Phương thức thêm dữ liệu phản hồi
     public void AddResponseData(string key, string value)
     {
         if (!string.IsNullOrEmpty(value))
@@ -25,16 +28,19 @@ public class VnPayLibrary
         }
     }
 
+    // Phương thức lấy dữ liệu phản hồi theo key
     public string GetResponseData(string key)
     {
         return _responseData.TryGetValue(key, out var retValue) ? retValue : string.Empty;
     }
 
     #region Request
+    // Phương thức tạo URL yêu cầu thanh toán
     public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
     {
         var data = new StringBuilder();
 
+        // Duyệt qua các cặp key-value trong _requestData
         foreach (var (key, value) in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
         {
             data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
@@ -42,6 +48,7 @@ public class VnPayLibrary
 
         var querystring = data.ToString();
 
+        // Thêm querystring vào baseUrl
         baseUrl += "?" + querystring;
         var signData = querystring;
         if (signData.Length > 0)
@@ -49,6 +56,7 @@ public class VnPayLibrary
             signData = signData.Remove(data.Length - 1, 1);
         }
 
+        // Tạo chữ ký bảo mật
         var vnpSecureHash = Utils.HmacSHA512(vnpHashSecret, signData);
         baseUrl += "vnp_SecureHash=" + vnpSecureHash;
 
@@ -57,6 +65,7 @@ public class VnPayLibrary
     #endregion
 
     #region Response process
+    // Phương thức xác thực chữ ký bảo mật
     public bool ValidateSignature(string inputHash, string secretKey)
     {
         var rspRaw = GetResponseData();
@@ -64,6 +73,7 @@ public class VnPayLibrary
         return myChecksum.Equals(inputHash, StringComparison.InvariantCultureIgnoreCase);
     }
 
+    // Phương thức lấy dữ liệu phản hồi dưới dạng chuỗi
     private string GetResponseData()
     {
         var data = new StringBuilder();
@@ -77,12 +87,13 @@ public class VnPayLibrary
             _responseData.Remove("vnp_SecureHash");
         }
 
+        // Duyệt qua các cặp key-value trong _responseData
         foreach (var (key, value) in _responseData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
         {
             data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
         }
 
-        //remove last '&'
+        // Xóa ký tự '&' cuối cùng
         if (data.Length > 0)
         {
             data.Remove(data.Length - 1, 1);
@@ -91,11 +102,11 @@ public class VnPayLibrary
         return data.ToString();
     }
     #endregion
-
 }
 
 public class Utils
 {
+    // Phương thức tạo HMAC SHA512
     public static string HmacSHA512(string key, string inputData)
     {
         var hash = new StringBuilder();
@@ -113,8 +124,7 @@ public class Utils
         return hash.ToString();
     }
 
-
-    // có chế biến cho .NET Core MVC
+    // Phương thức lấy địa chỉ IP
     public static string GetIpAddress(HttpContext context)
     {
         var ipAddress = string.Empty;
@@ -146,6 +156,7 @@ public class Utils
 
 public class VnPayCompare : IComparer<string>
 {
+    // Phương thức so sánh chuỗi
     public int Compare(string? x, string? y)
     {
         if (x == y) return 0;

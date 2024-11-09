@@ -41,53 +41,13 @@
                 icon: "order.svg"
             },
             {
-                id: 4,
-                title: "Discounts",
-                url: "/admin/discounts/",
-                icon: "discount.svg"
-            },
+               id: 4,
+               title: "Discounts",
+               url: "/",
+               icon: "discount.svg"
+            }
         ]
     },
-    {
-        id: 3,
-        title: "TOOL",
-        listItems: [
-            {
-                id: 1,
-                title: "Note",
-                url: "/",
-                icon: "note.svg"
-            }
-            ,
-            {
-                id: 2,
-                title: "Calendar",
-                url: "/admin/calendar",
-                icon: "calendar.svg"
-            },
-        ]
-    },
-    {
-        id: 4,
-        title: "STATISTIC",
-        listItems: [
-            {
-                id: 1,
-                title: "Chart",
-                url: "/",
-                icon: "chart.svg"
-            }
-            ,
-            {
-                id: 2,
-                title: "History",
-                url: "/",
-                icon: "log.svg"
-            },
-        ]
-    }
-
-
 ]
 
 //Thống kê các đơn hàng có giá trị cao nhất
