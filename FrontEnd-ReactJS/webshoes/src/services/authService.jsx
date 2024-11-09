@@ -14,9 +14,9 @@ export const loginUser = async (user, dispatch, navigate) => {
     var type = "success"
     var message = "Login successfully"
     try {
-            await request.post("/api/Account/login", user)
-            const res = await request.get("/api/Account/cookieGetById")
-            dispatch(loginSuccess(res.data))
+            const res = await request.post("/api/Account/login", user)
+            const cookie = await request.get("/api/Account/cookieGetById")
+            dispatch(loginSuccess(cookie.data))
             
         return {
             res: res,

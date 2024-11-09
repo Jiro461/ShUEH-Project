@@ -10,8 +10,8 @@ const createProductFormData = (shoeData) => {
     formData.append('ImageUrl', "");
     formData.append('Description', shoeData.description);
     formData.append('Price', parseInt(shoeData.price, 10));
-    formData.append('IsSale', shoeData.discount ? true : false);
-    formData.append('Discount', parseInt(shoeData.discount));
+    formData.append('IsSale', shoeData.discount > 0 ? true : false);
+    formData.append('Discount', shoeData.discount > 0 ? parseInt(shoeData.discount) : 0);
 
     if (shoeData.mainImage) formData.append('MainImage', shoeData.mainImage);
 
@@ -33,7 +33,7 @@ export const addNewProduct = async (shoeData) => {
     var type = "success"
     try {
         
-        const res = await request.post("api/Shoe/create", formData, {
+        const res = await request.post("/api/Shoe/create", formData, {
             headers: {
               'Content-Type': 'multipart/form-data', // Necessary for file uploads
             }
@@ -64,13 +64,16 @@ export const addNewProduct = async (shoeData) => {
 
 export const getAllProducts = async () => {
     try {
-        const res = await request.get("api/Shoe/all")
+        const res = await request.get("/api/Shoe/all")
         return res?.data?.map(item => {
             if (item.discount){
               item.discount = `${item.discount}%`
             }
             if(!item.imageUrl.includes(`${process.env.REACT_APP_API_URL}`)){
               item.imageUrl = `${process.env.REACT_APP_API_URL}/${item.imageUrl}`
+            }
+            if (item.price){
+                item.price = item.price.toLocaleString("vi-VN")
             }
             return item
           })
@@ -81,7 +84,7 @@ export const getAllProducts = async () => {
 
 export const getProductById = async (id) => {
     try {
-        const res = await request.get(`api/Shoe/${id}`)
+        const res = await request.get(`/api/Shoe/${id}`)
         if (!res?.data?.imageUrl?.includes(process.env.REACT_APP_API_URL)){
             res.data.imageUrl = `${process.env.REACT_APP_API_URL}/${res.data.imageUrl}`
           }
@@ -96,7 +99,7 @@ export const updateProduct = async (id, shoeData) => {
     var message = "Update product successfully"
     var type = "success"
     try {
-        const res = await request.put(`api/Shoe/${id}`, formData, {
+        const res = await request.put(`/api/Shoe/${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data', // Necessary for file uploads
             }
@@ -129,7 +132,7 @@ export const deleteProduct = async (id) => {
     var message = "Delete product successfully"
     var type = "success"
     try {
-        const res = await request.delete(`/Shoe/${id}`);   
+        const res = await request.delete(`/api/Shoe/${id}`);   
         return {
             res: res,
             status: res.status,
