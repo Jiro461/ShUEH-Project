@@ -15,7 +15,6 @@ export const getProducts = async () => {
 
 export const getProductsByBrand = async (brand) => {
     try {
-        console.log(brand);
         const res = await request.get(`/api/Shoe/brand?brand=${brand}`)
         return res.data.filter((item) => 
             item.name !== "Nike Downshifter 13"
@@ -32,3 +31,27 @@ export const getProductsByBrand = async (brand) => {
         console.log(error);
     }
 }
+
+export const getCollaborationProduct = async () => {
+    try {
+        const res = await request.get(`/api/Shoe/collaboration`)
+        return res.data  
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getReviews = async () => {
+    try {
+        const res = await request.get(`/api/Comment/home`)
+        const array = res.data.map((item) => {
+            item.userAvatar = `${process.env.REACT_APP_API_URL}/${item.userAvatar}`
+            return item
+        })
+        const randomArray = [...array].sort(() => 0.5 - Math.random())
+        return randomArray.slice(0,3)    
+    } catch (error) {
+        console.log(error);
+    }
+}
+
