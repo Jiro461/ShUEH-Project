@@ -64,12 +64,7 @@ const ChatAdmin = (props) => {
 
         // Handle receiving messages
         connect.on("ReceiveMessage", (fromUser, message) => {
-            const updatedMessages = [...latestMessages.current];
-            updatedMessages.push({ 
-                fromUserName: fromUser, 
-                message: message,
-                fromUserId: fromUser === "Admin" ? "AdminGroup" : props.userId 
-            });
+            const updatedMessages = [...latestMessages.current, { from: fromUser, message: message }];
             setMessages(updatedMessages);
         });
 
@@ -95,7 +90,7 @@ const ChatAdmin = (props) => {
                 updatedMessages.push({ 
                     fromUserName: "Admin",
                     message: message,
-                    fromUserId: "AdminGroup"
+                    from: "Admin"
                 });
                 setMessages(updatedMessages);
                 setMessage(''); // Xóa message sau khi gửi
@@ -122,7 +117,7 @@ const ChatAdmin = (props) => {
                 <div className='chat-admin-message-container'>
                     {messages.map((msg, index) => (
                         <div key={index} 
-                             className={`chat-admin-message-content ${msg.fromUserId === 'Admin' ? 'sender' : 'receiver'}`}>
+                             className={`chat-admin-message-content ${msg.from !== 'Admin' ? 'sender' : 'receiver'}`}>
                             <img src={msg.fromUserImage || '/user.svg'} alt="" />
                             <p>{msg.message}</p>
                         </div>

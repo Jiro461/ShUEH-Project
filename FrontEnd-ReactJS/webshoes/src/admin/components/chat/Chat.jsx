@@ -11,15 +11,20 @@ const Chat = () => {
     const userId = localStorage.getItem('userId');
     const page = 1;
     const pageSize = 10;
-    const loadChatHistory = async () => {
-        try {
-            const response = await axios.get(`${myvalue}/api/chat/user/${page}/${pageSize}`);
-            setMessages(response.data.messages);
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    
     useEffect(() => {
+        const loadChatHistory = async () => {
+            try {
+                axios.get(`http://localhost:5118/api/chat/user/${page}/${pageSize}`).then(res => {
+                    console.log(res.data);
+                    setMessages(res.data.messages || []);  // Đảm bảo messages luôn là mảng
+                });
+            } catch (err) {
+                console.log(err);
+                setMessages([]); // Đặt về mảng rỗng nếu có lỗi
+            }
+        };
+        loadChatHistory();
         // Khởi tạo kết nối SignalR
         const newConnection = new signalR.HubConnectionBuilder()
             .withUrl('http://localhost:5118/chatHub') // Địa chỉ Hub của bạn
@@ -27,7 +32,6 @@ const Chat = () => {
             .build();
 
         setConnection(newConnection);
-        loadChatHistory();
     }, []);
 
     useEffect(() => {
@@ -38,7 +42,8 @@ const Chat = () => {
                     
                     // Lắng nghe tin nhắn từ server
                     connection.on('ReceiveMessage', (user, message) => {
-                        setMessages((prevMessages) => [...prevMessages, { user, message }]);
+                        console.log(messages);
+                        setMessages((prevMessages) => [...prevMessages, { from: user, message: message }]);
                     });
                 })
                 .catch(error => console.error('SignalR Connection Error:', error));
@@ -49,7 +54,7 @@ const Chat = () => {
         if (newMessage.trim() && connection) {
             try {
                 await connection.invoke('SendMessageToAdmin', newMessage);
-                setMessages([...messages, { user: 'You', message: newMessage }]);
+                setMessages((prevMessages) => [...(prevMessages || []), { from: 'You', message: newMessage }]);
                 setNewMessage('');
             } catch (error) {
                 console.error('Send Message Error:', error);
@@ -67,8 +72,8 @@ const Chat = () => {
                 </div>
                 <div className='chat-body'>
                     <div className='chat-message-container'>
-                        {messages.map((msg, index) => (
-                            <div key={index} className={`chat-message ${msg.fromUserName !== 'Admin' ? 'receiver' : 'sender'}`}>
+                        {messages?.map((msg, index) => (
+                            <div key={index} className={`chat-message ${msg.from === 'Admin' ? 'sender' : 'receiver'}`}>
                                 <img src='/user.svg' alt="" />
                                 <p>{msg.message}</p>
                             </div>

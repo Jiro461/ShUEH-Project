@@ -12,33 +12,37 @@ namespace BackEnd_ASP.NET.Controller.Chat
         private readonly IChatMessageRepository _chatRepository;
         public const string ChatSessionKey = "ChatSessionKey";
         private readonly IMemoryCache _cache;
+        private readonly ILogger<ChatController> _logger;
 
-        public ChatController(IChatMessageRepository chatRepository, IMemoryCache cache)
+        public ChatController(IChatMessageRepository chatRepository, IMemoryCache cache, ILogger<ChatController> logger)
         {
             _chatRepository = chatRepository;
             _cache = cache;
+            _logger = logger;
         }
         [HttpGet("user/{page}/{pageSize}")]
         public async Task<IActionResult> GetMessagesForUserAsync(int page, int pageSize)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? _cache.Get<Guid>(ChatSessionKey).ToString();
-            if (userId == null) return Ok(new List<ChatMessage>());
+            _logger.LogInformation("User ID: {userId}", userId);
+            if (string.IsNullOrEmpty(userId)) return Ok(new List<ChatMessage>());
+
             var messages = await _chatRepository.GetMessagesByUserIdAsync(Guid.Parse(userId), page, pageSize);
+            if (messages == null || !messages.Any()) return Ok(new List<ChatMessage>());
+
             var chatHistory = messages
-                .GroupBy(msg => msg.ToUserId == userId ? msg.FromUserId : msg.ToUserId) // Nhóm theo UserId
+                .GroupBy(msg => msg.ToUserId == userId ? msg.FromUserId : msg.ToUserId)
                 .Select(group => new
                 {
                     UserId = group.Key,
                     Messages = group.Select(msg => new
                     {
                         Message = msg.Message,
-                        From = msg.FromUserId == "AdminGroup" ? "Admin" : msg.FromUserName, // Xác định người gửi (Admin hoặc User)
-                        Time = msg.Timestamp.ToString("yyyy-MM-ddTHH:mm:ssZ") // Định dạng lại thời gian
-                    }).OrderBy(msg => msg.Time) // Sắp xếp theo thời gian
-                    .ToList()
+                        From = msg.FromUserId == "AdminGroup" ? "Admin" : msg.FromUserName,
+                        Time = msg.Timestamp.ToString("yyyy-MM-ddTHH:mm:ssZ")
+                    }).OrderBy(msg => msg.Time).ToList()
                 }).FirstOrDefault();
 
-            // Trả về kết quả dưới dạng JSON
             return Ok(chatHistory);
         }
         [HttpGet("admin/{page}/{pageSize}")]

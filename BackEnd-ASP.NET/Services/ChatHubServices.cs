@@ -127,10 +127,11 @@ namespace BackEnd_ASP.NET.Services
             }
 
             // Lấy ChatId từ cache nếu có, nếu không tạo mới
-            if (!_cache.TryGetValue(Context.ConnectionId, out Guid chatId))
+            if (!_cache.TryGetValue(ChatSessionKey, out Guid chatId))
             {
                 chatId = Guid.NewGuid();
-                _cache.Set(Context.ConnectionId, chatId);
+                logger.LogInformation("New chat ID: {chatId}", chatId);
+                _cache.Set(ChatSessionKey, chatId);
             }
 
             return chatId;
