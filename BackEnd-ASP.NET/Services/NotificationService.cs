@@ -205,7 +205,7 @@ namespace BackEnd_ASP.NET.Services
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
-            if (userId == null || userRole.ToLower() != "admin") return Unauthorized();
+            if (userId == null || userRole!.ToLower() != "admin") return Unauthorized();
             var notifications = await _context.Notifications.Select(notification => new
             {
                 notification.Id,

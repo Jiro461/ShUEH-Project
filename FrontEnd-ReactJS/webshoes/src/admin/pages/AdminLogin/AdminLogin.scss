@@ -1,0 +1,85 @@
+@import './../../../../styles/variables.scss';
+@import './../../../../styles/responsive.scss';
+
+.admin-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: $main-bg;
+    color: $main-color;
+    box-sizing: border-box;
+    .admin-login-footer {
+        width: 100%;
+        height: 125px;
+    }
+    .admin-login-container {    
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .admin-login-form {
+            border-radius: 10px;
+            width: 450px;
+            padding: 35px 50px;
+            height: 359px;
+            gap: 0px;
+            background-color: #FFFFFF;
+            display: flex;
+            color: $soft-color;
+            flex-direction: column;
+     
+            .admin-login-form-title {
+                font-size: 32px;
+                font-weight: bold;
+                flex: 1;
+                margin-top: 0;
+                margin-bottom: 25px;
+                color: #000000;
+                align-self: flex-start;
+                h1 {
+                    margin: 0;
+                    font-weight: bold;
+                }
+            }
+            .admin-login-form-content {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                .admin-login-form-content-item {
+
+                    .MuiFormControl-root{
+                        width: 250px;
+                    }
+                }
+                .admin-login-form-content-item button {
+                    margin-top: 16px;
+                    border-radius: 60px;
+                    width: 130px;
+                    height: 50px;
+                    background-color: #2A3549;
+                }
+                .forgot-password {
+                    margin-top: 16px;
+                    a {
+                        color: #FCAD72;
+                    }
+                }
+            }
+        }
+        @include sm {
+            .admin-login-form {
+                width: calc(100% - 50px);
+            }
+        }
+    }
+    @include sm {
+        padding: 0 50px;
+        width: 100%;
+    }
+}
