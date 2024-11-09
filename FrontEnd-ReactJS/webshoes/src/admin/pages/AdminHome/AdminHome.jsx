@@ -73,7 +73,6 @@ const AdminHome = () => {
     axios.get(`${host}/api/Statistic/shoes/most-sold-monthly`).then(res => {
         res.data = res.data.sort((a, b) => b.month - a.month);
         setMostSoldShoes(res.data);
-        console.log(res.data)
         setLoadingMostSoldShoes(false);
     });
     axios.get(`${host}/api/Statistic/site-views/monthly`).then(res => {

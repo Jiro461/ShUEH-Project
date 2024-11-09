@@ -54,7 +54,7 @@ namespace BackEnd_ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-    
+
             ShoeSeeding(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
@@ -2415,6 +2415,7 @@ namespace BackEnd_ASP.NET.Data
                 int maxAdditionalSizes = rand.Next(3, 5);
                 for (int j = 0; j <= maxAdditionalSizes; j++)
                 {
+                    if (initialSize + j > 45) break;
                     int currentSize = initialSize + j;
                     // Nếu là size đầu tiên, sử dụng initialSize, 
                     // các size tiếp theo sẽ lớn hơn size trước đó và nhỏ hơn 45
@@ -2427,6 +2428,7 @@ namespace BackEnd_ASP.NET.Data
                         Quantity = rand.Next(0, 150) // Quantity ngẫu nhiên từ 0 tới 20
                     });
 
+
                 }
             }
 
@@ -2434,7 +2436,7 @@ namespace BackEnd_ASP.NET.Data
             //RandomSiteViewAndProductView(modelBuilder, shoeIds.ToList());
             //RandomData(modelBuilder);
         }
-        
+
         //Random Shoe Data
         // private void RandomShoeData(ModelBuilder modelBuilder)
         // {

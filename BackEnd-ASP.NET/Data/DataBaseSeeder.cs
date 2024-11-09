@@ -1,20 +1,24 @@
 // DatabaseSeeder.cs
 using System.Net;
 using BackEnd_ASP.NET.Data;
+using BackEnd_ASP.NET.Services;
 using BackEnd_ASP_NET.Models;
 using BackEnd_ASP_NET.Utilities.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 public class DatabaseSeeder
 {
     private readonly ShUEHContext _context;
     private readonly UserManager<User> _userManager;
+    private readonly INotificationService _notificationService;
     private readonly Random _random = new Random();
 
-    public DatabaseSeeder(ShUEHContext context, UserManager<User> userManager)
+    public DatabaseSeeder(ShUEHContext context, UserManager<User> userManager, INotificationService notificationService)
     {
         _context = context;
         _userManager = userManager;
+        _notificationService = notificationService;
     }
 
     public async Task SeedData(List<Guid> shoeIds)
@@ -22,18 +26,73 @@ public class DatabaseSeeder
         List<Guid> roleIds = CreateRole();
         List<Guid> userIds = await CreateUsersAsync(roleIds[1], roleIds[0]);
         RandomSiteViewAndProductView(shoeIds);
-        List<OrderItem> orderItems = SeedOrders(userIds, shoeIds);
+        Tuple<List<Order>, List<OrderItem>> orders = SeedOrders(userIds, shoeIds);
         RandomDiscountData();
-        RandomCommentData(shoeIds, userIds, orderItems);
+        await RandomCommentData(shoeIds, userIds, orders.Item2);
+        List<WishlistItem> wishlistItems = await RandomWishlistData(userIds, shoeIds);
+        await RandomNotificationData(userIds, shoeIds, orders.Item1, wishlistItems);
         _context.SaveChanges();
     }
     #region Seed Data
-    private void RandomDiscountData(){
+    private async Task RandomNotificationData(List<Guid> userIds,
+    List<Guid> shoeIds,
+    List<Order> orders,
+    List<WishlistItem> wishlistItems)
+    {
+        foreach (var order in orders)
+        {
+            await _notificationService.CreateNotificationForOrder(order, order.UserId);
+        }
+        foreach (var comment in _context.Comments)
+        {
+            await _notificationService.CreateNotificationForComment(comment, comment.UserId);
+        }
+        foreach (var userId in userIds)
+        {
+            foreach (var shoeId in shoeIds)     
+            {
+                await _notificationService.CreateNotificationForUserViewProduct(shoeId, userId);
+            }
+        }
+
+        foreach (var wishlistItem in wishlistItems)
+        {
+            await _notificationService.CreateNotificationForWishlist(wishlistItem, wishlistItem.UserId);
+        }
+        foreach (var shoe in _context.Shoes)
+        {
+            await _notificationService.CreateNotificationForShoe(shoe);
+        }
+    }
+    private async Task<List<WishlistItem>> RandomWishlistData(List<Guid> userIds, List<Guid> shoeIds)
+    {
+        var wishlistItems = new List<WishlistItem>();
+        foreach (var shoeId in shoeIds)
+        {
+            foreach (var userId in userIds)
+            {
+                bool IsWishlist = _random.Next(0, 2) == 0;
+                if (!IsWishlist) continue;
+                var wishlistItemId = Guid.NewGuid();
+                var wishlistItem = new WishlistItem { Id = wishlistItemId, ShoeId = shoeId, UserId = userId };
+                _context.WishlistItems.Add(wishlistItem);
+                wishlistItems.Add(wishlistItem);
+                 _context.SaveChanges();
+                await _notificationService.CreateNotificationForWishlist(wishlistItem, userId);
+            }
+        }
+        _context.SaveChanges();
+        return wishlistItems;
+    }
+    private void RandomDiscountData()
+    {
         var discount = new List<Discount>();
-        
-        for(int i = 0; i < 10; i++){
+
+        for (int i = 0; i < 10; i++)
+        {
             decimal? percentage = _random.Next(0, 2) == 0 ? null : (decimal?)_random.Next(10, 50);
-            discount.Add(new Discount{
+            discount.Add(new Discount
+            {
                 Id = Guid.NewGuid(),
                 Code = GenerateRandomCode(),
                 IsPublic = _random.Next(0, 2) == 0,
@@ -51,7 +110,7 @@ public class DatabaseSeeder
         _context.Discounts.AddRange(discount);
         _context.SaveChanges();
     }
-    private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds, List<OrderItem> orderItems)
+    private async Task RandomCommentData(List<Guid> shoeIds, List<Guid> userIds, List<OrderItem> orderItems)
     {
 
         Random random = new Random();
@@ -72,7 +131,7 @@ public class DatabaseSeeder
                     >= 2 => GeneralReview.Bad,
                     _ => GeneralReview.VeryBad
                 };
-                
+
                 OrderItem? orderItem = orderItems.Where(item => item.ShoeId == shoeId).FirstOrDefault();
                 if (orderItem == null) continue;
                 _context.Comments.Add(
@@ -94,9 +153,12 @@ public class DatabaseSeeder
                 int totalLike = random.Next(0, 25);
                 for (int k = 0; k < totalLike; k++)
                 {
-                    _context.CommentLikes.Add(
-                        new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] }
-                    );
+                    var commentLikeId = Guid.NewGuid();
+                    var commentLike = new CommentLike { Id = commentLikeId, CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] };
+                    _context.CommentLikes.Add(commentLike);
+                    var userId = commentLike.UserId;
+                    _context.SaveChanges();
+                    await _notificationService.CreateNotificationForCommentLike(commentLike, userId);
                 }
                 _context.SaveChanges();
             }
@@ -187,6 +249,7 @@ public class DatabaseSeeder
             {
                 userIds.Add(userId);
                 users.Add(user);
+                await _notificationService.CreateNotificationForNewUser(user);
             }
         }
 
@@ -244,10 +307,11 @@ public class DatabaseSeeder
             _context.SaveChanges();
         }
     }
-    private List<OrderItem> SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
+    private Tuple<List<Order>, List<OrderItem>> SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
     {
         const int orderCount = 178; // số lượng đơn hàng cần seed
         var orders = new List<Order>();
+        var saveOrders = new List<Order>();
         var _orderItems = new List<OrderItem>();
         for (int i = 0; i < orderCount; i++)
         {
@@ -272,6 +336,7 @@ public class DatabaseSeeder
             };
 
             orders.Add(order);
+            saveOrders.Add(order);
             _orderItems.AddRange(orderItems);
             if (i % 10 == 0)
             {
@@ -286,7 +351,7 @@ public class DatabaseSeeder
             _context.Orders.AddRange(orders);
             _context.SaveChanges();
         }
-        return _orderItems;
+        return new Tuple<List<Order>, List<OrderItem>>(saveOrders, _orderItems);
     }
     private void SeedProductViews(Guid productId, DateTime month, int viewsToGenerate)
     {
@@ -349,7 +414,7 @@ public class DatabaseSeeder
     }
     #endregion
     #region Generate Extension
-    
+
     private string GenerateRandomCode()
     {
         return Guid.NewGuid().ToString().Substring(0, 8).ToUpper();

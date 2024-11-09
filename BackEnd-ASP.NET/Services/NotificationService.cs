@@ -185,7 +185,7 @@ namespace BackEnd_ASP.NET.Services
         }
         #endregion
         #region Get Notification API
-        public async Task<IActionResult> GetUserNotifications(HttpContext httpContext)
+        public async Task<IActionResult> GetUserNotifications(HttpContext httpContext, int pageNumber, int pageSize)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null) return Unauthorized();
@@ -196,20 +196,24 @@ namespace BackEnd_ASP.NET.Services
                 notification.CreateDate
             })
             .OrderByDescending(notification => notification.CreateDate)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
             return Ok(notifications);
         }
-        public async Task<IActionResult> GetAdminNotifications(HttpContext httpContext)
+        public async Task<IActionResult> GetAdminNotifications(HttpContext httpContext, int pageNumber, int pageSize)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
-            if (userId == null || userRole != "Admin") return Unauthorized();
+            if (userId == null || userRole!.ToLower() != "admin") return Unauthorized();
             var notifications = await _context.Notifications.Select(notification => new
             {
                 notification.Id,
                 notification.AdminMessage,
                 notification.CreateDate
             })
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .OrderByDescending(notification => notification.CreateDate)
             .ToListAsync();
             return Ok(notifications);
@@ -219,7 +223,7 @@ namespace BackEnd_ASP.NET.Services
         {
             var adminId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
-            if (adminId == null || userRole != "Admin") return Unauthorized();
+            if (adminId == null || userRole!.ToLower() != "admin") return Unauthorized();
             var notifications = await _context.Notifications
             .Where(notification => notification.UserId == userId)
             .Select(notification => new

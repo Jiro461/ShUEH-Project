@@ -14,8 +14,8 @@ namespace BackEnd_ASP.NET.Services
         Task CreateNotificationForShoe(Shoe shoe);
         Task CreateNotificationForUserViewProduct(Guid productId, Guid userId);
         Task CreateNotificationForEntityDelete<T>(T entity) where T : class;
-        Task<IActionResult> GetUserNotifications(HttpContext httpContext);
-        Task<IActionResult> GetAdminNotifications(HttpContext httpContext);
+        Task<IActionResult> GetUserNotifications(HttpContext httpContext, int pageNumber, int pageSize);
+        Task<IActionResult> GetAdminNotifications(HttpContext httpContext, int pageNumber, int pageSize);
         Task<IActionResult> AdminGetUserNotifications(HttpContext httpContext, Guid userId);
     }
 }

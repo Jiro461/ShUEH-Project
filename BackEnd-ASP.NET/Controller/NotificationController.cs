@@ -20,21 +20,25 @@ namespace BackEnd_ASP.NET.Controller
     public class NotificationController : ControllerBase
     {
         private readonly INotificationService _notificationService;
-        public NotificationController(INotificationService notificationService){
+        public NotificationController(INotificationService notificationService)
+        {
             _notificationService = notificationService;
         }
-        [HttpGet("user")]
-        public async Task<IActionResult> GetUserNotifications(){
-            return await _notificationService.GetUserNotifications(HttpContext);
+        [HttpGet("user/{pageNumber}/{pageSize}")]
+        public async Task<IActionResult> GetUserNotifications(int pageNumber, int pageSize)
+        {
+            return await _notificationService.GetUserNotifications(HttpContext, pageNumber, pageSize);
         }
-        [HttpGet("admin")]
-        public async Task<IActionResult> GetAdminNotifications(){
-            return await _notificationService.GetAdminNotifications(HttpContext);
+        [HttpGet("admin/{pageNumber}/{pageSize}")]
+        public async Task<IActionResult> GetAdminNotifications(int pageNumber, int pageSize)
+        {
+            return await _notificationService.GetAdminNotifications(HttpContext, pageNumber, pageSize);
         }
         [HttpGet("admin/user/{userId}")]
-        public async Task<IActionResult> AdminGetUserNotifications(Guid userId){
+        public async Task<IActionResult> AdminGetUserNotifications(Guid userId)
+        {
             return await _notificationService.AdminGetUserNotifications(HttpContext, userId);
         }
-  
+
     }
 }
