@@ -101,6 +101,9 @@
                     font-size: 1rem;
                     border: none;
                     outline: none;
+                    &:hover{
+                        color: yellow;
+                    }
                 }
 
                 .forgot-password{
@@ -109,6 +112,9 @@
                     color: var(--Mu-ch-kt-hp, #FCAD72);
                     font-size: 14px;
                     font-weight: 400;
+                    &:hover{
+                        text-decoration: underline;
+                    }
                 }
 
                 span{
@@ -122,6 +128,10 @@
                     padding: 15px 30px;
                     border-radius: 60px;
                     background: #A3A3A3;
+                    &:hover{
+                        background: #777;
+                        color: white;
+                    }
                 }
                 .btn-login-google{
                     position: relative;
@@ -138,6 +148,9 @@
                     text-align: center;
                     cursor: pointer;
                     transition: background-color .2s;
+                    &:hover{
+                        background: #ccc;
+                    }
                     img{
                         position: absolute;
                         top: 50%;

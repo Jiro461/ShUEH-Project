@@ -2,11 +2,14 @@ import React from 'react';
 import Product from "../../../components/HomeProduct/Product";
 import './UserBrandShoes.scss'
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import { Reveal } from "../../../components/Animation/Reveal.tsx";
 
 const UserBrandShoes = () => {
     return (
         <div className="brand-shoes">
+            <Reveal>
             <SectionTitle className="text-center" title="BRAND SHOES."></SectionTitle>
+            </Reveal>
             <div className="img-brand-block">
                 <img src="/brand-nike-icon.svg" alt=""></img>
                 <img src="/brand-adidas-icon.svg" alt=""></img>

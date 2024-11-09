@@ -35,10 +35,10 @@ const Product = () => {
   }
   return (
     <div className="product">
-        {isLoading ? (
+        {false ? (
       <p>Loading...</p> // Hiển thị loading khi đang tải dữ liệu
     ) : (
-      <Single {...data} />
+      <Single {...singleProduct} />
     )}
     </div>
   )

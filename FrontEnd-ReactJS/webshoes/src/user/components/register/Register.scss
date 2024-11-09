@@ -148,17 +148,9 @@
 
 @media (max-width: 992px){
     .overlay{
-        .login-block{
-            .login-content{
+        .register-block{
+            .register-content{
                 width: 50vw;
-                form{
-                    input{
-                        width: 40vw;
-                    }
-                    .btn-create{
-                        width: 35vw;
-                    }
-                }
             }
         }
     }
@@ -166,17 +158,9 @@
 
 @media (max-width: 768px){
     .overlay{
-        .login-block{
-            .login-content{
+        .register-block{
+            .register-content{
                 width: 60vw;
-                form{
-                    input{
-                        width: 50vw;
-                    }
-                    .btn-create{
-                        width: 45vw;
-                    }
-                }
             }
         }
     }
@@ -184,18 +168,9 @@
 
 @media (max-width: 576px){
     .overlay{
-        .login-block{
-            .login-content{
+        .register-block{
+            .register-content{
                 width: 70vw;
-                form{
-                    input{
-                        width: 60vw;
-                    }
-                    .btn-create{
-                        font-size: 0.8rem;
-                        min-width: 200px;
-                    }
-                }
             }
         }
     }

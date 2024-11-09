@@ -6,16 +6,16 @@ import Slider from 'react-slick'
 import {Reveal} from "../../../components/Animation/Reveal.tsx";
 import * as homeService from "../../../../services/homeService.jsx"
 import { useInView } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const UserProducts = () => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [brand, setBrand] = useState("Nike")
     const [activeBrand, setActiveBrand] = useState("Nike")
+    const navigate = useNavigate()
     const ref = useRef(null)
     const isInView = useInView(ref)
-    const navigate = useNavigate();
     const productStyle = {
         zIndex: 5,
         scale: isInView ? 1 : 0.1,
@@ -38,17 +38,6 @@ const UserProducts = () => {
         }
         fetchApi()
     }, [brand])
-    const images = [
-        {id: 2,
-            src: "/product-2.svg"
-        },
-        {id: 3,
-            src: "/product-3.svg"
-        },
-        {id: 4,
-            src: "/product-4.svg"
-        },
-    ]
     var settings = {
         dots: true,
         infinite: true,
