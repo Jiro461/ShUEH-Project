@@ -21,15 +21,6 @@ function App() {
                                     path={route.path}
                                     element={<Page />}
                                 >
-                                    {route?.children?.map((childrenRoute, index) => {
-                                        return (
-                                            <Route
-                                            key={index}
-                                            path={childrenRoute.path}
-                                            element={childrenRoute.element}
-                                        />
-                                        )
-                                    })}
                                 </Route>
                             );
                         })}
@@ -44,7 +35,17 @@ function App() {
                                         key={index}
                                         path={route.path}
                                         element={<Page/>}
-                                    />
+                                    >
+                                        {route?.children?.map((childrenRoute, index) => {
+                                        return (
+                                            <Route
+                                            key={index}
+                                            path={childrenRoute.path}
+                                            element={<childrenRoute.element/>}
+                                        />
+                                        )
+                                    })}
+                                    </Route>
                                 )
                             })}
                         </Route>
