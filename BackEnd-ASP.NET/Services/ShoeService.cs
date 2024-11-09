@@ -11,12 +11,14 @@ namespace BackEnd_ASP.NET.Services
 {
     public class ShoeService : ControllerBase, IShoeService
     {
+        // Khai báo các dịch vụ cần thiết
         private readonly IShoeRepository shoeRepository; // Repository để thao tác với dữ liệu giày
-        private readonly ShUEHContext context; // Context của EF Core
-        private readonly INotificationService notificationService;
-        private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly ILogger<ShoeService> logger;
+        private readonly ShUEHContext context; // Context của EF Core để thao tác với cơ sở dữ liệu
+        private readonly INotificationService notificationService; // Dịch vụ thông báo
+        private readonly IWebHostEnvironment webHostEnvironment; // Dịch vụ môi trường web để xử lý tệp
+        private readonly ILogger<ShoeService> logger; // Dịch vụ logging để ghi lại các thông tin log
 
+        // Constructor nhận các tham số để khởi tạo dịch vụ
         public ShoeService(IShoeRepository shoeRepository, ShUEHContext context, INotificationService notificationService, IWebHostEnvironment webHostEnvironment, ILogger<ShoeService> logger)
         {
             this.shoeRepository = shoeRepository;
@@ -25,56 +27,62 @@ namespace BackEnd_ASP.NET.Services
             this.webHostEnvironment = webHostEnvironment;
             this.logger = logger;
         }
+
         // Lấy tất cả giày từ kho
         public async Task<IEnumerable<ShoeGetAllDTO>?> GetAllShoesAsync(Guid? userId = null, int page = -1, int pageSize = -1)
         {
-            logger.LogInformation($"GetAllShoesAsync called with userId: {userId}");
-            var shoes = await shoeRepository.GetAllShoesAsync(page, pageSize);
+            logger.LogInformation($"GetAllShoesAsync called with userId: {userId}"); // Log thông tin khi gọi phương thức
+            var shoes = await shoeRepository.GetAllShoesAsync(page, pageSize); // Lấy tất cả giày từ repository
             IEnumerable<ShoeGetAllDTO>? shoesDTO;
+
+            // Kiểm tra nếu có userId thì lọc giày theo người dùng
             if (userId != null)
             {
-                shoesDTO = GetAllShoeByUserID(shoes, userId);
+                shoesDTO = GetAllShoeByUserID(shoes, userId); // Lọc giày theo người dùng
                 if (shoesDTO == null) return null;
                 return shoesDTO;
             }
+
+            // Nếu không có userId, trả về tất cả giày
             shoesDTO = ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), null);
             if (shoesDTO == null) return null;
             return shoesDTO;
-
         }
+
+        // Lọc giày theo người dùng
         private IEnumerable<ShoeGetAllDTO>? GetAllShoeByUserID(IEnumerable<Shoe> shoes, Guid? userId)
         {
             if (userId == null) return null;
-            var user = context.Users.FirstOrDefault(user => user.Id == userId);
+            var user = context.Users.FirstOrDefault(user => user.Id == userId); // Lấy thông tin người dùng
             if (user == null) return null;
-            var genderBinding = user.Gender.GenderBinding();
-            var userWishlist = context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList();
-            shoes = shoes.OrderByDescending(shoe => shoe.Gender == genderBinding || shoe.Gender == 2);
-            return ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), userId);
+            var genderBinding = user.Gender.GenderBinding(); // Lấy giới tính người dùng
+            var userWishlist = context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList(); // Lấy danh sách giày trong wishlist của người dùng
+            shoes = shoes.OrderByDescending(shoe => shoe.Gender == genderBinding || shoe.Gender == 2); // Lọc giày theo giới tính của người dùng
+            return ConvertListToListShoeGetAllDTOForUser(shoes.ToList(), userId); // Chuyển đổi danh sách giày thành DTO
         }
-        // Lấy giày theo ID từ người dùng
+
+        // Lấy giày theo ID cho người dùng
         public async Task<IActionResult> GetShoeByIdFromUserAsync(Guid id, Guid? userId = null)
         {
-            var shoe = await shoeRepository.GetShoeByIdAsync(id);
+            var shoe = await shoeRepository.GetShoeByIdAsync(id); // Lấy giày theo ID từ repository
             if (shoe == null)
-                return NotFound($"Shoe with ID {id} not found."); // Trả về NotFound nếu không tìm thấy
-            var shoeDTO = ConvertShoeToShoeGetDTO(shoe, userId);
+                return NotFound($"Shoe with ID {id} not found."); // Trả về NotFound nếu không tìm thấy giày
+
+            var shoeDTO = ConvertShoeToShoeGetDTO(shoe, userId); // Chuyển giày thành DTO
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
-            return Ok(shoeDTO);
+            return Ok(shoeDTO); // Trả về giày dưới dạng DTO
         }
 
-        // Lấy giày theo ID từ admin
+         // Lấy giày theo ID cho Admin
         public async Task<IActionResult> GetShoeByIdFromAdminAsync(Guid id)
         {
-            // Lấy thông tin giày từ repository
-            var shoe = await shoeRepository.GetShoeByIdAsync(id);
+            var shoe = await shoeRepository.GetShoeByIdAsync(id); // Lấy giày theo ID từ repository
             if (shoe == null) return NotFound($"Shoe with ID {id} not found.");
 
-            // Chuyển đổi giày thành DTO
-            var shoeDTO = ConvertShoeToShoeGetDTO(shoe, null);
+            var shoeDTO = ConvertShoeToShoeGetDTO(shoe, null); // Chuyển giày thành DTO
             if (shoeDTO == null) return NotFound($"Shoe with ID {id} not found.");
 
-            // Truy vấn lượt xem theo tháng
+            // Lấy dữ liệu lượt xem và đơn hàng theo tháng
             var shoeViewByMonth = await context.ProductViews
                 .Where(view => view.ProductId == id && view.ViewedDate.Month <= DateTime.Now.Month)
                 .GroupBy(view => view.ViewedDate.Month)
@@ -85,17 +93,18 @@ namespace BackEnd_ASP.NET.Services
                 })
                 .ToListAsync();
 
-            // Truy vấn số lượng đơn hàng theo tháng
             var shoeOrderByMonth = await context.OrderItems
                 .Join(context.Orders, oi => oi.OrderId, o => o.Id, (oi, o) => new { oi, o })
                 .Where(x => x.oi.ShoeId == id)
-                .GroupBy(x => x.o.OrderDate.Month) // Nhóm theo tháng trong OrderDate
+                .GroupBy(x => x.o.OrderDate.Month) 
                 .Select(g => new
                 {
                     Month = g.Key,
-                    TotalQuantity = g.Sum(x => x.oi.Quantity) // Tính tổng số lượng trong mỗi tháng
+                    TotalQuantity = g.Sum(x => x.oi.Quantity) 
                 })
                 .ToListAsync();
+
+            // Kết hợp dữ liệu lượt xem và đơn hàng theo tháng
             var result = shoeViewByMonth
                     .GroupJoin(shoeOrderByMonth,
                         view => view.Month,
@@ -104,17 +113,16 @@ namespace BackEnd_ASP.NET.Services
                         {
                             Month = view.Month,
                             Visits = view.ViewCount,
-                            Orders = orders.FirstOrDefault()?.TotalQuantity ?? 0 // Nếu không có đơn hàng, mặc định là 0
+                            Orders = orders.FirstOrDefault()?.TotalQuantity ?? 0 
                         })
                     .ToList();
 
-            // Nếu không có dữ liệu cho lượt xem hoặc đơn hàng theo tháng
             if (!result.Any())
             {
                 return NotFound($"Shoe with ID {id} does not have data for views or orders.");
             }
 
-            // Tạo response kết hợp thông tin giày, lượt xem và đơn hàng theo tháng
+            // Trả về kết quả bao gồm thông tin giày và biểu đồ
             var response = new
             {
                 shoeDTO,
@@ -128,13 +136,14 @@ namespace BackEnd_ASP.NET.Services
         public async Task<IActionResult> AddShoeAsync(ShoePostDTO shoe)
         {
             if (shoe == null)
-                return BadRequest("Shoe data is required."); // Kiểm tra dữ liệu đầu vào
+                return BadRequest("Shoe data is required."); // Kiểm tra dữ liệu giày có hợp lệ không
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
-            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand).FirstOrDefault();
-            if (existingShoe != null)
-                return BadRequest("Shoe already exist, using another name or brand. Or you can update the existing shoe");
-            // Tạo một đối tượng giày mới
 
+            var existingShoe = context.Shoes.Where(s => s.Name == shoe.Name && s.Brand == shoe.Brand).FirstOrDefault(); // Kiểm tra giày đã tồn tại chưa
+            if (existingShoe != null)
+                return BadRequest("Shoe already exists, using another name or brand.");
+
+            // Tạo một giày mới
             Guid newShoeId = Guid.NewGuid();
             var newShoe = new Shoe
             {
@@ -144,7 +153,7 @@ namespace BackEnd_ASP.NET.Services
                 Gender = shoe.Gender,
                 Material = shoe.Material,
                 Category = shoe.Category,
-                ImageUrl = await FileHelper.AddShoeImageAsync(webHostEnvironment, newShoeId, shoe),
+                ImageUrl = await FileHelper.AddShoeImageAsync(webHostEnvironment, newShoeId, shoe), // Thêm ảnh giày
                 Description = shoe.Description,
                 Price = shoe.Price,
                 IsSale = shoe.IsSale,
@@ -169,10 +178,11 @@ namespace BackEnd_ASP.NET.Services
                     ShoeId = newShoeId
                 }).ToList()
             };
-            await AddShoeImageAsync(newShoe, shoe); // Thêm các chi tiết của giày
-            await shoeRepository.AddShoeAsync(newShoe); // Thêm giày vào kho
-            await notificationService.CreateNotificationForShoe(newShoe);
-            return Ok("Shoe created successfully"); // Trả về 201 Created
+
+            await AddShoeImageAsync(newShoe, shoe); // Thêm các chi tiết ảnh
+            await shoeRepository.AddShoeAsync(newShoe); // Lưu giày mới vào cơ sở dữ liệu
+            await notificationService.CreateNotificationForShoe(newShoe); // Tạo thông báo khi có giày mới
+            return Ok("Shoe created successfully"); // Trả về thông báo thành công
         }
 
         // Cập nhật thông tin một đôi giày
@@ -272,11 +282,12 @@ namespace BackEnd_ASP.NET.Services
                 throw new InvalidOperationException("Failed to add shoe details.", ex);
             }
         }
+        //Cập nhật ảnh giày
         private async Task<List<ShoeImage>> UpdateShoeImageAsync(Shoe existingShoe, ShoePostDTO updateShoe)
         {
             var newImages = updateShoe.AdditionalImages;
             var newImagesList = new List<ShoeImage>();
-
+            //Cập nhật ảnh giày mới
             for (int i = 0; i < newImages?.Count; i++)
             {
                 if (updateShoe.AdditionalImages != null)
@@ -293,6 +304,7 @@ namespace BackEnd_ASP.NET.Services
             }
             return newImagesList;
         }
+        //Chuyển đổi giày thành DTO cho người dùng
         public ShoeGetDTO? ConvertShoeToShoeGetDTO(Shoe shoe, Guid? userId = null)
         {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;
@@ -360,6 +372,7 @@ namespace BackEnd_ASP.NET.Services
                 IsLiked = userWishlist != null ? userWishlist.Contains(shoe.Id) : false,
             }).ToList();
         }
+        //Chuyển đổi danh sách giày thành DTO cho người dùng
         public List<ShoeGetAllDTO> ConvertListToListShoeGetAllDTOForUser(List<Shoe> shoes, Guid? userId = null)
         {
             var userWishlist = userId != null ? context.WishlistItems.Where(userWishlist => userWishlist.UserId == userId).Select(userWishlist => userWishlist.ShoeId).ToList() : null;

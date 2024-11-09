@@ -5,11 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd_ASP.NET.Services
 {
-    public class PaymentService :  ControllerBase, IPaymentService
+    // Lớp dịch vụ thanh toán, kế thừa từ ControllerBase và triển khai IPaymentService
+    public class PaymentService : ControllerBase, IPaymentService
     {
-        private readonly IOrderRepository orderRepository;
-        private readonly ShUEHContext context;
-        private readonly INotificationService notificationService;
+        // Khai báo các biến thành viên cho repository và context
+        private readonly IOrderRepository orderRepository; // Repository để thao tác với dữ liệu đơn hàng
+        private readonly ShUEHContext context; // Context của EF Core
+        private readonly INotificationService notificationService; // Dịch vụ thông báo
+
+        // Hàm khởi tạo, nhận vào các đối tượng cần thiết
         public PaymentService(IOrderRepository orderRepository, ShUEHContext context, INotificationService notificationService)
         {
             this.orderRepository = orderRepository;
@@ -17,16 +21,19 @@ namespace BackEnd_ASP.NET.Services
             this.notificationService = notificationService;
         }
 
-    
+        // Phương thức xử lý thanh toán thành công
         public async Task<IActionResult> HandleSuccessfulPaymentAsync(Guid orderId)
         {
+            // Tìm đơn hàng theo ID
             var order = await orderRepository.GetOrderByIdAsync(orderId);
             if (order == null || order.Status != OrderStatus.Pending)
                 return NotFound("Order not found or not in pending state.");
-            if(order.IsUsingDiscount)
+
+            // Kiểm tra và xử lý giảm giá nếu có
+            if (order.IsUsingDiscount)
             {
                 var discount = await context.Discounts.FindAsync(order.DiscountId);
-                if(discount == null) return NotFound("Discount not found");
+                if (discount == null) return NotFound("Discount not found");
                 discount.Quantity -= 1;
                 if (discount.Quantity < 0)
                 {
@@ -34,7 +41,8 @@ namespace BackEnd_ASP.NET.Services
                 }
                 context.Discounts.Update(discount);
             }
-            //Giảm số lượng sản phẩm trong kho
+
+            // Giảm số lượng sản phẩm trong kho
             foreach (var item in order.OrderItems)
             {
                 var shoeDetail = await context.ShoeDetails
@@ -58,12 +66,15 @@ namespace BackEnd_ASP.NET.Services
             // Cập nhật trạng thái đơn hàng
             await context.SaveChangesAsync();
 
+            // Tạo thông báo cho đơn hàng
             await notificationService.CreateNotificationForOrder(order, order.UserId);
             return Ok("Order confirmed and inventory updated.");
         }
 
+        // Phương thức xử lý thanh toán thất bại
         public async Task<IActionResult> HandleFailedPaymentAsync(Guid orderId, bool isOutOfStock = false)
         {
+            // Tìm đơn hàng theo ID
             var order = await orderRepository.GetOrderByIdAsync(orderId);
             if (order == null || order.Status != OrderStatus.Pending)
                 return NotFound("Order not found or not in pending state.");
@@ -72,9 +83,8 @@ namespace BackEnd_ASP.NET.Services
             await orderRepository.DeleteOrderAsync(order.Id);
 
             await context.SaveChangesAsync();
-            if(isOutOfStock) return BadRequest("Discount is out of stock");
+            if (isOutOfStock) return BadRequest("Discount is out of stock");
             return Ok("Order cancelled due to failed payment.");
         }
     }
-
 }

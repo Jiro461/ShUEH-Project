@@ -70,32 +70,33 @@ public static class ServiceExtensions
     /// <summary>
     /// Cấu hình các dịch vụ Scoped.
     /// </summary>
-    private static void ConfigureScopedServices(IServiceCollection services)
+     private static void ConfigureScopedServices(IServiceCollection services)
     {
+        // Các dịch vụ Scoped được tạo mới cho mỗi request
         /*Repository*/
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IShoeRepository, ShoeRepository>();
-        services.AddScoped<IWishListRepository, WishListRepository>();
-        services.AddScoped<ICommentRepository, CommentRepository>();
-        services.AddScoped<IStatisticRepository, StatisticRepository>();
-        services.AddScoped<IDiscountRepository, DiscountRepository>();
-        services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();  // Repository cho đơn hàng
+        services.AddScoped<IUserRepository, UserRepository>();  // Repository cho người dùng
+        services.AddScoped<IShoeRepository, ShoeRepository>();  // Repository cho giày
+        services.AddScoped<IWishListRepository, WishListRepository>();  // Repository cho danh sách yêu thích
+        services.AddScoped<ICommentRepository, CommentRepository>();  // Repository cho bình luận
+        services.AddScoped<IStatisticRepository, StatisticRepository>();  // Repository cho thống kê
+        services.AddScoped<IDiscountRepository, DiscountRepository>();  // Repository cho giảm giá
+        services.AddScoped<IChatMessageRepository, ChatMessageRepository>();  // Repository cho tin nhắn chat
 
         /*Services*/
-        services.AddScoped<IOrderService, OrderService>();
-        services.AddScoped<ICommentService, CommentService>();
-        services.AddScoped<IWishListService, WishListService>();
-        services.AddScoped<IAccountService, AccountService>();
-        services.AddScoped<INotificationService, NotificationService>();
-        services.AddScoped<IShoeService, ShoeService>();
-        services.AddScoped<IPaymentService, PaymentService>();
-        services.AddScoped<IDiscountService, DiscountService>();
-        services.AddScoped<ChatHubServices>();
-        /*Identity*/
-        services.AddScoped<UserManager<User>>();
-        services.AddScoped<SignInManager<User>>();
+        services.AddScoped<IOrderService, OrderService>();  // Dịch vụ xử lý đơn hàng
+        services.AddScoped<ICommentService, CommentService>();  // Dịch vụ xử lý bình luận
+        services.AddScoped<IWishListService, WishListService>();  // Dịch vụ xử lý danh sách yêu thích
+        services.AddScoped<IAccountService, AccountService>();  // Dịch vụ quản lý tài khoản
+        services.AddScoped<INotificationService, NotificationService>();  // Dịch vụ thông báo
+        services.AddScoped<IShoeService, ShoeService>();  // Dịch vụ xử lý giày
+        services.AddScoped<IPaymentService, PaymentService>();  // Dịch vụ thanh toán
+        services.AddScoped<IDiscountService, DiscountService>();  // Dịch vụ giảm giá
+        services.AddScoped<ChatHubServices>();  // Dịch vụ Hub cho SignalR chat
 
+        /*Identity*/
+        services.AddScoped<UserManager<User>>();  // Quản lý người dùng trong hệ thống
+        services.AddScoped<SignInManager<User>>();  // Quản lý đăng nhập người dùng
     }
     /// <summary>
     /// Cấu hình dịch vụ xác thực bằng cookie.
