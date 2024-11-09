@@ -1,24 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './UserIntroduction.scss'
-import PropTypes from 'prop-types';
 import AddBlock from '../../../components/AddBlock/AddBlock';
 import PromotionTag from "../../../components/PromotionTag/PromotionTag";
-import { motion, useInView } from "framer-motion";
-import Slider from 'react-slick'
+import { useInView } from "framer-motion";
 import * as homeService from "../../../../services/homeService"
 
 const UserIntroduction =  () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
-    var settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      };
     useEffect(() => {
         const fetchApi = async () => {
             setLoading(true)
@@ -29,7 +18,6 @@ const UserIntroduction =  () => {
         }
         fetchApi()
     }, [])
-    console.log(data);
     const ref = useRef(null)
     const isInView = useInView(ref)
     const productStyle = {

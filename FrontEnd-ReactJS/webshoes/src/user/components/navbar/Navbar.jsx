@@ -103,14 +103,11 @@ const Navbar = (props) => {
                         </div>
 
                         {user ? (<>
-                            <div className="tool-item">
+                            <div className="tool-item" onClick={() => navigate("/profile")}>
                                 <img src="/nav-user.svg" alt="" />
                             </div>
                             <div className="tool-item">
                                 <img src="/nav-favor.svg" alt="" />
-                            </div>
-                            <div className="tool-item">
-                                Hi, {user.profileName}
                             </div>
                             <div className="tool-item btn btn-logout" onClick={handleLogout}>
                                 Log out

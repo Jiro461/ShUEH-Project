@@ -129,12 +129,12 @@
             left: -18%;
             z-index: 3;
             &.image-1{
-                top: 10%;
-                left: -5%;
+                top: 15%;
+                left: -7%;
             }
             &.image-2{
                 top: 10%;
-                left: -12%;
+                left: -17%;
             }
         }
         
@@ -147,7 +147,7 @@
             left: -5%;
             z-index: 2;
             &.image-1{
-                top: 10%;
+                top: 15%;
                 left: 6%;
             }
             &.image-2{
@@ -313,21 +313,57 @@
     .user-introduction{
         .product-introduction{
             right: 15%;
+            &.image-1{
+                top: 5%;
+                right: 8%;
+            }
+            &.image-2{
+                top: -5%;
+                right: 8%;
+            }
             .product-img{
                 width: 60vw;
+                &.image-1{
+                    object-fit: cover;
+                    width: 70vw;
+                }
+                &.image-2{
+                    object-fit: cover;
+                    width: 65vw;
+                    height: 45vw;
+                }
             }
 
             .product-promotion{
-                left: 2%;
+                left: -7%;
+                &.image-1{
+                    top: 5%;
+                    left: -3%;
+                }
+                &.image-2{
+                    top: 15%;
+                    left: -6%;
+                }
             }
 
             .black-circle-block{        
                 width: 35vw;
                 height: 35vw;
+                &.image-1{
+                    top: 2%;
+                    left: 5%;
+                }
+                &.image-2{
+                    top: 15%;
+                    left: -2%;
+                }
             }
 
             .product-add-block{
                 right: 37%;
+                &.image-2{
+                    top: 45%;
+                }
             }
         }
 
@@ -370,6 +406,16 @@
             right: 0%;
             .product-img{
                 width: 80vw;
+                &.image-1{
+                    object-fit: contain;
+                    width: 80vw;
+                    height: 50vw;
+                }
+                &.image-2{
+                    object-fit: cover;
+                    width: 75vw;
+                    height: 55vw;
+                }
             }
 
             .product-promotion{
@@ -377,6 +423,10 @@
                 width: 20vw;
                 height: 20vw;
                 z-index: 6;
+                &.image-2{
+                    top: -15%;
+                    left: -12%;
+                }
             }
 
             .black-circle-block{
@@ -385,7 +435,7 @@
             }
 
             .product-add-block{
- 
+                
             }
         }
 

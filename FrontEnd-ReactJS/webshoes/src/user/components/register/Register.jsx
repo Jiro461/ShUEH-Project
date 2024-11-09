@@ -45,12 +45,25 @@ const Register = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        props.setOpenBackDrop(true)
+        if (registerUser.confirm === false){
+            props.handleNoti({type: "warning", message: "Please confirm Shueh's Policy to continue"})
+            props.setOpenBackDrop(false)
+            return
+        }
         const formatUser = {
             ...registerUser,
+            gender: registerUser.gender === "male" ? true : registerUser.gender === "female" ? false : "",
             dateOfBirth: formatDateString(registerUser?.dateOfBirth),
         };
-        authService.registerUser(formatUser);
-        props.setOpen(false);
+        console.log(formatUser);
+        const res = await authService.registerUser(formatUser);
+        if (res.status === 200){
+            props.setOpenRegister(false);
+            props.setOpenLogin(true)
+        }
+        props.handleNoti(res)
+        props.setOpenBackDrop(false)
     };
 
     return (

@@ -19,11 +19,11 @@ const Product = ({width, productName, productBrand, imgClassName, imgSrc, isSale
                     <PromotionSale discount={discount}></PromotionSale>
                 </div>}
                 {isNew && <div className="product-promotion-tag-new">
-                    <PromotionTagNew fz="1vw"></PromotionTagNew>
+                    <PromotionTagNew fz="1.2rem"></PromotionTagNew>
                 </div>}
             </div>
             <div className={`product-price ${isSale ? "" : "single-price"}`}>
-                {isSale && <span className="original-price">{originalPrice}đ</span>}
+                {isSale && <span className="original-price d-none d-sm-block">{originalPrice}đ</span>}
                 <span className="sale-price">{price}đ</span>
             </div>
         </div>

@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './UserProducts.scss'
 import Product from "../../../components/HomeProduct/Product.jsx";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle.jsx"
 import Slider from 'react-slick'
 import {Reveal} from "../../../components/Animation/Reveal.tsx";
 import * as homeService from "../../../../services/homeService.jsx"
+import { useInView } from "framer-motion";
 
 const UserProducts = () => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [brand, setBrand] = useState("Nike")
     const [activeBrand, setActiveBrand] = useState("Nike")
+    const ref = useRef(null)
+    const isInView = useInView(ref)
+    const productStyle = {
+        zIndex: 5,
+        scale: isInView ? 1 : 0.1,
+        opacity: isInView ? 1 : 0,
+        transition: "scale 2s, opacity 2s"
+    }
+    const titleStyle = {
+        zIndex: 6,
+        transform: isInView ? "none" : "translateY(200px)",
+        opacity: isInView ? 1 : 0,
+        transition: "all 2s"
+    }
     useEffect(() => {
         const fetchApi = async () => {
             setLoading(true)
@@ -52,7 +67,7 @@ const UserProducts = () => {
                 <SectionTitle title="PRODUCTS"></SectionTitle>
             </Reveal>
 
-            <div className="navbar d-none d-md-flex">
+            <div className="navbar">
             <Reveal>
                 <ul>
                 {["Nike", "Adidas", "Puma", "Reebok", "Converse"].map((item) => (
@@ -75,7 +90,7 @@ const UserProducts = () => {
             </Reveal>
             </div>
 
-            <div className="product-home-wrapper">
+            <div className="product-home-wrapper d-none d-md-flex">
                 {data?.map((item, index) => {
                     return <div key={index} className="product-home-wrapper-item">
                         <Product 
@@ -95,9 +110,18 @@ const UserProducts = () => {
 
             <div className="slider-container d-sm-block d-md-none">
                 <Slider {...settings}>
-                    {images.map((item, index) => {
+                    {data?.map((item, index) => {
                         return <div key={index} className="slider-item">
-                                <Product width="90%"  imgSrc={item.src}></Product>
+                                <Product 
+                                width="90%"  
+                                productName={item.name}
+                                productBrand={item.brand}
+                                imgSrc={item.imageUrl || "/product-7.svg"}
+                                isSale={item.isSale}
+                                discount={item.discount}
+                                isNew={item.isNew}
+                                price={item.price}
+                                originalPrice={item.originalPrice}></Product>
                             </div>
                     })}
                 </Slider>

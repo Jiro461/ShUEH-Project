@@ -116,6 +116,13 @@
                         color: orange;
                     }
                 }
+                &.btn-logout{
+                    background: rgb(241, 90, 90);
+                    color: #fff;
+                    &:hover{
+                        color: yellow;
+                    }
+                }
             }
         }        
     }

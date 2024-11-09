@@ -11,11 +11,11 @@ const PrivateAdminRoutes = (props) => {
       const checkAuth = async () => {
         const res = await authService.loginStatus()
 
-        if (res.status === 401) {
+        if (res.status !== 200) {
             setLoading(false)
         }
 
-        if (res.data.role === "Admin"){
+        if (res.data?.role === "Admin"){
             setIsAdmin(true)
         } else {
             setIsAdmin(false)

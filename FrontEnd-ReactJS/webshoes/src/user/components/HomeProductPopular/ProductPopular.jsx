@@ -18,7 +18,7 @@ const ProductPopular = () => {
                 <div className="title">
                     BRAND
                 </div>
-                <div className="product">
+                <div className="product-popular-wrapper">
                     <img className="product-img" src="/popular-product.svg" alt=""></img>
                     <img className="line-decor-1" src="/popular-line-decor-2.svg" alt=""></img>
                     <div className="promotion-block">
