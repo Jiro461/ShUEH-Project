@@ -37,7 +37,7 @@ const Login = (props) => {
         const res = await authService.loginUser(user, dispatch, navigate);
         props.handleNoti(res);
 
-        if (res.status !== 400) {
+        if (res.status === 200) {
             props.setOpenLogin(false);
         }
     };

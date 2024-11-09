@@ -1,6 +1,6 @@
 .overlay{
     background: rgba(0, 0, 0, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -9,9 +9,9 @@
     justify-content: center;
     align-items: center;
     overflow: auto;
-    z-index: 1000;
+    z-index: 1001;
     .login-block{
-        position: fixed;
+        position: absolute;
         border-radius: 50px;
         z-index: -1;
         padding: 30px;
@@ -43,10 +43,14 @@
         .login-content{
             width: 35vw;
             height: 80vh;
+            overflow-y: scroll;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            &::-webkit-scrollbar{
+                width: 0;
+            }
             .logo{
                 margin: 0 auto;
                 width: 7vw;
@@ -203,11 +207,3 @@
         }
     }
 }
-
-
-
-
-
-    
-
-

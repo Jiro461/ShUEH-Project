@@ -4,8 +4,9 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { Alert, Backdrop, CircularProgress, Slide, Snackbar } from "@mui/material";
 import * as authService from "../../../services/authService";
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom";
+import { loginSuccess } from "../../../redux/authSlice";
 
 const Navbar = (props) => {
     const [openLogin, setOpenLogin] = useState(false)
@@ -14,8 +15,30 @@ const Navbar = (props) => {
     const [openToastMessage, setOpenToastMessage] = useState(false)
     const [typeToastMessage, setTypeToastMessage] = useState("")
     const [titleToastMessage, setTitleToastMessage] = useState("")
+    const navbar = [
+        { name: "Home", path: "/"},
+        { name: "Brands", path: "/"},
+        { name: "New", path: "/product?isNew=true"},
+        { name: "Sale", path: "/product?isNew=true"},
+        { name: "Support", path: "/"},
+    ]
+    const [active, setActive] = useState("Home")
     const user = useSelector((state) => state.auth.login.currentUser)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+    useEffect(() => {
+        const checkAuth = async () => {
+            const res = await authService.loginStatus()
+            console.log(res);
+            if (res.status === 200){
+                dispatch(loginSuccess(res.data))
+            }
+        }
+        checkAuth()
+    },[]) 
+    const handleNavbarClick = (e) => {
+        setActive(e.currentTarget.textContent);
+    }
     function SlideTransition(props) {
         return <Slide {...props} direction="left" />;
       }
@@ -36,7 +59,7 @@ const Navbar = (props) => {
     const handleLogout = async () => {
         const res = await authService.logoutUser()
         handleNoti(res)
-        props.setData(null)
+        dispatch(loginSuccess(null))
         navigate("/")
     }
    
@@ -49,18 +72,17 @@ const Navbar = (props) => {
 
                 <div className="nav-box">
 
-                    <div className="logo">
-                        <img src="/shueh-logo.svg" alt=""></img>
+                    <div className="logo">  
+                        <Link to="/"><img src="/shueh-logo.svg" alt=""></img></Link>
                     </div>
 
                     <nav className="main-nav d-none d-lg-block">
                         <ul>
-                            <li>Home</li>
-                            <li>Catalog</li>
-                            <li>Brands</li>
-                            <li>New</li>
-                            <li>Sale</li>
-                            <li>Support</li>
+                            {navbar.map((item, index) => {
+                                return <li key={index} className={active === item.name ? "active" : ""} onClick={handleNavbarClick}>
+                                    <Link to={item.path}>{item.name}</Link>
+                                </li>
+                            })}
                         </ul>
                     </nav>
 
