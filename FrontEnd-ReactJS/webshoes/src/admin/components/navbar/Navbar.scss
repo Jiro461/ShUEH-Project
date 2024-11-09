@@ -229,13 +229,14 @@
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
-                font-size: 16px;
+                font-size: 14px;
                 -webkit-user-select: none;
                 
             }
             .chat-message-list{
                 z-index: 100;
                 position: absolute;
+                overflow-y: auto;
                 top: 50px;
                 left: 80px;
                 width: 300px;
@@ -244,7 +245,94 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-                padding: 10px;
+                .chat-message-item-header{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                    padding: 10px;
+                    font-size: 20px;
+                    color: black;
+                    span{
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+                }
+
+                .chat-message-list-footer{
+                    display: flex;
+                    justify-content: center;
+                    width: 100%;
+                    align-items: center;
+                    margin-top: 15px;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    button{
+                        background-color: transparent;
+                        border: none;
+                        font-size: 16px;
+                        width: 100%;
+                        padding: 15px;
+                        font-weight: 500;
+                        cursor: pointer;
+                        margin-bottom: 10px;
+                        &:hover{
+                            background-color: rgb(214, 202, 202, 0.5);
+                        }
+                    }
+                }
+                .chat-message-item{
+                    display: flex;
+                    padding: 10px;
+                    width: 100%;
+                    flex-direction: column;
+                    align-items: center;
+                    flex-wrap: nowrap;
+                    gap: 10px;
+                    img{
+                        object-fit: cover;
+                        align-self: start;
+                        padding: 0px;
+                        height: 60px;
+                        width: 60px;
+                        border-radius: 50%;
+                    }
+                    .chat-message-content{
+                        display: flex;
+                        flex-direction: row;
+                        width: 100%;
+                        gap: 5px;
+                        padding: 5px;
+                        .chat-message-content-text-from{
+                            font-size: 16px;
+                            font-weight: 500;
+                            color: #5f5c5c;
+                        }
+                        .chat-message-content-text-message{
+                            font-size: 14px;
+                            font-weight: 500;
+                            word-break: break-word;
+                            word-wrap: break-word;
+                            align-self: start;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3; 
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            color: #5f5c5c;
+                        }
+                        .chat-message-content-text-date{
+                            font-size: 12px;
+                            font-weight: 400;
+                            color: #808080;
+                            align-self: end;
+                        }
+                        &:hover{
+                            background-color: rgb(214, 202, 202, 0.5);
+                            border-radius: 10px;
+                            cursor: pointer;
+                        }
+                    }
+                }
                 @include md{
                     width: 250px;
                     left: 25px;

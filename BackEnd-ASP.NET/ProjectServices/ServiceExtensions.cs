@@ -81,6 +81,7 @@ public static class ServiceExtensions
         services.AddScoped<IStatisticRepository, StatisticRepository>();
         services.AddScoped<IDiscountRepository, DiscountRepository>();
         services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+
         /*Services*/
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICommentService, CommentService>();
@@ -90,6 +91,7 @@ public static class ServiceExtensions
         services.AddScoped<IShoeService, ShoeService>();
         services.AddScoped<IPaymentService, PaymentService>();
         services.AddScoped<IDiscountService, DiscountService>();
+        services.AddScoped<ChatHubServices>();
         /*Identity*/
         services.AddScoped<UserManager<User>>();
         services.AddScoped<SignInManager<User>>();

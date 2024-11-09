@@ -205,7 +205,7 @@ namespace BackEnd_ASP.NET.Controller
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateShoeById(Guid id, [FromForm] ShoePostDTO shoe)
-        {
+        {   
             return await shoeService.UpdateShoeAsync(id, shoe);
         }
         #endregion

@@ -2,16 +2,37 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import Menu from '../menu/Menu';
 import'./Navbar.scss'
+import ChatAdmin from '../chatAdmin/ChatAdmin';
 import CircularProgress from '@mui/material/CircularProgress';
 axios.defaults.withCredentials = true;
 const Navbar = () => {
+    // {
+    //     "userId": "fd81b4db-d756-4ce7-b549-420498fa9be3",
+    //     "lastMessage": {
+    //       "id": "44f73ccd-e5f8-4bf5-0b0d-08dd0097f806",
+    //       "fromUserId": "fd81b4db-d756-4ce7-b549-420498fa9be3",
+    //       "fromUserName": "Guest",
+    //       "fromUserImage": "images/users/noimage.png",
+    //       "toUserId": "AdminGroup",
+    //       "toUserName": "Admin",
+    //       "toUserImage": "images/users/noimage.png",
+    //       "message": "xin chào admin",
+    //       "timestamp": "2024-11-09T15:24:45.7526796"
+    //     },
+    //     "lastMessageContent": "xin chào admin",
+    //     "lastMessageTime": "2024-11-09T15:24:45Z"
+    //   },
     var myvalue = process.env.REACT_APP_API_URL;
     const pageSize = 10;
-    const [chatNumber, setChatNumber] = useState(0);
+    const chatPageSize = 10;
+    const [isShowChat, setIsShowChat] = useState(false);
+    const [userId, setUserId] = useState('');
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [chatMessage, setChatMessage] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
+    const [chatPage, setChatPage] = useState(1);
+    const [chatNumber, setChatNumber] = useState(1);
     const [notificationNumber, setNotificationNumber] = useState(0);
     const [notificationMessage, setNotificationMessage] = useState([]);
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -51,7 +72,6 @@ const Navbar = () => {
             })
         }
     }, [pageNumber]);
-
     useEffect(() => {
         axios.get(`${myvalue}/api/notification/admin/1/${pageSize}`)
         .then(res => {
@@ -63,6 +83,28 @@ const Navbar = () => {
             console.log(err);
         })
     }, []); 
+    useEffect(() => {
+        if (chatPage > 1) {
+        axios.get(`${myvalue}/api/chat/conversations/${chatPage}/${chatPageSize}`)
+        .then(res => {
+            setChatMessage(prev => [...prev, ...res.data]);
+            setChatNumber(prev => prev + res.data.length);
+        })
+        .catch(err => {
+                console.log(err);
+            })
+        }
+    }, [chatPage]);
+    useEffect(() => {
+        axios.get(`${myvalue}/api/chat/conversations/1/${chatPageSize}`)
+        .then(res => {
+            setChatMessage(res.data);
+            setChatNumber(res.data.length);
+        })
+        .catch(err => {
+                console.log(err);
+            })
+    }, []);
     const fullScreen = () => {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen(); // Vào chế độ full screen
@@ -75,10 +117,16 @@ const Navbar = () => {
     const convertDate = (date) => {
         return new Date(date).toLocaleDateString('vi-VN', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'});
     }
+    const convertTime = (time) => {
+        return new Date(time).toLocaleTimeString('vi-VN', {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'});
+    }
     const over99Notification = (number) => {
         return number > 99 ? '99+' : number;
     }
+
     return (
+        <>
+        {isShowChat && <ChatAdmin isOpen={isShowChat} setIsOpen={setIsShowChat} userId={userId} />}
         <div className='adminnavbar'>
             <div className='logo'>
                 <img className='logo-img' src='/logo.svg' alt="" />
@@ -106,22 +154,40 @@ const Navbar = () => {
                     setIsMenuOpen(false)
                 }}>
                     <img src={`/chat.svg`} alt="" className='icon icon-chat' />
-                    <span className='icon-counter chat-number'>{chatNumber}</span>
+                    <span className='icon-counter chat-number'>{over99Notification(chatNumber)}</span>
                     {isChatOpen && 
-                    <div className='chat-message-list'>
+                    <div className='chat-message-list' onClick={(e) => {
+                        e.stopPropagation()
+                    }}>
                         <div className='chat-message-item-header'>
                             <span>Chat</span>
                         </div>
                         <div className='chat-message-item'>
-                            {chatMessage.map((item, index) => (
-                                <div className='chat-message-content' key={item.id}>
-                                    <img src={`/logo192.png`} alt="" />
-                                    <div className='chat-message-content-text'>
-                                        <span className='chat-message-content-text-message'>{item.adminMessage}</span>
-                                        <span className='chat-message-content-text-date'>{item.createDate}</span>
+                            {chatMessage.map((item, index) => {
+                                return (
+                                    <div className='chat-message-content' key={item.userId} onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsShowChat(true);
+                                        setUserId(item.userId);
+                                        setIsChatOpen(false);
+                                        setIsNotificationOpen(false);
+                                        setIsSettingOpen(false);
+                                    }}>
+                                        <img src={`${myvalue}${item.lastMessage.fromUserImage}`} alt="" />
+                                        <div className='chat-message-content-text'>
+                                            <span className='chat-message-content-text-from'>{item.lastMessage.fromUserName}</span>
+                                            <span className='chat-message-content-text-message'>{item.lastMessageContent}</span>
+                                            <span className='chat-message-content-text-date'>{convertTime(item.lastMessageTime)}</span>
+                                        </div>
                                     </div>
-                                </div>  
-                            ))}
+                                );
+                            })}
+                            <div className='chat-message-list-footer'>
+                                <button onClick={() => {
+                                    setChatPage(chatPage + 1);
+                                    setChatNumber(chatMessage.length);
+                                }}>View more</button>
+                            </div>
                         </div>
                     </div>}
                 </div>
@@ -190,6 +256,7 @@ const Navbar = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

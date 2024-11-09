@@ -177,7 +177,7 @@ namespace BackEnd_ASP.NET.Services
 
         // Cập nhật thông tin một đôi giày
         public async Task<IActionResult> UpdateShoeAsync(Guid shoeId, ShoePostDTO updateShoe)
-        {
+        {  
             var existingShoe = await shoeRepository.GetShoeByIdAsync(shoeId);
             if (existingShoe == null)
                 return NotFound($"Shoe with ID {shoeId} not found."); // Kiểm tra giày tồn tại
