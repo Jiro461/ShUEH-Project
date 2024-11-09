@@ -22,7 +22,18 @@ const Navbar = (props) => {
         { name: "Sale", path: "/product?isNew=true"},
         { name: "Support", path: "/"},
     ]
+    const subnav = [
+        { name: "Home", path: "/"},
+        { name: "Brands", path: "/"},
+        { name: "New", path: "/product?isNew=true"},
+    ]
+    const sidebarTools = [
+        { src: "/nav-shopping-bag-none-noti.svg", name: "Cart", path: "/cart"},
+        { src: "/nav-user.svg", name: "Account", path: "/profile"},
+        { src: "/nav-favor.svg", name: "Favourite", path: "/favourite"},
+    ]
     const [active, setActive] = useState("Home")
+    const [openSideBar, setOpenSideBar] = useState(false)
     const user = useSelector((state) => state.auth.login.currentUser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -105,11 +116,14 @@ const Navbar = (props) => {
                         {user ? (<>
                             <div className="tool-item" onClick={() => navigate("/profile")}>
                                 <img src="/nav-user.svg" alt="" />
+                            </div> 
+                            <div className="tool-item d-block d-md-none" onClick={() => setOpenSideBar(true)}>
+                                <img src="/navbar-menu-wrapper.svg" alt="" />
                             </div>
-                            <div className="tool-item">
+                            <div className="tool-item d-none d-md-block">
                                 <img src="/nav-favor.svg" alt="" />
                             </div>
-                            <div className="tool-item btn btn-logout" onClick={handleLogout}>
+                            <div className="tool-item btn btn-logout d-none d-md-block" onClick={handleLogout}>
                                 Log out
                             </div>
                         </>) : (<>
@@ -128,9 +142,11 @@ const Navbar = (props) => {
                     <span>shueh</span>
                     <nav className="main-nav">
                         <ul>
-                            <li>Home</li>
-                            <li>Catalog</li>
-                            <li>Brands</li>
+                            {subnav.map((item, index) => {
+                                return <li key={index}>
+                                    <Link to={item.path}>{item.name}</Link>
+                                    </li>
+                            })}
                         </ul>
                     </nav>
                     <div className="tools d-none d-sm-block">
@@ -139,6 +155,57 @@ const Navbar = (props) => {
                         <img src="/nav-fb-icon.svg" alt=""></img>
                     </div>
                 </div>
+
+                {openSideBar && <div className="sidebar-overlay">
+                    
+                    <div className="sidebar-content">
+                    <div className="sidebar-btn-close" onClick={() => setOpenSideBar(false)}>X</div>
+                        <div className="sidebar-nav">
+                            {navbar.map((item, index) => {
+                                return <div key={index} className="sidebar-nav-item" onClick={() => {
+                                    setOpenSideBar(false)
+                                    navigate(item.path)
+                                }}>
+                                    <span>{item.name}</span>
+                                    <span><i className="fa-solid fa-angle-right"></i></span>
+                                </div>
+                            })}
+                        </div>
+
+                        <div className="sidebar-tools">
+                            {sidebarTools.map((item, index) => {
+                                return <div key={index} className="sidebar-tool-item" onClick={() => {
+                                    setOpenSideBar(false)
+                                    navigate(item.path)
+                                }}>
+                                <img src={item.src} alt=""></img>
+                                <span>{item.name}</span>
+                            </div>
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="sidebar-btn">
+                    {!user ? (<>
+                            <div className="sidebar-btn-logout" onClick={handleLogout}>
+                                Log out
+                            </div>
+                        </>) : (<>
+                            <div className="sidebar-btn-item sidebar-btn-login" onClick={() => {
+                                setOpenSideBar(false)
+                                setOpenLogin(true)
+                            }}>
+                                Login
+                            </div>
+                            <div className="sidebar-btn-item sidebar-btn-register" onClick={() => {
+                                setOpenSideBar(false)
+                                setOpenRegister(true)
+                            }}>
+                                Register
+                            </div>
+                        </>)}
+                    </div>
+                </div>}
 
                 {openLogin && <Login 
                 setOpenLogin={setOpenLogin} 

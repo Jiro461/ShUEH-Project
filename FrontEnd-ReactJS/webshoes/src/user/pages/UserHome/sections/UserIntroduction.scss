@@ -376,8 +376,11 @@
 @media (max-width: 768px){
     .user-introduction{
         height: 65vh;
+        .prev-btn, .next-btn{
+            transform: translateY(-70px);
+        }
         .product-introduction{
-            
+
             .product-img{  
                 
             }

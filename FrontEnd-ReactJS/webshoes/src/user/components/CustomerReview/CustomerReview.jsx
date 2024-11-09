@@ -19,8 +19,8 @@ const CustomerReview = ({avatar, name, comment, rating}) => {
                     rating={rating}
                     numberOfStars={5}
                     starRatedColor="yellow"
-                    starDimension="30px"
-                    starSpacing="10px"
+                    starDimension="25px"
+                    starSpacing="1px"
                 ></StarRatings>
             </div>
         </div>

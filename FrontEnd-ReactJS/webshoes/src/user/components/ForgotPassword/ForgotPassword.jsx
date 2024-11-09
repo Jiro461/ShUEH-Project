@@ -16,17 +16,22 @@ const ForgotPassword = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         props.setOpenBackDrop(true)
-        let res = {}
+        let resForgot = {}
+        let resReset = {}
         if (forgotPassword){
-            res = await authService.forgotPasswordUser(email)
+            resForgot = await authService.forgotPasswordUser(email)
         } else {
-            res = await authService.resetPasswordUser(email, otp, password)
+            resReset = await authService.resetPasswordUser(email, otp, password)
         }
-        
-        props.handleNoti(res)
-        if (res.status === 200){
+        if (resForgot.status === 200){
             setForgotPassword(false)
+            props.handleNoti(resForgot)
         }  
+        if (resReset.status === 200){
+            props.setOpenForgotPassword(false)
+            props.setOpenLogin(true)
+            props.handleNoti(resReset)
+        }
     }
     return (
         <div className="overlay" onClick={() => props.setOpenLogin(false)}>
@@ -60,7 +65,7 @@ const ForgotPassword = (props) => {
                             </div>
                             <div className="password">
                                 <label>Password</label>
-                                <input type="text" placeholder="Password" onChange={(e)=>setPassword(e.target.value)}></input>
+                                <input type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)}></input>
                             </div>
                         </div>)}
                         

@@ -43,7 +43,12 @@ const Login = (props) => {
     };
 
     if (openForgotPassword) {
-        return <ForgotPassword />;
+        return <ForgotPassword 
+            setOpenLogin={props.setOpenLogin}
+            setOpenForgotPassword={setOpenForgotPassword}
+            setOpenBackDrop={props.setOpenBackDrop}
+            handleNoti={props.handleNoti}
+        />;
     }
 
     return (
