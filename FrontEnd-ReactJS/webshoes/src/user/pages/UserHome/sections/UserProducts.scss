@@ -1,8 +1,9 @@
-.products{
+.products-home{
     width: 100vw;
+    height: 150vh;
     background: #333235;
     display: block;
-
+    user-select: none;
     h3{
         font-size: 30px;
         font-weight: 800;
@@ -22,8 +23,37 @@
         ul li{
             list-style: none;
             margin-right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            &:hover{
+                text-decoration: underline;
+            }
+            &.active{
+                color: rgb(247, 92, 92);
+                font-weight: bold;
+            }
         }
     }
 
+    .product-home-wrapper{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        
+        .product-home-wrapper-item{
+            width: 30%;
+            height: 300px;
+            &:nth-child(n+4){
+                margin-top: 150px;
+            }
+            img{
+                transition: all 0.5s;
+                cursor: pointer;
+            }
+            img:hover{
+                transform: scale(1.1) rotate(-10deg);
+            }
+        }
+    }
 }
-

@@ -75,64 +75,18 @@ const UserProducts = () => {
             </Reveal>
             </div>
 
-            {/* <div className="container-fluid d-none d-md-block">
-                <div className="row g-0">
-                        <div className="col-4 g-0">
-                    <Reveal>
-                            <Product imgClassName='img-custom' imgSrc=""></Product>
-                    </Reveal>
-                        </div>
-                    <div className="col-8">
-                        <div className="row">
-                                <div className="col">
-                            <Reveal>
-                                    <Product imgSrc="/product-2.svg"></Product>
-                            </Reveal>
-                                </div>
-                                <div className="col">
-                            <Reveal>
-                                    <Product imgSrc="/product-3.svg"></Product>
-                            </Reveal>
-                                </div>
-                        </div>
-                        <div className="row g-0">
-                            <div className="col">
-                                <Reveal>
-                                    <Product imgSrc="/product-4.svg"></Product>
-                                </Reveal>
-                            </div>
-                            <div className="col">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row g-0">
-                    <div className="col">
-                        <Reveal>
-                            <Product imgSrc="/product-5.svg"></Product>
-                        </Reveal>
-                    </div>
-                    <div className="col">
-                        <Reveal>
-                            <Product imgSrc="/product-6.svg"></Product>
-                        </Reveal>
-                    </div>
-                    <div className="col">
-                        <Reveal>
-                            <Product imgSrc="/product-7.svg"></Product>
-                        </Reveal>
-                    </div>
-                </div>  
-            </div> */}
-
             <div className="product-home-wrapper">
                 {data?.map((item, index) => {
                     return <div key={index} className="product-home-wrapper-item">
                         <Product 
-                            
-                            imgSrc={item.imageUrl || "/product-7.svg"}> 
+                            productName={item.name}
+                            productBrand={item.brand}
+                            imgSrc={item.imageUrl || "/product-7.svg"}
+                            isSale={item.isSale}
+                            discount={item.discount}
+                            isNew={item.isNew}
+                            price={item.price}
+                            originalPrice={item.originalPrice}> 
                         </Product>
                     </div>
                 })}

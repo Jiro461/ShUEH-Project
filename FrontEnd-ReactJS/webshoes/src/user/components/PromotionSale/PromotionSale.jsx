@@ -1,10 +1,10 @@
 import React from 'react';
 import './PromotionSale.scss'
 
-const PromotionSale = ({sale}) => {
+const PromotionSale = ({discount}) => {
     return (
         <div className="promotion-sale">
-            <span>{sale} OFF</span>
+            <span>{discount}% OFF</span>
         </div>
     );
 };
