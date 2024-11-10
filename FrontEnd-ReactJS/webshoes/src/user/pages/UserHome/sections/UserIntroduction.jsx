@@ -63,7 +63,7 @@ const UserIntroduction =  () => {
                 <div className={`product-promotion image-${imageIndex}`}>
                     <PromotionTag
                         brand={data[imageIndex]?.brand}
-                        discount={data[imageIndex]?.discount}
+                        discount={data[imageIndex]?.quantity}
                     ></PromotionTag>
                 </div>
 

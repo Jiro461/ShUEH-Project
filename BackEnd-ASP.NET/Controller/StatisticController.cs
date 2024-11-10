@@ -88,7 +88,7 @@ namespace BackEnd_ASP_NET.Controllers
         public IActionResult GetMostSoldShoesByMonthAsync()
         {
             // Gọi method từ repository để lấy giày bán chạy nhất theo tháng
-            var shoes = _statisticRepository.GetMostSoldShoesByMonth();
+            var shoes = _statisticRepository.GetMostSoldShoeByMonth();
             return Ok(shoes); // Trả về dữ liệu với mã trạng thái 200 OK
         }
 
@@ -130,6 +130,13 @@ namespace BackEnd_ASP_NET.Controllers
             // Gọi method từ repository để lấy thông tin các người dùng có giao dịch cao nhất
             var topDeals = await _statisticRepository.GetTopDealsByUserAsync();
             return Ok(topDeals); // Trả về dữ liệu với mã trạng thái 200 OK
+        }
+        //http://localhost:5118/api/statistic/shoes/most-sold
+        [HttpGet("shoes/most-sold")]
+        public IActionResult GetMostSoldShoes()
+        {
+            var shoes = _statisticRepository.GetMostSoldShoes();
+            return Ok(shoes);
         }
 
         #endregion
