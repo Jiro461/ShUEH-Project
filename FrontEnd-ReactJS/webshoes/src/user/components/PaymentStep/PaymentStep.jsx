@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import config from '../../../config/config.json';
 
 const PaymentStep = () => {
-    const { SERVER_API } = config;
     const [activeStep, setActiveStep] = useState(0);
     const [vouchers, setVouchers] = useState([]);
     const [selectedVoucher, setSelectedVoucher] = useState(null);
@@ -11,6 +9,8 @@ const PaymentStep = () => {
     const [searchedVoucher, setSearchedVoucher] = useState(null);
     const [cartItems, setCartItems] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
+    const [paymentMethod, setPaymentMethod] = useState(2);
+    const deliveryFee = 1000; // Giá trị vận chuyển cố định
     const [orderDetails, setOrderDetails] = useState({
         isUsingDiscount: false,
         discountId: "",
@@ -20,14 +20,12 @@ const PaymentStep = () => {
         paymentMethod: 2,
         orderDate: new Date().toISOString()
     });
-    const [paymentMethod, setPaymentMethod] = useState(2);
-    const deliveryFee = 1000; // Giá trị vận chuyển cố định
 
     // Lấy danh sách voucher từ API khi component được mount
     useEffect(() => {
         const fetchVouchers = async () => {
             try {
-                const response = await fetch(`${SERVER_API}/api/Discount/all`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Discount/all`);
                 if (response.ok) {
                     const data = await response.json();
                     setVouchers(data);
@@ -40,13 +38,13 @@ const PaymentStep = () => {
         };
 
         fetchVouchers();
-    }, []);
+    }, [vouchers]);
 
     // Lấy thông tin sản phẩm trong giỏ hàng
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await fetch(`${SERVER_API}/api/Cart/get`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Cart/get`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -66,7 +64,7 @@ const PaymentStep = () => {
         };
 
         fetchCartItems();
-    }, []);
+    }, [cartItems]);
 
     // Cập nhật orderDetails khi các dữ liệu khác thay đổi
     useEffect(() => {
@@ -148,7 +146,7 @@ const PaymentStep = () => {
             try {
                 const token = getAuthToken(); // Lấy token
 
-                const response = await fetch(`${SERVER_API}/api/Payment`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Payment`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -159,12 +157,20 @@ const PaymentStep = () => {
                 });
 
                 if (response.ok) {
-                    console.log("Order placed successfully");
-                    setActiveStep(3); // Chuyển sang bước thành công
+                    // Tới trang thanh toán
+                    const responseData = await response.json();
+    
+                    if (paymentMethod === 0 && responseData.status === "Redirect" && responseData.paymentUrl) {
+                        window.location.href = responseData.paymentUrl;
+                    } else {
+                        console.log("Order placed successfully");
+                        setActiveStep(3);
+                    }
                 } else {
+                    // Thanh toán thất bại
                     console.error("Failed to place order", await response.text());
-                    console.log(finalOrderDetails);
-                    console.log("paymentMethod: ", finalOrderDetails.paymentMethod);
+                    alert("Thanh toán không thành công. Vui lòng thử lại.");
+                    window.location.href = '/payment'; // Redirect to payment page
                 }
             } catch (error) {
                 console.error("Error placing order:", error);
@@ -189,7 +195,7 @@ const PaymentStep = () => {
 
         if (foundVoucher) {
             try {
-                const response = await fetch(`${SERVER_API}/api/Discount/${foundVoucher.id}`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Discount/${foundVoucher.id}`);
                 if (response.ok) {
                     const voucher = await response.json();
                     setSearchedVoucher(voucher);

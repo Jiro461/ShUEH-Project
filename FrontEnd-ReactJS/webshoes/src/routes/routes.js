@@ -41,6 +41,10 @@ export const privateRoutes = [
             path: "ordered", // Lịch sử đơn hàng
             element: ProfileOrdered
           },
+          {
+            path: "change-password",
+            element: ProfileChangePassword
+          },
         ]
     },
     { path: "payment", element: PaymentPage, }, // Trang thanh toán
