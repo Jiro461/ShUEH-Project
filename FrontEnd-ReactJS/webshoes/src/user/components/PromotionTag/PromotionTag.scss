@@ -31,7 +31,10 @@
     span:nth-child(3){
         font-size: 2vw;
         font-weight: 700;
-    }
+        &.quantity{
+            font-size: 1vw;
+        }
+    } 
 }
 
 @media (max-width: 576px){

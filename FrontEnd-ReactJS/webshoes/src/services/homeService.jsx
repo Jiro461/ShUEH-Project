@@ -5,8 +5,8 @@ export const getProducts = async () => {
     try {
         // Gửi yêu cầu GET đến API để lấy dữ liệu sản phẩm
         const res = await request.get(`/api/Shoe/home`);
-        // Xử lý dữ liệu sản phẩm trả về
-        return res.data.map((item) => {
+        return res.data.slice(0, 3)
+        .map((item) => {
             // Thêm đường dẫn đầy đủ cho ảnh sản phẩm
             item.imageUrl = `${process.env.REACT_APP_API_URL}/${item.imageUrl}`;
             // Chuyển giá sản phẩm sang định dạng VND (việt nam đồng)

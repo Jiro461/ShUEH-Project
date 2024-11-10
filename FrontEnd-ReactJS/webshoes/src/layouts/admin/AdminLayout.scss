@@ -55,7 +55,7 @@ a {
     .contentContainer {
       padding: 5px 20px; // Padding cho khu vực nội dung
       width: 80%; // Chiều rộng của khu vực nội dung là 80%
-      overflow: hidden; // Ẩn các phần tử vượt quá chiều rộng
+      
       max-width: 100%; // Chiều rộng tối đa là 100%
       box-sizing: border-box; // Đảm bảo padding không gây tràn
 

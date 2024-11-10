@@ -119,7 +119,7 @@ const Navbar = (props) => {
                             <div className="tool-item d-block d-md-none" onClick={() => setOpenSideBar(true)}>
                                 <img src="/navbar-menu-wrapper.svg" alt="" />
                             </div>
-                            <div className="tool-item d-none d-md-block">
+                            <div className="tool-item d-none d-md-block" onClick={() => navigate("/profile/favour")}>
                                 <img src="/nav-favor.svg" alt="" />
                             </div>
                             <div className="tool-item btn btn-logout d-none d-md-block" onClick={handleLogout}>
