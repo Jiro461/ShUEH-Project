@@ -1,14 +1,14 @@
-.add-block{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3vw;
-    height: 3vw;
-    background: linear-gradient(90deg, #FF626D 0%, #FCAD72 100%);
-    border-radius: 50%;
-    border: none;
-    outline: none;
-    z-index: 5;
-    box-shadow: #FF626D 0 0 15px 6px;
-    cursor: pointer;
+.add-block {
+    display: flex; /* Sử dụng flexbox để căn chỉnh các phần tử bên trong */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    width: 3vw; /* Chiều rộng của phần tử là 3% của chiều rộng cửa sổ trình duyệt */
+    height: 3vw; /* Chiều cao của phần tử là 3% của chiều rộng cửa sổ trình duyệt */
+    background: linear-gradient(90deg, #FF626D 0%, #FCAD72 100%); /* Tạo màu nền với gradient từ màu đỏ (#FF626D) sang vàng (#FCAD72) */
+    border-radius: 50%; /* Làm cho phần tử có hình dạng tròn */
+    border: none; /* Không có viền */
+    outline: none; /* Không có viền ngoài khi phần tử được chọn */
+    z-index: 5; /* Đặt độ ưu tiên hiển thị cao hơn các phần tử khác */
+    box-shadow: #FF626D 0 0 15px 6px; /* Tạo bóng đổ màu đỏ với khoảng cách 15px và mờ 6px */
+    cursor: pointer; /* Đổi con trỏ chuột thành hình bàn tay khi di chuyển qua phần tử */
 }

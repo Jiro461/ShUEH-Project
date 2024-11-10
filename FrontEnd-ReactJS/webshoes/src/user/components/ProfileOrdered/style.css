@@ -90,6 +90,14 @@
         text-transform: uppercase;
     }
 
+    .item-info .btn-review {
+        border: 0;
+        background: linear-gradient(to left, #ff626d, #fcad72);
+        padding: 6px 20px;
+        border-radius: 20px;
+        color: white;
+    }
+
     .ordered .total {
         text-transform: uppercase;
         font-weight: 800;
@@ -119,4 +127,78 @@
         text-transform: uppercase;
         box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
     }
+}
+
+.content-profile-page{
+    .review-dialog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .review-dialog-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .reviews-list {
+        max-height: 200px; /* Adjust this value based on the desired height */
+        overflow-y: auto;  /* Adds a vertical scrollbar if the content exceeds the max-height */
+        padding: 10px;
+        border: 1px solid #ccc;  /* Optional: adds a border around the reviews section */
+        border-radius: 5px;  /* Optional: rounds the corners */
+        background-color: #f9f9f9;  /* Optional: gives a light background color */
+    }
+
+    .review-dialog-content .review-item {
+        color: #fff;
+        background: linear-gradient(to left, #ff626d, #fcad72);
+        margin-bottom: 20px;
+        padding: 5px;
+        border-radius: 3px;
+    }
+    
+    .review-dialog-content h3 {
+        margin-bottom: 10px;
+        font-size: 20px;
+        color: #000;
+    }
+    
+    .review-dialog-content label {
+        display: block;
+        margin: 5px 0;
+        color: #000;
+    }
+    
+    .review-dialog-content textarea {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+    
+    .review-dialog-content .btn-submit-review,
+    .review-dialog-content .btn-close {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        background: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .review-dialog-content .btn-close {
+        background: #f44336;
+        width: 50px;
+        height: 25px;
+    }
+    
 }

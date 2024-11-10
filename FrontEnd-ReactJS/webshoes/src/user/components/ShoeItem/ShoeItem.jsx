@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import config from "../../../config/config.json";
 import "./style.css"
 
 function ShoeItem({ shoe, shoeID }) {
     const navigate = useNavigate();
-    const { SERVER_API } = config;
     const [favoriteList, setFavoriteList] = useState([]); // Danh sách các sản phẩm yêu thích
     const [favorites, setFavorites] = useState([]);
 
@@ -21,7 +19,7 @@ function ShoeItem({ shoe, shoeID }) {
     useEffect(() => {
         const fetchFavoriteList = async () => {
             try {
-                const response = await fetch(`${SERVER_API}/api/WishList`, { credentials: "include" });
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/WishList`, { credentials: "include" });
                 if (!response.ok) throw new Error("Không thể lấy danh sách yêu thích");
                 
                 const data = await response.json();
@@ -38,10 +36,9 @@ function ShoeItem({ shoe, shoeID }) {
     const isShoeFavorite = favoriteList.some(item => item.id === shoe.id);
 
     const handleToggleFavorite = async () => {
-        console.log("isShoe: ", isShoeFavorite);
         try {
             // Gọi API để lấy UserID
-            const response = await fetch(`${SERVER_API}/api/Account/cookieGetById`, { credentials: "include" });
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Account/cookieGetById`, { credentials: "include" });
             if (!response.ok) throw new Error("Không thể lấy thông tin người dùng");
 
             const { id: userId } = await response.json();
@@ -51,7 +48,7 @@ function ShoeItem({ shoe, shoeID }) {
             }
 
             const method = isShoeFavorite ? 'DELETE' : 'POST';
-            const url = `${SERVER_API}/api/WishList/${shoe.id}`;
+            const url = `${process.env.REACT_APP_API_URL}/api/WishList/${shoe.id}`;
 
             // Gửi yêu cầu POST/DELETE
             const favoriteResponse = await fetch(url, {
@@ -83,7 +80,7 @@ function ShoeItem({ shoe, shoeID }) {
         <li className="col item">
             <div className="image">
                 <div className='url_img'>
-                    <img src={`${SERVER_API}/${shoe.imageUrl}`} alt={shoe.name} />
+                    <img src={`${process.env.REACT_APP_API_URL}/${shoe.imageUrl}`} alt={shoe.name} />
                 </div>
                 <button
                     type="button"

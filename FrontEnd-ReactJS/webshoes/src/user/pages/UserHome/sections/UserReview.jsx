@@ -3,13 +3,13 @@ import './UserReview.scss'
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import CustomerReview from "../../../components/CustomerReview/CustomerReview";
 import * as homeService from "../../../../services/homeService"
+import {Reveal} from "../../../components/Animation/Reveal.tsx";
 
 const UserReview = () => {
     const [reviews, setReviews] = useState()
     useEffect(()=> {
         const fetchData = async () => {
             const res = await homeService.getReviews()
-            console.log("comment", res);
             setReviews(res)
         }  
         fetchData() 
@@ -22,7 +22,9 @@ const UserReview = () => {
             </div>
 
             <div className="review-title">
+                <Reveal>
                 <SectionTitle title="CUSTOMER REVIEW"></SectionTitle>
+                </Reveal>
             </div>
 
             <div className="customer-review-block">

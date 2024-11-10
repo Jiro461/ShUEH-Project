@@ -10,6 +10,7 @@ function ProfilePage() {
                     <Link className="sidebar-selection" to=''>Profile</Link>
                     <Link className="sidebar-selection" to='favour'>Favorite</Link>
                     <Link className="sidebar-selection" to='ordered'>Ordered</Link>
+                    <Link className="sidebar-selection" to='change-password'>Change Password</Link>
                 </div>
 
                 {/* Content */}
