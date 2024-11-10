@@ -38,7 +38,6 @@ function ShoeItem({ shoe, shoeID }) {
     const isShoeFavorite = favoriteList.some(item => item.id === shoe.id);
 
     const handleToggleFavorite = async () => {
-        console.log("isShoe: ", isShoeFavorite);
         try {
             // Gọi API để lấy UserID
             const response = await fetch(`${SERVER_API}/api/Account/cookieGetById`, { credentials: "include" });
@@ -83,7 +82,7 @@ function ShoeItem({ shoe, shoeID }) {
         <li className="col item">
             <div className="image">
                 <div className='url_img'>
-                    <img src={`${SERVER_API}/${shoe.imageUrl}`} alt={shoe.name} />
+                    <img src={`${process.env.REACT_APP_API_URL}/${shoe.imageUrl}`} alt={shoe.name} />
                 </div>
                 <button
                     type="button"

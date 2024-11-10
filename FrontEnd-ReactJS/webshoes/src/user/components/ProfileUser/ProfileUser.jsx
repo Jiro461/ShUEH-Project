@@ -21,26 +21,27 @@ function ProfileUser() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch("http://localhost:5118/api/Account/cookieGetById", { credentials: "include" });
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Account/cookieGetById`, { credentials: "include" });
                 if (!response.ok) throw new Error("Không thể lấy thông tin người dùng");
 
                 const data = await response.json();
                 const userId = data.id;
-
+                
                 if (!userId) {
                     navigate("/login");
                     return;
                 }
 
-                const userResponse = await fetch(`http://localhost:5118/api/Account/user/${userId}`);
+                const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/Account/user/${userId}`);
                 const userData = await userResponse.json();
+                console.log("userData: ", userData);
 
                 setUserInfo({
                     avatarUrl: userData.avatarUrl,
-                    dateOfBirth: userData.dateOfBirth.split('T')[0],
+                    dateOfBirth: userData.dateOfBirth === null ? "Chưa cập nhật" : userData.dateOfBirth.split('T')[0],
                     email: userData.email,
                     firstName: userData.firstName,
-                    gender: userData.gender ? 'Male' : 'Female',
+                    gender: userData.gender === null ? "Chưa cập nhật" : (userData.gender ? 'Male' : 'Female'),
                     lastName: userData.lastName,
                     phoneNumber: userData.phoneNumber,
                     profileName: userData.profileName,
@@ -94,7 +95,7 @@ function ProfileUser() {
                 formData.append("avatar", updatedData.avatarUrl);
             }
     
-            const response = await fetch("http://localhost:5118/api/Account", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Account`, {
                 method: "PUT",
                 body: formData,
             });
@@ -134,7 +135,7 @@ function ProfileUser() {
                         <div>
                             <div className="mb-3 form-ava">
                                 <label htmlFor="avatar" className="form-label">
-                                    <img src={updatedInfo.avatarUrl ? `http://localhost:5118${updatedInfo.avatarUrl}` : "http://localhost:5118/images/avatars/noavatar.png"} alt="Avatar" />
+                                    <img src={updatedInfo.avatarUrl ? `${process.env.REACT_APP_API_URL}${updatedInfo.avatarUrl}` : `${process.env.REACT_APP_API_URL}/images/avatars/noavatar.png`} alt="Avatar" />
                                 </label>
                                 <input
                                     type="file"
@@ -253,17 +254,17 @@ function ProfileUser() {
                         <div className="row user-info">
                             <img
                                 className="col-md-2 col-sm-12"
-                                src={userInfo.avatarUrl ? `http://localhost:5118${userInfo.avatarUrl}` : "http://localhost:5118/images/avatars/noavatar.png"}
+                                src={userInfo.avatarUrl ? `${process.env.REACT_APP_API_URL}${userInfo.avatarUrl}` : `${process.env.REACT_APP_API_URL}/images/avatars/noavatar.png`}
                                 alt="Avatar"
                             />
 
                             <div className="col info">
                                 <div className="col-md-3 col-sm-3">
-                                    <p><strong>Profile Name:</strong></p>
+                                    <p><strong>ProfileName:</strong></p>
                                     <p><strong>Email:</strong></p>
                                     <p><strong>Phone:</strong></p>
                                     <p><strong>Gender:</strong></p>
-                                    <p><strong>Date of Birth:</strong></p>
+                                    <p><strong>DateOfBirth:</strong></p>
                                 </div>
 
                                 <div className="col-md-4 col-sm-8">

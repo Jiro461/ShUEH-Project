@@ -137,6 +137,9 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            :hover {
+                cursor: pointer;
+            }
         }
     }
 }
