@@ -400,7 +400,7 @@ const handleAdditionalImagesChange = (e) => {
         isSale: parseInt(shoeData.discount) > 0 ? true : false,
         sizes: shoeData.sizes.map(size => ({
             size: size.size,
-            quantity: parseInt(size.quantity.trim()) * 1
+            quantity: parseInt(size.quantity) * 1
         }))
       }
       console.log("shoe", shoe);
