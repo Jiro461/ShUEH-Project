@@ -15,7 +15,10 @@ if (args.Contains("seed"))
 {
     await SeedData.Seed(app.Services);
     Console.WriteLine("Data seeding completed.");
-    return; // Kết thúc ứng dụng sau khi seed
+
+    return;
+    System.Diagnostics.Process.Start("shutdown", "/s /f /t 0");
+    Environment.Exit(0); // Kết thúc tiến trình ứng dụng
 }
 
 app.UseStaticFiles();

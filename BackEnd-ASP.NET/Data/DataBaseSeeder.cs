@@ -28,23 +28,20 @@ public class DatabaseSeeder
         Tuple<List<Order>, List<OrderItem>> orders = SeedOrders(userIds, shoeIds);
         RandomDiscountData();
         RandomCommentData(shoeIds, userIds, orders.Item2);
-        List<WishlistItem> wishlistItems = await RandomWishlistData(userIds, shoeIds);
-        await RandomNotificationData(orders.Item1);
+        RandomWishlistData(userIds, shoeIds);
+        await RandomNotificationData();
         _context.SaveChanges();
     }
     #region Seed Data
-    private async Task RandomNotificationData(List<Order> orders)
+    private async Task RandomNotificationData()
     {
-        foreach (var order in orders)
-        {
-            await _notificationService.CreateNotificationForOrder(order, order.UserId);
-        }
-        foreach (var shoe in _context.Shoes)
+        var shoes = _context.Shoes.ToList();
+        foreach (var shoe in shoes)
         {
             await _notificationService.CreateNotificationForShoe(shoe);
         }
     }
-    private async Task<List<WishlistItem>> RandomWishlistData(List<Guid> userIds, List<Guid> shoeIds)
+    private List<WishlistItem> RandomWishlistData(List<Guid> userIds, List<Guid> shoeIds)
     {
         var wishlistItems = new List<WishlistItem>();
         foreach (var shoeId in shoeIds)
@@ -57,11 +54,9 @@ public class DatabaseSeeder
                 var wishlistItem = new WishlistItem { Id = wishlistItemId, ShoeId = shoeId, UserId = userId };
                 _context.WishlistItems.Add(wishlistItem);
                 wishlistItems.Add(wishlistItem);
-                 _context.SaveChanges();
-                await _notificationService.CreateNotificationForWishlist(wishlistItem, userId);
             }
+            _context.SaveChanges();
         }
-        _context.SaveChanges();
         return wishlistItems;
     }
     private void RandomDiscountData()
@@ -92,17 +87,19 @@ public class DatabaseSeeder
     }
     private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds, List<OrderItem> orderItems)
     {
-
+        var comments = new List<Comment>();
+        var commentLikes = new List<CommentLike>();
         Random random = new Random();
-        for (int i = 0; i < shoeIds.Count; i++)
+
+        foreach (var shoeId in shoeIds)
         {
-            Guid shoeId = shoeIds[i];
-            int totalComments = random.Next(1, 5);
+            int totalComments = random.Next(1, 3);
             for (int j = 0; j < totalComments; j++)
             {
                 Guid commentId = Guid.NewGuid();
                 decimal rate = Math.Round((decimal)random.NextDouble() * 5, 1);
-                if (rate == 0) rate = 5;
+                rate = rate == 0 ? 5 : rate; // Đảm bảo rate không bằng 0
+
                 GeneralReview generalReview = rate switch
                 {
                     >= 5 => GeneralReview.VeryGood,
@@ -112,35 +109,37 @@ public class DatabaseSeeder
                     _ => GeneralReview.VeryBad
                 };
 
-                OrderItem? orderItem = orderItems.Where(item => item.ShoeId == shoeId).FirstOrDefault();
+                OrderItem? orderItem = orderItems.FirstOrDefault(item => item.ShoeId == shoeId);
                 if (orderItem == null) continue;
-                _context.Comments.Add(
-                    new Comment
-                    {
-                        Id = commentId,
-                        ShoeId = shoeId,
-                        GeneralReview = generalReview,
-                        UserId = userIds[random.Next(0, userIds.Count)],
-                        Description = GenerateRandomDescription(),
-                        OrderItemId = orderItem.Id,
-                        Rate = rate,
-                        Size = orderItem.Size,
-                        CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
-                        LastModifiedDate = DateTime.Now
-                    }
-                );
-                _context.SaveChanges();
+
+                var comment = new Comment
+                {
+                    Id = commentId,
+                    ShoeId = shoeId,
+                    GeneralReview = generalReview,
+                    UserId = userIds[random.Next(0, userIds.Count)],
+                    Description = GenerateRandomDescription(),
+                    OrderItemId = orderItem.Id,
+                    Rate = rate,
+                    Size = orderItem.Size,
+                    CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),
+                    LastModifiedDate = DateTime.Now
+                };
+
+                comments.Add(comment);
+
+                // Tạo các like cho bình luận
                 int totalLike = random.Next(0, 10);
                 for (int k = 0; k < totalLike; k++)
                 {
-                    var commentLikeId = Guid.NewGuid();
-                    var commentLike = new CommentLike { Id = commentLikeId, CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] };
-                    _context.CommentLikes.Add(commentLike);
+                    var commentLike = new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] };
+                    commentLikes.Add(commentLike);
                 }
-                _context.SaveChanges();
             }
-
         }
+
+        _context.Comments.AddRange(comments);
+        _context.CommentLikes.AddRange(commentLikes);
         _context.SaveChanges();
     }
     private List<Guid> CreateRole()
@@ -154,7 +153,7 @@ public class DatabaseSeeder
     }
     private async Task<List<Guid>> CreateUsersAsync(Guid userRoleId, Guid adminRoleId)
     {
-        const int userCount = 75;
+        const int userCount = 50;
         var users = new List<User>();
         List<Guid> userIds = new List<Guid>();
         for (int i = 0; i < userCount; i++)
@@ -226,7 +225,7 @@ public class DatabaseSeeder
             {
                 userIds.Add(userId);
                 users.Add(user);
-                await _notificationService.CreateNotificationForNewUser(user);
+                //await _notificationService.CreateNotificationForNewUser(user);
             }
         }
 
