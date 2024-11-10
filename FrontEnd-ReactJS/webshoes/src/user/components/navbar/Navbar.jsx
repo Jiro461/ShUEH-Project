@@ -30,7 +30,7 @@ const Navbar = (props) => {
     const sidebarTools = [
         { src: "/nav-shopping-bag-none-noti.svg", name: "Cart", path: "/payment"},
         { src: "/nav-user.svg", name: "Account", path: "/profile"},
-        { src: "/nav-favor.svg", name: "Favourite", path: "/favour"},
+        { src: "/nav-favor.svg", name: "Favourite", path: "/profile/favour"},
     ]
     const [active, setActive] = useState("Home")
     const [openSideBar, setOpenSideBar] = useState(false)

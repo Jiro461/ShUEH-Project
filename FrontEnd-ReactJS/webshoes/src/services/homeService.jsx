@@ -4,15 +4,15 @@ import request from '../utils/request.js'
 export const getProducts = async () => {
     try {
         // Gửi yêu cầu GET đến API để lấy dữ liệu sản phẩm
-        const res = await request.get(`/api/Shoe/home`);
+        const res = await request.get(`/api/statistic/shoes/most-sold`);
         return res.data.slice(0, 3)
-        .map((item) => {
-            // Thêm đường dẫn đầy đủ cho ảnh sản phẩm
-            item.imageUrl = `${process.env.REACT_APP_API_URL}/${item.imageUrl}`;
-            // Chuyển giá sản phẩm sang định dạng VND (việt nam đồng)
-            item.price = item.price.toLocaleString("vi-VN");
-            return item; // Trả về thông tin sản phẩm đã xử lý
-        });
+            .map((item) => {
+                // Thêm đường dẫn đầy đủ cho ảnh sản phẩm
+                item.imageUrl = `${process.env.REACT_APP_API_URL}/${item.imageUrl}`;
+                // Chuyển giá sản phẩm sang định dạng VND (việt nam đồng)
+                item.price = item.price.toLocaleString("vi-VN");
+                return item; // Trả về thông tin sản phẩm đã xử lý
+            });
     } catch (error) {
         console.log(error); // In lỗi nếu có
     }
@@ -24,7 +24,7 @@ export const getProductsByBrand = async (brand) => {
         // Gửi yêu cầu GET đến API để lấy sản phẩm theo thương hiệu
         const res = await request.get(`/api/Shoe/brand?brand=${brand}`);
         // Lọc ra các sản phẩm không nằm trong danh sách loại trừ và giới hạn số lượng 6 sản phẩm
-        return res.data.filter((item) => 
+        return res.data.filter((item) =>
             item.name !== "Nike Downshifter 13"
             && item.name !== "Nike Youth React Presto Extreme"
             && item.name !== "NikeCourt Legacy"
