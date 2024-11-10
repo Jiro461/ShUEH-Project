@@ -1,30 +1,28 @@
-import AdminHome from "../admin/pages/AdminHome/AdminHome.jsx"; // Trang chủ của admin
-import UserHome from '../user/pages/UserHome/UserHome.jsx'; // Trang chủ của người dùng
-import Users from '../admin/pages/Users/Users.jsx'; // Quản lý người dùng cho admin
-import User from "../admin/pages/User/User.jsx"; // Chi tiết người dùng cho admin
-import AdminProducts from "../admin/pages/AdminProducts/AdminProducts.jsx"; // Quản lý sản phẩm cho admin
-import AdminProduct from "../admin/pages/AdminProduct/AdminProduct.jsx"; // Chi tiết sản phẩm cho admin
-import Orders from "../admin/pages/Orders/Orders.jsx"; // Quản lý đơn hàng cho admin
-import Discounts from "../admin/pages/Discounts/Discounts.jsx"; // Quản lý giảm giá cho admin
-import ProductPage from "../user/pages/ProductPage/ProductPage.jsx"; // Trang sản phẩm cho người dùng
-import ProductDetailPage from "../user/pages/ProductDetailPage/ProductDetailPage.jsx"; // Chi tiết sản phẩm cho người dùng
-import PaymentPage from "../user/pages/PaymentPage/PaymentPage.jsx"; // Trang thanh toán cho người dùng
-import ProfilePage from "../user/pages/ProfilePage/ProfilePage.jsx"; // Trang hồ sơ người dùng
-import ProfileUser from "../user/components/ProfileUser/ProfileUser.jsx"; // Chi tiết thông tin cá nhân người dùng
-import ProfileFavorite from "../user/components/ProfileFavorite/ProfileFavorite.jsx"; // Danh sách yêu thích của người dùng
-import ProfileOrdered from "../user/components/ProfileOrdered/ProfileOrdered.jsx"; // Lịch sử đơn hàng của người dùng
-import ProfileChangePassword from "../user/components/ProfileChangePassword/ProfileChangePassword.jsx"
-import AdminLogin from "../admin/pages/AdminLogin/AdminLogin.jsx"; // Trang đăng nhập của admin
+import AdminHome from "../admin/pages/AdminHome/AdminHome.jsx";
+import UserHome from '../user/pages/UserHome/UserHome.jsx';
+import Users from '../admin/pages/Users/Users.jsx';
+import User from "../admin/pages/User/User.jsx"
+import AdminProducts from "../admin/pages/AdminProducts/AdminProducts.jsx";
+import AdminProduct from "../admin/pages/AdminProduct/AdminProduct.jsx"
+import Orders from "../admin/pages/Orders/Orders.jsx"
+import Discounts from "../admin/pages/Discounts/Discounts.jsx"
+import ProductPage from "../user/pages/ProductPage/ProductPage.jsx"
+import ProductDetailPage from "../user/pages/ProductDetailPage/ProductDetailPage.jsx"
+import PaymentPage from "../user/pages/PaymentPage/PaymentPage.jsx"
+import ProfilePage from "../user/pages/ProfilePage/ProfilePage.jsx"
+import ProfileUser from "../user/components/ProfileUser/ProfileUser.jsx"
+import ProfileFavorite from "../user/components/ProfileFavorite/ProfileFavorite.jsx"
+import ProfileOrdered from "../user/components/ProfileOrdered/ProfileOrdered.jsx"
+import ProfileChangePassword from "../user/components/ProfileChangePassword/ProfileChangePassword.jsx";
+import No_404 from "../user/components/No_404/No_404.jsx";
 
-// Các route công khai cho người dùng
 export const publicRoutes = [
-    { path: "/", element: UserHome }, // Trang chủ cho người dùng
-    { path: "product", element: ProductPage }, // Trang sản phẩm cho người dùng
-    { path: "product/:id", element: ProductDetailPage }, // Chi tiết sản phẩm theo id
-    { path: "admin/login", element: AdminLogin }, // Trang đăng nhập cho admin
+    { path: "/", element: UserHome },
+    { path: "product", element: ProductPage },
+    { path: "product/:id", element: ProductDetailPage },
+    {path: "no_404", element: No_404}
 ]
 
-// Các route riêng tư cho người dùng đã đăng nhập
 export const privateRoutes = [
     {
         path: "profile", // Trang hồ sơ người dùng
