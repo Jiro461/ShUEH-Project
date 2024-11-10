@@ -131,6 +131,7 @@ namespace BackEnd_ASP_NET.Controllers
             var topDeals = await _statisticRepository.GetTopDealsByUserAsync();
             return Ok(topDeals); // Trả về dữ liệu với mã trạng thái 200 OK
         }
+        //http://localhost:5118/api/statistic/shoes/most-sold
         [HttpGet("shoes/most-sold")]
         public IActionResult GetMostSoldShoes()
         {
