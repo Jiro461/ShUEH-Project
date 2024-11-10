@@ -104,7 +104,7 @@ const Navbar = (props) => {
                         <div className="tool-item search-icon-mobile d-block d-sm-none">
                             <img src="/navbar-search-icon.svg" alt=""/>
                         </div>
-                        <div className="tool-item cart-icon">
+                        <div className="tool-item cart-icon" onClick={() => navigate("/payment")}>
                             <img src="/nav-shopping-bag-none-noti.svg" alt="" />
                             <span className="cart-noti">1</span>
                         </div>
