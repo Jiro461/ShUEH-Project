@@ -14,11 +14,13 @@ import ProfileUser from "../user/components/ProfileUser/ProfileUser.jsx"
 import ProfileFavorite from "../user/components/ProfileFavorite/ProfileFavorite.jsx"
 import ProfileOrdered from "../user/components/ProfileOrdered/ProfileOrdered.jsx"
 import ProfileChangePassword from "../user/components/ProfileChangePassword/ProfileChangePassword.jsx";
+import No_404 from "../user/components/No_404/No_404.jsx";
 
 export const publicRoutes = [
     { path: "/", element: UserHome },
     { path: "product", element: ProductPage },
     { path: "product/:id", element: ProductDetailPage },
+    {path: "no_404", element: No_404}
 ]
 
 export const privateRoutes = [
