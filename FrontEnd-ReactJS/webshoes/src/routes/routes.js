@@ -13,6 +13,7 @@ import ProfilePage from "../user/pages/ProfilePage/ProfilePage.jsx"; // Trang h�
 import ProfileUser from "../user/components/ProfileUser/ProfileUser.jsx"; // Chi tiết thông tin cá nhân người dùng
 import ProfileFavorite from "../user/components/ProfileFavorite/ProfileFavorite.jsx"; // Danh sách yêu thích của người dùng
 import ProfileOrdered from "../user/components/ProfileOrdered/ProfileOrdered.jsx"; // Lịch sử đơn hàng của người dùng
+import ProfileChangePassword from "../user/components/ProfileChangePassword/ProfileChangePassword.jsx"
 import AdminLogin from "../admin/pages/AdminLogin/AdminLogin.jsx"; // Trang đăng nhập của admin
 
 // Các route công khai cho người dùng
