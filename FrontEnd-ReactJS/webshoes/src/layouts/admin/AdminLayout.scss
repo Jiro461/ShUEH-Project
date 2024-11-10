@@ -20,12 +20,18 @@ a {
 }
 
 .admin-main {
-  font-family: "Inter", sans-serif; // Dùng font "Inter" cho toàn bộ layout
-  background-color: $main-bg; // Màu nền của trang được định nghĩa trong biến $main-bg
-  color: $main-color; // Màu chữ được định nghĩa trong biến $main-color
-  width: 100%; // Chiều rộng của layout là 100%
+  font-family: "Inter", sans-serif;
+  background-color: $main-bg;
+  color: $main-color;
+  width: 100%;
+ 
 
   .admin-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-grow: 1;
+    overflow: auto;
     display: flex; // Dùng flexbox để layout các phần tử bên trong
     width: 100%; // Chiều rộng của container là 100%
     flex-grow: 1; // Phần tử này sẽ giãn ra chiếm không gian còn lại

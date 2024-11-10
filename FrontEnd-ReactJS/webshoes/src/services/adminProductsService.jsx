@@ -27,7 +27,7 @@ const createProductFormData = (shoeData) => {
     // Thêm kích cỡ và số lượng của sản phẩm vào FormData
     shoeData.sizes.forEach((item, index) => {
         formData.append(`shoeDetails[${index}][size]`, item.size);
-        formData.append(`shoeDetails[${index}][quantity]`, item.quantity);
+        formData.append(`shoeDetails[${index}][quantity]`, parseInt(item.quantity) * 1);
     });
 
     // Thêm ảnh bổ sung nếu có và là kiểu File

@@ -17,5 +17,6 @@ namespace BackEnd_ASP.NET.Services
         Task<IActionResult> GetUserNotifications(HttpContext httpContext, int pageNumber, int pageSize);
         Task<IActionResult> GetAdminNotifications(HttpContext httpContext, int pageNumber, int pageSize);
         Task<IActionResult> AdminGetUserNotifications(HttpContext httpContext, Guid userId);
+        Task<IActionResult> AdminGetProductNotifications(Guid productId);
     }
 }

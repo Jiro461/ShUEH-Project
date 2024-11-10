@@ -187,12 +187,13 @@ namespace BackEnd_ASP.NET.Services
 
         // Cập nhật thông tin một đôi giày
         public async Task<IActionResult> UpdateShoeAsync(Guid shoeId, ShoePostDTO updateShoe)
-        {  
+        {
             var existingShoe = await shoeRepository.GetShoeByIdAsync(shoeId);
             if (existingShoe == null)
                 return NotFound($"Shoe with ID {shoeId} not found."); // Kiểm tra giày tồn tại
             if (!ModelState.IsValid) return BadRequest(ModelState); // Kiểm tra trạng thái mô hình
-            // Cập nhật thông tin giày
+
+            // Cập nhật các thuộc tính cơ bản
             existingShoe.Name = updateShoe.Name;
             existingShoe.Brand = updateShoe.Brand;
             existingShoe.Material = updateShoe.Material;
@@ -201,29 +202,47 @@ namespace BackEnd_ASP.NET.Services
             existingShoe.Price = updateShoe.Price;
             existingShoe.IsSale = updateShoe.IsSale;
             existingShoe.Discount = updateShoe.Discount;
-            existingShoe.Colors = updateShoe.Colors.Select(color => new ShoeColor
+
+            // Cập nhật Colors
+            existingShoe.Colors.Clear();
+            foreach (var color in updateShoe.Colors)
             {
-                Color = color.Color,
-                ShoeId = existingShoe.Id
-            }).ToList();
+                existingShoe.Colors.Add(new ShoeColor { Color = color.Color, ShoeId = existingShoe.Id });
+            }
+
+            // Cập nhật MainImage và AdditionalImages
             if (updateShoe.MainImage != null)
                 existingShoe.ImageUrl = await FileHelper.UpdateShoeImageAsync(webHostEnvironment, existingShoe, updateShoe);
-
+            
             if (updateShoe.AdditionalImages != null)
                 existingShoe.OtherImages = await UpdateShoeImageAsync(existingShoe, updateShoe);
 
-            existingShoe.shoeDetails = updateShoe.shoeDetails.Select(detail => new ShoeDetail
+            // Cập nhật ShoeDetails
+            existingShoe.shoeDetails.Clear();
+            foreach (var detail in updateShoe.shoeDetails)
             {
-                Id = existingShoe.shoeDetails.FirstOrDefault(d => d.Size == detail.Size)?.Id ?? Guid.NewGuid(),
-                Shoe = existingShoe,
-                Size = detail.Size,
-                Quantity = detail.Quantity
-            }).ToList();
-            existingShoe.Seasons = updateShoe.Seasons.Select(season => new ShoeSeason
+                var shoeDetail = existingShoe.shoeDetails.FirstOrDefault(d => d.Size == detail.Size);
+                if (shoeDetail != null)
+                {
+                    shoeDetail.Quantity = detail.Quantity;
+                }
+                else
+                {
+                    existingShoe.shoeDetails.Add(new ShoeDetail
+                    {
+                        Size = detail.Size,
+                        Quantity = detail.Quantity,
+                        ShoeId = existingShoe.Id
+                    });
+                }
+            }
+
+            // Cập nhật Seasons
+            existingShoe.Seasons.Clear();
+            foreach (var season in updateShoe.Seasons)
             {
-                Season = season.Season,
-                Shoe = existingShoe
-            }).ToList();
+                existingShoe.Seasons.Add(new ShoeSeason { Season = season.Season, ShoeId = existingShoe.Id });
+            }
 
             await shoeRepository.UpdateShoeAsync(existingShoe); // Cập nhật giày trong kho
             await notificationService.CreateUpdateNotificationForEntityChange(existingShoe);
