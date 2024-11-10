@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 public class StatisticRepository : IStatisticRepository
 {
     private readonly DbSet<Order> _dbOrders;
+    private readonly ShUEHContext _context;
     private readonly DbSet<SiteView> _dbSiteViews;
     private readonly DbSet<User> _dbUsers;
     private readonly DbSet<Shoe> _dbShoes;
@@ -18,10 +19,11 @@ public class StatisticRepository : IStatisticRepository
         _dbUsers = context.Users;
         _dbShoes = context.Shoes;
         _dbProductViews = context.ProductViews;
+        _context = context;
     }
 
     // Lấy danh sách giày bán chạy nhất theo tháng trong năm hiện tại
-    public Object GetMostSoldShoesByMonth()
+    public Object? GetMostSoldShoeByMonth()
     {
         // Lấy dữ liệu đơn hàng và trích xuất chi tiết giày, nhóm theo tháng và id giày
         var orderData = _dbOrders
@@ -212,5 +214,20 @@ public class StatisticRepository : IStatisticRepository
             .Take(10)
             .ToListAsync();
         return topDealsByUser;
+    }
+    public Object? GetMostSoldShoes()
+    {
+        var mostSoldShoes = _dbShoes.OrderByDescending(s => s.Sold).Take(10)
+        .Select(s => new
+        {
+            s.Brand,
+            s.ImageUrl,
+            s.Name,
+            s.Price,
+            Quantity = s.shoeDetails.Sum(sd => sd.Quantity)
+        })
+        .ToList();
+
+        return mostSoldShoes;
     }
 }

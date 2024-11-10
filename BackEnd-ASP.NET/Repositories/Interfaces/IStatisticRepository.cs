@@ -4,7 +4,7 @@ namespace BackEnd_ASP_NET
 {
     public interface IStatisticRepository
     {
-    #region Orders
+        #region Orders
         Task<object?> GetOrdersByMonthAsync();
         Task<object?> GetOrdersByStatusAsync();
         Task<object?> GetRevenueFromOrdersByMonthAsync();
@@ -12,9 +12,11 @@ namespace BackEnd_ASP_NET
         #endregion
 
         #region Shoes
-        Object? GetMostSoldShoesByMonth();
+        Object? GetMostSoldShoes();
+        Object? GetMostSoldShoeByMonth();
         Object? GetMostViewedShoesByMonth();
         Task<object?> GetSoldShoesQuantityByBrandInMonthAsync();
+
         #endregion
 
         #region Users
