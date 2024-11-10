@@ -14,6 +14,7 @@ import { InputAdornment } from "@mui/material";
 
 const Update = (props) => {
   const [genderUi, setGenderUi] = useState("Male")
+  const [bindingAddImages, setBindingAddImages] = useState([])
   const [shoeData, setShoeData] = useState({
     name: '',
     brand: '',
@@ -72,6 +73,7 @@ const Update = (props) => {
     mainImage: null, // State for the main image
     additionalImages: [],
   });
+  console.log(shoeData);
   const [user, setUser] = useState({
     email: "",
     firstName: "",
@@ -128,6 +130,7 @@ const Update = (props) => {
           additionalImages: res.otherImages,
         };
       });
+      setBindingAddImages(res.otherImages)
       if (res.gender === 0) {
         setGenderUi("Female");
       } else if (res.gender === 1) {
@@ -394,7 +397,22 @@ const handleAdditionalImagesChange = (e) => {
     props.setOpenBackDrop(true)
     var res = {}
     if (props.slug === "product"){
-      res = await adminProductsService.updateProduct(props.id, shoeData)  
+      const updateShoe = {
+        ...shoeData,
+        discount: parseInt(shoeData.discount, 10),
+        price: parseInt(shoeData.price, 10),
+        sizes: shoeData.sizes.map(size => ({
+          ...size,
+          quantity: parseInt(size.quantity, 10)
+        })),
+        additionalImages: Array.isArray(shoeData.additionalImages) && 
+        shoeData.additionalImages.every(img => img instanceof File) 
+        ? shoeData.additionalImages 
+        : [],
+        mainImage: null,
+      }
+      console.log(updateShoe);
+      res = await adminProductsService.updateProduct(props.id, updateShoe)  
     }
     if (props.slug === "user"){
       const updatedUser = {
@@ -433,7 +451,6 @@ const handleAdditionalImagesChange = (e) => {
         type: discount.type === "Ship" ? 1 : 0,
         expiryDate: discount.expiryDate
     };
-      console.log("formatDiscount", formatDiscount);
       res = await adminDiscountsService.addNewDiscount(formatDiscount)
     }
     //goi api khac

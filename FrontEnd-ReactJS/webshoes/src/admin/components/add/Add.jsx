@@ -281,6 +281,7 @@ const handleAdditionalImagesChange = (e) => {
     props.setOpenBackDrop(true)
     var res = {}
     if (props.slug === "product"){
+      console.log(shoeData);
       res = await adminProductsService.addNewProduct(shoeData)  
     }
     if (props.slug === "user"){

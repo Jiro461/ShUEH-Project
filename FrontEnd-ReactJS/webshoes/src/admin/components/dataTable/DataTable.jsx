@@ -16,7 +16,6 @@ import { useState } from "react";
   const DataTable = (props) => {
     const [open, setOpen] = useState(false)
     const [id, setId] = useState()
-    console.log(props.rows);
     const isSmallScreen = useMediaQuery('(max-width:600px)');
 
     const handleUpdate = async (id) => {
