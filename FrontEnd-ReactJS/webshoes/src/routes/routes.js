@@ -20,24 +20,24 @@ export const publicRoutes = [
     { path: "/", element: UserHome },
     { path: "product", element: ProductPage },
     { path: "product/:id", element: ProductDetailPage },
-    {path: "no_404", element: No_404}
+    {path: "/*", element: No_404}
 ]
 
 export const privateRoutes = [
     {
-        path: "profile",
+        path: "profile", // Trang hồ sơ người dùng
         element: ProfilePage,
         children: [
           {
-            path: "",
+            path: "", // Mặc định là thông tin cá nhân
             element: ProfileUser
           },
           {
-            path: "favour",
+            path: "favour", // Danh sách yêu thích
             element: ProfileFavorite
           },
           {
-            path: "ordered",
+            path: "ordered", // Lịch sử đơn hàng
             element: ProfileOrdered
           },
           {
@@ -46,16 +46,16 @@ export const privateRoutes = [
           },
         ]
     },
-    { path: "payment", element: PaymentPage, },
-    
+    { path: "payment", element: PaymentPage, }, // Trang thanh toán
 ]
 
+// Các route cho admin
 export const adminRoutes = [
-    { path: "/admin", element: AdminHome },
-    { path: "/admin/users", element: Users },
-    { path: "/admin/users/:id", element: User },
-    { path: "/admin/products", element: AdminProducts },
-    { path: "/admin/products/:id", element: AdminProduct },
-    { path: "/admin/orders", element: Orders },
-    { path: "/admin/discounts", element: Discounts },
+    { path: "/admin", element: AdminHome }, // Trang chủ admin
+    { path: "/admin/users", element: Users }, // Quản lý người dùng
+    { path: "/admin/users/:id", element: User }, // Chi tiết người dùng theo id
+    { path: "/admin/products", element: AdminProducts }, // Quản lý sản phẩm
+    { path: "/admin/products/:id", element: AdminProduct }, // Chi tiết sản phẩm theo id
+    { path: "/admin/orders", element: Orders }, // Quản lý đơn hàng
+    { path: "/admin/discounts", element: Discounts }, // Quản lý giảm giá
 ]
