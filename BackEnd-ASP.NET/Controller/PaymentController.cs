@@ -3,6 +3,7 @@ using BackEnd_ASP.NET.Services.VnPay;
 using BackEnd_ASP.NET.Services;
 using System.Security.Claims;
 using BackEnd_ASP_NET.Models;
+using BackEnd_ASP_NET.Utilities.Extensions;
 
 namespace PaymentAPI.Controllers
 {
@@ -85,16 +86,16 @@ namespace PaymentAPI.Controllers
             if (vnPayResponse == null || vnPayResponse.VnPayResponseCode != "00" || !vnPayResponse.Success)
             {
                 var result = await _paymentService.HandleFailedPaymentAsync(orderId);
-                if (result is not OkObjectResult) return BadRequest("Thanh toán VNPAY không thành công.");
+                if (result is not OkObjectResult) return Redirect($"{MyURL.ClientURL}");
                 return BadRequest(result);
             }
 
             // Nếu thanh toán thành công, gọi dịch vụ để xử lý thanh toán thành công
             var paymentResult = await _paymentService.HandleSuccessfulPaymentAsync(orderId);
-            if (paymentResult is not OkObjectResult) return BadRequest("Xử lý đơn hàng không thành công.");
+            if (paymentResult is not OkObjectResult) return Redirect($"{MyURL.ClientURL}/payment");
 
             // Chuyển hướng người dùng về trang chủ sau khi thanh toán thành công
-            return Redirect("http://localhost:3000/");
+            return Redirect($"{MyURL.ClientURL}/payment");
         }
     }
 }

@@ -173,7 +173,7 @@ namespace BackEnd_ASP.NET.Services
                     await context.SaveChangesAsync();
                 }
                 await shoeRepository.UpdateShoeAsync(shoe);
-                return Ok(comment);
+                return Ok();
             }
             return BadRequest("Add comment failed");
         }

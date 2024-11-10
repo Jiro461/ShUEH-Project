@@ -9,9 +9,9 @@ const createProductFormData = (shoeData) => {
     formData.append('Category', shoeData.category);
     formData.append('ImageUrl', "");
     formData.append('Description', shoeData.description);
-    formData.append('Price', parseInt(shoeData.price, 10));
+    formData.append('Price', parseFloat(shoeData.price));
     formData.append('IsSale', shoeData.discount > 0 ? true : false);
-    formData.append('Discount', shoeData.discount > 0 ? parseInt(shoeData.discount) : 0);
+    formData.append('Discount', shoeData.discount > 0 ? parseFloat(shoeData.discount) : 0);
 
     if (shoeData.mainImage) formData.append('MainImage', shoeData.mainImage);
 
@@ -19,7 +19,7 @@ const createProductFormData = (shoeData) => {
     shoeData.seasons.forEach((item, index) => formData.append(`seasons[${index}][season]`, item.season));
     shoeData.sizes.forEach((item, index) => {
         formData.append(`shoeDetails[${index}][size]`, item.size);
-        formData.append(`shoeDetails[${index}][quantity]`, item.quantity);
+        formData.append(`shoeDetails[${index}][quantity]`, parseInt(item.quantity) * 1);
     });
     shoeData.additionalImages.forEach(image => formData.append('AdditionalImages', image));
 

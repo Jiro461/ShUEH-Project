@@ -27,10 +27,11 @@ namespace BackEnd_ASP.NET.Controller.Cart
         public async Task<IActionResult> DecreaseQuantity(Guid id)
         {
             ShoppingCartId = GetCartId(); // Lấy ID giỏ hàng từ session
-            var cartItem = await context.CartItems.FindAsync(ShoppingCartId); // Tìm sản phẩm trong giỏ
+            var cartItem = await context.CartItems.FirstOrDefaultAsync(c => c.ShoeId == id && c.SessionId == ShoppingCartId); // Tìm sản phẩm trong giỏ
             if(cartItem == null) return NotFound("Cart item not found"); // Nếu không tìm thấy sản phẩm
             cartItem.Quantity--; // Giảm số lượng sản phẩm
-            context.CartItems.Update(cartItem); // Cập nhật sản phẩm trong giỏ
+            if(cartItem.Quantity == 0) context.CartItems.Remove(cartItem); // Nếu số lượng sản phẩm bằng 0, xóa sản phẩm
+            else context.CartItems.Update(cartItem); // Cập nhật sản phẩm trong giỏ
             await context.SaveChangesAsync(); // Lưu thay đổi
             return Ok("Decrease completed"); // Trả về kết quả thành công
         }

@@ -11,6 +11,14 @@ import BarChartBox from '../../components/barChartBox/BarChartBox';
 import ScrollView from './../../components/scrollView/ScrollView';
 const AdminHome = () => {
     const host = "http://shueh.somee.com";
+    const axiosInstance = axios.create({
+        baseURL: host,  // Đặt URL của server API
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': host,  // Đặt CORS
+        }
+      }
+    );
     const [users, setUsers] = useState({});
     const [orders, setOrders] = useState({});
     const [revenue, setRevenue] = useState({});
@@ -36,59 +44,51 @@ const AdminHome = () => {
         "#FF8042"
     ]
     useEffect(() => {
-    axios.get(`${host}/api/Statistic/users/monthly`).then(res => {
-        setUsers(res.data);
+        axiosInstance.get(`${host}/api/Statistic/users/monthly`).then(res => {
+        setUsers(res.data || {});
         setLoadingUsers(false);
     });
-    axios.get(`${host}/api/Statistic/orders/monthly`).then(res => {
-        setOrders(res.data);
+    axiosInstance.get(`${host}/api/Statistic/orders/monthly`).then(res => {
+        setOrders(res.data || {});
         setLoadingOrders(false);
     });
-    axios.get(`${host}/api/Statistic/revenue/monthly`).then(res => {
-        setRevenue(res.data);
+    axiosInstance.get(`${host}/api/Statistic/revenue/monthly`).then(res => {
+        setRevenue(res.data || {});
         setLoadingRevenue(false);
     });
-    axios.get(`${host}/api/Statistic/users/top-deals`).then(res => {
-        setTopDeals(res.data);
+    axiosInstance.get(`${host}/api/Statistic/users/top-deals`).then(res => {
+        setTopDeals(res.data || []);
         setLoadingTopDeals(false);
     });
-    axios.get(`${host}/api/Statistic/shoes/sold-quantity-by-brand-monthly`).then(res => {
-        setBrands(res.data);
+    axiosInstance.get(`${host}/api/Statistic/shoes/sold-quantity-by-brand-monthly`).then(res => {
+        setBrands(res.data || []);
         setLoadingBrands(false);
         res.data ? res.data.forEach((brand, index) => {
             brand.color = color[index];
         }) : setBrands([]);
     });
-    axios.get(`${host}/api/Statistic/site-views/device-monthly`).then(res => {
-        setDevicesView(res.data);
+    axiosInstance.get(`${host}/api/Statistic/site-views/device-monthly`).then(res => {
+        setDevicesView(res.data || []);
         setLoadingDevicesView(false);
         res.data ? res.data.forEach((device, index) => {
             device.color = color[index];
         }) : setDevicesView([]);
     });
-    axios.get(`${host}/api/Statistic/orders/recent-delivered`).then(res => {
-        setRecentOrder(res.data);
+    axiosInstance.get(`${host}/api/Statistic/orders/recent-delivered`).then(res => {
+        setRecentOrder(res.data || []);
         setLoadingRecentOrder(false);
     });
-    axios.get(`${host}/api/Statistic/shoes/most-sold-monthly`).then(res => {
+    axiosInstance.get(`${host}/api/Statistic/shoes/most-sold-monthly`).then(res => {
         res.data = res.data.sort((a, b) => b.month - a.month);
-        setMostSoldShoes(res.data);
+        setMostSoldShoes(res.data || []);
         setLoadingMostSoldShoes(false);
     });
-    axios.get(`${host}/api/Statistic/site-views/monthly`).then(res => {
-        setVisits(res.data);
+    axiosInstance.get(`${host}/api/Statistic/site-views/monthly`).then(res => {
+        setVisits(res.data || []);
         setLoadingVisits(false);
     });
     }, []);
 
-    const avisits = [
-        { month: '6', viewCount: '400' },
-        { month: '7', viewCount: '100' },
-        { month: '8', viewCount: '200' },
-        { month: '9', viewCount: '300' },
-        { month: '10', viewCount: '400' },
-        { month: '11', viewCount: '500' }
-        ];
     const countPercentage = (object, key1, key2) => {
         return ((object?.[key1]?.[object[key1].length - 1]?.[key2] - object?.[key1]?.[object[key1].length - 2]?.[key2]) / object?.[key1]?.[object[key1].length - 2]?.[key2] * 100).toFixed(2);
     }

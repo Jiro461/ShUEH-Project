@@ -394,7 +394,17 @@ const handleAdditionalImagesChange = (e) => {
     props.setOpenBackDrop(true)
     var res = {}
     if (props.slug === "product"){
-      res = await adminProductsService.updateProduct(props.id, shoeData)  
+      var shoe = {...shoeData, 
+        price: parseFloat(shoeData.price), 
+        discount: parseFloat(shoeData.discount),
+        isSale: parseInt(shoeData.discount) > 0 ? true : false,
+        sizes: shoeData.sizes.map(size => ({
+            size: size.size,
+            quantity: parseInt(size.quantity) * 1
+        }))
+      }
+      console.log("shoe", shoe);
+      res = await adminProductsService.updateProduct(props.id, shoe)  
     }
     if (props.slug === "user"){
       const updatedUser = {

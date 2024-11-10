@@ -27,60 +27,36 @@ public class DatabaseSeeder
         RandomSiteViewAndProductView(shoeIds);
         Tuple<List<Order>, List<OrderItem>> orders = SeedOrders(userIds, shoeIds);
         RandomDiscountData();
-        await RandomCommentData(shoeIds, userIds, orders.Item2);
-        List<WishlistItem> wishlistItems = await RandomWishlistData(userIds, shoeIds);
-        await RandomNotificationData(userIds, shoeIds, orders.Item1, wishlistItems);
+        RandomCommentData(shoeIds, userIds, orders.Item2);
+        RandomWishlistData(userIds, shoeIds);
+        await RandomNotificationData();
         _context.SaveChanges();
     }
     #region Seed Data
-    private async Task RandomNotificationData(List<Guid> userIds,
-    List<Guid> shoeIds,
-    List<Order> orders,
-    List<WishlistItem> wishlistItems)
+    private async Task RandomNotificationData()
     {
-        foreach (var order in orders)
-        {
-            await _notificationService.CreateNotificationForOrder(order, order.UserId);
-        }
-        foreach (var comment in _context.Comments)
-        {
-            await _notificationService.CreateNotificationForComment(comment, comment.UserId);
-        }
-        foreach (var userId in userIds)
-        {
-            foreach (var shoeId in shoeIds)     
-            {
-                await _notificationService.CreateNotificationForUserViewProduct(shoeId, userId);
-            }
-        }
-
-        foreach (var wishlistItem in wishlistItems)
-        {
-            await _notificationService.CreateNotificationForWishlist(wishlistItem, wishlistItem.UserId);
-        }
-        foreach (var shoe in _context.Shoes)
+        var shoes = _context.Shoes.ToList();
+        foreach (var shoe in shoes)
         {
             await _notificationService.CreateNotificationForShoe(shoe);
         }
     }
-    private async Task<List<WishlistItem>> RandomWishlistData(List<Guid> userIds, List<Guid> shoeIds)
+    private List<WishlistItem> RandomWishlistData(List<Guid> userIds, List<Guid> shoeIds)
     {
         var wishlistItems = new List<WishlistItem>();
         foreach (var shoeId in shoeIds)
         {
             foreach (var userId in userIds)
             {
-                bool IsWishlist = _random.Next(0, 2) == 0;
-                if (!IsWishlist) continue;
+                int IsWishlist = _random.Next(0, 3);
+                if (IsWishlist == 0 || IsWishlist == 2) continue;
                 var wishlistItemId = Guid.NewGuid();
                 var wishlistItem = new WishlistItem { Id = wishlistItemId, ShoeId = shoeId, UserId = userId };
                 _context.WishlistItems.Add(wishlistItem);
                 wishlistItems.Add(wishlistItem);
-                 _context.SaveChanges();
-                await _notificationService.CreateNotificationForWishlist(wishlistItem, userId);
             }
+            _context.SaveChanges();
         }
-        _context.SaveChanges();
         return wishlistItems;
     }
     private void RandomDiscountData()
@@ -109,19 +85,21 @@ public class DatabaseSeeder
         _context.Discounts.AddRange(discount);
         _context.SaveChanges();
     }
-    private async Task RandomCommentData(List<Guid> shoeIds, List<Guid> userIds, List<OrderItem> orderItems)
+    private void RandomCommentData(List<Guid> shoeIds, List<Guid> userIds, List<OrderItem> orderItems)
     {
-
+        var comments = new List<Comment>();
+        var commentLikes = new List<CommentLike>();
         Random random = new Random();
-        for (int i = 0; i < shoeIds.Count; i++)
+
+        foreach (var shoeId in shoeIds)
         {
-            Guid shoeId = shoeIds[i];
-            int totalComments = random.Next(1, 7);
+            int totalComments = random.Next(1, 3);
             for (int j = 0; j < totalComments; j++)
             {
                 Guid commentId = Guid.NewGuid();
                 decimal rate = Math.Round((decimal)random.NextDouble() * 5, 1);
-                if (rate == 0) rate = 5;
+                rate = rate == 0 ? 5 : rate; // Đảm bảo rate không bằng 0
+
                 GeneralReview generalReview = rate switch
                 {
                     >= 5 => GeneralReview.VeryGood,
@@ -131,38 +109,37 @@ public class DatabaseSeeder
                     _ => GeneralReview.VeryBad
                 };
 
-                OrderItem? orderItem = orderItems.Where(item => item.ShoeId == shoeId).FirstOrDefault();
+                OrderItem? orderItem = orderItems.FirstOrDefault(item => item.ShoeId == shoeId);
                 if (orderItem == null) continue;
-                _context.Comments.Add(
-                    new Comment
-                    {
-                        Id = commentId,
-                        ShoeId = shoeId,
-                        GeneralReview = generalReview,
-                        UserId = userIds[random.Next(0, userIds.Count)],
-                        Description = GenerateRandomDescription(),
-                        OrderItemId = orderItem.Id,
-                        Rate = rate,
-                        Size = orderItem.Size,
-                        CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),// Random date within the last 30 days
-                        LastModifiedDate = DateTime.Now
-                    }
-                );
-                _context.SaveChanges();
-                int totalLike = random.Next(0, 25);
+
+                var comment = new Comment
+                {
+                    Id = commentId,
+                    ShoeId = shoeId,
+                    GeneralReview = generalReview,
+                    UserId = userIds[random.Next(0, userIds.Count)],
+                    Description = GenerateRandomDescription(),
+                    OrderItemId = orderItem.Id,
+                    Rate = rate,
+                    Size = orderItem.Size,
+                    CreateDate = DateTime.Now.AddDays(-random.Next(0, 50)),
+                    LastModifiedDate = DateTime.Now
+                };
+
+                comments.Add(comment);
+
+                // Tạo các like cho bình luận
+                int totalLike = random.Next(0, 10);
                 for (int k = 0; k < totalLike; k++)
                 {
-                    var commentLikeId = Guid.NewGuid();
-                    var commentLike = new CommentLike { Id = commentLikeId, CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] };
-                    _context.CommentLikes.Add(commentLike);
-                    var userId = commentLike.UserId;
-                    _context.SaveChanges();
-                    await _notificationService.CreateNotificationForCommentLike(commentLike, userId);
+                    var commentLike = new CommentLike { Id = Guid.NewGuid(), CommentId = commentId, UserId = userIds[random.Next(0, userIds.Count)] };
+                    commentLikes.Add(commentLike);
                 }
-                _context.SaveChanges();
             }
-
         }
+
+        _context.Comments.AddRange(comments);
+        _context.CommentLikes.AddRange(commentLikes);
         _context.SaveChanges();
     }
     private List<Guid> CreateRole()
@@ -176,7 +153,7 @@ public class DatabaseSeeder
     }
     private async Task<List<Guid>> CreateUsersAsync(Guid userRoleId, Guid adminRoleId)
     {
-        const int userCount = 178;
+        const int userCount = 50;
         var users = new List<User>();
         List<Guid> userIds = new List<Guid>();
         for (int i = 0; i < userCount; i++)
@@ -248,7 +225,7 @@ public class DatabaseSeeder
             {
                 userIds.Add(userId);
                 users.Add(user);
-                await _notificationService.CreateNotificationForNewUser(user);
+                //await _notificationService.CreateNotificationForNewUser(user);
             }
         }
 
@@ -257,8 +234,8 @@ public class DatabaseSeeder
     }
     private void RandomSiteViewAndProductView(List<Guid> shoeIds)
     {
-        const int minViewsPerProduct = 75;
-        const int maxViewsPerProduct = 100;
+        const int minViewsPerProduct = 50;
+        const int maxViewsPerProduct = 55;
         const int monthsBack = 6;
 
         for (int i = 0; i < monthsBack; i++)
@@ -280,7 +257,7 @@ public class DatabaseSeeder
     }
     private void SeedSiteViews(DateTime month)
     {
-        int numberOfRecords = _random.Next(150, 200);
+        int numberOfRecords = _random.Next(100, 125);
         var siteViews = new List<SiteView>();
 
         for (int i = 0; i < numberOfRecords; i++)
@@ -308,7 +285,7 @@ public class DatabaseSeeder
     }
     private Tuple<List<Order>, List<OrderItem>> SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
     {
-        const int orderCount = 178; // số lượng đơn hàng cần seed
+        const int orderCount = 100; // số lượng đơn hàng cần seed
         var orders = new List<Order>();
         var saveOrders = new List<Order>();
         var _orderItems = new List<OrderItem>();

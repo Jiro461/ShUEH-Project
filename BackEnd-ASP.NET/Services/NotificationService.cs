@@ -278,6 +278,20 @@ namespace BackEnd_ASP.NET.Services
             .ToListAsync();
             return Ok(notifications);
         }
+        public async Task<IActionResult> AdminGetProductNotifications(Guid productId)
+        {
+            var notifications = await _context.Notifications
+            .Where(notification => notification.ShoeId == productId)
+            .Select(notification => new
+            {
+                text = notification.AdminMessage,
+                time = notification.CreateDate
+            })
+            .OrderByDescending(notification => notification.time)
+            .ToListAsync();
+
+            return Ok(notifications);
+        }
         #endregion
     }
 }

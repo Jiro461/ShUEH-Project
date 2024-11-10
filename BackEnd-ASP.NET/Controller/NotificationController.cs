@@ -40,5 +40,12 @@ namespace BackEnd_ASP.NET.Controller
             // Gọi phương thức trong service để lấy thông báo của người dùng từ phía quản trị viên
             return await _notificationService.AdminGetUserNotifications(HttpContext, userId);
         }
+
+        // API lấy thông báo của sản phẩm
+        [HttpGet("admin/product/{productId}")]
+        public async Task<IActionResult> AdminGetProductNotifications(Guid productId)
+        {
+            return await _notificationService.AdminGetProductNotifications(productId);
+        }
     }
 }
