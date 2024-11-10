@@ -38,7 +38,7 @@ const PaymentStep = () => {
         };
 
         fetchVouchers();
-    }, []);
+    }, [vouchers]);
 
     // Lấy thông tin sản phẩm trong giỏ hàng
     useEffect(() => {
@@ -64,7 +64,7 @@ const PaymentStep = () => {
         };
 
         fetchCartItems();
-    }, []);
+    }, [cartItems]);
 
     // Cập nhật orderDetails khi các dữ liệu khác thay đổi
     useEffect(() => {
