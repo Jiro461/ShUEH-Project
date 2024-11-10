@@ -50,7 +50,7 @@ const ProductDetail = ({ product, error, loading }) => {
     // Xử lý khi thêm sản phẩm vào giỏ hàng
     const handleAddToCart = async () => {
         if (!userID) {
-            navigate("/login");
+            navigate("/");
         } else if (!selectedSize) {
             alert("Vui lòng chọn size trước khi thêm vào giỏ hàng.");
         } else {
@@ -81,7 +81,7 @@ const ProductDetail = ({ product, error, loading }) => {
     const handleToggleFavorite = async () => {
         if (!userID) {
             alert("Bạn phải đăng nhập để sử dụng chức năng này.");
-            navigate("/login");
+            navigate("/");
             return;
         }
 

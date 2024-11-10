@@ -28,7 +28,7 @@ function ProfileUser() {
                 const userId = data.id;
 
                 if (!userId) {
-                    navigate("/login");
+                    navigate("/");
                     return;
                 }
 
@@ -49,7 +49,7 @@ function ProfileUser() {
                 });
             } catch (error) {
                 console.error("Error fetching user data:", error);
-                navigate("/login");
+                navigate("/");
             }
         };
 
