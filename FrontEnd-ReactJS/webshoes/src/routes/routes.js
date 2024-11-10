@@ -20,7 +20,7 @@ export const publicRoutes = [
     { path: "/", element: UserHome },
     { path: "product", element: ProductPage },
     { path: "product/:id", element: ProductDetailPage },
-    {path: "no_404", element: No_404}
+    {path: "/*", element: No_404}
 ]
 
 export const privateRoutes = [
