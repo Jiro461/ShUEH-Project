@@ -13,11 +13,13 @@ import ProfilePage from "../user/pages/ProfilePage/ProfilePage.jsx"
 import ProfileUser from "../user/components/ProfileUser/ProfileUser.jsx"
 import ProfileFavorite from "../user/components/ProfileFavorite/ProfileFavorite.jsx"
 import ProfileOrdered from "../user/components/ProfileOrdered/ProfileOrdered.jsx"
+import AdminLogin from "../admin/pages/AdminLogin/AdminLogin.jsx"
 
 export const publicRoutes = [
     { path: "/", element: UserHome },
     { path: "product", element: ProductPage },
     { path: "product/:id", element: ProductDetailPage },
+    { path: "admin/login", element: AdminLogin },
 ]
 
 export const privateRoutes = [
