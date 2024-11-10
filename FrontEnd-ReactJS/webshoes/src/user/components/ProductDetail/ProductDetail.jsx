@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import useFetchUserID from '../../hooks/useFetchUserID';
 
 const ProductDetail = ({ product, error, loading }) => {
-    const { SERVER_API } = config;
     const navigate = useNavigate();
     const [selectedSize, setSelectedSize] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +18,7 @@ const ProductDetail = ({ product, error, loading }) => {
         // Lấy danh sách yêu thích khi component được mount
         const fetchFavoriteList = async () => {
             try {
-                const response = await fetch(`${SERVER_API}/api/WishList`, { credentials: "include" });
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/WishList`, { credentials: "include" });
                 if (!response.ok) throw new Error("Không thể lấy danh sách yêu thích");
 
                 const data = await response.json();
@@ -57,7 +56,7 @@ const ProductDetail = ({ product, error, loading }) => {
         } else {
             try {
                 const response = await fetch(
-                    `${SERVER_API}/api/Cart/add?shoeId=${product.id}&size=${selectedSize}`,
+                    `${process.env.REACT_APP_API_URL}/api/Cart/add?shoeId=${product.id}&size=${selectedSize}`,
                     {
                         method: 'POST',
                         headers: {
@@ -88,7 +87,7 @@ const ProductDetail = ({ product, error, loading }) => {
 
         try {
             const method = isFavorite ? 'DELETE' : 'POST';
-            const url = `${SERVER_API}/api/WishList/${product.id}`;
+            const url = `${process.env.REACT_APP_API_URL}/api/WishList/${product.id}`;
 
             const response = await fetch(url, {
                 method,
@@ -114,8 +113,8 @@ const ProductDetail = ({ product, error, loading }) => {
 
     // Các phần tử hình ảnh và kích thước
     const img_shoe = product.otherImages.map((img_url, index) => (
-        <div key={`image-${index}`} className="ava-shoe" onClick={() => openModal(`${SERVER_API}/${img_url.url}`)}>
-            <img src={`${SERVER_API}/${img_url.url}`} alt={`Thumbnail ${index + 1}`} />
+        <div key={`image-${index}`} className="ava-shoe" onClick={() => openModal(`${process.env.REACT_APP_API_URL}/${img_url.url}`)}>
+            <img src={`${process.env.REACT_APP_API_URL}/${img_url.url}`} alt={`Thumbnail ${index + 1}`} />
         </div>
     ));
 
@@ -151,7 +150,7 @@ const ProductDetail = ({ product, error, loading }) => {
                     <img src={process.env.PUBLIC_URL + '/img/Vector4.png'} alt="Vector 4" className="vector-4" />
                     <img src={process.env.PUBLIC_URL + '/img/Vector5.png'} alt="Vector 5" className="vector-5" />
                 </div>
-                <img src={`${SERVER_API}/${product.imageUrl}`} alt={product.name} className="shoe-img" />
+                <img src={`${process.env.REACT_APP_API_URL}/${product.imageUrl}`} alt={product.name} className="shoe-img" />
             </div>
 
             <div className="col-md-12 col-lg-1 col-xl-1 ava-shoe-selection">

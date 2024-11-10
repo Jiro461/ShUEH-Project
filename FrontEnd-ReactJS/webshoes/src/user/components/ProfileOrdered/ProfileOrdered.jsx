@@ -15,7 +15,7 @@ function ProfileOrdered() {
     useEffect(() => {
         const fetchUserId = async () => {
             try {
-                const response = await fetch('http://localhost:5118/api/Account/cookieGetById', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Account/cookieGetById`, {
                     method: 'GET',
                     credentials: 'include', // Đảm bảo thông tin cookie được gửi
                 });
@@ -54,7 +54,7 @@ function ProfileOrdered() {
     // Hàm gọi API để lấy các đánh giá cho một đôi giày
     const fetchReviews = async (shoeId) => {
         try {
-            const response = await fetch(`http://localhost:5118/api/Comment/all/${shoeId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Comment/all/${shoeId}`);
             if (!response.ok) throw new Error("Không thể lấy các đánh giá cho giày");
 
             const data = await response.json();
@@ -107,7 +107,7 @@ function ProfileOrdered() {
         formData.append('OrderItemId', selectedOrder?.orderItems[0]?.id);
     
         try {
-            const response = await fetch('http://localhost:5118/api/Comment', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Comment`, {
                 method: 'POST',
                 body: formData,
             });

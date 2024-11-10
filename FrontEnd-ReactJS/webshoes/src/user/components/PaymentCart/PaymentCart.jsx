@@ -5,12 +5,11 @@ const PaymentCart = () => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { SERVER_API } = config;
 
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await fetch(`${SERVER_API}/api/Cart/get`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Cart/get`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -33,7 +32,7 @@ const PaymentCart = () => {
 
     const handleDelete = async (itemId) => {
         try {
-            const response = await fetch(`${SERVER_API}/api/Cart/delete?id=${itemId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Cart/delete?id=${itemId}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });
@@ -66,7 +65,7 @@ const PaymentCart = () => {
                     {cartItems.map((item) => (
                         <div key={item.itemId} className="row cart-item">
                             <div className="col-xl-2 col-4 image">
-                                <div><img src={`${SERVER_API}/${item.shoeImage}`} alt="Product" style={{width: "100%"}}/></div>
+                                <div><img src={`${process.env.REACT_APP_API_URL}/${item.shoeImage}`} alt="Product" style={{width: "100%"}}/></div>
                             </div>
                             <div className="col-xl-9 col-5" style={{alignContent: "center"}}>
                                 <div className="row cart-item-info">
