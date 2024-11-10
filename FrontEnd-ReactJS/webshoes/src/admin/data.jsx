@@ -43,7 +43,7 @@
             {
                id: 4,
                title: "Discounts",
-               url: "/",
+               url: "/admin/discounts/",
                icon: "discount.svg"
             }
         ]
