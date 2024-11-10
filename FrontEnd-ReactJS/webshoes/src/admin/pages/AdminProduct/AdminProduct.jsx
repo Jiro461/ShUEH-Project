@@ -4,10 +4,11 @@ import { singleProduct } from "../../data"
 import "./AdminProduct.scss"
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import * as singleService from "../../../services/singleService"
+import { CircularProgress } from "@mui/material";
 
 const Product = () => {
   const {id} = useParams()
-  const [open, setOpen] = useState(false);
   const [data, setData] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 
@@ -15,9 +16,9 @@ const Product = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://localhost:5118/api/shoe/${id}`
-        const res = await axios.get(url);
-        setData(validateData(res.data)); // Lưu dữ liệu vào state
+        const res = await singleService.getSingleProduct(id)
+        console.log(res);
+        setData(res); // Lưu dữ liệu vào state
       } catch (err) {
         console.error(err); // Xử lý lỗi nếu có
       } finally{
@@ -27,18 +28,13 @@ const Product = () => {
 
     fetchData(); // Gọi hàm fetchData
   }, []); // Chỉ chạy một lần sau khi component mount
-  //Fetch data and send to Single Component
-  function validateData(data){
-      if(!data.imageUrl.includes("http://localhost:5118/")){    
-        return data.imageUrl = `http://localhost:5118/${data.imageUrl}`
-      }
-  }
+
   return (
-    <div className="product">
-        {false ? (
-      <p>Loading...</p> // Hiển thị loading khi đang tải dữ liệu
+    <div className="admin-product">
+        {isLoading ? (
+      <CircularProgress color="inherit" />
     ) : (
-      <Single {...singleProduct} />
+      <Single {...data} />
     )}
     </div>
   )

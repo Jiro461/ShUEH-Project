@@ -1,7 +1,7 @@
 import request from "../utils/request.js"
 
 const createProductFormData = (shoeData) => {
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append('Name', shoeData.name);
     formData.append('Brand', shoeData.brand);
     formData.append('Gender', shoeData.gender);
@@ -10,8 +10,8 @@ const createProductFormData = (shoeData) => {
     formData.append('ImageUrl', "");
     formData.append('Description', shoeData.description);
     formData.append('Price', parseInt(shoeData.price, 10));
-    formData.append('IsSale', shoeData.discount > 0 ? true : false);
-    formData.append('Discount', shoeData.discount > 0 ? parseInt(shoeData.discount) : 0);
+    formData.append('IsSale', parseInt(shoeData.discount, 10) > 0 ? true : false);
+    formData.append('Discount', parseInt(shoeData.discount,10) > 0 ? parseInt(shoeData.discount, 10) : 0);
 
     if (shoeData.mainImage) formData.append('MainImage', shoeData.mainImage);
 
@@ -21,14 +21,25 @@ const createProductFormData = (shoeData) => {
         formData.append(`shoeDetails[${index}][size]`, item.size);
         formData.append(`shoeDetails[${index}][quantity]`, item.quantity);
     });
-    shoeData.additionalImages.forEach(image => formData.append('AdditionalImages', image));
+    if (shoeData.additionalImages && Array.isArray(shoeData.additionalImages)) {
+        shoeData.additionalImages.forEach(image => {
+            // Kiểm tra nếu image là một File
+            if (image instanceof File) {
+                formData.append('AdditionalImages', image);
+            }
+        });
+    }
 
     return formData;
 };
 
 
 export const addNewProduct = async (shoeData) => {
+    console.log("shoeAdd", shoeData);
     const formData = createProductFormData(shoeData);
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
     var message = "Add new product successfully"
     var type = "success"
     try {
@@ -95,7 +106,11 @@ export const getProductById = async (id) => {
 }
 
 export const updateProduct = async (id, shoeData) => {
-    const formData = createProductFormData(shoeData);
+    console.log("shoeService", shoeData);
+    var formData = createProductFormData(shoeData);
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
     var message = "Update product successfully"
     var type = "success"
     try {
