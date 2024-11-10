@@ -9,7 +9,6 @@ const UserReview = () => {
     useEffect(()=> {
         const fetchData = async () => {
             const res = await homeService.getReviews()
-            console.log("comment", res);
             setReviews(res)
         }  
         fetchData() 
