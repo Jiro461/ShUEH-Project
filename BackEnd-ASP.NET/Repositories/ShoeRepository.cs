@@ -24,7 +24,7 @@ public class ShoeRepository : IShoeRepository
                                 .Include(shoe => shoe.Colors)  // Bao gồm các màu sắc của giày
                                 .Include(shoe => shoe.OtherImages)  // Bao gồm các hình ảnh khác của giày
                                 .ToListAsync();
-        if(page == -1 && pageSize == -1) return query;  // Nếu phân trang không được yêu cầu, trả về toàn bộ dữ liệu
+        if (page == -1 && pageSize == -1) return query;  // Nếu phân trang không được yêu cầu, trả về toàn bộ dữ liệu
         return query.Skip(page * pageSize).Take(pageSize);  // Áp dụng phân trang
     }
     #endregion
@@ -79,13 +79,13 @@ public class ShoeRepository : IShoeRepository
                                                     .ToListAsync();
         foreach (var comment in shoeComments)
         {
+            _context.Notifications.RemoveRange(_context.Notifications.Where(n => n.CommentId == comment.Id));
             _context.CommentLikes.RemoveRange(_context.CommentLikes.Where(s => s.CommentId == comment.Id));  // Xóa like của bình luận
             _context.Replies.RemoveRange(_context.Replies.Where(r => r.CommentId == comment.Id));  // Xóa các phản hồi cho bình luận
         }
 
         // Xóa bình luận và thông báo liên quan đến giày
         _context.Comments.RemoveRange(shoeComments);
-        _context.Notifications.RemoveRange(_context.Notifications.Where(n => n.ShoeId == id));  // Xóa thông báo
         _dbSet.Remove(shoe);  // Xóa giày khỏi DbSet
 
         await _context.SaveChangesAsync();  // Lưu thay đổi vào cơ sở dữ liệu

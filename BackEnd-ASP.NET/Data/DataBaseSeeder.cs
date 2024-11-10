@@ -51,8 +51,8 @@ public class DatabaseSeeder
         {
             foreach (var userId in userIds)
             {
-                bool IsWishlist = _random.Next(0, 2) == 0;
-                if (!IsWishlist) continue;
+                int IsWishlist = _random.Next(0, 3);
+                if (IsWishlist == 0 || IsWishlist == 2) continue;
                 var wishlistItemId = Guid.NewGuid();
                 var wishlistItem = new WishlistItem { Id = wishlistItemId, ShoeId = shoeId, UserId = userId };
                 _context.WishlistItems.Add(wishlistItem);
@@ -97,7 +97,7 @@ public class DatabaseSeeder
         for (int i = 0; i < shoeIds.Count; i++)
         {
             Guid shoeId = shoeIds[i];
-            int totalComments = random.Next(1, 7);
+            int totalComments = random.Next(1, 5);
             for (int j = 0; j < totalComments; j++)
             {
                 Guid commentId = Guid.NewGuid();
@@ -130,7 +130,7 @@ public class DatabaseSeeder
                     }
                 );
                 _context.SaveChanges();
-                int totalLike = random.Next(0, 15);
+                int totalLike = random.Next(0, 10);
                 for (int k = 0; k < totalLike; k++)
                 {
                     var commentLikeId = Guid.NewGuid();
@@ -154,7 +154,7 @@ public class DatabaseSeeder
     }
     private async Task<List<Guid>> CreateUsersAsync(Guid userRoleId, Guid adminRoleId)
     {
-        const int userCount = 153;
+        const int userCount = 75;
         var users = new List<User>();
         List<Guid> userIds = new List<Guid>();
         for (int i = 0; i < userCount; i++)
@@ -235,8 +235,8 @@ public class DatabaseSeeder
     }
     private void RandomSiteViewAndProductView(List<Guid> shoeIds)
     {
-        const int minViewsPerProduct = 75;
-        const int maxViewsPerProduct = 100;
+        const int minViewsPerProduct = 50;
+        const int maxViewsPerProduct = 55;
         const int monthsBack = 6;
 
         for (int i = 0; i < monthsBack; i++)
@@ -258,7 +258,7 @@ public class DatabaseSeeder
     }
     private void SeedSiteViews(DateTime month)
     {
-        int numberOfRecords = _random.Next(150, 200);
+        int numberOfRecords = _random.Next(100, 125);
         var siteViews = new List<SiteView>();
 
         for (int i = 0; i < numberOfRecords; i++)
@@ -286,7 +286,7 @@ public class DatabaseSeeder
     }
     private Tuple<List<Order>, List<OrderItem>> SeedOrders(List<Guid> userIds, List<Guid> shoeIds)
     {
-        const int orderCount = 178; // số lượng đơn hàng cần seed
+        const int orderCount = 100; // số lượng đơn hàng cần seed
         var orders = new List<Order>();
         var saveOrders = new List<Order>();
         var _orderItems = new List<OrderItem>();
