@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Navbar.scss'
-import Login from "../Login/Login";
-import Register from "../Register/Register";
+import Login from "../login/Login";
+import Register from "../register/Register";
 import { Alert, Backdrop, CircularProgress, Slide, Snackbar } from "@mui/material";
 import * as authService from "../../../services/authService";
 import { useDispatch, useSelector } from "react-redux"

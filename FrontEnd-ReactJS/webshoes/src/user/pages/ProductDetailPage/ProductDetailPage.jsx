@@ -45,7 +45,7 @@ const ProductDetailPage = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:5118/api/Shoe/brand?brand=${brand}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Shoe/brand?brand=${brand}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch: ${response.status}`);
         }
