@@ -114,6 +114,8 @@ public static class ServiceExtensions
             options.Cookie.Name = "ShUEHApplication-Cookies-Authentication"; // Tên của cookie
             options.Cookie.HttpOnly = true; // Cookie chỉ có thể truy cập qua HTTP
             options.Cookie.IsEssential = true; // Đảm bảo cookie được gửi ngay cả khi người dùng chưa đồng ý
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         }).AddGoogle(options =>
         {
             options.ClientId = "11161045560-r08im8g3rll7ifg200tgmc8gmpa1am1t.apps.googleusercontent.com";  // Thay bằng Client ID của bạn
@@ -135,7 +137,8 @@ public static class ServiceExtensions
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:3000",
-                                        "http://localhost:5118")
+                                        "http://localhost:5118",
+                                        "https://sshueh-git-release-hoangthhs-projects.vercel.app")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();

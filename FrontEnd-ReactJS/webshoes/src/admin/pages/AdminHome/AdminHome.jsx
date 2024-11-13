@@ -10,7 +10,7 @@ import PieChartBox from '../../components/pieChartBox/PieChartBox';
 import BarChartBox from '../../components/barChartBox/BarChartBox';
 import ScrollView from './../../components/scrollView/ScrollView';
 const AdminHome = () => {
-    const host = "http://shueh.somee.com";
+    const host = "https://shueh.somee.com";
     const axiosInstance = axios.create({
         baseURL: host,  // Đặt URL của server API
         headers: {
