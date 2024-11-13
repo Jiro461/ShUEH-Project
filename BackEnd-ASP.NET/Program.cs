@@ -18,6 +18,7 @@ if (args.Contains("seed"))
     return; // Kết thúc ứng dụng sau khi seed
 }
 
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 // app.UseHttpsRedirection();
 Console.WriteLine($"Current Environment: {app.Environment.EnvironmentName}");
@@ -28,18 +29,18 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.UseSession();
-
 app.UseRouting();
 
-app.UseCors(x => x.AllowAnyMethod()
-                  .AllowAnyHeader()
-                  .SetIsOriginAllowed(origin => true) // allow any origin
-                  .AllowCredentials()                 // allow credentials
+app.UseCors("CorsPolicy");
+//app.UseCors(x => x.AllowAnyMethod()
+//                  .SetIsOriginAllowed(origin => true) // allow any origin
+//                  .AllowAnyHeader()
+//                  .AllowCredentials()                 // allow credentials
 
-            ); 
+//            ); 
 
 app.MapHub<ChatHubServices>("/chatHub");
+app.UseSession();
 //app.UseCors("CorsPolicy");
 app.UseAuthentication(); // Phải có để sử dụng xác thực
 app.UseAuthorization();

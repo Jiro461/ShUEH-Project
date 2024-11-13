@@ -17,7 +17,7 @@ public static class ServiceExtensions
     /// </summary>
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //ConfigureCors(services); 
+        ConfigureCors(services);
         services.AddControllers();
         ConfigureMemoryCache(services);
         ConfigureHttpService(services);
@@ -70,7 +70,7 @@ public static class ServiceExtensions
     /// <summary>
     /// Cấu hình các dịch vụ Scoped.
     /// </summary>
-     private static void ConfigureScopedServices(IServiceCollection services)
+    private static void ConfigureScopedServices(IServiceCollection services)
     {
         // Các dịch vụ Scoped được tạo mới cho mỗi request
         /*Repository*/
@@ -131,11 +131,11 @@ public static class ServiceExtensions
     {
         services.AddCors(options =>
         {
-            options.AddPolicy("CorsPolicy",
+            options.AddPolicy(name: "CorsPolicy",
                 builder =>
                 {
-
-                    builder.WithOrigins("http://localhost:5118", "http://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000",
+                                        "http://localhost:5118")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
