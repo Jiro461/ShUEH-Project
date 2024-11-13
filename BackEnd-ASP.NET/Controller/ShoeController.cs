@@ -13,10 +13,10 @@ namespace BackEnd_ASP.NET.Controller
     {
         // Danh sách các thương hiệu giày hợp lệ để kiểm tra
         private readonly string[] brands = { "NIKE", "ADIDAS", "PUMA", "REEBOK", "CONVERSE" };
-        
+
         // Danh sách các mẫu giày nổi bật trên trang chủ
         private readonly string[] homeShoe = { "Nike Youth React Presto Extreme", "Nike Air Max 270", "Nike Downshifter 13" };
-        
+
         // Tiêm các service vào controller để có thể sử dụng các phương thức từ IShoeService, context (DB Context) và repository
         private readonly IShoeService shoeService;
         private readonly ShUEHContext context;
@@ -46,10 +46,10 @@ namespace BackEnd_ASP.NET.Controller
         {
             // Kiểm tra nếu thương hiệu không hợp lệ, trả về lỗi 404
             if (!brands.Contains(brand.ToUpper())) return NotFound("Invalid brand");
-            
+
             // Lấy userId từ claim trong JWT token nếu có, dùng để tùy chỉnh dữ liệu trả về cho user (ví dụ: lịch sử mua hàng)
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             // Truy vấn giày theo thương hiệu từ cơ sở dữ liệu và sắp xếp theo ngày tạo giảm dần
             var shoes = await context.Shoes
                 .Where(s => s.Brand == brand)
@@ -67,7 +67,7 @@ namespace BackEnd_ASP.NET.Controller
         {
             // Lấy userId từ claim của token
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             // Truy vấn các giày mới nhất, sắp xếp theo ngày tạo giảm dần và lấy số lượng n
             var shoes = await context.Shoes
                 .OrderByDescending(s => s.CreateDate)
@@ -94,7 +94,7 @@ namespace BackEnd_ASP.NET.Controller
         {
             // Lấy userId từ claim trong JWT token để tùy chỉnh dữ liệu cho user
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             // Lọc ra giày có tên thuộc danh sách homeShoe
             var shoes = await context.Shoes
                             .Where(shoe => homeShoe.Contains(shoe.Name))
@@ -129,7 +129,7 @@ namespace BackEnd_ASP.NET.Controller
         {
             // Lấy userId từ claim trong JWT token
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             // Truy vấn các giày bán chạy nhất, sắp xếp theo số lượng đã bán và lấy n giày
             var shoes = await context.Shoes
                 .OrderByDescending(s => s.Sold)
@@ -147,14 +147,14 @@ namespace BackEnd_ASP.NET.Controller
         {
             // Lấy userId từ claim của token
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             // Truy vấn giày hợp tác giữa Nike và Satan
             var shoe = await context.Shoes
                 .FirstOrDefaultAsync(s => s.Name == "Satan" && s.Brand == "Nike");
 
             // Kiểm tra nếu không tìm thấy giày hợp tác thì trả về lỗi 404
             if (shoe == null) return NotFound("No collaboration shoe found.");
-            
+
             // Chuyển đổi giày thành DTO và trả về cho người dùng
             var shoeDTO = shoeService.ConvertShoeToShoeGetDTO(shoe, userId != null ? Guid.Parse(userId) : null);
             return Ok(shoeDTO);
@@ -162,17 +162,37 @@ namespace BackEnd_ASP.NET.Controller
         #endregion
 
         #region ComplexAPI
+        [HttpGet("name")]
+        public async Task<IActionResult> GetShoeByName(string name)
+        {
+            var shoes = await context.Shoes.Where(s => s.Name!.Contains(name)
+            || s.Brand!.Contains(name)
+            || s.Description!.Contains(name)
+            || s.Colors!.Any(c => c.Color!.Contains(name))
+            || s.Seasons!.Any(s => s.Season!.Contains(name))
+            || s.shoeDetails!.Any(d => d.Size!.ToString().Contains(name) && d.Quantity > 0))
+            .Select(s => new
+            {
+                Id = s.Id,
+                Name = s.Name,
+                ImageUrl = s.ImageUrl,
+                Price = s.Price,
+                Brand = s.Brand
+            })
+            .ToListAsync();
+            return Ok(shoes);
+        }
         // API lấy tất cả giày cho người dùng (có phân quyền tùy theo user)
         [HttpGet("all")]
         public async Task<IActionResult> GetAllShoes()
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             // Nếu người dùng không đăng nhập, lấy tất cả giày, ngược lại lấy giày theo userId
             var shoes = userId == null
                 ? await shoeService.GetAllShoesAsync()
                 : await shoeService.GetAllShoesAsync(Guid.Parse(userId));
-                
+
             if (shoes == null) return NotFound("Not Found Any Shoe");
             return Ok(shoes); // Trả về tất cả giày
         }
@@ -207,15 +227,15 @@ namespace BackEnd_ASP.NET.Controller
         {
             // Kiểm tra tính hợp lệ của page và pageSize
             if (page < 0 || pageSize < 0) return BadRequest("Invalid page or page size");
-            
+
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var totalShoes = await context.Shoes.CountAsync(); // Lấy tổng số giày
-            
+
             // Truy vấn các giày với phân trang (page, pageSize)
             var shoes = userId == null
                 ? await shoeService.GetAllShoesAsync(page: page, pageSize: pageSize)
                 : await shoeService.GetAllShoesAsync(Guid.Parse(userId), page: page, pageSize: pageSize);
-                
+
             if (shoes == null) return NotFound("Not Found Any Shoe");
 
             // Tính toán tổng số trang và trả về dữ liệu phân trang
@@ -244,7 +264,7 @@ namespace BackEnd_ASP.NET.Controller
             // Kiểm tra nếu user có role Admin mới cho phép
             var IsAdmin = HttpContext.User.IsInRole("Admin");
             if (!IsAdmin) return Unauthorized();
-            
+
             return await shoeService.GetShoeByIdFromAdminAsync(id);
         }
 

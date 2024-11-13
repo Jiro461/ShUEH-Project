@@ -1,6 +1,7 @@
 using BackEnd_ASP_NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd_ASP.NET.Services;
+using BackEnd_ASP_NET.Utilities.Extensions;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -102,7 +103,7 @@ namespace BackEnd_ASP.NET.Controller.Account
             if (!authenticateResult.Succeeded)
             {
                 // Nếu không thành công, bạn có thể trả về trang lỗi hoặc thông báo lỗi
-                return Redirect("http://localhost:3000");
+                return Redirect(MyURL.ClientURL);
             }
             return await accountService.GoogleAuthen(HttpContext);
         }

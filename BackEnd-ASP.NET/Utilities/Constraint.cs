@@ -17,9 +17,9 @@ namespace BackEnd_ASP_NET.Utilities.Extensions
     public static class MyURL
     {
         // URL của máy chủ
-        public static string Host = "http://localhost:5118";
+        public static string Host = "https://shueh.somee.com";
         // URL của client
-        public static string ClientURL = "http://localhost:3000";
+        public static string ClientURL = "https://shueh7.vercel.app";
     }
 
     // Lớp tĩnh PaymentType để lưu trữ các loại thanh toán

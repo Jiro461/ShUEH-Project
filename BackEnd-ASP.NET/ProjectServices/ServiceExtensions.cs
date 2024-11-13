@@ -138,10 +138,12 @@ public static class ServiceExtensions
                 {
                     builder.WithOrigins("http://localhost:3000",
                                         "http://localhost:5118",
-                                        "https://sshueh-git-release-hoangthhs-projects.vercel.app")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
+                                        "https://sshueh-git-release-hoangthhs-projects.vercel.app",
+                                        "https://shueh7-ev2nqilo8-jiro461s-projects.vercel.app",
+                                        "https://shueh7.vercel.app")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
                     // Allow localhost origins
                     // builder.WithOrigins("http://localhost:3000", "http://localhost:5118") // Liệt kê các origin cụ thể
                     //     .AllowAnyHeader()

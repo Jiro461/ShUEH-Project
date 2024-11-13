@@ -32,7 +32,7 @@ namespace BackEnd_ASP.NET.Services.VnPay
             vnpay.AddRequestData("vnp_Locale", _config["VnPay:Locale"] ?? "vn");
             vnpay.AddRequestData("vnp_OrderInfo", $"{model.FullName} thanh toán đơn hàng {model.OrderId} với tổng giá {model.Amount}");
             vnpay.AddRequestData("vnp_OrderType", "other");
-            vnpay.AddRequestData("vnp_ReturnUrl", _config["VnPay:PaymentBackReturnUrl"] ?? "https://localhost:5118/payment/payment-callback");
+            vnpay.AddRequestData("vnp_ReturnUrl", _config["VnPay:PaymentBackReturnUrl"] ?? "https://shueh.somee.com/api/payment/payment-callback");
             vnpay.AddRequestData("vnp_TxnRef", tick);
 
             // Tạo URL yêu cầu thanh toán
