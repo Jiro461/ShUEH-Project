@@ -1,48 +1,49 @@
 .home-product-advantage{
-    display: flex;
-    flex-direction: column;
-    background: #6B6B6B;
-    padding: 5vw 30px 0;
-    position: relative;
-    overflow: visible;
-
-    .advantage-index{
-        color: #AEAEAE;
-        font-size: 2vw;
-        font-weight: 800;
-    }
+    display: flex; /* Dùng Flexbox để bố trí các phần tử con */
+    flex-direction: column; /* Đặt hướng của các phần tử con theo chiều dọc */
+    background: #6B6B6B; /* Màu nền của phần tử */
+    padding: 5vw 30px 0; /* Khoảng cách trong phần tử (padding: trên, trái/phải, dưới) */
+    position: relative; /* Đặt vị trí tương đối cho phần tử */
+    overflow: visible; /* Cho phép phần tử con vượt ra ngoài nếu cần */
     
+    .advantage-index{
+        color: #AEAEAE; /* Màu chữ cho chỉ mục */
+        font-size: 2vw; /* Kích thước chữ tùy theo chiều rộng màn hình */
+        font-weight: 800; /* Định dạng chữ đậm */
+    }
+
     .advantage-name{
-        color: #fff;
-        font-size: 2vw;
-        font-weight: 800;
+        color: #fff; /* Màu chữ trắng cho tên sản phẩm */
+        font-size: 2vw; /* Kích thước chữ tùy theo chiều rộng màn hình */
+        font-weight: 800; /* Định dạng chữ đậm */
     }
 
     .advantage-desc{
-        font-family: Inter;
-        font-size: 1vw;
-        font-weight: 400;
+        font-family: Inter; /* Phông chữ cho phần mô tả */
+        font-size: 1vw; /* Kích thước chữ tùy theo chiều rộng màn hình */
+        font-weight: 400; /* Định dạng chữ bình thường */
     }
 
     .ml{
-        margin-left: 20px;
+        margin-left: 20px; /* Thêm khoảng cách bên trái cho phần tử có class ml */
     }
 
     img{
-        z-index: 1000;
+        z-index: 5; /* Đặt chỉ số z-index cho ảnh để đảm bảo nó nằm trên các phần tử khác */
     }
 }
 
+/* Media query cho các màn hình có độ rộng tối đa 767px (điện thoại và máy tính bảng nhỏ) */
 @media (max-width: 767px){
-    .product-advantage{
+    .home-product-advantage{
         .advantage-index{
-            font-size: 5vw;
+            font-size: 5vw; /* Kích thước chữ của chỉ mục sẽ lớn hơn khi màn hình nhỏ */
         }
         .advantage-name{
-            font-size: 5vw;
+            font-size: 5vw; /* Tăng kích thước chữ của tên sản phẩm khi màn hình nhỏ */
         }
         .advantage-desc{
-            font-size: 3.5vw;
+            font-size: 3.5vw; /* Tăng kích thước chữ của mô tả khi màn hình nhỏ */
         }
     }
 }

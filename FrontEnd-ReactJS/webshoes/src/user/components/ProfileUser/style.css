@@ -1,5 +1,4 @@
 .profile {
-    /* user - profile */
     .user-profile {
         background-color: #fff;
         border-radius: 10px;
@@ -7,60 +6,85 @@
         text-align: center;
         min-height: 60vh;
         padding: 4vh;
-    }
-
-    /* edit */
-    .user-profile .edit {
         display: flex;
-        justify-content: space-around;
-    }
-
-    .user-profile .form {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .user-profile .form-ava {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: column;
-    }
-
-    .user-profile .form-control {
-        margin-left: 20px;
-        width: 20vw;
-    }
-
-    .user-profile .form-control[type="file"] {
-        display: none;
-    }
-
-    .user-profile img {
-        min-width: 130px;
-        min-height: 160px;
-        width: 12vw;
-        height: 15vw;
-        border-radius: 10px;
-        background-color: #333;
-    }
-
-    /* user-info */
-    .user-profile .user-info {
-        text-align: left;
         align-items: center;
         justify-content: center;
-        margin: 20px 30px;
-    }
 
-    .user-profile .user-info .info {
-        display: flex;
-        justify-content: space-around;
+        img {
+            padding: 0;
+            min-width: 150px;
+            min-height: 180px;
+            width: 12vw;
+            height: 15vw;
+            border-radius: 10px;
+            background-color: #adadad;
+            margin: 15px 15px;
+        }
+
+        /* edit profile */
+        .edit-profile {
+            margin: 20px 0;
+            width: 90%;
+            display: flex;
+            justify-content: space-around;
+
+            .form-ava {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .form-control {
+                    display: none;
+                }
+            }
+
+            .form {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 15px 15px;
+
+                .form-control {
+                    margin-left: 20px;
+                    width: 14vw;
+                    min-width: 170px;
+                }
+            }
+        }
+
+        /* user info */
+        .user-info {
+            width: 80%;
+            text-align: left;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+    
+            .info {
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+
+        .btn-edit{
+            text-align: center;
+            margin: 20px 0;
+            
+            button {
+                padding: 1vh 2vw;
+                border: 0;
+                border-radius: 3vw;
+                font-weight: 700;
+                color: #fff;
+                background: linear-gradient(to left, #ff626d, #fcad72);
+                box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+            }
+        }
     }
 
     /* button */
-    .user-profile .btn-edit,
     .user-profile .btn-update {
         padding: 1vh 2vw;
         border: 0;

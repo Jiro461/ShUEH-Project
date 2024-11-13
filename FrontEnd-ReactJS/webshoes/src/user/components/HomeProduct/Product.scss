@@ -1,14 +1,105 @@
-.home-product{
+.product-home{
     .info{
-        display: flex;
-        justify-content: space-between;
-
+        display: flex; /* Dùng flexbox để căn chỉnh các phần tử */
+        justify-content: space-between; /* Căn chỉnh không gian giữa các phần tử */
+        
         .title{
             p{
-                margin-bottom: 0;
+                margin-bottom: 0; /* Xóa khoảng cách dưới mỗi đoạn văn */
             }
+            .title-line-1{
+                font-size: 21px; /* Kích thước chữ dòng 1 */
+                font-weight: bold; /* Chữ đậm */
+                color: orange; /* Màu sắc cho dòng 1 */
+                overflow: hidden; /* Ẩn phần văn bản vượt quá */
+                text-overflow: ellipsis; /* Hiển thị ba chấm nếu văn bản dài */
+                white-space: nowrap; /* Ngừng xuống dòng */
+            }
+            .title-line-2{
+                font-size: 18px; /* Kích thước chữ dòng 2 */
+            }
+        }
+    }
+    .img-box{
+        position: relative; /* Để các phần tử con có thể sử dụng vị trí tuyệt đối */
+        .img-product{
+            width: 100%; /* Chiều rộng hình ảnh bằng 100% */
+            height: 250px; /* Chiều cao hình ảnh cố định */
+            object-fit: cover; /* Đảm bảo hình ảnh sẽ không bị méo */
+        }
+        .product-promotion-sale{
+            position: absolute; /* Đặt khuyến mãi vào vị trí tuyệt đối */
+            top: 0; /* Đưa lên trên cùng */
+            left: 0; /* Đưa sang bên trái */
+        }
+
+        .product-promotion-tag-new{
+            position: absolute; /* Đặt thẻ "mới" vào vị trí tuyệt đối */
+            top: 0; /* Đưa lên trên cùng */
+            right: 0; /* Đưa sang bên phải */
+        }
+    }
+    .product-price{
+        margin-top: 10px; /* Khoảng cách phía trên của giá */
+        position: relative; /* Để các phần tử con có thể sử dụng vị trí tuyệt đối */
+        display: flex; /* Dùng flexbox để căn chỉnh các phần tử */
+        justify-content: center; /* Căn chỉnh các phần tử theo chiều ngang */
+        align-items: center; /* Căn chỉnh các phần tử theo chiều dọc */
+        justify-content: space-between; /* Căn chỉnh không gian giữa các phần tử */
+        font-size: 1.5rem; /* Kích thước chữ giá */
+        
+        &.single-price{
+            justify-content: center; /* Nếu chỉ có một giá, căn giữa */
+        }
+        .original-price{
+            position: relative; /* Để đường gạch ngang có thể sử dụng vị trí tuyệt đối */
+            color: #FFFFFF80; /* Màu sắc cho giá gốc */
+            &::before {
+                content: ""; /* Tạo một đường gạch ngang */
+                position: absolute; /* Đặt đường gạch vào vị trí tuyệt đối */
+                top: 50%; /* Điều chỉnh giá trị này để thay đổi vị trí của đường gạch ngang */
+                left: 0; /* Đặt đường gạch ngang bắt đầu từ trái */
+                width: 100%; /* Độ dài của đường ngang theo chiều rộng của chữ */
+                height: 1px; /* Độ dày của đường ngang */
+                background-color: #fff; /* Màu đường gạch sẽ giống với màu chữ */
+                transform: translateY(-50%); /* Đưa đường gạch vào giữa theo chiều dọc */
+            }
+        }
+        .sale-price{
+            background: linear-gradient(118deg, #FF6262 21.5%, #FCAD72 78.5%); /* Màu nền gradient cho giá giảm */
+            background-clip: text; /* Áp dụng gradient vào chữ */
+            -webkit-background-clip: text; /* Đảm bảo hỗ trợ trên Webkit (Chrome, Safari) */
+            -webkit-text-fill-color: transparent; /* Làm chữ trong suốt để thấy gradient */
         }
     }
 }
 
+@media (max-width: 992px) {
+    .product-home{
+        .product-price{
+            margin-top: -10px; /* Giảm khoảng cách phía trên của giá khi trên màn hình nhỏ */
+        }
+    }
+}
 
+@media (max-width: 768px) {
+    .product-home{
+        .img-box{
+            .img-product{
+                height: 370px; /* Tăng chiều cao hình ảnh khi màn hình nhỏ */
+            }
+        }
+        .product-price{
+            margin-top: 0; /* Xóa khoảng cách phía trên của giá */
+            font-size: 2rem; /* Tăng kích thước chữ cho giá khi màn hình nhỏ */
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .product-home{
+        .product-price{
+            justify-content: center; /* Căn giữa giá trên màn hình rất nhỏ */
+        }
+    }
+}

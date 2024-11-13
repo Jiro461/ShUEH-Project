@@ -1,8 +1,6 @@
 .user-most-popular{
     background: #242425;
-    height: 100vh;
     padding-top: 50px;
-    
     .fit-content{
         height: fit-content;
         width: fit-content;
@@ -13,10 +11,11 @@
     }
 
     .product-popular{
-        background: #333235;
+        background: #242425;
         position: relative;
         margin: 0 auto;
         width: 90vw;
+        height: 40vw;
 
         .center-product{
             position: absolute;
@@ -30,18 +29,27 @@
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 2;
         }
 
         .sub-right{
             position: absolute;
             top: 0;
             right: 0;
+            z-index: 2;
         }
     }
 }
 
 @media (max-width: 768px){
     .user-most-popular{
-        height: 80vh;
+        padding-bottom: 50px;
+    }
+}
+
+@media (max-width: 576px) {
+    .user-most-popular{
+        // height: 90vw;
+        // max-height: 70vh;
     }
 }

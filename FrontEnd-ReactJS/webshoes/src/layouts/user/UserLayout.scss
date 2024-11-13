@@ -1,6 +1,11 @@
-.main{
-    height: 100vh;
-    width: 100vw;
-    overflow-x: hidden;
-    overflow-y: scroll;
+.user-main {
+    height: 100vh; /* Chiều cao của phần tử là 100% chiều cao cửa sổ trình duyệt */
+    width: 100vw; /* Chiều rộng của phần tử là 100% chiều rộng cửa sổ trình duyệt */
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang nếu có nội dung vượt quá chiều rộng */
+    overflow-y: scroll; /* Hiển thị thanh cuộn dọc luôn luôn, dù nội dung có vượt quá hay không */
+    color: #fff; /* Màu chữ là trắng */
+    
+    &::-webkit-scrollbar {
+        width: 0; /* Ẩn thanh cuộn (scrollbar) bằng cách đặt chiều rộng là 0 */
+    }
 }

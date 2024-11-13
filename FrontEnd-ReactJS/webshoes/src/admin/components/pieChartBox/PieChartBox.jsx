@@ -1,17 +1,10 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import "./pieChartBox.scss";
 
-const data = [
-  { name: "Mobile", value: 400, color: "#0088FE" },
-  { name: "Desktop", value: 300, color: "#00C49F" },
-  { name: "Laptop", value: 300, color: "#FFBB28" },
-  { name: "Tablet", value: 200, color: "#FF8042" },
-];
-
-const PieChartBox = () => {
+const PieChartBox = (props) => {
   return (
     <div className="pieChartBox">
-      <h1>Categories filter</h1>
+      <h1>{props.title}</h1>
       <div className="chart">
         <ResponsiveContainer width="99%" height={300}>
           <PieChart>
@@ -19,27 +12,31 @@ const PieChartBox = () => {
               contentStyle={{ background: "white", borderRadius: "5px" }}
             />
             <Pie
-              data={data}
+              data={props.data}
               innerRadius={"70%"}
               outerRadius={"90%"}
               paddingAngle={5}
-              dataKey="value"
+              dataKey={props.myDataKey}
+              nameKey={props.myValueKey}
             >
-              {data.map((item) => (
-                <Cell key={item.name} fill={item.color} />
+              {props.data.map((item, index) => (
+                <Cell 
+                  key={`${item?.[props.myValueKey]} - ${index}`}  // Ensure uniqueness by combining valueKey with index
+                  fill={item.color || "#ccc"}  // Default color if undefined
+                />
               ))}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
       </div>
       <div className="options">
-        {data.map((item) => (
-          <div className="option" key={item.name}>
+        {props.data.map((item, index) => (
+          <div className="option" key={`${item?.[props.myValueKey]}-${index}`}>
             <div className="title">
-              <div className="dot" style={{ backgroundColor: item.color }} />
-              <span>{item.name}</span>
+              <div className="dot" style={{ backgroundColor: item.color || "#ccc" }} />
+              <span>{item?.[props.myValueKey]}</span>
             </div>
-            <span>{item.value}</span>
+            <span>{item?.[props.myDataKey]}</span>
           </div>
         ))}
       </div>

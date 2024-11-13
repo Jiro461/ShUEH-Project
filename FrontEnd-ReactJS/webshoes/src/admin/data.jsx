@@ -1,4 +1,4 @@
-export const menu_data = [
+    export const menu_data = [
     {
         id: 1,
         title: 'MAIN',
@@ -6,13 +6,13 @@ export const menu_data = [
             {
                 id: 1,
                 title: "Home",
-                url: "/",
+                url: "/admin/",
                 icon: "home.svg"
             },
             {
                 id: 2,
                 title: "My Info",
-                url: "/",
+                url: "/admin/",
                 icon: "user.svg"
             }
         ],
@@ -24,78 +24,44 @@ export const menu_data = [
             {
                 id: 1,
                 title: "Users",
-                url: "/",
+                url: "/admin/users/",
                 icon: "user.svg"
             }
             ,
             {
                 id: 2,
                 title: "Products",
-                url: "/",
+                url: "/admin/products/",
                 icon: "product.svg"
             },
             {
                 id: 3,
                 title: "Orders",
-                url: "/",
+                url: "/admin/orders/",
                 icon: "order.svg"
             },
+            {
+               id: 4,
+               title: "Discounts",
+               url: "/admin/discounts/",
+               icon: "discount.svg"
+            }
         ]
     },
-    {
-        id: 3,
-        title: "TOOL",
-        listItems: [
-            {
-                id: 1,
-                title: "Note",
-                url: "/",
-                icon: "note.svg"
-            }
-            ,
-            {
-                id: 2,
-                title: "Calendar",
-                url: "/",
-                icon: "calendar.svg"
-            },
-        ]
-    },
-    {
-        id: 4,
-        title: "STATISTIC",
-        listItems: [
-            {
-                id: 1,
-                title: "Chart",
-                url: "/",
-                icon: "chart.svg"
-            }
-            ,
-            {
-                id: 2,
-                title: "History",
-                url: "/",
-                icon: "log.svg"
-            },
-        ]
-    }
-
-
 ]
 
-
+//Thống kê các đơn hàng có giá trị cao nhất
 export const top_Deals = [
     {
         id: 1,
         img: "/profile.svg",
         username: "Mach Gia Huy",
         email: "huymachgia555@gmail.com",
-        amount: "3500000"
+        amount: "3500000" 
     },
     {
         id: 2,
-        img: "/profile.svg",
+        img: "/profile.svg", 
         username: "Mach Gia Huy 2",
         email: "huymachgia555@gmail2.com",
         amount: "3800000"
@@ -143,7 +109,7 @@ export const top_Deals = [
         amount: "3600000"
     },
 ]
-
+//Thống kê số lượng User mỗi tháng
 export const chartBoxUser = {
     color: "#8884d8",
     icon: "/userIcon.svg",
@@ -161,7 +127,7 @@ export const chartBoxUser = {
       { name: "Sat", users: 450 },
     ],
   };
-  
+//Thống kê số lượng sản phẩm mỗi tháng
 export const chartBoxProduct = {
     color: "skyblue",
     icon: "/productIcon.svg",
@@ -179,6 +145,7 @@ export const chartBoxProduct = {
       { name: "Sat", products: 450 },
     ],
   };
+//Thống kê tổng doanh thu mỗi tháng
   export const chartBoxRevenue = {
     color: "teal",
     icon: "/revenueIcon.svg",
@@ -196,6 +163,7 @@ export const chartBoxProduct = {
       { name: "Sat", revenue: 450 },
     ],
   };
+  
   export const chartBoxConversion = {
     color: "gold",
     icon: "/conversionIcon.svg",

@@ -1,0 +1,158 @@
+.chat{
+    position: absolute;
+    z-index: 100;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    bottom: 100px;
+    right: 50px;
+    background-color: #FCAD72;
+    border-radius: 50%;
+    img{
+        width: 50%;
+        height: 50%;
+    }
+    .chat-container{
+        cursor: default;
+        overflow: hidden;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 359px;
+        height: 317px;
+        right: 88px;
+        border-radius: 10px;
+        bottom: 13px;
+        background-color: white;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        .chat-header{
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-weight: 600;
+            width: 100%;
+            height: 50px;
+            background-color: #FCAD72;
+            border-radius: 10px 10px 0 0;
+            h1{
+                color: white;
+                height: auto;
+                font-size: 1.8rem;
+                margin: 0;
+            }
+        }
+        .chat-body{
+            padding: 15px;
+            overflow-y: auto;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            .chat-message-container{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                .chat-message{
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: auto;
+                    padding: 10px;
+                    margin: 10px 0;
+                    &.sender{
+                        justify-content: start;
+                        p {
+                            width: 70%;
+                            background-color: #FCAD72;
+                            align-self: flex-end;
+                            border-radius: 10px;
+                            padding: 10px;
+                            justify-self: flex-end;
+                            color: black;
+                            margin: 0px;
+                        }
+                        img{
+                            width: 28px;
+                            height: 28px;
+                            border-radius: 50%;
+                            background-color: #FCAD72;
+                            justify-self: flex-end;
+                            align-self: flex-end;
+                            margin-right: 10px;
+                        }
+                    }
+                    &.receiver{
+                        align-self: flex-start;
+                        justify-content: end;
+
+                        p {
+                            width: 70%;
+
+                            background-color: #FF626D;
+                            color: white;
+                            align-self: flex-end;
+                            border-radius: 10px;
+                            padding: 10px;
+                            justify-self: flex-end;
+                            margin: 0px;
+                        }
+                        img{
+                            display: none;
+                        }
+                    }
+                }
+                
+            }
+            &::-webkit-scrollbar{
+                width: 5px;
+                border-radius: 10px;
+            }
+            &::-webkit-scrollbar-thumb{
+                background-color: #FCAD72;
+                border-radius: 10px;
+            }
+        }
+        .chat-footer{
+            width: 100%;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            textarea{
+                width: 90%;
+                height: 100%;
+                border: none;
+                outline: none;
+                padding: 10px;
+                resize: none;
+            }
+            button{
+                width: 10%;
+                aspect-ratio: 1/1;
+                border: none;
+                font-size: 0.5rem;
+                outline: none;
+                border-radius: 10px;
+                background-color: #FCAD72;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                img{
+                    width: 50%;
+                    height: 50%;
+                }
+                &:hover{
+                    background-color: #FF626D;
+                }
+            }
+        }
+    }
+}

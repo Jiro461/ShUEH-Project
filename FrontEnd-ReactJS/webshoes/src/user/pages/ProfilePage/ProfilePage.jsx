@@ -8,13 +8,13 @@ function ProfilePage() {
                 {/* Sidebar */}
                 <div className="col-lg-3 col-12 sidebar">
                     <Link className="sidebar-selection" to=''>Profile</Link>
-                    <Link className="sidebar-selection" to='favorite'>Favorite</Link>
+                    <Link className="sidebar-selection" to='favour'>Favorite</Link>
                     <Link className="sidebar-selection" to='ordered'>Ordered</Link>
-                    <Link className="sidebar-selection" to='setting'>Setting</Link>
+                    <Link className="sidebar-selection" to='change-password'>Change Password</Link>
                 </div>
 
                 {/* Content */}
-                <div className="col-lg-7 col-12 content">
+                <div className="col-lg-7 col-12 content-profile-page">
                     <Outlet/>
                 </div>
             </div>

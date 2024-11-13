@@ -1,19 +1,20 @@
 
 import DataTable from "../../components/dataTable/DataTable";
-import "./User.scss";
-import { useState } from "react";
+import "./Users.scss";
+import { useEffect, useState } from "react";
 import Add from "../../components/add/Add";
-import { userRows } from "../../data";
+import { Alert, Backdrop, CircularProgress, Slide, Snackbar } from "@mui/material";
+import * as adminUsersService from "../../../services/adminUsersService"
 // import { useQuery } from "@tanstack/react-query";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "id", headerName: "ID", width: 130 },
   {
-    field: "img",
+    field: "avatarUrl",
     headerName: "Avatar",
-    width: 100,
+    width: 80,
     renderCell: (params) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
+      return <img src={params.row.avatarUrl || "/noavatar.png"} alt="" />;
     },
   },
   {
@@ -35,54 +36,176 @@ const columns = [
     width: 150,
   },
   {
-    field: "phone",
-    type: "string",
-    headerName: "Phone",
-    width: 150,
-  },
-  {
-    field: "createdAt",
-    headerName: "Created At",
-    width: 150,
-    type: "string",
-  },
-  {
-    field: "verified",
-    headerName: "Verified",
-    width: 150,
+    field: "emailConfirmed",
     type: "boolean",
+    headerName: "Email Confirmed",
+    width: 80,
+  },
+  {
+    field: "isExternalLogin",
+    type: "boolean",
+    headerName: "External Login",
+    width: 80,
+  },
+  {
+    field: "role",
+    type: "string",
+    headerName: "Role",
+    width: 100,
+  },
+  {
+    field: "createDate",
+    headerName: "Created At",
+    width: 110,
+    type: "string",
   },
 ];
 
-const Users = () => {
+const roles = ["Admin", "User"]
+const genders = ["Male", "Female"]
+const inputs =[
+  {
+    field: "username",
+    type: "text",
+    headerName: "Username",
+    require: true,
+    isUpdateDisable: true,
+  },
+  {
+    field: "password",
+    type: "password",
+    headerName: "Password",
+    require: true,
+    isUpdateDisable: true,
+  },
+  {
+    field: "email",
+    type: "text",
+    headerName: "Email",
+    require: true
+  },
+  {
+    field: "firstName",
+    type: "text",
+    headerName: "First name",
+    require: true
+  },
+  {
+    field: "lastName",
+    type: "text",
+    headerName: "Last name",
+    require: true
+  },
+  {
+    field: "gender",
+    label: "gender",
+    type: "selectOnly",
+    selectData: genders,
+    require: true
+  },
+  {
+    field: "role",
+    label: "role",
+    type: "selectOnly",
+    selectData: roles,
+    require: true
+  },
+  {
+    field: "dateOfBirth",
+    headerName: "Date of birth",
+    type: "date",
+    require: true
+  },
+
+  ]
+
+const Users =  () => {
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [openBackDrop, setOpenBackDrop] = useState(false)
+  const [openToastMessage, setOpenToastMessage] = useState(false)
+  const [typeToastMessage, setTypeToastMessage] = useState("")
+  const [titleToastMessage, setTitleToastMessage] = useState("")
 
-  // TEST THE API
+  const fetchData = async () => {
+    try {
+      const res = await adminUsersService.getAllUsers()
+      setData(res); // Lưu dữ liệu vào state
+    } catch (error) {
+      console.log(error);
+    }
+    finally{
+      setIsLoading(false)
+    }
+  };
+  // Gọi API trong useEffect
+  useEffect(() => {
+    fetchData(); // Gọi hàm fetchData
+  }, []); // Chỉ chạy một lần sau khi component mount
+  
+  function SlideTransition(props) {
+    return <Slide {...props} direction="left" />;
+  }
 
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["allusers"],
-  //   queryFn: () =>
-  //     fetch("http://localhost:8800/api/users").then(
-  //       (res) => res.json()
-  //     ),
-  // });
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
+    setOpenToastMessage(false);
+  }
   return (
-    <div className="users">
-      <div className="info">
-        <h1>Users</h1>
-        <button onClick={() => setOpen(true)}>Add New User</button>
-      </div>
-      <DataTable slug="users" columns={columns} rows={userRows} />
-      {/* TEST THE API */}
-
-      {/* {isLoading ? (
-        "Loading..."
-      ) : (
-        <DataTable slug="users" columns={columns} rows={data} />
-      )} */}
-      {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
+    <div className="admin-products">
+    <div className="info">
+      <h1>Users</h1>
+      <button onClick={() => setOpen(true)}>Add New User</button>
     </div>
+    {isLoading ? (
+      <CircularProgress color="inherit" />
+    ) : (
+      <DataTable 
+      slug="users" 
+      updateSlug="user"
+      columns={columns} 
+      rows={data}
+      inputs={inputs} 
+      fetchData={fetchData}
+      setOpenBackDrop={setOpenBackDrop}
+      setOpenToastMessage={setOpenToastMessage}
+      setTypeToastMessage={setTypeToastMessage}
+      setTitleToastMessage={setTitleToastMessage}
+      />
+    )}
+    {open && <Add 
+    slug="user" 
+    setOpen={setOpen} 
+    fetchData={fetchData}
+    setOpenBackDrop={setOpenBackDrop}
+    setOpenToastMessage={setOpenToastMessage}
+    setTypeToastMessage={setTypeToastMessage}
+    setTitleToastMessage={setTitleToastMessage}
+    inputs={inputs}/>}
+
+    {openBackDrop && (<Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={openBackDrop}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>)}
+
+    {openToastMessage && (<Snackbar
+        open={openToastMessage}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        TransitionComponent={SlideTransition}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert severity={typeToastMessage} sx={{ width: '100%' }}>
+          {titleToastMessage}
+        </Alert>
+      </Snackbar>)}
+  </div>
   );
 };
 

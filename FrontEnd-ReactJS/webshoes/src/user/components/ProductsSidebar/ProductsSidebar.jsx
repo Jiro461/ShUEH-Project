@@ -1,8 +1,13 @@
-import React, { useRef, useEffect } from 'react';
-import { genders, sports, minPrices, maxPrices, colors, sizes } from './dataSidebar';
+import React, { useRef, useEffect, useState } from 'react';
+import { genders, sports, minPrices, maxPrices, colors, sizes_VN } from './dataSidebar';
 
-function ProductsSidebar({ filters, updateFilters }) {
-        // Gender ---------------------------------------------------------------------------------------------------------------
+function ProductsSidebar({ filters, updateFilters, isMenuSidebarVisible }) {
+    const [isMinOnTop, setIsMinOnTop] = useState(false);
+    const [isMaxOnTop, setIsMaxOnTop] = useState(false);
+    const [min, setMin] = useState(minPrices.value);
+    const [max, setMax] = useState(maxPrices.value);
+
+    // Gender ---------------------------------------------------------------------------------------------------------------
     // Render gender
     const genderList = genders.map((gender, index) => (
         <div key={index} className="item">
@@ -26,8 +31,8 @@ function ProductsSidebar({ filters, updateFilters }) {
         updateFilters({ selectedGenders: updatedGenders });
     };
 
-        // Sport ---------------------------------------------------------------------------------------------------------------
-    // Render Sỏit
+    // Sport ---------------------------------------------------------------------------------------------------------------
+    // Render sport
     const sportList = sports.map((sport, index) => (
         <div key={index} className="item">
             <h4>{sport.name}</h4>
@@ -50,28 +55,24 @@ function ProductsSidebar({ filters, updateFilters }) {
         updateFilters({ selectedSports: updatedSports });
     };
 
-        // Price ---------------------------------------------------------------------------------------------------------------
+    // Price ---------------------------------------------------------------------------------------------------------------
     // xử lý min slider change
     const handleMinSliderChange = (event) => {
         const value = parseInt(event.target.value);
-        if (value < filters.maxValue) {
-            updateFilters({
-                minValue: value,
-                isMinOnTop: true,
-                isMaxOnTop: false,
-            });
+        if (value < max) {
+            setMin(value);
+            setIsMinOnTop(true);
+            setIsMaxOnTop(false);
         }
     };
 
     // xử lý max slider change
     const handleMaxSliderChange = (event) => {
         const value = parseInt(event.target.value);
-        if (value > filters.minValue) {
-            updateFilters({
-                maxValue: value,
-                isMaxOnTop: true,
-                isMinOnTop: false,
-            });
+        if (value > min) {
+            setMax(value);
+            setIsMinOnTop(false);
+            setIsMaxOnTop(true);
         }
     };
 
@@ -80,16 +81,16 @@ function ProductsSidebar({ filters, updateFilters }) {
 
     // Update slider and progress bar
     useEffect(() => {
-        const minPercentage = (filters.minValue / (maxPrices.value - minPrices.value)) * 100;
-        const maxPercentage = (filters.maxValue / (maxPrices.value - minPrices.value)) * 100;
+        const minPercentage = (min / (maxPrices.value - minPrices.value)) * 100;
+        const maxPercentage = (max / (maxPrices.value - minPrices.value)) * 100;
 
         if (progressBarRef.current) {
-            progressBarRef.current.style.left = `${minPercentage}%`;
-            progressBarRef.current.style.right = `${100 - maxPercentage}%`;
+            progressBarRef.current.style.left = `${minPercentage - 10}%`;
+            progressBarRef.current.style.right = `${100 - maxPercentage + 10}%`;
         }
-    }, [filters.minValue, filters.maxValue]);
+    }, [min, max]);
 
-        // Color ---------------------------------------------------------------------------------------------------------------
+    // Color ---------------------------------------------------------------------------------------------------------------
     // Render Color
     const colorList = colors.map((color, index) => (
         <div
@@ -117,35 +118,35 @@ function ProductsSidebar({ filters, updateFilters }) {
         updateFilters({ selectedColors: updatedColors });
     };
 
-        // Size ---------------------------------------------------------------------------------------------------------------
+    // Size ---------------------------------------------------------------------------------------------------------------
     // Render Size
-    const sizeList = sizes.map((size, index) => (
+    const sizeList = sizes_VN.map((size, index) => (
         <div
             key={index}
             id={size.id}
             className={`col-1 size ${filters.selectedSizes.some(s => s.id === size.id) ? 'selected' : ''}`}
-            onClick={() => handleSizeChange(size.id, size.value)}
+            onClick={() => handleSizeChange(size.id, size.value_VN)}
         >
-            {size.value}
+            {filters.isSizeUK ? size.value_UK : size.value_VN}
         </div>
     ));
 
     // xử lý thay đổi size cho các selection
-    const handleSizeChange = (id, value) => {
+    const handleSizeChange = (id, value_VN) => {
         const updatedSizes = filters.selectedSizes.find(size => size.id === id)
             ? filters.selectedSizes.filter(size => size.id !== id)
-            : [...filters.selectedSizes, { id, value }];
+            : [...filters.selectedSizes, { id, value_VN }];
 
         updateFilters({ selectedSizes: updatedSizes });
     };
-        // Sale ---------------------------------------------------------------------------------------------------------------
+    // Sale ---------------------------------------------------------------------------------------------------------------
     // Xử lý thay đổi sale checkbox
     const handleSaleChange = () => {
-        updateFilters({ isOnSale: !filters.isOnSale });
+        updateFilters({ isSale: !filters.isSale });
     };
 
     return (
-        <div className="col-lg-2 col-md-1 sidebar">
+        <div className={`col-lg-2 col-md-1 sidebar ${isMenuSidebarVisible ? 'active' : ''}`}>
             <h1 className="heading">Filter</h1>
             <div className="gender">{genderList}</div>
             <div className="dividing-line" />
@@ -153,33 +154,41 @@ function ProductsSidebar({ filters, updateFilters }) {
             <div className="price-range-slider">
                 <h3>Pricing</h3>
                 <div className="price-values">
-                    <div className={`${minPrices.id} price`}>${filters.minValue}</div>
-                    <div className={`${maxPrices.id} price`}>${filters.maxValue}</div>
+                    <div className={`${minPrices.id} price`}>${min}</div>
+                    <div className={`${maxPrices.id} price`}>${max}</div>
                 </div>
                 <div className="range-slider">
-                    <input 
-                        type="range" 
-                        min={minPrices.value} 
-                        max={maxPrices.value} 
-                        value={filters.minValue} 
-                        id="min-price" 
+                    <input
+                        type="range"
+                        min={minPrices.value}
+                        max={maxPrices.value}
+                        value={min}
+                        id="min-price"
                         onChange={handleMinSliderChange}
-                        onMouseUp={() => console.log(`Min Value: $${filters.minValue}`)}
-                        className={filters.isMinOnTop ? 'overlap' : ''}
+                        onMouseUp={() => {
+                            updateFilters({
+                                minValue: min,
+                            })
+                        }}
+                        className={isMinOnTop ? 'overlap' : ''}
                     />
-                    <input 
-                        type="range" 
-                        min={minPrices.value} 
-                        max={maxPrices.value} 
-                        value={filters.maxValue} 
-                        id="max-price" 
+                    <input
+                        type="range"
+                        min={minPrices.value}
+                        max={maxPrices.value}
+                        value={max}
+                        id="max-price"
                         onChange={handleMaxSliderChange}
-                        onMouseUp={() => console.log(`Max Value: $${filters.maxValue}`)}
-                        className={filters.isMaxOnTop ? 'overlap' : ''}
+                        onMouseUp={() => {
+                            updateFilters({
+                                maxValue: max,
+                            })
+                        }}
+                        className={isMaxOnTop ? 'overlap' : ''}
                     />
                 </div>
                 <div className="slider">
-                    <div className="progress" ref={progressBarRef}/>
+                    <div className="progress" ref={progressBarRef} />
                 </div>
             </div>
             <div className="colors">

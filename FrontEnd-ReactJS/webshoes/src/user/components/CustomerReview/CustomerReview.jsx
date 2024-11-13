@@ -1,25 +1,30 @@
 import React from 'react';
 import './CustomerReview.scss'
+import StarRatings from 'react-star-ratings';
 
-const CustomerReview = () => {
+const CustomerReview = ({avatar, name, comment, rating}) => { // Nhận vào các props: avatar, name, comment, rating
     return (
         <div className="customer-review">
-            <img className="customer-avatar" src="/customer-avatar.svg" alt=""></img>
+            {/* Hình ảnh avatar của khách hàng, nếu không có thì sử dụng hình ảnh mặc định */}
+            <img className="customer-avatar" src={avatar || "/customer-avatar.svg"} alt=""></img>
             <div className="customer-name">
+                {/* Biểu tượng dấu ngoặc kép cho tên khách hàng */}
                 <img src="/customer-quote-1.svg" alt=""></img>
                 <img src="/customer-quote-1.svg" alt=""></img>
-                <span>name</span>
+                <span>{name}</span> {/* Hiển thị tên khách hàng */}
             </div>
             <div className="customer-comment">
-                Leaving a review here. This is such a gud page where I can find shoes
-and many other sporty stuff. Not just so, the name is Shueh is how UEHer can find shoes that relates to UEH. BLAH BLAH BLAH BLAH
+                {comment} {/* Hiển thị bình luận của khách hàng */}
             </div>
             <div className="customer-rate">
-                <img src="/customer-rate-star.svg" alt=""></img>
-                <img src="/customer-rate-star.svg" alt=""></img>
-                <img src="/customer-rate-star.svg" alt=""></img>
-                <img src="/customer-rate-star.svg" alt=""></img>
-                <img src="/customer-rate-star.svg" alt=""></img>
+                {/* Hiển thị đánh giá sao của khách hàng */}
+                <StarRatings
+                    rating={rating} // Điểm đánh giá sao
+                    numberOfStars={5} // Số lượng sao (5 sao)
+                    starRatedColor="yellow" // Màu sao đã được đánh giá
+                    starDimension="25px" // Kích thước sao
+                    starSpacing="1px" // Khoảng cách giữa các sao
+                ></StarRatings>
             </div>
         </div>
     );
