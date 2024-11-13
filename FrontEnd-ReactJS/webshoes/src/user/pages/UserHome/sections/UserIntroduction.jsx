@@ -58,7 +58,7 @@ const UserIntroduction =  () => {
             </div>
 
             <div className= {`product-introduction image-${imageIndex}`} ref={ref} style={productStyle}>
-                <img className={`product-img image-${imageIndex} ${slideDirection === 'right' ? 'slide-right' : slideDirection === 'left' ? 'slide-left'  : ""}`} src={data[imageIndex]?.imageUrl || '/intro-product.svg'} alt='intro-product'></img>
+                <img className={`product-img image-${imageIndex} ${slideDirection === 'right' ? 'slide-right' : slideDirection === 'left' ? 'slide-left'  : ""}`} src={data[imageIndex]?.imageUrl} alt='intro-product'></img>
 
                 <div className={`product-promotion image-${imageIndex}`}>
                     <PromotionTag
