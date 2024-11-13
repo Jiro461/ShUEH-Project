@@ -1,8 +1,8 @@
-using System.Security.Claims;
 using BackEnd_ASP.NET.Data;
 using BackEnd_ASP.NET.Services;
+using BackEnd_ASP.NET.Services.VnPay;
+using BackEnd_ASP_NET;
 using BackEnd_ASP_NET.Models;
-using BackEnd_ASP_NET.Utilities.FileHelpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -18,19 +18,47 @@ public static class ServiceExtensions
     public static void AddProjectServices(this IServiceCollection services, IConfiguration configuration)
     {
         ConfigureCors(services);
-        services.AddMemoryCache();
-        services.AddControllers();//AddJsonOptions(options =>
-        //     {
-        //         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-        //     }); ;
+        services.AddControllers();
+        ConfigureMemoryCache(services);
+        ConfigureHttpService(services);
         ConfigureTransientServices(services);
+        ConfigureSingletonServices(services);
         ConfigureScopedServices(services);
         ConfigureAuthentication(services);
         ConfigureEntityFramework(services, configuration);
         ConfigureSwagger(services);
+        ConfigureSessionService(services);
+        services.AddSignalR();
+    }
+    private static void ConfigureHttpService(IServiceCollection services)
+    {
+        services.AddHttpClient();
         services.AddHttpContextAccessor();
     }
-
+    /// <summary>
+    /// Cấu hình dịch vụ Session
+    /// </summary>
+    private static void ConfigureSessionService(IServiceCollection services)
+    {
+        services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromDays(1); // Set session timeout
+            options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+            options.Cookie.IsEssential = true; // Make the session cookie essential
+        });
+    }
+    /// <summary>
+    /// Cấu hình các dịch vụ Cache
+    /// </summary>
+    private static void ConfigureMemoryCache(IServiceCollection services)
+    {
+        services.AddMemoryCache();
+        services.AddDistributedMemoryCache();
+    }
+    private static void ConfigureSingletonServices(IServiceCollection services)
+    {
+        services.AddSingleton<IVnPayService, VnPayService>();
+    }
     /// <summary>
     /// Cấu hình các dịch vụ Transient.
     /// </summary>
@@ -44,19 +72,31 @@ public static class ServiceExtensions
     /// </summary>
     private static void ConfigureScopedServices(IServiceCollection services)
     {
+        // Các dịch vụ Scoped được tạo mới cho mỗi request
         /*Repository*/
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IShoeRepository, ShoeRepository>();
-        /*Services*/
-        services.AddScoped<IOrderService, OrderService>();
-        services.AddScoped<IAccountService, AccountService>();
-        services.AddScoped<INotificationService, NotificationService>();
-        services.AddScoped<IShoeService, ShoeService>();
-        /*Identity*/
-        services.AddScoped<UserManager<User>>();
-        services.AddScoped<SignInManager<User>>();
+        services.AddScoped<IOrderRepository, OrderRepository>();  // Repository cho đơn hàng
+        services.AddScoped<IUserRepository, UserRepository>();  // Repository cho người dùng
+        services.AddScoped<IShoeRepository, ShoeRepository>();  // Repository cho giày
+        services.AddScoped<IWishListRepository, WishListRepository>();  // Repository cho danh sách yêu thích
+        services.AddScoped<ICommentRepository, CommentRepository>();  // Repository cho bình luận
+        services.AddScoped<IStatisticRepository, StatisticRepository>();  // Repository cho thống kê
+        services.AddScoped<IDiscountRepository, DiscountRepository>();  // Repository cho giảm giá
+        services.AddScoped<IChatMessageRepository, ChatMessageRepository>();  // Repository cho tin nhắn chat
 
+        /*Services*/
+        services.AddScoped<IOrderService, OrderService>();  // Dịch vụ xử lý đơn hàng
+        services.AddScoped<ICommentService, CommentService>();  // Dịch vụ xử lý bình luận
+        services.AddScoped<IWishListService, WishListService>();  // Dịch vụ xử lý danh sách yêu thích
+        services.AddScoped<IAccountService, AccountService>();  // Dịch vụ quản lý tài khoản
+        services.AddScoped<INotificationService, NotificationService>();  // Dịch vụ thông báo
+        services.AddScoped<IShoeService, ShoeService>();  // Dịch vụ xử lý giày
+        services.AddScoped<IPaymentService, PaymentService>();  // Dịch vụ thanh toán
+        services.AddScoped<IDiscountService, DiscountService>();  // Dịch vụ giảm giá
+        services.AddScoped<ChatHubServices>();  // Dịch vụ Hub cho SignalR chat
+
+        /*Identity*/
+        services.AddScoped<UserManager<User>>();  // Quản lý người dùng trong hệ thống
+        services.AddScoped<SignInManager<User>>();  // Quản lý đăng nhập người dùng
     }
     /// <summary>
     /// Cấu hình dịch vụ xác thực bằng cookie.
@@ -73,6 +113,9 @@ public static class ServiceExtensions
         {
             options.Cookie.Name = "ShUEHApplication-Cookies-Authentication"; // Tên của cookie
             options.Cookie.HttpOnly = true; // Cookie chỉ có thể truy cập qua HTTP
+            options.Cookie.IsEssential = true; // Đảm bảo cookie được gửi ngay cả khi người dùng chưa đồng ý
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         }).AddGoogle(options =>
         {
             options.ClientId = "11161045560-r08im8g3rll7ifg200tgmc8gmpa1am1t.apps.googleusercontent.com";  // Thay bằng Client ID của bạn
@@ -90,14 +133,17 @@ public static class ServiceExtensions
     {
         services.AddCors(options =>
         {
-            options.AddPolicy("CorsPolicy",
+            options.AddPolicy(name: "CorsPolicy",
                 builder =>
                 {
-
-                    builder.WithOrigins("http://localhost:5118", "http://localhost:3000")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
+                    builder.WithOrigins("http://localhost:3000",
+                                        "http://localhost:5118",
+                                        "https://sshueh-git-release-hoangthhs-projects.vercel.app",
+                                        "https://shueh7-ev2nqilo8-jiro461s-projects.vercel.app",
+                                        "https://shueh7.vercel.app")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
                     // Allow localhost origins
                     // builder.WithOrigins("http://localhost:3000", "http://localhost:5118") // Liệt kê các origin cụ thể
                     //     .AllowAnyHeader()

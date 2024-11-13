@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 namespace BackEnd_ASP_NET.Models
 {
     [Table("Comments")]
@@ -14,15 +15,22 @@ namespace BackEnd_ASP_NET.Models
         public User? User { get; set; }
         [MaxLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
         public string? Description { get; set; }
-
+    
+        public GeneralReview GeneralReview { get; set; } = GeneralReview.Average;
         [Range(1, 5, ErrorMessage = "Rate must be between 1 and 5.")]
         public decimal Rate { get; set; }
+        public int TotalLike { get; set; }
 
         [ForeignKey("Shoe")]
         public Guid? ShoeId { get; set; }
         public Shoe? Shoe { get; set; }
-
+        public int Size { get; set; }
         public ICollection<Reply>? Replies { get; set; }
+        [ForeignKey("OrderItem")]
+        public Guid? OrderItemId { get; set; }
+        public OrderItem? OrderItem { get; set; }
+        public string? Image { get; set; }
+        public ICollection<CommentLike>? CommentLikes { get; set; }
 
         public DateTime CreateDate { get; set; }
 
