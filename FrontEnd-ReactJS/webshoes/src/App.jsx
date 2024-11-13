@@ -8,12 +8,12 @@ import PrivateUserRoutes from "./user/components/PrivateRoute/PrivateUserRoutes.
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter> {/* Dùng BrowserRouter để quản lý routing trong ứng dụng */}
             <div className="App">
-                <Routes>
+                <Routes> {/* Định nghĩa các route trong ứng dụng */}
 
-                    <Route element={<UserLayout/>}>
-                        {publicRoutes.map((route, index) => {
+                    <Route element={<UserLayout/>}> {/* Dùng layout cho người dùng */}
+                        {publicRoutes.map((route, index) => {  // Duyệt qua các route công cộng
                             const Page = route.element;
                             return (
                                 <Route
@@ -26,9 +26,9 @@ function App() {
                         })}
                     </Route>
 
-                    <Route element={<PrivateUserRoutes/>}>
-                        <Route element={<UserLayout/>}>
-                            {privateRoutes.map((route,index) => {
+                    <Route element={<PrivateUserRoutes/>}> {/* Kiểm tra quyền truy cập của người dùng */}
+                        <Route element={<UserLayout/>}> {/* Dùng layout cho người dùng */}
+                            {privateRoutes.map((route,index) => {  // Duyệt qua các route riêng tư
                                 const Page = route.element
                                 return (
                                     <Route
@@ -36,12 +36,12 @@ function App() {
                                         path={route.path}
                                         element={<Page/>}
                                     >
-                                        {route?.children?.map((childrenRoute, index) => {
+                                        {route?.children?.map((childrenRoute, index) => {  // Duyệt qua các route con
                                         return (
                                             <Route
                                             key={index}
                                             path={childrenRoute.path}
-                                            element={<childrenRoute.element />}
+                                            element={<childrenRoute.element />}  // Hiển thị component con
                                         />
                                         )
                                     })}
@@ -51,9 +51,9 @@ function App() {
                         </Route>
                     </Route>
 
-                    <Route element={<PrivateAdminRoutes/>}>
-                        <Route element={<AdminLayout/>}>
-                            {adminRoutes.map((route,index) => {
+                    <Route element={<PrivateAdminRoutes/>}> {/* Kiểm tra quyền truy cập của admin */}
+                        <Route element={<AdminLayout/>}> {/* Dùng layout cho admin */}
+                            {adminRoutes.map((route,index) => {  // Duyệt qua các route admin
                                 const Page = route.element
                                 return (
                                     <Route

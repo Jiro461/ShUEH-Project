@@ -19,7 +19,7 @@ const Navbar = (props) => {
         { name: "Home", path: "/"},
         { name: "Brands", path: "/"},
         { name: "New", path: "/product?isNew=true"},
-        { name: "Sale", path: "/product?isNew=true"},
+        { name: "Sale", path: "/product?isSale=true"},
         { name: "Support", path: "/"},
     ]
     const subnav = [
@@ -28,9 +28,9 @@ const Navbar = (props) => {
         { name: "New", path: "/product?isNew=true"},
     ]
     const sidebarTools = [
-        { src: "/nav-shopping-bag-none-noti.svg", name: "Cart", path: "/cart"},
+        { src: "/nav-shopping-bag-none-noti.svg", name: "Cart", path: "/payment"},
         { src: "/nav-user.svg", name: "Account", path: "/profile"},
-        { src: "/nav-favor.svg", name: "Favourite", path: "/favourite"},
+        { src: "/nav-favor.svg", name: "Favourite", path: "/profile/favour"},
     ]
     const [active, setActive] = useState("Home")
     const [openSideBar, setOpenSideBar] = useState(false)
@@ -40,7 +40,6 @@ const Navbar = (props) => {
     useEffect(() => {
         const checkAuth = async () => {
             const res = await authService.loginStatus()
-            console.log(res);
             if (res.status === 200){
                 dispatch(loginSuccess(res.data))
             }
@@ -105,7 +104,7 @@ const Navbar = (props) => {
                         <div className="tool-item search-icon-mobile d-block d-sm-none">
                             <img src="/navbar-search-icon.svg" alt=""/>
                         </div>
-                        <div className="tool-item cart-icon">
+                        <div className="tool-item cart-icon" onClick={() => navigate("/payment")}>
                             <img src="/nav-shopping-bag-none-noti.svg" alt="" />
                             <span className="cart-noti">1</span>
                         </div>
@@ -120,7 +119,7 @@ const Navbar = (props) => {
                             <div className="tool-item d-block d-md-none" onClick={() => setOpenSideBar(true)}>
                                 <img src="/navbar-menu-wrapper.svg" alt="" />
                             </div>
-                            <div className="tool-item d-none d-md-block">
+                            <div className="tool-item d-none d-md-block" onClick={() => navigate("/profile/favour")}>
                                 <img src="/nav-favor.svg" alt="" />
                             </div>
                             <div className="tool-item btn btn-logout d-none d-md-block" onClick={handleLogout}>

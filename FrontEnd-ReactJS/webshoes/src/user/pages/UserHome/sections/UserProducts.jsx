@@ -32,7 +32,6 @@ const UserProducts = () => {
         const fetchApi = async () => {
             setLoading(true)
             const res = await homeService.getProductsByBrand(brand)
-            console.log(res);
             setData(res)
             setLoading(false)
         }

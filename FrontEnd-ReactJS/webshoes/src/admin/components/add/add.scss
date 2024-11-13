@@ -1,4 +1,6 @@
 @import "../../../../styles/variables.scss";
+  
+.add {
   .MuiTypography-root{
     color: #fff !important;
   }
@@ -34,7 +36,6 @@
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: #fff !important; /* Set your active border color here */
   }
-.add {
   width: 100vw;
   height: 100vh;
   position: fixed;

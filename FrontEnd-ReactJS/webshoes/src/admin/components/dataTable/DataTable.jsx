@@ -16,7 +16,6 @@ import { useState } from "react";
   const DataTable = (props) => {
     const [open, setOpen] = useState(false)
     const [id, setId] = useState()
-    console.log(props.rows);
     const isSmallScreen = useMediaQuery('(max-width:600px)');
 
     const handleUpdate = async (id) => {
@@ -54,9 +53,10 @@ import { useState } from "react";
       renderCell: (params) => {
         return (
           <div className="action">
-            <Link to={`/admin/${props.slug}/${params.row.id}`}>
+            {(props.slug === "products" || props.slug === "users") 
+            && <Link to={`/admin/${props.slug}/${params.row.id}`}>
               <img src="/view.svg" alt="" />
-            </Link>
+            </Link>}
             <div className="update" onClick={() => handleUpdate(params.row.id)}>
               <i className="fa-solid fa-wrench" style={{color: "#74C0FC", cursor: "pointer"}}></i>
             </div>

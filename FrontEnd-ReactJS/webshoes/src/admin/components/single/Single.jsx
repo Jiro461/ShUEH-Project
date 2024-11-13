@@ -16,14 +16,13 @@ import {
         <div className="view">
           <div className="info">
             <div className="topInfo">
-              {props.img && <img src={props.img} alt="" />}
-              <h1>{props.title}</h1>
-              <button>Update</button>
+              {props.imageUrl && <img src={props.imageUrl} alt="" />}
+              <h1>{props.name}</h1>
             </div>
             <div className="details">
-              {Object.entries(props.otherImages).map((item) => (
+              {Object.entries(props.info).map((item) => (
                 <div className="item" key={item[0]}>
-                  <span className="itemTitle">{item[0]}</span>
+                  <span className="itemTitle">{`${item[0]}:`}</span>
                   <span className="itemValue">{item[1]}</span>
                 </div>
               ))}
@@ -48,8 +47,8 @@ import {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  {props.chart.dataKeys.map((dataKey) => (
-                    <Line
+                  {props.chart.dataKeys.map((dataKey, index) => (
+                    <Line key={index}
                       type="monotone"
                       dataKey={dataKey.name}
                       stroke={dataKey.color}
