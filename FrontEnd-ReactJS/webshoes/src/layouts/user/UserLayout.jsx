@@ -1,8 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom'; // Dùng Outlet để hiển thị các route con
-import Navbar from '../../user/components/navbar/Navbar' // Import Navbar cho người dùng
+import Navbar from '../../user/components/navbar/Navbar'; // Import Navbar cho người dùng
 import Chat from '../../admin/components/chat/Chat'; // Import Chat cho admin
-import './UserLayout.scss' // Import file CSS cho layout người dùng
+import './UserLayout.scss'; // Import file CSS cho layout người dùng
 import PropTypes from 'prop-types'; // PropTypes giúp xác định loại dữ liệu của props
 
 const UserLayout = () => {
