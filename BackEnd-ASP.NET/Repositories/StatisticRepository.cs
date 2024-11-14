@@ -220,10 +220,11 @@ public class StatisticRepository : IStatisticRepository
         var mostSoldShoes = _dbShoes.OrderByDescending(s => s.Sold).Take(10)
         .Select(s => new
         {
-            s.Brand,
-            s.ImageUrl,
-            s.Name,
-            s.Price,
+            Id = s.Id,
+            Brand = s.Brand,
+            ImageUrl = s.ImageUrl,
+            Name = s.Name,
+            Price = s.Price,
             Quantity = s.shoeDetails.Sum(sd => sd.Quantity)
         })
         .ToList();
