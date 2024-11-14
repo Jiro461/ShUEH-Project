@@ -13,8 +13,6 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [otherShoes, setOtherShoes] = useState([]); // State lưu các sản phẩm cùng brand
 
-  console.log(otherShoes);
-
   useEffect(() => {
     // Fetch chi tiết sản phẩm
     const fetchProduct = async () => {

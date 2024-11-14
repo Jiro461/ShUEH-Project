@@ -1,5 +1,6 @@
 import './style.css';
 import { useState, useEffect } from 'react';
+import RateShoe from "../RateShoe/RateShoe"
 
 function ProfileOrdered() {
     const [orders, setOrders] = useState([]);
@@ -10,6 +11,7 @@ function ProfileOrdered() {
     const [like, setLike] = useState(false);
     const [reviews, setReviews] = useState([]);
     const [user, setUser] = useState(null);
+    const [shoeName, setShoeName] = useState(null);
 
     // Fetch UserId when component mounts
     useEffect(() => {
@@ -32,7 +34,6 @@ function ProfileOrdered() {
         fetchUserId();
     }, []);
 
-    console.log(user);
 
     // Fetch order data when the component mounts
     useEffect(() => {
@@ -64,9 +65,10 @@ function ProfileOrdered() {
         }
     };
 
-    const handleReviewClick = (order, shoeId) => {
+    const handleReviewClick = (order, shoeId, shoeName) => {
         setSelectedOrder(order);
         setShowReviewDialog(true);
+        setShoeName(shoeName);
         fetchReviews(shoeId);
     };
 
@@ -91,7 +93,7 @@ function ProfileOrdered() {
 
     const handleSubmitReview = async () => {
         const formData = new FormData();
-    
+
         formData.append('Rate', rating);
         formData.append('UserAvatar', 'str');
         formData.append('ShoeId', selectedOrder?.orderItems[0]?.shoeId);
@@ -99,23 +101,23 @@ function ProfileOrdered() {
         formData.append('UserName', user.profileName);
         formData.append('TotalLike', like ? 1 : 0);
         formData.append('Comment', comment);
-        
+
         if (selectedOrder.image) {
             formData.append('Image', selectedOrder.image);
         }
-    
+
         formData.append('OrderItemId', selectedOrder?.orderItems[0]?.id);
-    
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Comment`, {
                 method: 'POST',
                 body: formData,
             });
-    
+
             if (!response.ok) {
                 throw new Error('Lỗi khi gửi đánh giá');
             }
-    
+
             const data = await response.json();
             console.log('Review submitted successfully:', data);
             handleCloseReviewDialog();
@@ -126,9 +128,9 @@ function ProfileOrdered() {
 
     const handleMainImageChange = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile && (selectedFile.name.endsWith('png') || 
-                             selectedFile.name.endsWith('jpg') || 
-                             selectedFile.name.endsWith('jpeg'))) {
+        if (selectedFile && (selectedFile.name.endsWith('png') ||
+            selectedFile.name.endsWith('jpg') ||
+            selectedFile.name.endsWith('jpeg'))) {
             setSelectedOrder((prevOrder) => ({
                 ...prevOrder,
                 imageUrl: URL.createObjectURL(selectedFile),
@@ -139,8 +141,7 @@ function ProfileOrdered() {
         }
     };
 
-
-    console.log(reviews);
+    console.log(orders);
 
     return (
         <>
@@ -165,14 +166,14 @@ function ProfileOrdered() {
                                         <h3>x{item.quantity}</h3>
                                     </div>
                                     <div>
-                                        <p className="item-price" style={{ paddingBottom: "30px" }}>${item.totalPrice}</p>
-                                        <button className='btn-review' onClick={() => handleReviewClick(order, item.shoeId)}>Reviews</button>
+                                        <p className="item-price" style={{ paddingBottom: "30px" }}>{item.totalPrice.toLocaleString('vi-VN')} VNĐ</p>
+                                        <button className='btn-review' onClick={() => handleReviewClick(order, item.shoeId, item.shoeName)}>Reviews</button>
                                     </div>
                                 </div>
                             </div>
                         ))}
 
-                        <p className="total">Total <span>${order.totalPrice}</span></p>
+                        <p className="total">Total <span>{order.totalPrice.toLocaleString('vi-VN')} VNĐ</span></p>
                         <div className="buy-back"><button type="button" className="btn-buyBack">Buy Back</button></div>
                     </div>
                 ))}
@@ -181,64 +182,51 @@ function ProfileOrdered() {
             {/* Review Dialog */}
             {showReviewDialog && (
                 <div className="review-dialog">
-                    <div className="review-dialog-content">
-                        <h3>Review for Order {selectedOrder.id}</h3>
+                    <div className="row review-dialog-content">
 
                         {/* Display existing reviews */}
-                        <div className="reviews-list">
-                            <h4>Existing Reviews:</h4>
+                        <div className="col-5 reviews-list">
                             {reviews.length > 0 ? (
                                 reviews.map((review, index) => (
                                     <div key={index} className="review-item">
-                                        <p><strong>User:</strong> {review.userName}</p>
-                                        <p><strong>Rating:</strong> {review.rate} Stars</p>
-                                        <p><strong>Total Like:</strong> {review.totalLike}</p>
-                                        <p><strong>Comment:</strong> {review.comment}</p>
+                                        <p className='user'><strong>{review.userName}</strong></p>
+                                        <p className='star'>{review.rate} <i class="fa-solid fa-star"></i></p>
+                                        {/* <p><strong>Total Like:</strong> {review.totalLike}</p> */}
+                                        <p className='comment'>{review.comment}</p>
                                     </div>
                                 ))
                             ) : (
                                 <p>No reviews yet for this shoe.</p>
                             )}
                         </div>
+                        <div className="col-6 review-post">
+                            <form action="">
+                                <div className="mb-3 image">
+                                    <label htmlFor="avatar" className="form-label">
+                                        <img src='' alt="" />
+                                    </label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        id="avatar"
+                                        accept="image/*"
+                                    />
+                                </div>
 
-                        <div style={{ display: "flex" }}>
-                            <label style={{ marginRight: "20px" }}>Rating:</label>
-                            <input
-                                type="number"
-                                value={rating}
-                                onChange={(e) => handleRatingChange(Number(e.target.value))}
-                                min="1"
-                                max="5"
-                                step="1"
-                            />
-                        </div>
-                        <div>
-                            <label>Comment:</label>
-                            <textarea
-                                value={comment}
-                                onChange={handleCommentChange}
-                                placeholder="Write your review..."
-                            />
-                        </div>
-                        <div style={{ display: "flex" }}>
-                            <label style={{ marginRight: "20px" }}>Like:</label>
-                            <input type="checkbox" checked={like} onChange={handleLikeChange} />
-                        </div>
+                                <RateShoe maxStars={5} onRatingChange={handleRatingChange} />
 
-                        <div>
-                            <label>Upload Image:</label>
-                            <input type="file" accept="image/*" onChange={handleMainImageChange} />
+                                <textarea
+                                    id="address"
+                                    placeholder="Enter your address..."
+                                    className="input-data"
+                                    rows="5"
+                                    cols="50"
+                                />
+                            </form>
                         </div>
-
-                        {selectedOrder.imageUrl && (
-                            <div>
-                                <h4>Image Preview:</h4>
-                                <img src={selectedOrder.imageUrl} alt="Selected" style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                            </div>
-                        )}
-                        <div>
-                            <button className="btn-submit-review" onClick={handleSubmitReview}>Submit Review</button>
-                            <button className="btn-close" onClick={handleCloseReviewDialog}>Close</button>
+                        <div className='col-12 control'>
+                            <div className="btn-submit-review" onClick={handleSubmitReview}>Submit Review</div>
+                            <div className="btn-closes" onClick={handleCloseReviewDialog}>Close</div>
                         </div>
                     </div>
                 </div>

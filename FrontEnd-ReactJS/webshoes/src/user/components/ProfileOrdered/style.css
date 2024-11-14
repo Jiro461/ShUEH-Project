@@ -86,7 +86,7 @@
     .item-info .item-price {
         font-size: 1.2rem;
         margin: 0;
-        font-weight: 800;
+        font-weight: 700;
         text-transform: uppercase;
     }
 
@@ -108,7 +108,7 @@
     .ordered .total span {
         font-size: 1.5rem;
         margin-left: 15px;
-        font-weight: 1000;
+        font-weight: 7000;
         color: #FF6263;
     }
 
@@ -143,34 +143,127 @@
     }
     
     .review-dialog-content {
+        width: 75vw;
+        min-height: 430px;
         background: white;
         padding: 20px;
         border-radius: 10px;
-        width: 400px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+        justify-content: space-around;
+        transform: translateY(10%);
 
-    .reviews-list {
-        max-height: 200px; /* Adjust this value based on the desired height */
-        overflow-y: auto;  /* Adds a vertical scrollbar if the content exceeds the max-height */
-        padding: 10px;
-        border: 1px solid #ccc;  /* Optional: adds a border around the reviews section */
-        border-radius: 5px;  /* Optional: rounds the corners */
-        background-color: #f9f9f9;  /* Optional: gives a light background color */
-    }
+        .review-post,
+        .reviews-list {
+            min-height: 50vh;
+            max-height: 500px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 30px;
+            box-shadow: 2px 3px 5px rgb(0, 0, 0, 0.7);
+        }
 
-    .review-dialog-content .review-item {
-        color: #fff;
-        background: linear-gradient(to left, #ff626d, #fcad72);
-        margin-bottom: 20px;
-        padding: 5px;
-        border-radius: 3px;
-    }
-    
-    .review-dialog-content h3 {
-        margin-bottom: 10px;
-        font-size: 20px;
-        color: #000;
+        .reviews-list {
+            overflow-y: auto;
+            background: linear-gradient(to right, #ff626d, #fcad72);
+
+            .review-item {
+                color: #000;
+                background-color: #f9f9f9;
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 20px;
+                position: relative;
+                box-shadow: 2px 3px 5px rgb(0, 0, 0, 0.7);
+
+                p {
+                    padding: 0;
+                    margin: 6px 0;
+                }
+
+                .comment {
+                    margin-left: 12px;
+                }
+
+                .star {
+                    position: absolute;
+                    right: 30px;
+                    top: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            }
+        }
+
+        .review-post {
+            background-color: #efefef;
+
+            .image {
+                img {
+                    width: 100px;
+                    height: 100px;
+                    background-color: #333;
+                    border-radius: 20px;
+                    cursor: pointer;
+                }
+
+                input {
+                    display: none;
+                }
+            }
+
+            .star-rating {
+                margin-bottom: 10px;
+                
+                .star {
+                    color: #ccc; /* Màu sao chưa chọn */
+                }
+                
+                .star.filled {
+                    color: #ffcc00; /* Màu sao đã chọn */
+                }
+            }
+
+            textarea {
+                border-radius: 20px;
+                padding: 10px;
+                height: 35%;
+            }
+        }
+
+        .control {
+            display: flex;
+            justify-content: center;
+            text-transform: uppercase;
+            font-weight: bold;
+
+            .btn-submit-review,
+            .btn-closes {
+                height: 40px;
+                border-radius: 15px;
+                text-align: center;
+                align-content: center;
+                padding: 8px 20px 10px;
+                margin: 0 15px;
+                box-shadow: 2px 3px 5px rgb(0, 0, 0, 0.7);
+                cursor: pointer;
+                transition: transform 0.2s ease-in-out;
+            }
+
+            .btn-submit-review:hover,
+            .btn-closes:hover {
+                transform: scale(1.2);
+            }
+            
+            .btn-submit-review {
+                background: linear-gradient(to left, #ff626d, #fcad72);
+            }
+
+            .btn-closes {
+                background: #fff;
+                color: #000;
+                border: 1px solid #000;
+            }
+        }
     }
     
     .review-dialog-content label {
@@ -184,21 +277,4 @@
         height: 100px;
         margin-bottom: 10px;
     }
-    
-    .review-dialog-content .btn-submit-review,
-    .review-dialog-content .btn-close {
-        padding: 10px 20px;
-        margin: 5px;
-        border: none;
-        background: #4CAF50;
-        color: white;
-        cursor: pointer;
-    }
-    
-    .review-dialog-content .btn-close {
-        background: #f44336;
-        width: 50px;
-        height: 25px;
-    }
-    
 }

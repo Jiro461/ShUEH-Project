@@ -159,7 +159,7 @@ const PaymentStep = () => {
                 if (response.ok) {
                     // Tới trang thanh toán
                     const responseData = await response.json();
-    
+
                     if (paymentMethod === 0 && responseData.status === "Redirect" && responseData.paymentUrl) {
                         window.location.href = responseData.paymentUrl;
                     } else {
@@ -349,8 +349,19 @@ const PaymentStep = () => {
                             <div><div className="check"><i className="fa-solid fa-check"></i></div></div>
                             <h2>Thank you for your purchase</h2>
                             <p>You have successfully placed your order<br />Order number #12345678</p>
-                            <button id="continue">Continue shopping</button>
-                            <button id="view-again">View order detail</button>
+                            <button
+                                id="continue"
+                                onClick={() => window.location.href = '/product'}
+                            >
+                                Continue shopping
+                            </button>
+
+                            <button
+                                id="view-again"
+                                onClick={() => window.location.href = '/profile/ordered'}
+                            >
+                                View order detail
+                            </button>
                         </div>
                         <p className="note">
                             We deliver immersive virtual reality experiences that encourages

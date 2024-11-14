@@ -3,19 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PaymentCart from '../../components/PaymentCart/PaymentCart';
 import PaymentStep from '../../components/PaymentStep/PaymentStep';
-import config from '../../../config/config.json';
 import './style.scss';
 
 const PaymentPage = () => {
     const navigate = useNavigate();
-    const { SERVER_API } = config;
     const [userID, setUserID] = useState(undefined); // `undefined` là trạng thái ban đầu khi chưa xác định được ID người dùng
 
     // Custom hook để kiểm tra đăng nhập và lấy userID
     useEffect(() => {
         const checkUserLoggedIn = async () => {
             try {
-                const response = await fetch(`${SERVER_API}/api/Account/cookieGetById`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Account/cookieGetById`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -33,7 +31,7 @@ const PaymentPage = () => {
         };
 
         checkUserLoggedIn();
-    }, [SERVER_API]);
+    }, [process.env.REACT_APP_API_URL]);
 
     // Chuyển hướng nếu người dùng chưa đăng nhập
     useEffect(() => {
