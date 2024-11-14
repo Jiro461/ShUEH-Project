@@ -11,7 +11,7 @@ function ProfileOrdered() {
     const [like, setLike] = useState(false);
     const [reviews, setReviews] = useState([]);
     const [user, setUser] = useState(null);
-    const [shoeName, setShoeName] = useState(null);
+    const [orderItemId, setOrderItemId] = useState(null);
 
     // Fetch UserId when component mounts
     useEffect(() => {
@@ -65,10 +65,14 @@ function ProfileOrdered() {
         }
     };
 
-    const handleReviewClick = (order, shoeId, shoeName) => {
+    const handleReviewClick = (order, shoeId, id) => {
         setSelectedOrder(order);
         setShowReviewDialog(true);
-        setShoeName(shoeName);
+        setImageUrl("");
+        setOrderItemId({
+            shoeId: shoeId,
+            id: id
+        });
         fetchReviews(shoeId);
     };
 
@@ -93,10 +97,10 @@ function ProfileOrdered() {
         // Thêm các trường khác vào FormData
         formData.append('Comment', comment);
         formData.append('Rate', rating);
-        formData.append('TotalLike', 3);
+        formData.append('TotalLike', 5);
         formData.append('UserId', user.id);
-        formData.append('ShoeId', "55c4f67e-a30b-49cf-9a6a-ab5b9696f8fc");
-        formData.append('OrderItemId', "5b2edeee-67c5-429f-84fb-cc1e396d3f50");
+        formData.append('ShoeId', orderItemId.shoeId);
+        formData.append('OrderItemId', orderItemId.id);
         formData.append('UserName', user.profileName);
         formData.append('UserAvatar', "string");
     
@@ -123,7 +127,25 @@ function ProfileOrdered() {
             console.log('Review submitted successfully:');
             handleCloseReviewDialog();
         } catch (error) {
-            console.error('Error submitting review:', error);
+            alert('Bạn đã đánh giá sản phẩm rồi !');
+        }
+    };
+
+    console.log("selectedOrder", reviews);
+
+    const [imageUrl, setImageUrl] = useState("");
+
+    // Modify the handleFileChange function to handle image preview and validation
+    const handleSetImageUrl = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile && (selectedFile.name.endsWith('png') ||
+            selectedFile.name.endsWith('jpg') ||
+            selectedFile.name.endsWith('jpeg'))) {
+                setImageUrl(
+                `${URL.createObjectURL(selectedFile)}`, // Use object URL for preview
+            );
+        } else {
+            alert("Chỉ chấp nhận các file hình ảnh với định dạng .png, .jpg, .jpeg.");
         }
     };
 
@@ -140,7 +162,7 @@ function ProfileOrdered() {
                         {order.orderItems && order.orderItems.map((item, index) => (
                             <div className="item" key={index}>
                                 <div className="image">
-                                    <img src={`${process.env.REACT_APP_API_URL}/${item.shoeImage}`} alt={item.shoeName} />
+                                    <img src={`${process.env.REACT_APP_API_URL}/${item.shoeImage}`} alt={item.shoeName}/>
                                 </div>
 
                                 <div className="item-info">
@@ -151,7 +173,7 @@ function ProfileOrdered() {
                                     </div>
                                     <div>
                                         <p className="item-price" style={{ paddingBottom: "30px" }}>{item.totalPrice.toLocaleString('vi-VN')} VNĐ</p>
-                                        <button className='btn-review' onClick={() => handleReviewClick(order, item.shoeId, item.shoeName)}>Reviews</button>
+                                        <button className='btn-review' onClick={() => handleReviewClick(order, item.shoeId, item.id)}>Reviews</button>
                                     </div>
                                 </div>
                             </div>
@@ -177,6 +199,9 @@ function ProfileOrdered() {
                                         <p className='star'>{review.rate} <i className="fa-solid fa-star"></i></p>
                                         {/* <p><strong>Total Like:</strong> {review.totalLike}</p> */}
                                         <p className='comment'>{review.comment}</p>
+                                        <div style={{width: "100%"}}>
+                                            <img src={`${process.env.REACT_APP_API_URL}/${review.imageUrl}`} alt="image" style={{width: "100%"}}/>
+                                        </div>
                                     </div>
                                 ))
                             ) : (
@@ -187,13 +212,14 @@ function ProfileOrdered() {
                             <form action="">
                                 <div className="mb-3 image">
                                     <label htmlFor="img-comment" className="form-label">
-                                        <img src='' alt="" />
+                                        <img src={`${imageUrl}`} alt="" />
                                     </label>
                                     <input
                                         type="file"
                                         className="form-control"
                                         id="img-comment"
                                         accept="image/*"
+                                        onChange={handleSetImageUrl}
                                     />
                                 </div>
 
