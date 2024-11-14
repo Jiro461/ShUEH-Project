@@ -141,15 +141,13 @@ function ProfileUser() {
 
     if (!userInfo) return <p>Loading...</p>;
 
-    console.log(userInfo);
-    
     return (
         <div className="user-profile">
             {isEditing ? (
                 <div className="edit-profile">
                     <div className="mb-3 form-ava">
                         <label htmlFor="avatar" className="form-label">
-                            <img src={updatedInfo.avatarUrl ? updatedInfo.avatarUrl : `${process.env.REACT_APP_API_URL}/${userInfo.avatarUrl}`} alt="Avatar" />
+                            <img src={updatedInfo.avatarUrl.startsWith("blob:") ? updatedInfo.avatarUrl : `${process.env.REACT_APP_API_URL}/${updatedInfo.avatarUrl}`} alt="Avatar" />
                         </label>
                         <input
                             type="file"
@@ -265,7 +263,7 @@ function ProfileUser() {
                     <div className="row user-info">
                         <img
                             className="col-md-2 col-sm-12"
-                            src={userInfo.avatarUrl ? `${process.env.REACT_APP_API_URL}/${userInfo.avatarUrl}` : `${process.env.REACT_APP_API_URL}/images/avatars/noavatar.png`}
+                            src={userInfo.avatarUrl.startsWith("blob:") ? userInfo.avatarUrl : `${process.env.REACT_APP_API_URL}/${userInfo.avatarUrl}`}
                             alt="Avatar"
                         />
                         <div className="col info">
@@ -281,7 +279,7 @@ function ProfileUser() {
                                 <p>{userInfo.firstName} {userInfo.lastName}</p>
                                 <p>{userInfo.email}</p>
                                 <p>{userInfo.phoneNumber ? userInfo.phoneNumber : "Chưa cập nhật"}</p>
-                                <p>{userInfo.gender}</p>
+                                <p>{userInfo.gender ? userInfo.gender : "Chưa cập nhật"}</p>
                                 <p>{userInfo.dateOfBirth}</p>
                             </div>
                         </div>
