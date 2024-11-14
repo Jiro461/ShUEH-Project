@@ -62,50 +62,55 @@ function ProfileUser() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-    
+
         if (!updatedInfo.firstName.trim() || !updatedInfo.lastName.trim() || !updatedInfo.profileName.trim()) {
             alert("Các trường 'First Name', 'Last Name', và 'Profile Name' không thể để trống hoặc chỉ chứa khoảng trắng.");
             return;
         }
-    
+
         const genderValue = updatedInfo.gender === 'Male' ? true : false;
-    
+
         // Chuyển đổi định dạng ngày sinh từ yyyy-mm-dd thành dd/mm/yy
         const dateParts = updatedInfo.dateOfBirth.split('-');
         const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`; // dd/mm/yy
-    
+
         const updatedData = {
             ...updatedInfo,
             gender: genderValue,
             dateOfBirth: formattedDate, // Gán giá trị đã được định dạng lại
         };
-    
+
         try {
             const formData = new FormData();
-    
-            formData.append("firstName", updatedData.firstName);
-            formData.append("lastName", updatedData.lastName);
-            formData.append("profileName", updatedData.profileName);
-            formData.append("email", updatedData.email);
-            formData.append("phoneNumber", updatedData.phoneNumber);
-            formData.append("gender", updatedData.gender);
-            formData.append("dateOfBirth", updatedData.dateOfBirth);
-    
-            if (updatedData.avatarUrl instanceof File) {
-                formData.append("avatar", updatedData.avatarUrl);
+
+            formData.append("FirstName", updatedData.firstName);
+            formData.append("LastName", updatedData.lastName);
+            formData.append("DateOfBirth", updatedData.dateOfBirth);
+            formData.append("PhoneNumber", updatedData.phoneNumber);
+            formData.append("Email", updatedData.email);
+            formData.append("ProfileName", updatedData.profileName);
+            formData.append("Gender", updatedData.gender);
+            formData.append("Role", updatedData.role);
+
+            // Lấy file từ input và thêm vào FormData
+            const fileInput = document.getElementById('avatar');
+            const imageFile = fileInput?.files[0];
+
+            if (imageFile) {
+                formData.append('Avatar', imageFile, imageFile.name);
             }
-    
+
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Account`, {
                 method: "PUT",
                 body: formData,
                 credentials: "include", // Gửi cookie nếu có
             });
-    
+
             if (!response.ok) {
                 console.log(updatedData);
                 throw new Error("Không thể cập nhật thông tin người dùng.");
             }
-    
+
             setUserInfo(updatedData);
             setIsEditing(false);
         } catch (error) {
@@ -113,7 +118,7 @@ function ProfileUser() {
             alert("Có lỗi xảy ra khi cập nhật thông tin.");
         }
     };
-    
+
 
     // Modify the handleFileChange function to handle image preview and validation
     const handleFileChange = (e) => {
@@ -136,13 +141,15 @@ function ProfileUser() {
 
     if (!userInfo) return <p>Loading...</p>;
 
+    console.log(userInfo);
+    
     return (
         <div className="user-profile">
             {isEditing ? (
                 <div className="edit-profile">
                     <div className="mb-3 form-ava">
                         <label htmlFor="avatar" className="form-label">
-                            <img src={updatedInfo.avatarUrl || `${process.env.REACT_APP_API_URL}/images/avatars/noavatar.png`} alt="Avatar" />
+                            <img src={updatedInfo.avatarUrl ? updatedInfo.avatarUrl : `${process.env.REACT_APP_API_URL}/${userInfo.avatarUrl}`} alt="Avatar" />
                         </label>
                         <input
                             type="file"
@@ -258,7 +265,7 @@ function ProfileUser() {
                     <div className="row user-info">
                         <img
                             className="col-md-2 col-sm-12"
-                            src={userInfo.avatarUrl ? `${process.env.REACT_APP_API_URL}${userInfo.avatarUrl}` : `${process.env.REACT_APP_API_URL}/images/avatars/noavatar.png`}
+                            src={userInfo.avatarUrl ? `${process.env.REACT_APP_API_URL}/${userInfo.avatarUrl}` : `${process.env.REACT_APP_API_URL}/images/avatars/noavatar.png`}
                             alt="Avatar"
                         />
                         <div className="col info">

@@ -83,65 +83,49 @@ function ProfileOrdered() {
         setRating(newRating);
     };
 
-    const handleLikeChange = () => {
-        setLike(!like);
-    };
-
     const handleCommentChange = (e) => {
         setComment(e.target.value);
     };
 
     const handleSubmitReview = async () => {
         const formData = new FormData();
-
-        formData.append('Rate', rating);
-        formData.append('UserAvatar', 'str');
-        formData.append('ShoeId', selectedOrder?.orderItems[0]?.shoeId);
-        formData.append('UserId', user.id);
-        formData.append('UserName', user.profileName);
-        formData.append('TotalLike', like ? 1 : 0);
+    
+        // Thêm các trường khác vào FormData
         formData.append('Comment', comment);
-
-        if (selectedOrder.image) {
-            formData.append('Image', selectedOrder.image);
+        formData.append('Rate', rating);
+        formData.append('TotalLike', 3);
+        formData.append('UserId', user.id);
+        formData.append('ShoeId', "55c4f67e-a30b-49cf-9a6a-ab5b9696f8fc");
+        formData.append('OrderItemId', "5b2edeee-67c5-429f-84fb-cc1e396d3f50");
+        formData.append('UserName', user.profileName);
+        formData.append('UserAvatar', "string");
+    
+        // Lấy file từ input và thêm vào FormData
+        const fileInput = document.getElementById('img-comment');
+        const imageFile = fileInput?.files[0];
+    
+        if (imageFile) {
+            formData.append('Image', imageFile, imageFile.name);
         }
-
-        formData.append('OrderItemId', selectedOrder?.orderItems[0]?.id);
-
+    
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Comment`, {
                 method: 'POST',
                 body: formData,
+                credentials: "include"
             });
-
+    
             if (!response.ok) {
                 throw new Error('Lỗi khi gửi đánh giá');
             }
-
-            const data = await response.json();
-            console.log('Review submitted successfully:', data);
+    
+            // const data = await response.json();
+            console.log('Review submitted successfully:');
             handleCloseReviewDialog();
         } catch (error) {
             console.error('Error submitting review:', error);
         }
     };
-
-    const handleMainImageChange = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile && (selectedFile.name.endsWith('png') ||
-            selectedFile.name.endsWith('jpg') ||
-            selectedFile.name.endsWith('jpeg'))) {
-            setSelectedOrder((prevOrder) => ({
-                ...prevOrder,
-                imageUrl: URL.createObjectURL(selectedFile),
-                image: selectedFile,
-            }));
-        } else {
-            alert('Chỉ hỗ trợ ảnh PNG, JPG, JPEG');
-        }
-    };
-
-    console.log(orders);
 
     return (
         <>
@@ -190,7 +174,7 @@ function ProfileOrdered() {
                                 reviews.map((review, index) => (
                                     <div key={index} className="review-item">
                                         <p className='user'><strong>{review.userName}</strong></p>
-                                        <p className='star'>{review.rate} <i class="fa-solid fa-star"></i></p>
+                                        <p className='star'>{review.rate} <i className="fa-solid fa-star"></i></p>
                                         {/* <p><strong>Total Like:</strong> {review.totalLike}</p> */}
                                         <p className='comment'>{review.comment}</p>
                                     </div>
@@ -202,13 +186,13 @@ function ProfileOrdered() {
                         <div className="col-6 review-post">
                             <form action="">
                                 <div className="mb-3 image">
-                                    <label htmlFor="avatar" className="form-label">
+                                    <label htmlFor="img-comment" className="form-label">
                                         <img src='' alt="" />
                                     </label>
                                     <input
                                         type="file"
                                         className="form-control"
-                                        id="avatar"
+                                        id="img-comment"
                                         accept="image/*"
                                     />
                                 </div>
@@ -221,6 +205,7 @@ function ProfileOrdered() {
                                     className="input-data"
                                     rows="5"
                                     cols="50"
+                                    onChange={handleCommentChange}
                                 />
                             </form>
                         </div>
