@@ -176,6 +176,7 @@ namespace BackEnd_ASP.NET.Services
                 DetailOrder = order.DetailOrder,
                 OrderItems = order.OrderItems.Select(item => new OrderItemDTO
                 {
+                    Id = item.Id,
                     ShoeId = item.ShoeId,
                     ShoePrice = item.ShoePrice,
                     Size = item.Size,

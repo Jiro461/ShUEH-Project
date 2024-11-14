@@ -6,6 +6,7 @@ namespace BackEnd_ASP_NET.Models
 {
     public class OrderItemDTO
     {
+        public Guid Id { get; set; }
         public Guid ShoeId { get; set; }
         public string ShoeName { get; set; } = string.Empty;
         public string ShoeImage { get; set; } = string.Empty;
