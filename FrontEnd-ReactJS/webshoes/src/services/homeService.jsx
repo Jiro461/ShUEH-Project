@@ -38,11 +38,10 @@ export const getProductsByBrand = async (brand) => {
         item.imageUrl = `${process.env.REACT_APP_API_URL}/${item.imageUrl}`;
         // Tính giá gốc từ giá đã giảm
         const discountedPrice = item.price;
-        item.originalPrice = Math.round(
-          discountedPrice / (1 - item.discount / 100)
+        item.originalPrice = discountedPrice.toLocaleString("vi-VN");
+        item.price = Math.round(
+          discountedPrice * (1 - item.discount / 100)
         ).toLocaleString("vi-VN");
-        // Chuyển giá đã giảm sang định dạng VND
-        item.price = discountedPrice.toLocaleString("vi-VN");
         return item; // Trả về thông tin sản phẩm đã xử lý
       });
   } catch (error) {

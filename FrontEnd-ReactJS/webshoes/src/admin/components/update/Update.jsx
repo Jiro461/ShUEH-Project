@@ -477,7 +477,10 @@ const Update = (props) => {
         type: discount.type === "Ship" ? 1 : 0,
         expiryDate: discount.expiryDate,
       };
-      res = await adminDiscountsService.addNewDiscount(formatDiscount);
+      res = await adminDiscountsService.updateDiscount(
+        props.id,
+        formatDiscount
+      );
     }
     //goi api khac
 
